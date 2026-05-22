@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grillz Customs — искусство, которое носят на зубах</title>
+  <link rel="icon" type="image/jpeg" href="assets/logo-grillz.jpg">
+  <link rel="apple-touch-icon" href="assets/logo-grillz.jpg">
 
   <style>
     * {
@@ -2489,6 +2491,83 @@
         transform: translate3d(0, 0, 0) scale(1);
       }
     }
+  
+    /* Финальная мобильная адаптация */
+    @media (max-width: 920px) {
+      .magazine-scroll-indicator {
+        display: none !important;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        background: rgba(5, 5, 5, 0.92);
+      }
+
+      .nav {
+        width: min(100%, calc(100vw - 18px));
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 14px 0 16px;
+      }
+
+      .brand {
+        justify-content: center;
+      }
+
+      .nav-links {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .nav-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 208, 0, 0.18);
+        background: rgba(0, 0, 0, 0.42);
+        color: var(--yellow);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.20);
+      }
+
+      .nav-links a:active {
+        transform: scale(0.98);
+      }
+
+      .nav-cta {
+        display: none !important;
+      }
+
+      body.is-scrolling .topbar,
+      body.is-scrolling .hero-grid > div,
+      body.is-scrolling .order-section,
+      body.is-scrolling .section-head,
+      body.is-scrolling .card,
+      body.is-scrolling .service,
+      body.is-scrolling .gift-grid,
+      body.is-scrolling .gift-content,
+      body.is-scrolling .gift-photo-wrap,
+      body.is-scrolling .step,
+      body.is-scrolling .shot,
+      body.is-scrolling .clinic-box,
+      body.is-scrolling .bullet,
+      body.is-scrolling .cta,
+      body.is-scrolling .contact-panel,
+      body.is-scrolling .social-link,
+      body.is-scrolling .footer-grid {
+        animation: none !important;
+        transform: translate3d(0, var(--mobile-flow, 0px), 0) scale(1.003) !important;
+        transition: transform 0.42s cubic-bezier(.22, .9, .24, 1) !important;
+      }
+    }
   </style>
 </head>
 
@@ -2521,8 +2600,6 @@
           <a href="#jewelry">Мастерским</a>
           <a href="#contacts">Контакты</a>
         </nav>
-
-        <a class="btn nav-cta" href="https://vk.com/grillz_customs" target="_blank" rel="noopener" aria-label="Связаться с Grillz Customs">✦</a>
       </div>
     </header>
 
@@ -3269,6 +3346,53 @@
 
       window.addEventListener('scroll', requestWind, { passive: true });
       window.addEventListener('wheel', requestWind, { passive: true });
+    })();
+  </script>
+  <script>
+    /* Mobile: плавное скольжение вместо резкой тряски */
+    (() => {
+      let lastY = window.scrollY;
+      let resetTimer = null;
+      let frame = null;
+
+      function renderMobileFlow() {
+        const isMobile = window.matchMedia('(max-width: 920px)').matches;
+        if (!isMobile) {
+          frame = null;
+          return;
+        }
+
+        const currentY = window.scrollY;
+        const delta = currentY - lastY;
+        lastY = currentY;
+
+        const direction = delta >= 0 ? 1 : -1;
+        const power = Math.min(Math.max(Math.abs(delta) / 10, 2), 14);
+        const flow = direction * power;
+
+        document.documentElement.style.setProperty('--mobile-flow', flow.toFixed(1) + 'px');
+        document.body.classList.add('is-scrolling');
+
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => {
+          document.documentElement.style.setProperty('--mobile-flow', '0px');
+          document.body.classList.remove('is-scrolling');
+        }, 190);
+
+        frame = null;
+      }
+
+      function requestMobileFlow() {
+        if (frame === null) {
+          frame = requestAnimationFrame(renderMobileFlow);
+        }
+      }
+
+      window.addEventListener('scroll', requestMobileFlow, { passive: true });
+      window.addEventListener('touchmove', requestMobileFlow, { passive: true });
+      window.addEventListener('resize', () => {
+        document.documentElement.style.setProperty('--mobile-flow', '0px');
+      });
     })();
   </script>
 </body>

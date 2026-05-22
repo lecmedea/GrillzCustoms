@@ -2499,9 +2499,14 @@
       }
 
       .topbar {
-        position: sticky;
-        top: 0;
+        position: relative !important;
+        top: auto !important;
+        z-index: 20;
         background: rgba(5, 5, 5, 0.92);
+      }
+
+      .page {
+        overflow: visible;
       }
 
       .nav {
@@ -2566,6 +2571,45 @@
         animation: none !important;
         transform: translate3d(0, var(--mobile-flow, 0px), 0) scale(1.003) !important;
         transition: transform 0.42s cubic-bezier(.22, .9, .24, 1) !important;
+      }
+    }
+  
+    /* Встроенная форма Tally в разделе оформления заказа */
+    .tally-form-wrap {
+      min-height: 560px;
+      overflow: hidden;
+    }
+
+    .tally-order-frame {
+      display: block;
+      width: 100%;
+      min-height: 560px;
+      border: 0;
+      border-radius: 22px;
+      background: transparent;
+    }
+
+    @media (max-width: 920px) {
+      .tally-form-wrap,
+      .tally-order-frame {
+        min-height: 620px;
+      }
+
+      .tally-order-frame {
+        height: 620px;
+      }
+    }
+  
+    /* Mobile header fix: шапка больше не липнет и уходит вверх при скролле */
+    @media (max-width: 920px) {
+      .topbar {
+        position: relative !important;
+        top: auto !important;
+        z-index: 20;
+      }
+
+      .page {
+        overflow: visible;
       }
     }
   </style>
@@ -2663,30 +2707,18 @@
             </div>
           </div>
 
-          <form class="order-form" id="orderForm">
-            <label>
-              <span>Имя</span>
-              <input type="text" name="name" placeholder="Как к тебе обращаться?" required>
-            </label>
-
-            <label>
-              <span>Телефон</span>
-              <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
-            </label>
-
-            <label>
-              <span>Почта</span>
-              <input type="email" name="email" placeholder="example@mail.ru">
-            </label>
-
-            <label class="full-field">
-              <span>Комментарий</span>
-              <textarea name="comment" rows="5" placeholder="Опиши идею: золото, серебро, эмаль, камни, стиль, количество зубов, референсы..."></textarea>
-            </label>
-
-            <button class="btn order-submit" type="submit">Отправить заявку</button>
-            <p class="form-note">После нажатия откроется письмо с заполненной заявкой на почту Grillz Customs.</p>
-          </form>
+          <div class="order-form tally-form-wrap">
+            <iframe
+              class="tally-order-frame"
+              src="https://tally.so/embed/VL4ZWl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+              width="100%"
+              height="560"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              title="Заявка на Grillz Customs">
+            </iframe>
+          </div>
         </div>
       </section>
 

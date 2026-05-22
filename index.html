@@ -1,0 +1,3208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grillz Customs — искусство, которое носят на зубах</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #050505;
+      --bg-soft: #101010;
+      --yellow: #ffd000;
+      --yellow-bright: #ffea00;
+      --orange: #ff3d00;
+      --acid: #d7ff00;
+      --white: #f5f5f5;
+      --muted: #b7b7b7;
+      --line: rgba(255, 208, 0, 0.28);
+      --glass: rgba(255, 255, 255, 0.055);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.08;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+      background-size: 34px 34px;
+      z-index: 0;
+    }
+
+    body::after {
+      content: none;
+      display: none;
+    }
+
+    .moving-background {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.9;
+    }
+
+    .moving-background::before {
+      content: "";
+      position: absolute;
+      left: -4vw;
+      width: 108vw;
+      top: 0;
+      height: 360vh;
+      background-image:
+        radial-gradient(circle at 50% 18%, rgba(255, 208, 0, 0.06), transparent 34%),
+        url("assets/site-background.png");
+      background-size: 100% 100%;
+      background-position: center top;
+      background-repeat: no-repeat;
+      filter: contrast(1.22) saturate(1.22) brightness(1.18);
+      transform: translate3d(0, var(--bg-shift, 0px), 0);
+      transform-origin: center top;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(5, 5, 5, 0.82);
+      border-bottom: 1px solid rgba(255, 208, 0, 0.18);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--yellow);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #050505;
+      background: var(--yellow);
+      box-shadow: 0 0 24px rgba(255, 208, 0, 0.42);
+      font-weight: 950;
+    }
+
+    .brand-logo {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #050505;
+      border: 2px solid var(--yellow);
+      box-shadow: 0 0 26px rgba(255, 208, 0, 0.45);
+      padding: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .nav-links a:hover {
+      color: var(--yellow);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border: 1px solid var(--yellow);
+      background: var(--yellow);
+      color: #050505;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-radius: 999px;
+      box-shadow: 0 0 30px rgba(255, 208, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 42px rgba(255, 208, 0, 0.42);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--yellow);
+      box-shadow: none;
+    }
+
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      align-items: center;
+      padding: 72px 0 52px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 46px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--yellow);
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 48px;
+      height: 2px;
+      background: var(--yellow);
+      box-shadow: 0 0 18px var(--yellow);
+    }
+
+    h1 {
+      font-size: clamp(46px, 7vw, 96px);
+      line-height: 0.92;
+      letter-spacing: -4px;
+      text-transform: uppercase;
+      font-weight: 950;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span,
+    h2 span {
+      color: var(--yellow);
+      text-shadow: 4px 4px 0 rgba(255, 61, 0, 0.5), 0 0 38px rgba(255, 208, 0, 0.18);
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 23px);
+      max-width: 690px;
+      margin-bottom: 32px;
+    }
+
+    .hero-grid > div:first-child {
+      position: relative;
+      padding: 34px;
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.52));
+      border: 1px solid rgba(255, 208, 0, 0.18);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 690px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: var(--glass);
+      padding: 18px;
+      border-radius: 22px;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--yellow);
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat small {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+
+    /* HERO АНИМАЦИЯ: гриллзы как электроны / протоны / нейроны */
+    .hero-gif-card {
+      min-height: 540px;
+      border-radius: 36px;
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      background: #050505;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+      isolation: isolate;
+      display: block;
+      cursor: pointer;
+      transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    .hero-gif-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      border-color: rgba(255, 208, 0, 0.72);
+      box-shadow: 0 34px 110px rgba(255, 208, 0, 0.13), 0 30px 100px rgba(0, 0, 0, 0.55);
+    }
+
+    .hero-gif-card:focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 6px;
+    }
+
+    .hero-gif-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.42)),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 5px);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .hero-gif {
+      width: 100%;
+      height: 540px;
+      display: block;
+      background: #050505;
+      object-fit: contain;
+      object-position: center center;
+      filter: contrast(1.08) saturate(1.12) brightness(1.02);
+      transition: transform 0.32s ease, filter 0.32s ease;
+    }
+
+    .hero-gif-card:hover .hero-gif {
+      transform: scale(1.035);
+      filter: contrast(1.14) saturate(1.18) brightness(1.08);
+    }
+
+    .pixel-cursor {
+      position: absolute;
+      right: 26px;
+      bottom: 26px;
+      width: 46px;
+      height: 58px;
+      z-index: 6;
+      background: #f7f7f7;
+      clip-path: polygon(
+        0 0,
+        0 78%,
+        16% 64%,
+        30% 100%,
+        48% 92%,
+        34% 58%,
+        62% 58%
+      );
+      image-rendering: pixelated;
+      filter:
+        drop-shadow(3px 3px 0 #050505)
+        drop-shadow(0 0 12px rgba(255, 208, 0, 0.48));
+      transform: rotate(-8deg);
+      transition: transform 0.24s ease, filter 0.24s ease;
+      animation: cursorPulse 1.8s ease-in-out infinite;
+    }
+
+    .pixel-cursor::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      background: rgba(255, 208, 0, 0.82);
+      clip-path: polygon(
+        0 0,
+        0 78%,
+        16% 64%,
+        30% 100%,
+        48% 92%,
+        34% 58%,
+        62% 58%
+      );
+      opacity: 0.24;
+    }
+
+    .hero-gif-card:hover .pixel-cursor {
+      transform: rotate(-8deg) translate(-7px, -7px) scale(1.14);
+      filter:
+        drop-shadow(4px 4px 0 #050505)
+        drop-shadow(0 0 20px rgba(255, 208, 0, 0.76));
+    }
+
+    @keyframes cursorPulse {
+      0%, 100% { transform: rotate(-8deg) translate(0, 0); }
+      50% { transform: rotate(-8deg) translate(-3px, -3px); }
+    }
+
+    .hero-gif-badge {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      padding: 14px 18px;
+      border: 1px solid rgba(255, 208, 0, 0.35);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.58);
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 13px;
+      font-weight: 900;
+      z-index: 5;
+      backdrop-filter: blur(10px);
+    }
+
+    .grillz-orbit-scene {
+      min-height: 540px;
+      border-radius: 36px;
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at center, rgba(255, 208, 0, 0.10), transparent 24%),
+        radial-gradient(circle at 18% 22%, rgba(255, 61, 0, 0.16), transparent 24%),
+        radial-gradient(circle at 82% 12%, rgba(255, 208, 0, 0.16), transparent 22%),
+        linear-gradient(145deg, #060606 0%, #101010 60%, #050505 100%);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+      isolation: isolate;
+    }
+
+    .grillz-orbit-scene::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 5px),
+        linear-gradient(90deg, transparent, rgba(255, 208, 0, 0.09), transparent);
+      opacity: 0.48;
+      animation: scanMove 8s linear infinite;
+      z-index: 0;
+    }
+
+    .grillz-orbit-scene::after {
+      content: "ENERGY MODE";
+      position: absolute;
+      top: 34px;
+      right: -70px;
+      transform: rotate(18deg);
+      padding: 12px 86px;
+      background: var(--yellow);
+      color: #050505;
+      font-weight: 950;
+      letter-spacing: 2px;
+      box-shadow: 0 0 28px rgba(255, 208, 0, 0.35);
+      z-index: 8;
+    }
+
+    .scene-glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 208, 0, 0.22), rgba(255, 208, 0, 0.04), transparent 72%);
+      filter: blur(16px);
+      z-index: 1;
+    }
+
+    .energy-core {
+      position: absolute;
+      width: 118px;
+      height: 118px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%, #fff4b0 0%, #ffd000 28%, #ffae00 58%, rgba(255, 174, 0, 0.15) 100%);
+      box-shadow:
+        0 0 30px rgba(255, 208, 0, 0.55),
+        0 0 70px rgba(255, 208, 0, 0.28);
+      animation: corePulse 3.4s ease-in-out infinite;
+      z-index: 4;
+    }
+
+    .core-text {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      color: #050505;
+      font-size: 19px;
+      font-weight: 950;
+      letter-spacing: -1px;
+    }
+
+    .orbit-ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 208, 0, 0.26);
+      transform-origin: center;
+      z-index: 2;
+    }
+
+    .ring-1 {
+      width: 340px;
+      height: 188px;
+      animation: ringSpin1 14s linear infinite;
+    }
+
+    .ring-2 {
+      width: 250px;
+      height: 318px;
+      border-color: rgba(255, 61, 0, 0.22);
+      animation: ringSpin2 11s linear infinite;
+    }
+
+    .ring-3 {
+      width: 392px;
+      height: 246px;
+      border-color: rgba(215, 255, 0, 0.18);
+      animation: ringSpin3 17s linear infinite;
+    }
+
+    .flying-grill {
+      position: absolute;
+      width: 92px;
+      height: 42px;
+      border-radius: 14px 14px 18px 18px;
+      background: linear-gradient(180deg, #fff6bf 0%, #ffd000 45%, #b47b00 100%);
+      box-shadow:
+        0 0 18px rgba(255, 208, 0, 0.35),
+        0 8px 24px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      z-index: 6;
+    }
+
+    .flying-grill::before {
+      content: "";
+      position: absolute;
+      inset: 7px 8px 8px 8px;
+      border-radius: 10px 10px 14px 14px;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(120, 78, 0, 0.28) 0 3px,
+        rgba(255, 244, 176, 0.55) 3px 11px
+      );
+      opacity: 0.92;
+    }
+
+    .grill-1 { top: 12%; left: 14%; animation: grillFloat1 7s ease-in-out infinite; }
+    .grill-2 { top: 18%; right: 15%; animation: grillFloat2 8.5s ease-in-out infinite; }
+    .grill-3 { top: 42%; left: 7%; animation: grillFloat3 6.8s ease-in-out infinite; }
+    .grill-4 { top: 40%; right: 10%; animation: grillFloat4 9s ease-in-out infinite; }
+    .grill-5 { bottom: 16%; left: 18%; animation: grillFloat5 8s ease-in-out infinite; }
+    .grill-6 { bottom: 12%; right: 18%; animation: grillFloat6 7.6s ease-in-out infinite; }
+    .grill-7 { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.82); animation: grillCenterOrbit 10s ease-in-out infinite; }
+
+    .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 0 0 16px rgba(255, 208, 0, 0.7);
+      z-index: 3;
+    }
+
+    .particle-1 { top: 24%; left: 32%; animation: particleDrift1 5s ease-in-out infinite; }
+    .particle-2 { top: 32%; right: 28%; animation: particleDrift2 6.5s ease-in-out infinite; }
+    .particle-3 { bottom: 26%; left: 36%; animation: particleDrift3 5.4s ease-in-out infinite; }
+    .particle-4 { bottom: 20%; right: 34%; animation: particleDrift4 7s ease-in-out infinite; }
+    .particle-5 { top: 48%; left: 52%; animation: particleDrift5 4.6s ease-in-out infinite; }
+
+    .scene-badge {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      padding: 14px 18px;
+      border: 1px solid rgba(255, 208, 0, 0.35);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.56);
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 13px;
+      font-weight: 900;
+      z-index: 9;
+      backdrop-filter: blur(10px);
+    }
+
+    section {
+      padding: 82px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 34px;
+      padding: 28px;
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.48));
+      border: 1px solid rgba(255, 208, 0, 0.18);
+      box-shadow: 0 18px 65px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(12px);
+    }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 68px);
+      line-height: 0.95;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      font-weight: 950;
+    }
+
+    .section-head p {
+      max-width: 460px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      border: 1px solid rgba(255, 208, 0, 0.22);
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.46));
+      border-radius: 28px;
+      padding: 28px;
+      min-height: 240px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.30);
+      backdrop-filter: blur(10px);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      right: -45px;
+      bottom: -45px;
+      border-radius: 50%;
+      background: rgba(255, 208, 0, 0.12);
+      filter: blur(2px);
+    }
+
+    .card .num {
+      color: var(--yellow);
+      font-weight: 950;
+      font-size: 14px;
+      letter-spacing: 2px;
+      margin-bottom: 22px;
+    }
+
+    .card h3 {
+      font-size: 25px;
+      line-height: 1.08;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .card p {
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .service {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 24px;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.46));
+      border: 1px solid rgba(255, 208, 0, 0.20);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(10px);
+    }
+
+    .icon {
+      flex: 0 0 50px;
+      height: 50px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--yellow);
+      color: #050505;
+      font-weight: 950;
+      box-shadow: 0 0 24px rgba(255, 208, 0, 0.24);
+    }
+
+    .service h3 {
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      font-size: 20px;
+    }
+
+    .service p {
+      color: var(--muted);
+    }
+
+    .gift-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      align-items: center;
+      padding: 34px;
+      border-radius: 38px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 208, 0, 0.18), transparent 30%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gift-grid::after {
+      content: "GIFT CERTIFICATE";
+      position: absolute;
+      left: -24px;
+      bottom: -18px;
+      font-size: clamp(42px, 8vw, 118px);
+      font-weight: 950;
+      letter-spacing: -4px;
+      color: rgba(255, 208, 0, 0.055);
+      pointer-events: none;
+    }
+
+    .gift-content {
+      position: relative;
+      z-index: 2;
+      padding: 28px;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.48));
+      border: 1px solid rgba(255, 208, 0, 0.18);
+      box-shadow: 0 18px 65px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(12px);
+    }
+
+    .gift-content p {
+      color: var(--muted);
+      font-size: 18px;
+      margin: 16px 0;
+      max-width: 660px;
+    }
+
+    .gift-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0;
+    }
+
+    .gift-points span {
+      border: 1px solid rgba(255, 208, 0, 0.24);
+      background: rgba(255, 208, 0, 0.08);
+      color: var(--yellow);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+
+    .gift-photo-wrap {
+      position: relative;
+      z-index: 2;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 208, 0, 0.3);
+      background: #080808;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+      transform: rotate(2deg);
+    }
+
+    .gift-photo {
+      display: block;
+      width: 100%;
+      min-height: 420px;
+      object-fit: contain;
+      filter: contrast(1.08) saturate(1.08);
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      counter-reset: step;
+    }
+
+    .step {
+      counter-increment: step;
+      padding: 24px;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.48));
+      border: 1px solid rgba(255, 208, 0, 0.22);
+      min-height: 220px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.30);
+      backdrop-filter: blur(10px);
+    }
+
+    .step::before {
+      content: "0" counter(step);
+      display: inline-block;
+      color: #050505;
+      background: var(--yellow);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 950;
+      margin-bottom: 22px;
+    }
+
+    .step h3 {
+      font-size: 20px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .shot {
+      aspect-ratio: 3 / 2;
+      min-height: 0;
+      height: auto;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: #080808;
+      position: relative;
+      overflow: hidden;
+      display: block;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+      cursor: zoom-in;
+    }
+
+    .shot:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: rgba(255, 208, 0, 0.72);
+      box-shadow: 0 30px 90px rgba(255, 208, 0, 0.13);
+    }
+
+    .shot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      filter: contrast(1.08) saturate(1.08);
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .shot:hover img {
+      transform: scale(1.06);
+      filter: contrast(1.14) saturate(1.16);
+    }
+
+    .shot::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 34%, rgba(0, 0, 0, 0.84) 100%), repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 6px), linear-gradient(115deg, rgba(255, 208, 0, 0.18), transparent 38%, rgba(255, 61, 0, 0.14));
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .shot::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(255, 208, 0, 0.42);
+      border-radius: 20px;
+      z-index: 2;
+      pointer-events: none;
+      box-shadow: inset 0 0 24px rgba(255, 208, 0, 0.08);
+    }
+
+    .shot-info {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 22px;
+      z-index: 3;
+    }
+
+    .shot-info strong {
+      display: block;
+      color: var(--white);
+      font-size: 22px;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: -0.7px;
+      text-shadow: 0 0 22px rgba(0, 0, 0, 0.9);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(0, 0, 0, 0.86);
+      backdrop-filter: blur(12px);
+    }
+
+    .lightbox.open {
+      display: flex;
+      animation: lightboxFade 0.18s ease both;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: min(1100px, 94vw);
+      max-height: 90vh;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 208, 0, 0.36);
+      background: #050505;
+      box-shadow: 0 0 45px rgba(255, 208, 0, 0.16), 0 30px 120px rgba(0, 0, 0, 0.70);
+      overflow: hidden;
+    }
+
+    .lightbox-content::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(255, 208, 0, 0.32);
+      border-radius: 22px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .lightbox-image {
+      display: block;
+      width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      background: #050505;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 4;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 208, 0, 0.38);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.72);
+      color: var(--yellow);
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.08) rotate(6deg);
+      background: rgba(255, 208, 0, 0.12);
+      box-shadow: 0 0 24px rgba(255, 208, 0, 0.22);
+    }
+
+    @keyframes lightboxFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .clinic-box {
+      padding: 34px;
+      border-radius: 32px;
+      border: 1px solid rgba(255, 208, 0, 0.20);
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.48));
+      box-shadow: 0 18px 65px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(12px);
+    }
+
+    .clinic-box p {
+      color: var(--muted);
+      font-size: 18px;
+      margin: 16px 0 24px;
+    }
+
+    .bullets {
+      display: grid;
+      gap: 12px;
+    }
+
+    .bullet {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 208, 0, 0.20);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.74), rgba(0, 0, 0, 0.48));
+      color: var(--white);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(10px);
+    }
+
+    .bullet::before {
+      content: "✦";
+      color: var(--yellow);
+    }
+
+    .cta {
+      padding: 54px;
+      border-radius: 38px;
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.52));
+      color: var(--white);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+      border: 1px solid rgba(255, 208, 0, 0.24);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.38);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .cta::after {
+      content: "NO COMPROMISES";
+      position: absolute;
+      right: -40px;
+      bottom: -24px;
+      font-size: 72px;
+      line-height: 0.9;
+      font-weight: 950;
+      opacity: 0.11;
+      transform: rotate(-6deg);
+    }
+
+    .cta h2 {
+      color: var(--white);
+    }
+
+    .cta p {
+      font-size: 19px;
+      max-width: 640px;
+      margin-top: 16px;
+      color: var(--muted);
+    }
+
+    .cta .btn {
+      background: #050505;
+      color: var(--yellow);
+      border-color: #050505;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .cta .btn.secondary {
+      background: transparent;
+      color: var(--yellow);
+      border-color: var(--yellow);
+    }
+
+    .contact-panel {
+      position: relative;
+      z-index: 2;
+      padding: 22px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.34));
+      border: 1px solid rgba(255, 208, 0, 0.18);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.26);
+      backdrop-filter: blur(10px);
+    }
+
+    .social-icons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .social-link {
+      position: relative;
+      min-height: 92px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(255, 208, 0, 0.14), transparent 42%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+      border: 1px solid rgba(255, 208, 0, 0.20);
+      overflow: hidden;
+      transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
+    }
+
+    .social-link::before {
+      content: "";
+      position: absolute;
+      inset: -80% -40%;
+      background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.28), transparent 65%);
+      transform: translateX(-70%) rotate(12deg);
+      transition: transform 0.55s ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-6px) scale(1.04);
+      border-color: rgba(255, 208, 0, 0.72);
+      box-shadow:
+        0 0 28px rgba(255, 208, 0, 0.18),
+        0 18px 45px rgba(0, 0, 0, 0.34);
+    }
+
+    .social-link:hover::before {
+      transform: translateX(70%) rotate(12deg);
+    }
+
+    .social-link img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 16px rgba(255, 208, 0, 0.22));
+      transition: transform 0.26s ease, filter 0.26s ease;
+    }
+
+    .social-link:hover img {
+      transform: rotate(-4deg) scale(1.14);
+      filter: drop-shadow(0 0 22px rgba(255, 208, 0, 0.42));
+    }
+
+    .phone-list {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .phone-list a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border-radius: 999px;
+      background: rgba(255, 208, 0, 0.10);
+      border: 1px solid rgba(255, 208, 0, 0.22);
+      color: var(--white);
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+    }
+
+    .phone-list a:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 208, 0, 0.18);
+      border-color: rgba(255, 208, 0, 0.58);
+    }
+
+    footer {
+      padding: 48px 0;
+      color: var(--muted);
+      border-top: 1px solid rgba(255, 208, 0, 0.16);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+      padding: 24px;
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.46));
+      border: 1px solid rgba(255, 208, 0, 0.16);
+      box-shadow: 0 16px 55px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(12px);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--yellow);
+    }
+
+    /* Новый scroll-индикатор: оружейный магазин, который заполняется патронами */
+    .magazine-scroll-indicator {
+      position: fixed;
+      top: 88px;
+      right: 10px;
+      bottom: 26px;
+      width: 42px;
+      z-index: 80;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .magazine-body {
+      position: relative;
+      width: 30px;
+      height: 100%;
+      border-radius: 10px 10px 16px 16px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.10), transparent 20%, rgba(0,0,0,0.35) 78%, rgba(255,255,255,0.08)), linear-gradient(180deg, rgba(20,20,20,0.96), rgba(8,8,8,0.96));
+      border: 1px solid rgba(255, 208, 0, 0.28);
+      box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.65), 0 0 22px rgba(255, 208, 0, 0.10), 0 12px 36px rgba(0, 0, 0, 0.42);
+      overflow: hidden;
+    }
+
+    .magazine-body::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      bottom: 8px;
+      left: 4px;
+      right: 4px;
+      border-radius: 8px 8px 13px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: repeating-linear-gradient(180deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 9px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .magazine-body::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      width: 4px;
+      height: calc(100% - 16px);
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: rgba(255, 208, 0, 0.05);
+      box-shadow: 0 0 12px rgba(255, 208, 0, 0.06);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .ammo-track {
+      position: absolute;
+      inset: 10px 5px 12px;
+      display: grid;
+      grid-template-rows: repeat(var(--ammo-count), 1fr);
+      gap: 2px;
+      z-index: 2;
+    }
+
+    .ammo-slot {
+      position: relative;
+      min-height: 5px;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .ammo-round {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 18px;
+      height: 7px;
+      transform: translate(-115px, -50%) scale(0.35) rotate(-18deg);
+      opacity: 0;
+      border-radius: 999px 4px 4px 999px;
+      background: linear-gradient(90deg, #f8f8f8 0%, #d8d8d8 22%, #8f8f8f 34%, #fff2a6 34%, #ffd000 58%, #b87900 100%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 2px rgba(0,0,0,0.28), 0 2px 3px rgba(0,0,0,0.55), 0 0 10px rgba(255,208,0,0.20);
+    }
+
+    .ammo-round::before {
+      content: "";
+      position: absolute;
+      right: -3px;
+      top: 50%;
+      width: 6px;
+      height: 6px;
+      transform: translateY(-50%) rotate(45deg);
+      border-radius: 2px;
+      background: linear-gradient(135deg, #fff6c9, #ffd000 55%, #a66800);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.50), 0 2px 3px rgba(0,0,0,0.45), 0 0 8px rgba(255,208,0,0.22);
+    }
+
+    .ammo-slot.loaded .ammo-round {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+
+    .ammo-slot.incoming .ammo-round {
+      animation: ammoLoad 0.52s cubic-bezier(.2, .9, .24, 1.2) both;
+    }
+
+    .ammo-slot.active .ammo-round {
+      filter: drop-shadow(0 0 10px rgba(255, 208, 0, 0.70));
+      animation: ammoActive 1.35s ease-in-out infinite;
+    }
+
+    .magazine-percent {
+      position: absolute;
+      right: 36px;
+      bottom: 4px;
+      min-width: 44px;
+      padding: 5px 7px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.62);
+      border: 1px solid rgba(255, 208, 0, 0.22);
+      color: var(--yellow);
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: 0.6px;
+      text-align: center;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    @keyframes ammoLoad {
+      0% { opacity: 0; transform: translate(-120px, -90%) scale(0.3) rotate(-26deg); filter: blur(2px); }
+      62% { opacity: 1; transform: translate(-45%, -50%) scale(1.12) rotate(3deg); filter: blur(0); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); filter: blur(0); }
+    }
+
+    @keyframes ammoActive {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.18); }
+    }
+
+    @keyframes corePulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow:
+          0 0 30px rgba(255, 208, 0, 0.55),
+          0 0 70px rgba(255, 208, 0, 0.28);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.08);
+        box-shadow:
+          0 0 42px rgba(255, 208, 0, 0.72),
+          0 0 90px rgba(255, 208, 0, 0.38);
+      }
+    }
+
+    @keyframes ringSpin1 {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes ringSpin2 {
+      from { transform: translate(-50%, -50%) rotate(22deg); }
+      to { transform: translate(-50%, -50%) rotate(-338deg); }
+    }
+
+    @keyframes ringSpin3 {
+      from { transform: translate(-50%, -50%) rotate(-18deg); }
+      to { transform: translate(-50%, -50%) rotate(342deg); }
+    }
+
+    @keyframes grillFloat1 {
+      0%, 100% { transform: translate(0, 0) rotate(-8deg); }
+      50% { transform: translate(22px, 18px) rotate(6deg); }
+    }
+
+    @keyframes grillFloat2 {
+      0%, 100% { transform: translate(0, 0) rotate(10deg); }
+      50% { transform: translate(-26px, 16px) rotate(-8deg); }
+    }
+
+    @keyframes grillFloat3 {
+      0%, 100% { transform: translate(0, 0) rotate(-12deg); }
+      50% { transform: translate(18px, -20px) rotate(8deg); }
+    }
+
+    @keyframes grillFloat4 {
+      0%, 100% { transform: translate(0, 0) rotate(8deg); }
+      50% { transform: translate(-18px, -16px) rotate(-10deg); }
+    }
+
+    @keyframes grillFloat5 {
+      0%, 100% { transform: translate(0, 0) rotate(-6deg); }
+      50% { transform: translate(26px, -12px) rotate(7deg); }
+    }
+
+    @keyframes grillFloat6 {
+      0%, 100% { transform: translate(0, 0) rotate(12deg); }
+      50% { transform: translate(-18px, -18px) rotate(-6deg); }
+    }
+
+    @keyframes grillCenterOrbit {
+      0%, 100% { transform: translate(-50%, -50%) scale(0.82) rotate(0deg); }
+      50% { transform: translate(-50%, -50%) scale(0.95) rotate(10deg); }
+    }
+
+    @keyframes particleDrift1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(14px, -18px) scale(1.4); }
+    }
+
+    @keyframes particleDrift2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-16px, 16px) scale(0.8); }
+    }
+
+    @keyframes particleDrift3 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(18px, -10px) scale(1.3); }
+    }
+
+    @keyframes particleDrift4 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-12px, -18px) scale(0.9); }
+    }
+
+    @keyframes particleDrift5 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(10px, 12px) scale(1.5); }
+    }
+
+    @keyframes scanMove {
+      from { background-position: 0 0, -200px 0; }
+      to { background-position: 0 80px, 200px 0; }
+    }
+
+    @media (max-width: 920px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .gift-grid,
+      .split,
+      .cta,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-gif-card {
+        min-height: 420px;
+      }
+
+      .hero-gif {
+        height: 420px;
+      }
+
+      .grillz-orbit-scene {
+        min-height: 420px;
+      }
+
+      .cards,
+      .portfolio {
+        grid-template-columns: 1fr;
+      }
+
+      .services,
+      .process {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 16px;
+      }
+
+      .gift-grid {
+        padding: 22px;
+      }
+
+      .gift-photo {
+        min-height: 320px;
+      }
+
+      .flying-grill {
+        width: 72px;
+        height: 34px;
+      }
+
+      .energy-core {
+        width: 88px;
+        height: 88px;
+      }
+
+      .core-text {
+        font-size: 15px;
+      }
+
+      .ring-1 {
+        width: 250px;
+        height: 150px;
+      }
+
+      .ring-2 {
+        width: 180px;
+        height: 240px;
+      }
+
+      .ring-3 {
+        width: 290px;
+        height: 190px;
+      }
+
+      .footer-links {
+        justify-content: flex-start;
+      }
+    }
+  
+    /* Улучшение кликабельного GIF-баннера: активный курсор + светящаяся рамка */
+    .hero-gif-card {
+      cursor: pointer;
+      transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease, filter 0.24s ease;
+    }
+
+    .hero-gif-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 36px;
+      border: 2px solid rgba(255, 208, 0, 0);
+      box-shadow: inset 0 0 0 rgba(255, 208, 0, 0), 0 0 0 rgba(255, 208, 0, 0);
+      opacity: 0;
+      z-index: 7;
+      pointer-events: none;
+      transition: opacity 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    .hero-gif-card:hover {
+      transform: translateY(-5px) scale(1.012);
+      border-color: rgba(255, 208, 0, 0.95);
+      box-shadow:
+        0 0 0 1px rgba(255, 208, 0, 0.34),
+        0 0 34px rgba(255, 208, 0, 0.34),
+        0 0 90px rgba(255, 208, 0, 0.18),
+        0 34px 110px rgba(0, 0, 0, 0.62);
+      animation: bannerGlow 1.35s ease-in-out infinite;
+    }
+
+    .hero-gif-card:hover::after {
+      opacity: 1;
+      border-color: rgba(255, 208, 0, 0.72);
+      box-shadow:
+        inset 0 0 28px rgba(255, 208, 0, 0.12),
+        0 0 32px rgba(255, 208, 0, 0.34);
+    }
+
+    .hero-gif-card:active {
+      transform: translateY(-2px) scale(0.992);
+    }
+
+    .hero-gif-card:hover .hero-gif {
+      transform: scale(1.035);
+      filter: contrast(1.14) saturate(1.18) brightness(1.08);
+    }
+
+    .hero-gif-card:hover .pixel-cursor {
+      animation: cursorPress 0.72s cubic-bezier(.2, .9, .22, 1.15) infinite;
+      filter:
+        drop-shadow(5px 5px 0 #050505)
+        drop-shadow(0 0 24px rgba(255, 208, 0, 0.86));
+    }
+
+    @keyframes bannerGlow {
+      0%, 100% {
+        box-shadow:
+          0 0 0 1px rgba(255, 208, 0, 0.28),
+          0 0 28px rgba(255, 208, 0, 0.26),
+          0 0 72px rgba(255, 208, 0, 0.13),
+          0 34px 110px rgba(0, 0, 0, 0.62);
+      }
+      50% {
+        box-shadow:
+          0 0 0 1px rgba(255, 208, 0, 0.48),
+          0 0 44px rgba(255, 208, 0, 0.44),
+          0 0 110px rgba(255, 208, 0, 0.22),
+          0 34px 110px rgba(0, 0, 0, 0.62);
+      }
+    }
+
+    @keyframes cursorPress {
+      0%, 100% {
+        transform: rotate(-8deg) translate(-6px, -6px) scale(1.28);
+      }
+      38% {
+        transform: rotate(-8deg) translate(-13px, -13px) scale(1.46);
+      }
+      62% {
+        transform: rotate(-8deg) translate(1px, 1px) scale(1.18);
+      }
+      76% {
+        transform: rotate(-8deg) translate(-3px, -3px) scale(1.32);
+      }
+    }
+  
+    /* Casino win effect для правого GIF-баннера */
+    .hero-gif-card {
+      overflow: visible;
+    }
+
+    .hero-gif-card .hero-gif {
+      border-radius: 36px;
+    }
+
+    .casino-rays {
+      position: absolute;
+      inset: -42px;
+      border-radius: 48px;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      background:
+        conic-gradient(
+          from 0deg,
+          transparent 0deg 9deg,
+          rgba(255, 208, 0, 0.42) 10deg 13deg,
+          transparent 14deg 29deg,
+          rgba(255, 234, 0, 0.26) 30deg 34deg,
+          transparent 35deg 55deg
+        );
+      filter: blur(10px);
+      transform: scale(0.88) rotate(0deg);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .hero-gif-card:hover .casino-rays {
+      opacity: 1;
+      animation: casinoRaysSpin 3.4s linear infinite, casinoRaysWave 1.1s ease-in-out infinite;
+    }
+
+    .casino-bulbs {
+      position: absolute;
+      z-index: 8;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .hero-gif-card:hover .casino-bulbs {
+      opacity: 1;
+    }
+
+    .bulbs-top,
+    .bulbs-bottom {
+      left: 22px;
+      right: 22px;
+      height: 12px;
+      background-image: radial-gradient(circle, #fff4b0 0 3px, #ffd000 4px, rgba(255, 208, 0, 0.16) 6px, transparent 7px);
+      background-size: 30px 12px;
+      background-repeat: repeat-x;
+      filter: drop-shadow(0 0 10px rgba(255, 208, 0, 0.72));
+      animation: casinoBulbsRun 0.8s steps(2) infinite;
+    }
+
+    .bulbs-top {
+      top: 12px;
+    }
+
+    .bulbs-bottom {
+      bottom: 12px;
+      animation-delay: 0.18s;
+    }
+
+    .bulbs-left,
+    .bulbs-right {
+      top: 22px;
+      bottom: 22px;
+      width: 12px;
+      background-image: radial-gradient(circle, #fff4b0 0 3px, #ffd000 4px, rgba(255, 208, 0, 0.16) 6px, transparent 7px);
+      background-size: 12px 30px;
+      background-repeat: repeat-y;
+      filter: drop-shadow(0 0 10px rgba(255, 208, 0, 0.72));
+      animation: casinoBulbsRunVertical 0.8s steps(2) infinite;
+    }
+
+    .bulbs-left {
+      left: 12px;
+      animation-delay: 0.28s;
+    }
+
+    .bulbs-right {
+      right: 12px;
+      animation-delay: 0.08s;
+    }
+
+    .hero-gif-card:hover::after {
+      opacity: 1;
+      border-color: rgba(255, 208, 0, 0.95);
+      box-shadow:
+        inset 0 0 34px rgba(255, 208, 0, 0.18),
+        0 0 28px rgba(255, 208, 0, 0.58),
+        0 0 68px rgba(255, 208, 0, 0.38),
+        0 0 130px rgba(255, 208, 0, 0.20);
+      animation: casinoBorderWin 0.95s ease-in-out infinite;
+    }
+
+    .hero-gif-card:hover {
+      animation: casinoBannerLift 1.25s ease-in-out infinite;
+    }
+
+    @keyframes casinoRaysSpin {
+      from { transform: scale(0.92) rotate(0deg); }
+      to { transform: scale(0.92) rotate(360deg); }
+    }
+
+    @keyframes casinoRaysWave {
+      0%, 100% { filter: blur(10px); opacity: 0.62; }
+      50% { filter: blur(16px); opacity: 1; }
+    }
+
+    @keyframes casinoBulbsRun {
+      0% { background-position: 0 0; filter: drop-shadow(0 0 7px rgba(255, 208, 0, 0.55)); }
+      50% { background-position: 15px 0; filter: drop-shadow(0 0 16px rgba(255, 234, 0, 0.95)); }
+      100% { background-position: 30px 0; filter: drop-shadow(0 0 7px rgba(255, 208, 0, 0.55)); }
+    }
+
+    @keyframes casinoBulbsRunVertical {
+      0% { background-position: 0 0; filter: drop-shadow(0 0 7px rgba(255, 208, 0, 0.55)); }
+      50% { background-position: 0 15px; filter: drop-shadow(0 0 16px rgba(255, 234, 0, 0.95)); }
+      100% { background-position: 0 30px; filter: drop-shadow(0 0 7px rgba(255, 208, 0, 0.55)); }
+    }
+
+    @keyframes casinoBorderWin {
+      0%, 100% {
+        box-shadow:
+          inset 0 0 24px rgba(255, 208, 0, 0.14),
+          0 0 24px rgba(255, 208, 0, 0.42),
+          0 0 62px rgba(255, 208, 0, 0.26),
+          0 0 118px rgba(255, 208, 0, 0.14);
+      }
+      50% {
+        box-shadow:
+          inset 0 0 42px rgba(255, 208, 0, 0.25),
+          0 0 38px rgba(255, 234, 0, 0.72),
+          0 0 94px rgba(255, 208, 0, 0.44),
+          0 0 160px rgba(255, 208, 0, 0.24);
+      }
+    }
+
+    @keyframes casinoBannerLift {
+      0%, 100% { transform: translateY(-5px) scale(1.012); }
+      50% { transform: translateY(-8px) scale(1.018); }
+    }
+  
+    /* Раздел оформления заказа */
+    .order-section {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      align-items: stretch;
+      padding: 34px;
+      border-radius: 38px;
+      border: 1px solid rgba(255, 208, 0, 0.22);
+      background:
+        radial-gradient(circle at 12% 20%, rgba(255, 208, 0, 0.18), transparent 32%),
+        linear-gradient(135deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.52));
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .order-section::after {
+      content: "ORDER NOW";
+      position: absolute;
+      right: -36px;
+      bottom: -22px;
+      font-size: clamp(46px, 8vw, 120px);
+      font-weight: 950;
+      letter-spacing: -5px;
+      color: rgba(255, 208, 0, 0.055);
+      transform: rotate(-5deg);
+      pointer-events: none;
+    }
+
+    .order-copy,
+    .order-form {
+      position: relative;
+      z-index: 2;
+    }
+
+    .order-copy {
+      padding: 28px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.42));
+      border: 1px solid rgba(255, 208, 0, 0.14);
+      box-shadow: 0 18px 65px rgba(0, 0, 0, 0.28);
+    }
+
+    .order-copy p {
+      color: var(--muted);
+      font-size: 18px;
+      margin-top: 18px;
+    }
+
+    .order-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .order-highlights span {
+      border: 1px solid rgba(255, 208, 0, 0.24);
+      background: rgba(255, 208, 0, 0.08);
+      color: var(--yellow);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+
+    .order-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 28px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.46));
+      border: 1px solid rgba(255, 208, 0, 0.18);
+      box-shadow: 0 18px 65px rgba(0, 0, 0, 0.30);
+      backdrop-filter: blur(12px);
+    }
+
+    .order-form label {
+      display: grid;
+      gap: 8px;
+    }
+
+    .order-form label span {
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .order-form input,
+    .order-form textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 208, 0, 0.22);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.48);
+      color: var(--white);
+      padding: 15px 16px;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .order-form textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .order-form input::placeholder,
+    .order-form textarea::placeholder {
+      color: rgba(245, 245, 245, 0.45);
+    }
+
+    .order-form input:focus,
+    .order-form textarea:focus {
+      border-color: rgba(255, 208, 0, 0.72);
+      box-shadow: 0 0 0 3px rgba(255, 208, 0, 0.10), 0 0 24px rgba(255, 208, 0, 0.12);
+      background: rgba(0, 0, 0, 0.68);
+    }
+
+    .full-field,
+    .order-submit,
+    .form-note {
+      grid-column: 1 / -1;
+    }
+
+    .order-submit {
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .form-note {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      margin-top: -4px;
+    }
+
+    @media (max-width: 920px) {
+      .order-section,
+      .order-form {
+        grid-template-columns: 1fr;
+      }
+
+      .order-section {
+        padding: 22px;
+      }
+    }
+  
+    /* Исправление движения фонового изображения */
+    .moving-background {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.9;
+    }
+
+    .moving-background::before {
+      content: "";
+      position: absolute;
+      left: -4vw;
+      width: 108vw;
+      top: 0;
+      height: 360vh;
+      background-image:
+        radial-gradient(circle at 50% 18%, rgba(255, 208, 0, 0.06), transparent 34%),
+        url("assets/site-background.png");
+      background-size: 100% 100%;
+      background-position: center top;
+      background-repeat: no-repeat;
+      filter: contrast(1.22) saturate(1.22) brightness(1.18);
+      transform: translate3d(0, var(--bg-shift, 0px), 0);
+      transform-origin: center top;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    /* Круглая кнопка связи в правом верхнем углу */
+    .nav {
+      width: min(1240px, calc(100vw - 20px));
+      margin: 0 auto;
+    }
+
+    .nav-cta {
+      width: 58px;
+      height: 58px;
+      min-width: 58px;
+      padding: 0;
+      border-radius: 50%;
+      font-size: 22px;
+      line-height: 1;
+      box-shadow:
+        0 0 0 1px rgba(255, 208, 0, 0.24),
+        0 0 28px rgba(255, 208, 0, 0.32);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px) rotate(10deg) scale(1.06);
+      box-shadow:
+        0 0 0 1px rgba(255, 208, 0, 0.42),
+        0 0 38px rgba(255, 208, 0, 0.52),
+        0 0 80px rgba(255, 208, 0, 0.18);
+    }
+
+    @media (max-width: 920px) {
+      .nav {
+        width: min(100%, calc(100vw - 16px));
+      }
+
+      .nav-cta {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        font-size: 19px;
+      }
+    }
+  
+    /* Раздел "Они нам доверяют" */
+    .trusted-portfolio .shot-info strong {
+      font-size: 26px;
+      color: var(--yellow);
+      text-shadow:
+        0 0 18px rgba(255, 208, 0, 0.32),
+        0 0 28px rgba(0, 0, 0, 0.95);
+    }
+
+    .trusted-shot::before {
+      background:
+        linear-gradient(180deg, transparent 28%, rgba(0, 0, 0, 0.88) 100%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 6px),
+        linear-gradient(115deg, rgba(255, 208, 0, 0.16), transparent 40%, rgba(255, 61, 0, 0.16));
+    }
+  
+    /* Более живые баннеры: hover + мягкая физичная реакция на скролл */
+    .motion-banner,
+    .gift-photo-wrap,
+    .hero-gif-card,
+    .social-link,
+    .card,
+    .service,
+    .step,
+    .clinic-box,
+    .bullet,
+    .contact-panel,
+    .order-copy,
+    .order-form {
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      transition:
+        transform 0.28s cubic-bezier(.2, .9, .22, 1),
+        box-shadow 0.28s ease,
+        border-color 0.28s ease,
+        filter 0.28s ease;
+    }
+
+    .motion-banner {
+      transform-style: preserve-3d;
+      perspective: 900px;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255, 208, 0, 0.16), transparent 44%),
+        linear-gradient(135deg, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.62));
+    }
+
+    .motion-banner:hover {
+      transform:
+        translate3d(0, -10px, 0)
+        rotateX(3deg)
+        rotateY(-3deg)
+        scale(1.035);
+      border-color: rgba(255, 208, 0, 0.92);
+      box-shadow:
+        0 0 0 1px rgba(255, 208, 0, 0.30),
+        0 0 36px rgba(255, 208, 0, 0.22),
+        0 32px 92px rgba(0, 0, 0, 0.52);
+    }
+
+    .motion-banner:hover img {
+      transform: scale(1.08) translate3d(0, -2px, 0);
+      filter: contrast(1.18) saturate(1.22) brightness(1.08);
+    }
+
+    .is-scrolling .motion-banner:nth-child(odd) {
+      animation: bannerShakeOdd 0.58s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .is-scrolling .motion-banner:nth-child(even) {
+      animation: bannerShakeEven 0.58s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .is-scrolling .gift-photo-wrap,
+    .is-scrolling .hero-gif-card,
+    .is-scrolling .social-link,
+    .is-scrolling .card,
+    .is-scrolling .service,
+    .is-scrolling .step {
+      animation: softPanelShake 0.52s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .card:hover,
+    .service:hover,
+    .step:hover,
+    .clinic-box:hover,
+    .bullet:hover,
+    .contact-panel:hover,
+    .order-copy:hover,
+    .order-form:hover,
+    .gift-photo-wrap:hover {
+      transform: translate3d(0, -6px, 0) scale(1.012);
+      border-color: rgba(255, 208, 0, 0.58);
+      box-shadow:
+        0 0 0 1px rgba(255, 208, 0, 0.16),
+        0 0 30px rgba(255, 208, 0, 0.12),
+        0 22px 70px rgba(0, 0, 0, 0.40);
+    }
+
+    @keyframes bannerShakeOdd {
+      0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+      30% { transform: translate3d(-2px, 5px, 0) rotate(-0.7deg); }
+      62% { transform: translate3d(2px, -3px, 0) rotate(0.55deg); }
+      100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    }
+
+    @keyframes bannerShakeEven {
+      0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+      30% { transform: translate3d(2px, 5px, 0) rotate(0.7deg); }
+      62% { transform: translate3d(-2px, -3px, 0) rotate(-0.55deg); }
+      100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    }
+
+    @keyframes softPanelShake {
+      0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+      42% { transform: translate3d(0, 4px, 0) rotate(0.35deg); }
+      100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .is-scrolling .motion-banner,
+      .is-scrolling .gift-photo-wrap,
+      .is-scrolling .hero-gif-card,
+      .is-scrolling .social-link,
+      .is-scrolling .card,
+      .is-scrolling .service,
+      .is-scrolling .step {
+        animation: none;
+      }
+    }
+  
+    /* FIX: восстановление правого scroll-индикатора-обоймы */
+    .magazine-scroll-indicator {
+      position: fixed;
+      top: 88px;
+      right: 10px;
+      bottom: 26px;
+      width: 42px;
+      z-index: 120;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .magazine-body {
+      position: relative;
+      width: 30px;
+      height: 100%;
+      border-radius: 10px 10px 16px 16px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.10), transparent 20%, rgba(0,0,0,0.35) 78%, rgba(255,255,255,0.08)),
+        linear-gradient(180deg, rgba(20,20,20,0.96), rgba(8,8,8,0.96));
+      border: 1px solid rgba(255, 208, 0, 0.28);
+      box-shadow:
+        inset 0 0 18px rgba(0, 0, 0, 0.65),
+        0 0 22px rgba(255, 208, 0, 0.10),
+        0 12px 36px rgba(0, 0, 0, 0.42);
+      overflow: hidden;
+    }
+
+    .ammo-track {
+      position: absolute;
+      inset: 10px 5px 12px;
+      display: grid;
+      grid-template-rows: repeat(var(--ammo-count, 100), 1fr);
+      gap: 2px;
+      z-index: 3;
+    }
+
+    .ammo-slot {
+      position: relative;
+      min-height: 5px;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .ammo-round {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 18px;
+      height: 7px;
+      transform: translate(-120px, -50%) scale(0.35) rotate(-18deg);
+      opacity: 0;
+      border-radius: 999px 4px 4px 999px;
+      background: linear-gradient(90deg, #f8f8f8 0%, #d8d8d8 22%, #8f8f8f 34%, #fff2a6 34%, #ffd000 58%, #b87900 100%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.55),
+        inset 0 -1px 2px rgba(0,0,0,0.28),
+        0 2px 3px rgba(0,0,0,0.55),
+        0 0 10px rgba(255,208,0,0.20);
+    }
+
+    .ammo-round::before {
+      content: "";
+      position: absolute;
+      right: -3px;
+      top: 50%;
+      width: 6px;
+      height: 6px;
+      transform: translateY(-50%) rotate(45deg);
+      border-radius: 2px;
+      background: linear-gradient(135deg, #fff6c9, #ffd000 55%, #a66800);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.50),
+        0 2px 3px rgba(0,0,0,0.45),
+        0 0 8px rgba(255,208,0,0.22);
+    }
+
+    .ammo-slot.loaded .ammo-round {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+
+    .ammo-slot.incoming .ammo-round {
+      animation: ammoLoadFixed 0.52s cubic-bezier(.2, .9, .24, 1.2) both;
+    }
+
+    .ammo-slot.active .ammo-round {
+      filter: drop-shadow(0 0 10px rgba(255, 208, 0, 0.70));
+      animation: ammoActiveFixed 1.35s ease-in-out infinite;
+    }
+
+    .magazine-percent {
+      position: absolute;
+      right: 36px;
+      bottom: 4px;
+      min-width: 44px;
+      padding: 5px 7px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.62);
+      border: 1px solid rgba(255, 208, 0, 0.22);
+      color: var(--yellow);
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: 0.6px;
+      text-align: center;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+      z-index: 4;
+    }
+
+    @keyframes ammoLoadFixed {
+      0% { opacity: 0; transform: translate(-120px, -90%) scale(0.3) rotate(-26deg); filter: blur(2px); }
+      62% { opacity: 1; transform: translate(-45%, -50%) scale(1.12) rotate(3deg); filter: blur(0); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); filter: blur(0); }
+    }
+
+    @keyframes ammoActiveFixed {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.18); }
+    }
+
+    @media (max-width: 920px) {
+      .magazine-scroll-indicator {
+        right: 5px;
+        width: 32px;
+      }
+
+      .magazine-body {
+        width: 22px;
+      }
+
+      .ammo-round {
+        width: 14px;
+        height: 6px;
+      }
+
+      .magazine-percent {
+        display: none;
+      }
+    }
+  
+    /* Усиленная физика при скролле: эффект потока воздуха */
+    .topbar,
+    .hero-grid > div,
+    .order-section,
+    .section-head,
+    .card,
+    .service,
+    .gift-grid,
+    .gift-content,
+    .gift-photo-wrap,
+    .step,
+    .shot,
+    .clinic-box,
+    .bullet,
+    .cta,
+    .contact-panel,
+    .social-link,
+    .footer-grid {
+      will-change: transform;
+      transform-origin: center center;
+      backface-visibility: hidden;
+    }
+
+    body.is-scrolling .topbar,
+    body.is-scrolling .hero-grid > div,
+    body.is-scrolling .order-section,
+    body.is-scrolling .section-head,
+    body.is-scrolling .card,
+    body.is-scrolling .service,
+    body.is-scrolling .gift-grid,
+    body.is-scrolling .gift-content,
+    body.is-scrolling .gift-photo-wrap,
+    body.is-scrolling .step,
+    body.is-scrolling .shot,
+    body.is-scrolling .clinic-box,
+    body.is-scrolling .bullet,
+    body.is-scrolling .cta,
+    body.is-scrolling .contact-panel,
+    body.is-scrolling .social-link,
+    body.is-scrolling .footer-grid {
+      animation: windScrollShake 0.72s cubic-bezier(.18, .78, .22, 1) both;
+    }
+
+    body.is-scrolling .section-head,
+    body.is-scrolling .shot,
+    body.is-scrolling .hero-gif-card,
+    body.is-scrolling .gift-photo-wrap {
+      animation-name: windScrollShakeStrong;
+    }
+
+    body.is-scrolling .card:nth-child(2n),
+    body.is-scrolling .service:nth-child(2n),
+    body.is-scrolling .step:nth-child(2n),
+    body.is-scrolling .shot:nth-child(2n),
+    body.is-scrolling .bullet:nth-child(2n) {
+      animation-delay: 0.035s;
+    }
+
+    body.is-scrolling .card:nth-child(3n),
+    body.is-scrolling .service:nth-child(3n),
+    body.is-scrolling .step:nth-child(3n),
+    body.is-scrolling .shot:nth-child(3n),
+    body.is-scrolling .bullet:nth-child(3n) {
+      animation-delay: 0.07s;
+    }
+
+    @keyframes windScrollShake {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) skewX(0deg);
+      }
+      22% {
+        transform: translate3d(calc(var(--wind-x, 1) * 10px), 3px, 0) rotate(calc(var(--wind-x, 1) * 0.9deg)) skewX(calc(var(--wind-x, 1) * -0.45deg));
+      }
+      48% {
+        transform: translate3d(calc(var(--wind-x, 1) * -6px), -3px, 0) rotate(calc(var(--wind-x, 1) * -0.55deg)) skewX(calc(var(--wind-x, 1) * 0.25deg));
+      }
+      72% {
+        transform: translate3d(calc(var(--wind-x, 1) * 4px), 2px, 0) rotate(calc(var(--wind-x, 1) * 0.32deg));
+      }
+      100% {
+        transform: translate3d(0, 0, 0) rotate(0deg) skewX(0deg);
+      }
+    }
+
+    @keyframes windScrollShakeStrong {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) skewX(0deg) scale(1);
+      }
+      20% {
+        transform: translate3d(calc(var(--wind-x, 1) * 18px), 6px, 0) rotate(calc(var(--wind-x, 1) * 1.55deg)) skewX(calc(var(--wind-x, 1) * -0.7deg)) scale(1.012);
+      }
+      46% {
+        transform: translate3d(calc(var(--wind-x, 1) * -11px), -5px, 0) rotate(calc(var(--wind-x, 1) * -1.05deg)) skewX(calc(var(--wind-x, 1) * 0.45deg)) scale(0.997);
+      }
+      70% {
+        transform: translate3d(calc(var(--wind-x, 1) * 7px), 3px, 0) rotate(calc(var(--wind-x, 1) * 0.62deg)) scale(1.006);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) rotate(0deg) skewX(0deg) scale(1);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body.is-scrolling .topbar,
+      body.is-scrolling .hero-grid > div,
+      body.is-scrolling .order-section,
+      body.is-scrolling .section-head,
+      body.is-scrolling .card,
+      body.is-scrolling .service,
+      body.is-scrolling .gift-grid,
+      body.is-scrolling .gift-content,
+      body.is-scrolling .gift-photo-wrap,
+      body.is-scrolling .step,
+      body.is-scrolling .shot,
+      body.is-scrolling .clinic-box,
+      body.is-scrolling .bullet,
+      body.is-scrolling .cta,
+      body.is-scrolling .contact-panel,
+      body.is-scrolling .social-link,
+      body.is-scrolling .footer-grid {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="moving-background" aria-hidden="true"></div>
+
+  <aside class="magazine-scroll-indicator" aria-label="Визуальный индикатор прокрутки сайта">
+    <div class="magazine-body">
+      <div class="ammo-track" id="ammoTrack"></div>
+      <div class="magazine-percent" id="magazinePercent">0%</div>
+    </div>
+  </aside>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="#top" aria-label="Grillz Customs">
+          <img class="brand-logo" src="assets/logo-grillz.jpg" alt="Логотип Grillz Customs">
+          <span>Grillz Customs</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Навигация по сайту">
+          <a href="#about">О нас</a>
+          <a href="#services">Услуги</a>
+          <a href="#order">Заказ</a>
+          <a href="#gift">Сертификат</a>
+          <a href="#process">Процесс</a>
+          <a href="#works">Галерея</a>
+          <a href="#clinics">Клиникам</a>
+          <a href="#jewelry">Мастерским</a>
+          <a href="#contacts">Контакты</a>
+        </nav>
+
+        <a class="btn nav-cta" href="https://vk.com/grillz_customs" target="_blank" rel="noopener" aria-label="Связаться с Grillz Customs">✦</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">Искусство, которое носят на зубах</div>
+            <h1>Кастомные <span>grillz</span> под твой стиль</h1>
+            <p class="lead">
+              Grillz Customs создаёт индивидуальные украшения на зубы: точная посадка,
+              дерзкая эстетика и образ, который невозможно перепутать с чужим.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn" href="https://vk.com/grillz_customs" target="_blank" rel="noopener">Заказать консультацию</a>
+              <a class="btn secondary" href="#services">Смотреть услуги</a>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <strong>15+</strong>
+                <small>лет в игре</small>
+              </div>
+              <div class="stat">
+                <strong>100%</strong>
+                <small>индивидуальная работа</small>
+              </div>
+              <div class="stat">
+                <strong>3D</strong>
+                <small>моделирование и технологии</small>
+              </div>
+            </div>
+          </div>
+
+          <a class="hero-gif-card" href="https://t.me/Grillz_Customs_bot" target="_blank" rel="noopener" aria-label="Открыть Telegram-бот Grillz Customs">
+            <img class="hero-gif" src="assets/hero-grillz-banner.gif" alt="Анимированный баннер Grillz Customs">
+            <span class="casino-rays" aria-hidden="true"></span>
+            <span class="casino-bulbs bulbs-top" aria-hidden="true"></span>
+            <span class="casino-bulbs bulbs-right" aria-hidden="true"></span>
+            <span class="casino-bulbs bulbs-bottom" aria-hidden="true"></span>
+            <span class="casino-bulbs bulbs-left" aria-hidden="true"></span>
+            <span class="pixel-cursor" aria-hidden="true"></span>
+          </a>
+        </div>
+      </section>
+
+      <section id="order">
+        <div class="container order-section">
+          <div class="order-copy">
+            <div class="eyebrow">Быстрая заявка</div>
+            <h2>Оформить <span>заказ</span></h2>
+            <p>
+              Заполни короткую анкету: расскажи, какой стиль grillz тебе нужен, оставь контакты —
+              и команда Grillz Customs свяжется с тобой, чтобы обсудить дизайн, посадку, сроки и детали.
+            </p>
+            <div class="order-highlights">
+              <span>Индивидуальный дизайн</span>
+              <span>Консультация по стилю</span>
+              <span>Связь напрямую с командой</span>
+            </div>
+          </div>
+
+          <form class="order-form" id="orderForm">
+            <label>
+              <span>Имя</span>
+              <input type="text" name="name" placeholder="Как к тебе обращаться?" required>
+            </label>
+
+            <label>
+              <span>Телефон</span>
+              <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
+            </label>
+
+            <label>
+              <span>Почта</span>
+              <input type="email" name="email" placeholder="example@mail.ru">
+            </label>
+
+            <label class="full-field">
+              <span>Комментарий</span>
+              <textarea name="comment" rows="5" placeholder="Опиши идею: золото, серебро, эмаль, камни, стиль, количество зубов, референсы..."></textarea>
+            </label>
+
+            <button class="btn order-submit" type="submit">Отправить заявку</button>
+            <p class="form-note">После нажатия откроется письмо с заполненной заявкой на почту Grillz Customs.</p>
+          </form>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="container">
+          <div class="section-head">
+            <h2>Не просто украшение. <span>Индивидуальность.</span></h2>
+            <p>Мы не новички и не теоретики. Мы работаем там, где важны стиль, посадка и результат.</p>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <div class="num">01</div>
+              <h3>Глубокая специализация</h3>
+              <p>Команда сфокусирована на grillz и понимает, как совместить эстетику, форму и комфорт.</p>
+            </article>
+            <article class="card">
+              <div class="num">02</div>
+              <h3>Реальный опыт</h3>
+              <p>15+ лет в игре — это не теория, а практика, уникальные технологии и понимание деталей.</p>
+            </article>
+            <article class="card">
+              <div class="num">03</div>
+              <h3>Сильный образ</h3>
+              <p>Каждый проект создаётся под человека: стиль, характер, сцена, улица, клип или личный бренд.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="services">
+        <div class="container">
+          <div class="section-head">
+            <h2>Что <span>делаем</span></h2>
+            <p>От кастомных grillz до зуботехнических работ и спортивных капп любого уровня.</p>
+          </div>
+
+          <div class="services">
+            <article class="service">
+              <div class="icon">G</div>
+              <div>
+                <h3>Индивидуальные grillz</h3>
+                <p>Кастомные украшения под каждого клиента: образ, форма, посадка и вау-эффект.</p>
+              </div>
+            </article>
+            <article class="service">
+              <div class="icon">★</div>
+              <div>
+                <h3>Эстетика + точность</h3>
+                <p>Не просто «золото на зубах», а детальная работа, которая должна сидеть правильно.</p>
+              </div>
+            </article>
+            <article class="service">
+              <div class="icon">M</div>
+              <div>
+                <h3>Спортивные каппы</h3>
+                <p>Каппы любого уровня: для спорта, тренировок, защиты и индивидуальных задач.</p>
+              </div>
+            </article>
+            <article class="service">
+              <div class="icon">3D</div>
+              <div>
+                <h3>3D и фрезерный центр</h3>
+                <p>3D-моделирование, фрезеровка и зуботехнические работы любой сложности.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="gift">
+        <div class="container gift-grid">
+          <div class="gift-content">
+            <div class="eyebrow">Подарок с характером</div>
+            <h2>GRILLZ <span>в подарок</span></h2>
+            <p>
+              Хочешь подарить не очередную банальность, а вещь, которую реально запомнят?
+              Grillz Customs может оформить подарочный сертификат на любую сумму — для человека,
+              который любит стиль, сцену, золото, рэп, спорт или просто хочет выделяться.
+            </p>
+            <p>
+              Сертификат подойдёт на индивидуальные grillz, консультацию, разработку дизайна
+              или старт будущего кастомного проекта. Получатель сам выберет образ, а мы поможем
+              превратить идею в изделие.
+            </p>
+
+            <div class="gift-points">
+              <span>Любая сумма</span>
+              <span>Индивидуальный дизайн</span>
+              <span>Вау-подарок без банальности</span>
+            </div>
+
+            <a class="btn" href="https://vk.com/grillz_customs" target="_blank" rel="noopener">Заказать сертификат</a>
+          </div>
+
+          <div class="gift-photo-wrap">
+            <img class="gift-photo" src="assets/sertificat-grillz.JPG" alt="Подарочный сертификат Grillz Customs">
+          </div>
+        </div>
+      </section>
+
+      <section id="process">
+        <div class="container">
+          <div class="section-head">
+            <h2>Как проходит <span>заказ</span></h2>
+            <p>Простой путь: от идеи до готового изделия. Без лишнего шума — только результат.</p>
+          </div>
+
+          <div class="process">
+            <article class="step">
+              <h3>Заявка и консультация</h3>
+              <p>Оставляешь заявку, описываешь идею, стиль и задачу. Мы связываемся с тобой, обсуждаем дизайн, материалы, количество зубов и технические нюансы.</p>
+            </article>
+            <article class="step">
+              <h3>Ваши слепки</h3>
+              <p>Для точной посадки нам понадобятся ваши зубные слепки. По ним мы сможем корректно подготовить форму и сделать изделие удобным именно для вас.</p>
+            </article>
+            <article class="step">
+              <h3>Производство</h3>
+              <p>Подключаем опыт, технологии, моделирование и зуботехническую базу.</p>
+            </article>
+            <article class="step">
+              <h3>Готовый стиль</h3>
+              <p>Получаешь не просто изделие, а заметную деталь образа.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="works">
+        <div class="container">
+          <div class="section-head">
+            <h2>Работы говорят <span>сами</span></h2>
+            <p>Портфолио и живые примеры — в социальных сетях Grillz Customs.</p>
+          </div>
+
+          <div class="portfolio works-portfolio">
+            <a class="shot gallery-item motion-banner" href="assets/Gwork-01.png" aria-label="Открыть работу Grillz Customs 1">
+              <img src="assets/Gwork-01.png" alt="Работа Grillz Customs 1">
+              <div class="shot-info"><strong>Кастомные grillz</strong></div>
+            </a>
+
+            <a class="shot gallery-item motion-banner" href="assets/Gwork-02.png" aria-label="Открыть работу Grillz Customs 2">
+              <img src="assets/Gwork-02.png" alt="Работа Grillz Customs 2">
+              <div class="shot-info"><strong>Золотой акцент</strong></div>
+            </a>
+
+            <a class="shot gallery-item motion-banner" href="assets/Gwork-03.png" aria-label="Открыть работу Grillz Customs 3">
+              <img src="assets/Gwork-03.png" alt="Работа Grillz Customs 3">
+              <div class="shot-info"><strong>Индивидуальный стиль</strong></div>
+            </a>
+
+            <a class="shot gallery-item motion-banner" href="assets/Gwork-04.png" aria-label="Открыть работу Grillz Customs 4">
+              <img src="assets/Gwork-04.png" alt="Работа Grillz Customs 4">
+              <div class="shot-info"><strong>Премиальный блеск</strong></div>
+            </a>
+
+            <a class="shot gallery-item motion-banner" href="assets/Gwork-05.png" aria-label="Открыть работу Grillz Customs 5">
+              <img src="assets/Gwork-05.png" alt="Работа Grillz Customs 5">
+              <div class="shot-info"><strong>Детальная посадка</strong></div>
+            </a>
+
+            <a class="shot gallery-item motion-banner" href="assets/Gwork-06.png" aria-label="Открыть работу Grillz Customs 6">
+              <img src="assets/Gwork-06.png" alt="Работа Grillz Customs 6">
+              <div class="shot-info"><strong>Уличный стиль</strong></div>
+            </a>
+
+            <a class="shot gallery-item motion-banner" href="assets/Gwork-07.png" aria-label="Открыть работу Grillz Customs 7">
+              <img src="assets/Gwork-07.png" alt="Работа Grillz Customs 7">
+              <div class="shot-info"><strong>Custom design</strong></div>
+            </a>
+
+            <a class="shot gallery-item motion-banner" href="assets/Gwork-08.png" aria-label="Открыть работу Grillz Customs 8">
+              <img src="assets/Gwork-08.png" alt="Работа Grillz Customs 8">
+              <div class="shot-info"><strong>Gold energy</strong></div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="trusted">
+        <div class="container">
+          <div class="section-head">
+            <h2>Они нам <span>доверяют</span></h2>
+            <p>Артисты, яркие образы и имена, которые понимают ценность индивидуального стиля.</p>
+          </div>
+
+          <div class="portfolio trusted-portfolio">
+            <a class="shot gallery-item trusted-shot motion-banner" href="assets/Gwork-09.png" aria-label="Открыть фото Егор Крид">
+              <img src="assets/Gwork-09.png" alt="Егор Крид — Grillz Customs">
+              <div class="shot-info"><strong>ЕГОР КРИД</strong></div>
+            </a>
+
+            <a class="shot gallery-item trusted-shot motion-banner" href="assets/Gwork-10.png" aria-label="Открыть фото Томми Кэш">
+              <img src="assets/Gwork-10.png" alt="Томми Кэш — Grillz Customs">
+              <div class="shot-info"><strong>ТОММИ КЭШ</strong></div>
+            </a>
+
+            <a class="shot gallery-item trusted-shot motion-banner" href="assets/Gwork-11.png" aria-label="Открыть фото Влад Валов">
+              <img src="assets/Gwork-11.png" alt="Влад Валов — Grillz Customs">
+              <div class="shot-info"><strong>ВЛАД ВАЛОВ</strong></div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="clinics">
+        <div class="container split">
+          <div class="clinic-box">
+            <div class="eyebrow">Партнёрство</div>
+            <h2>Стоматологам и клиникам</h2>
+            <p>
+              Grillz Customs приглашает к сотрудничеству стоматологические клиники и практикующих стоматологов.
+              Это способ выделиться, дать клиентам больше и заработать на тренде.
+            </p>
+            <a class="btn" href="mailto:grillzcustoms@yandex.ru">Обсудить сотрудничество</a>
+          </div>
+
+          <div class="bullets">
+            <div class="bullet">Добавьте уникальную услугу к предложениям клиники</div>
+            <div class="bullet">Создавайте стильные образы вместе с сильным партнёром</div>
+            <div class="bullet">Работайте с трендом, который уже привлекает внимание</div>
+            <div class="bullet">Получайте экспертизу, технологии и опыт команды</div>
+            <div class="bullet">Возможна организация курсов и обучение</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="jewelry">
+        <div class="container split">
+          <div class="clinic-box">
+            <div class="eyebrow">Партнёрство</div>
+            <h2>Ювелирным мастерским</h2>
+            <p>
+              Grillz Customs открыт к сотрудничеству с ювелирными мастерскими, мастерами по металлу,
+              дизайнерами украшений и командами, которые умеют работать с драгоценными материалами.
+              Вместе можно создавать кастомные grillz, каппы и украшения на стыке dental art, ювелирного
+              дизайна и уличной культуры.
+            </p>
+            <a class="btn" href="mailto:grillzcustoms@yandex.ru">Предложить партнёрство</a>
+          </div>
+
+          <div class="bullets">
+            <div class="bullet">Объединяйте ювелирную точность с актуальным трендом на grillz</div>
+            <div class="bullet">Создавайте совместные кастомные изделия под артистов, бренды и частных клиентов</div>
+            <div class="bullet">Работайте с золотом, серебром, эмалью, камнями и нестандартными дизайнами</div>
+            <div class="bullet">Расширяйте линейку услуг за счёт нового направления в украшениях</div>
+            <div class="bullet">Получайте сильного партнёра с опытом, 3D-подходом и пониманием посадки</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacts">
+        <div class="container">
+          <div class="cta">
+            <div>
+              <h2>Хочешь grillz, которые заметят?</h2>
+              <p>
+                Напиши Grillz Customs. Расскажи, какой образ нужен: агрессивный, чистый, золотой,
+                фантастический, сценический или повседневный. Дальше команда предложит решение.
+              </p>
+            </div>
+            <div class="contact-panel">
+              <div class="social-icons" aria-label="Социальные сети Grillz Customs">
+                <a class="social-link" href="https://t.me/grillz_customs_moscow" target="_blank" rel="noopener" aria-label="Telegram Grillz Customs">
+                  <img src="assets/logo tg.png" alt="Telegram Grillz Customs">
+                </a>
+                <a class="social-link" href="https://www.instagram.com/grillz_customs_moscow/" target="_blank" rel="noopener" aria-label="Instagram Grillz Customs">
+                  <img src="assets/logo instagram.png" alt="Instagram Grillz Customs">
+                </a>
+                <a class="social-link" href="https://vk.com/grillz_customs" target="_blank" rel="noopener" aria-label="VK Grillz Customs">
+                  <img src="assets/logo vk.png" alt="VK Grillz Customs">
+                </a>
+              </div>
+
+              <div class="phone-list">
+                <a href="tel:+79999962206">+7 (999) 996-22-06</a>
+                <a href="tel:+79161112397">+7 (916) 111-23-97</a>
+              </div>
+
+              <a class="btn secondary" href="mailto:grillzcustoms@yandex.ru">grillzcustoms@yandex.ru</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-grid">
+        <div>
+          <strong>Grillz Customs</strong><br />
+          Искусство, которое носят на зубах. Без компромиссов.
+        </div>
+        <div class="footer-links">
+          <a href="https://vk.com/grillz_customs" target="_blank" rel="noopener">VK</a>
+          <a href="mailto:grillzcustoms@yandex.ru">Email</a>
+          <a href="#top">Наверх</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <div class="lightbox" id="galleryLightbox" aria-hidden="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" type="button" id="lightboxClose" aria-label="Закрыть изображение">×</button>
+      <img class="lightbox-image" id="lightboxImage" src="" alt="Открытая работа Grillz Customs">
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const root = document.documentElement;
+      let latestScrollY = window.scrollY;
+      let bgAnimationFrame = null;
+
+      function renderBackground() {
+        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = documentHeight > 0 ? Math.min(Math.max(latestScrollY / documentHeight, 0), 1) : 0;
+        const backgroundTravel = window.innerHeight * 2.6;
+        const startOffset = 0;
+        const shift = startOffset - progress * backgroundTravel;
+        root.style.setProperty('--bg-shift', shift + 'px');
+        bgAnimationFrame = null;
+      }
+
+      function requestBackgroundMove() {
+        latestScrollY = window.scrollY;
+        if (bgAnimationFrame === null) bgAnimationFrame = requestAnimationFrame(renderBackground);
+      }
+
+      requestBackgroundMove();
+      window.addEventListener('scroll', requestBackgroundMove, { passive: true });
+      window.addEventListener('resize', requestBackgroundMove);
+
+      const sectionIds = ['top', 'about', 'services', 'gift', 'process', 'clinics', 'contacts'];
+      const ammoPerSection = 10;
+      const totalAmmo = sectionIds.length * ammoPerSection;
+      const ammoTrack = document.getElementById('ammoTrack');
+      const magazinePercent = document.getElementById('magazinePercent');
+
+      if (ammoTrack) {
+        ammoTrack.style.setProperty('--ammo-count', totalAmmo);
+        ammoTrack.innerHTML = '';
+        for (let i = 0; i < totalAmmo; i++) {
+          const slot = document.createElement('button');
+          const sectionIndex = Math.min(sectionIds.length - 1, Math.floor(i / ammoPerSection));
+          slot.className = 'ammo-slot';
+          slot.type = 'button';
+          slot.dataset.index = i;
+          slot.dataset.section = sectionIds[sectionIndex];
+          slot.setAttribute('aria-label', `Перейти к разделу ${sectionIndex + 1}`);
+          slot.innerHTML = '<span class="ammo-round"></span>';
+          slot.addEventListener('click', () => {
+            const target = document.getElementById(slot.dataset.section);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+          ammoTrack.appendChild(slot);
+        }
+      }
+
+      const ammoItems = [...document.querySelectorAll('.ammo-slot')];
+      let previousLoadedCount = 0;
+
+      function updateMagazineIndicator() {
+        if (!ammoItems.length) return;
+        const scrollTop = window.scrollY;
+        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = documentHeight > 0 ? Math.min(Math.max(scrollTop / documentHeight, 0), 1) : 0;
+        const loadedCount = Math.round(progress * totalAmmo);
+        const activeIndex = Math.min(totalAmmo - 1, Math.max(0, loadedCount - 1));
+        ammoItems.forEach((slot, index) => {
+          const shouldBeLoaded = index < loadedCount;
+          const wasLoaded = slot.classList.contains('loaded');
+          slot.classList.toggle('loaded', shouldBeLoaded);
+          slot.classList.toggle('active', index === activeIndex);
+          if (shouldBeLoaded && !wasLoaded && index >= previousLoadedCount) {
+            slot.classList.remove('incoming');
+            void slot.offsetWidth;
+            slot.classList.add('incoming');
+          }
+          if (!shouldBeLoaded) slot.classList.remove('incoming');
+        });
+        if (magazinePercent) magazinePercent.textContent = Math.round(progress * 100) + '%';
+        previousLoadedCount = loadedCount;
+      }
+
+      updateMagazineIndicator();
+      window.addEventListener('scroll', updateMagazineIndicator, { passive: true });
+      window.addEventListener('resize', updateMagazineIndicator);
+
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const lightbox = document.getElementById('galleryLightbox');
+      const lightboxImage = document.getElementById('lightboxImage');
+      const lightboxClose = document.getElementById('lightboxClose');
+
+      function openLightbox(src, alt) {
+        if (!lightbox || !lightboxImage) return;
+        lightboxImage.src = src;
+        lightboxImage.alt = alt || 'Открытая работа Grillz Customs';
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        if (!lightbox || !lightboxImage) return;
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        lightboxImage.src = '';
+        document.body.style.overflow = '';
+      }
+
+      galleryItems.forEach((item) => {
+        item.addEventListener('click', (event) => {
+          event.preventDefault();
+          const image = item.querySelector('img');
+          openLightbox(item.getAttribute('href'), image ? image.alt : 'Работа Grillz Customs');
+        });
+      });
+      if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+      if (lightbox) lightbox.addEventListener('click', (event) => { if (event.target === lightbox) closeLightbox(); });
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeLightbox(); });
+
+      const orderForm = document.getElementById('orderForm');
+      if (orderForm) {
+        orderForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+
+          const formData = new FormData(orderForm);
+          const name = formData.get('name') || '';
+          const phone = formData.get('phone') || '';
+          const email = formData.get('email') || '';
+          const comment = formData.get('comment') || '';
+
+          const subject = 'Заявка на Grillz Customs';
+          const body = [
+            'Новая заявка с сайта Grillz Customs:',
+            '',
+            `Имя: ${name}`,
+            `Телефон: ${phone}`,
+            `Почта: ${email}`,
+            '',
+            'Комментарий:',
+            comment
+          ].join('
+');
+
+          const mailto = `mailto:grillzcustoms@yandex.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          window.location.href = mailto;
+        });
+      }
+    });
+  </script>
+  <script>
+    /* Резервный скрипт: гарантирует движение заднего фона при скролле */
+    (() => {
+      const root = document.documentElement;
+      let latestScrollY = window.scrollY;
+      let frame = null;
+
+      function renderMovingBackground() {
+        const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+        const progress = Math.min(Math.max(latestScrollY / maxScroll, 0), 1);
+        const backgroundTravel = window.innerHeight * 2.6;
+        const shift = -progress * backgroundTravel;
+
+        root.style.setProperty('--bg-shift', `${shift}px`);
+        frame = null;
+      }
+
+      function requestMove() {
+        latestScrollY = window.scrollY;
+        if (frame === null) {
+          frame = requestAnimationFrame(renderMovingBackground);
+        }
+      }
+
+      requestMove();
+      window.addEventListener('scroll', requestMove, { passive: true });
+      window.addEventListener('resize', requestMove);
+    })();
+  </script>
+  <script>
+    /* Мягкая физичная реакция баннеров на скролл */
+    (() => {
+      const root = document.documentElement;
+      let lastY = window.scrollY;
+      let scrollTimer = null;
+      let frame = null;
+
+      function renderBannerMotion() {
+        const currentY = window.scrollY;
+        const delta = Math.max(-18, Math.min(18, currentY - lastY));
+        lastY = currentY;
+        root.style.setProperty('--scroll-kick', `${delta}px`);
+        document.body.classList.add('is-scrolling');
+
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          document.body.classList.remove('is-scrolling');
+          root.style.setProperty('--scroll-kick', '0px');
+        }, 160);
+
+        frame = null;
+      }
+
+      function requestBannerMotion() {
+        if (frame === null) frame = requestAnimationFrame(renderBannerMotion);
+      }
+
+      window.addEventListener('scroll', requestBannerMotion, { passive: true });
+    })();
+  </script>
+  <script>
+    /* FIX: надёжное восстановление заполнения обоймы при скролле */
+    (() => {
+      function initMagazineScrollIndicator() {
+        let indicator = document.querySelector('.magazine-scroll-indicator');
+
+        if (!indicator) {
+          indicator = document.createElement('aside');
+          indicator.className = 'magazine-scroll-indicator';
+          indicator.setAttribute('aria-label', 'Визуальный индикатор прокрутки сайта');
+          indicator.innerHTML = `
+            <div class="magazine-body">
+              <div class="ammo-track" id="ammoTrack"></div>
+              <div class="magazine-percent" id="magazinePercent">0%</div>
+            </div>
+          `;
+          document.body.prepend(indicator);
+        }
+
+        let ammoTrack = document.getElementById('ammoTrack');
+        let magazinePercent = document.getElementById('magazinePercent');
+
+        if (!ammoTrack) {
+          const body = indicator.querySelector('.magazine-body') || indicator;
+          ammoTrack = document.createElement('div');
+          ammoTrack.className = 'ammo-track';
+          ammoTrack.id = 'ammoTrack';
+          body.appendChild(ammoTrack);
+        }
+
+        if (!magazinePercent) {
+          const body = indicator.querySelector('.magazine-body') || indicator;
+          magazinePercent = document.createElement('div');
+          magazinePercent.className = 'magazine-percent';
+          magazinePercent.id = 'magazinePercent';
+          magazinePercent.textContent = '0%';
+          body.appendChild(magazinePercent);
+        }
+
+        const sectionIds = ['top', 'order', 'about', 'services', 'gift', 'process', 'works', 'trusted', 'clinics', 'jewelry', 'contacts'];
+        const ammoPerSection = 8;
+        const totalAmmo = sectionIds.length * ammoPerSection;
+
+        ammoTrack.innerHTML = '';
+        ammoTrack.style.setProperty('--ammo-count', totalAmmo);
+
+        for (let i = 0; i < totalAmmo; i++) {
+          const slot = document.createElement('button');
+          const sectionIndex = Math.min(sectionIds.length - 1, Math.floor(i / ammoPerSection));
+
+          slot.className = 'ammo-slot';
+          slot.type = 'button';
+          slot.dataset.index = String(i);
+          slot.dataset.section = sectionIds[sectionIndex];
+          slot.setAttribute('aria-label', `Перейти к разделу ${sectionIndex + 1}`);
+          slot.innerHTML = '<span class="ammo-round"></span>';
+
+          slot.addEventListener('click', () => {
+            const target = document.getElementById(slot.dataset.section);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+
+          ammoTrack.appendChild(slot);
+        }
+
+        const ammoItems = [...ammoTrack.querySelectorAll('.ammo-slot')];
+        let previousLoadedCount = 0;
+        let frame = null;
+
+        function updateMagazine() {
+          const documentHeight = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+          const progress = Math.min(Math.max(window.scrollY / documentHeight, 0), 1);
+          const loadedCount = Math.round(progress * totalAmmo);
+          const activeIndex = Math.min(totalAmmo - 1, Math.max(0, loadedCount - 1));
+
+          ammoItems.forEach((slot, index) => {
+            const shouldLoad = index < loadedCount;
+            const wasLoaded = slot.classList.contains('loaded');
+
+            slot.classList.toggle('loaded', shouldLoad);
+            slot.classList.toggle('active', index === activeIndex);
+
+            if (shouldLoad && !wasLoaded && index >= previousLoadedCount) {
+              slot.classList.remove('incoming');
+              void slot.offsetWidth;
+              slot.classList.add('incoming');
+            }
+
+            if (!shouldLoad) slot.classList.remove('incoming');
+          });
+
+          if (magazinePercent) magazinePercent.textContent = Math.round(progress * 100) + '%';
+          previousLoadedCount = loadedCount;
+          frame = null;
+        }
+
+        function requestUpdate() {
+          if (frame === null) frame = requestAnimationFrame(updateMagazine);
+        }
+
+        updateMagazine();
+        window.addEventListener('scroll', requestUpdate, { passive: true });
+        window.addEventListener('resize', requestUpdate);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMagazineScrollIndicator);
+      } else {
+        initMagazineScrollIndicator();
+      }
+    })();
+  </script>
+  <script>
+    /* Глобальная реакция всех верхних элементов на поток скролла */
+    (() => {
+      let lastY = window.scrollY;
+      let scrollTimer = null;
+      let frame = null;
+
+      function applyWind() {
+        const currentY = window.scrollY;
+        const delta = currentY - lastY;
+        lastY = currentY;
+
+        const direction = delta >= 0 ? 1 : -1;
+        const power = Math.min(Math.max(Math.abs(delta) / 16, 0.65), 2.4);
+        const windX = direction * power;
+
+        document.documentElement.style.setProperty('--wind-x', windX.toFixed(2));
+        document.body.classList.add('is-scrolling');
+
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          document.body.classList.remove('is-scrolling');
+        }, 150);
+
+        frame = null;
+      }
+
+      function requestWind() {
+        if (frame === null) {
+          frame = requestAnimationFrame(applyWind);
+        }
+      }
+
+      window.addEventListener('scroll', requestWind, { passive: true });
+      window.addEventListener('wheel', requestWind, { passive: true });
+    })();
+  </script>
+</body>
+</html>

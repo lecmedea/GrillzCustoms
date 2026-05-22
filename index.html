@@ -2612,6 +2612,54 @@
         overflow: visible;
       }
     }
+  
+    /* Mobile contacts block fix: центрируем последний CTA-блок */
+    @media (max-width: 920px) {
+      #contacts .cta {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 28px 18px;
+        text-align: center;
+        justify-items: center;
+        overflow: hidden;
+      }
+
+      #contacts .cta > div {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      #contacts .cta h2,
+      #contacts .cta p {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+
+      #contacts .contact-panel {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #contacts .social-icons,
+      #contacts .phone-list {
+        width: 100%;
+      }
+
+      #contacts .cta::after {
+        left: 50%;
+        right: auto;
+        bottom: -18px;
+        transform: translateX(-50%) rotate(-6deg);
+        width: max-content;
+        max-width: 100%;
+        font-size: 42px;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 

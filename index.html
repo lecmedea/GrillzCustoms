@@ -2422,6 +2422,73 @@
         animation: none;
       }
     }
+  
+    /* Mobile: вместо тряски — мягкое плавное скольжение */
+    @media (max-width: 920px) {
+      body.is-scrolling .topbar,
+      body.is-scrolling .hero-grid > div,
+      body.is-scrolling .order-section,
+      body.is-scrolling .section-head,
+      body.is-scrolling .card,
+      body.is-scrolling .service,
+      body.is-scrolling .gift-grid,
+      body.is-scrolling .gift-content,
+      body.is-scrolling .gift-photo-wrap,
+      body.is-scrolling .step,
+      body.is-scrolling .shot,
+      body.is-scrolling .clinic-box,
+      body.is-scrolling .bullet,
+      body.is-scrolling .cta,
+      body.is-scrolling .contact-panel,
+      body.is-scrolling .social-link,
+      body.is-scrolling .footer-grid {
+        animation: mobileSmoothSlide 0.72s cubic-bezier(.22, .9, .24, 1) both !important;
+      }
+
+      body.is-scrolling .section-head,
+      body.is-scrolling .shot,
+      body.is-scrolling .hero-gif-card,
+      body.is-scrolling .gift-photo-wrap {
+        animation-name: mobileSmoothSlideStrong !important;
+      }
+
+      body.is-scrolling .card:nth-child(2n),
+      body.is-scrolling .service:nth-child(2n),
+      body.is-scrolling .step:nth-child(2n),
+      body.is-scrolling .shot:nth-child(2n),
+      body.is-scrolling .bullet:nth-child(2n),
+      body.is-scrolling .card:nth-child(3n),
+      body.is-scrolling .service:nth-child(3n),
+      body.is-scrolling .step:nth-child(3n),
+      body.is-scrolling .shot:nth-child(3n),
+      body.is-scrolling .bullet:nth-child(3n) {
+        animation-delay: 0s !important;
+      }
+    }
+
+    @keyframes mobileSmoothSlide {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      42% {
+        transform: translate3d(0, calc(var(--wind-x, 1) * 3px), 0) scale(1.004);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+
+    @keyframes mobileSmoothSlideStrong {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      45% {
+        transform: translate3d(0, calc(var(--wind-x, 1) * 5px), 0) scale(1.008);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
   </style>
 </head>
 

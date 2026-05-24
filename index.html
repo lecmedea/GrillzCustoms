@@ -2993,6 +2993,151 @@
         text-align: left;
       }
     }
+  
+    /* Social labels under contact buttons */
+    .social-link {
+      grid-template-rows: 1fr auto;
+      gap: 6px;
+      padding: 14px 10px 10px;
+      text-align: center;
+    }
+
+    .social-name {
+      position: relative;
+      z-index: 2;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+    }
+
+    .social-link:hover .social-name {
+      color: var(--yellow);
+    }
+
+    @media (max-width: 920px) {
+      .social-name {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.78);
+      }
+    }
+  
+    /* Custom order form: замена Tally на собственную форму */
+    .custom-order-form label {
+      display: grid;
+      gap: 8px;
+    }
+
+    .custom-order-form label span {
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .custom-order-form input,
+    .custom-order-form textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 208, 0, 0.24);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.52);
+      color: var(--white);
+      padding: 15px 16px;
+      font: inherit;
+      outline: none;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .custom-order-form input:focus,
+    .custom-order-form textarea:focus {
+      border-color: rgba(255, 208, 0, 0.78);
+      box-shadow: 0 0 0 3px rgba(255, 208, 0, 0.12), inset 0 0 0 1px rgba(255, 208, 0, 0.14);
+      background: rgba(0, 0, 0, 0.68);
+    }
+
+    .custom-order-form textarea {
+      resize: vertical;
+      min-height: 138px;
+    }
+
+    .custom-order-form .full {
+      grid-column: 1 / -1;
+    }
+
+    .lead-honeypot {
+      position: absolute !important;
+      left: -9999px !important;
+      width: 1px !important;
+      height: 1px !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .form-consent {
+      display: flex !important;
+      grid-template-columns: none !important;
+      align-items: flex-start;
+      gap: 10px !important;
+      color: rgba(245, 245, 245, 0.76);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .form-consent input {
+      width: 18px;
+      min-width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      accent-color: var(--yellow);
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .form-consent span {
+      color: rgba(245, 245, 245, 0.72) !important;
+      font-size: 12px !important;
+      font-weight: 600 !important;
+      text-transform: none !important;
+      letter-spacing: 0 !important;
+    }
+
+    .lead-form-status {
+      min-height: 22px;
+      color: var(--yellow);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .lead-form-status.error {
+      color: #ff6b4a;
+    }
+
+    .lead-form-status.success {
+      color: #d7ff00;
+    }
+
+    .custom-order-form.is-loading button[type="submit"] {
+      pointer-events: none;
+      opacity: 0.72;
+      filter: saturate(0.7);
+    }
+
+    @media (max-width: 920px) {
+      .custom-order-form {
+        grid-template-columns: 1fr !important;
+        gap: 13px !important;
+      }
+
+      .custom-order-form input,
+      .custom-order-form textarea {
+        border-radius: 16px;
+        padding: 14px 15px;
+      }
+    }
   </style>
 </head>
 
@@ -3089,18 +3234,37 @@
             </div>
           </div>
 
-          <div class="order-form tally-form-wrap">
-            <iframe
-              class="tally-order-frame"
-              src="https://tally.so/embed/VL4ZWl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-              width="100%"
-              height="560"
-              frameborder="0"
-              marginheight="0"
-              marginwidth="0"
-              title="Заявка на Grillz Customs">
-            </iframe>
-          </div>
+          <form class="order-form custom-order-form" id="leadForm" novalidate>
+            <input type="text" name="website" class="lead-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <label>
+              <span>Ваше имя</span>
+              <input type="text" name="name" placeholder="Как к вам обращаться?" autocomplete="name" required>
+            </label>
+
+            <label>
+              <span>Телефон</span>
+              <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" required>
+            </label>
+
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="example@mail.ru" autocomplete="email">
+            </label>
+
+            <label class="full">
+              <span>Комментарий к заказу</span>
+              <textarea name="comment" placeholder="Опишите идею: золото, серебро, эмаль, камни, количество зубов, стиль, сроки." rows="5" required></textarea>
+            </label>
+
+            <label class="form-consent full">
+              <input type="checkbox" name="consent" required>
+              <span>Я согласен на обработку персональных данных и понимаю, что команда Grillz Customs свяжется со мной для консультации по заказу.</span>
+            </label>
+
+            <button class="btn full" type="submit">Отправить заявку</button>
+            <p class="lead-form-status full" id="leadFormStatus" aria-live="polite"></p>
+          </form>
         </div>
       </section>
 
@@ -3365,14 +3529,14 @@
             </div>
             <div class="contact-panel">
               <div class="social-icons" aria-label="Социальные сети Grillz Customs">
-                <a class="social-link" href="https://t.me/grillz_customs_moscow" target="_blank" rel="noopener" aria-label="Telegram Grillz Customs">
-                  <img src="assets/logo tg.png" alt="Telegram Grillz Customs">
+                $1
+                  <span class="social-name">Telegram</span>
                 </a>
-                <a class="social-link" href="https://www.instagram.com/grillz_customs_moscow/" target="_blank" rel="noopener" aria-label="Instagram* Grillz Customs">
-                  <img src="assets/logo instagram.png" alt="Instagram* Grillz Customs">
+                $1
+                  <span class="social-name">Instagram*</span>
                 </a>
-                <a class="social-link" href="https://vk.com/grillz_customs" target="_blank" rel="noopener" aria-label="VK Grillz Customs">
-                  <img src="assets/logo vk.png" alt="VK Grillz Customs">
+                $1
+                  <span class="social-name">VK</span>
                 </a>
               </div>
 
@@ -3994,6 +4158,77 @@
       window.addEventListener('touchmove', requestMobileFlow, { passive: true });
       window.addEventListener('resize', () => {
         document.documentElement.style.setProperty('--mobile-flow', '0px');
+      });
+    })();
+  </script>
+  <script>
+    /* Собственная форма заявки → Google Apps Script → Google Sheets */
+    (() => {
+      const GOOGLE_APPS_SCRIPT_URL = 'PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+      const form = document.getElementById('leadForm');
+      const status = document.getElementById('leadFormStatus');
+
+      if (!form || !status) return;
+
+      const setStatus = (message, type = '') => {
+        status.textContent = message;
+        status.className = 'lead-form-status full' + (type ? ' ' + type : '');
+      };
+
+      const normalizePhone = (value) => value.replace(/[^0-9+]/g, '').trim();
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (GOOGLE_APPS_SCRIPT_URL.includes('PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE')) {
+          setStatus('Форма почти готова: нужно вставить ссылку Google Apps Script Web App в код сайта.', 'error');
+          return;
+        }
+
+        const formData = new FormData(form);
+        const honeypot = String(formData.get('website') || '').trim();
+        if (honeypot) return;
+
+        const payload = {
+          name: String(formData.get('name') || '').trim(),
+          phone: normalizePhone(String(formData.get('phone') || '')),
+          email: String(formData.get('email') || '').trim(),
+          comment: String(formData.get('comment') || '').trim(),
+          consent: formData.get('consent') ? 'yes' : 'no',
+          page: window.location.href,
+          source: document.referrer || 'direct',
+          userAgent: navigator.userAgent,
+          createdAt: new Date().toISOString()
+        };
+
+        if (!payload.name || !payload.phone || !payload.comment || payload.consent !== 'yes') {
+          setStatus('Заполните имя, телефон, комментарий и подтвердите согласие.', 'error');
+          return;
+        }
+
+        if (payload.phone.replace(/[^0-9]/g, '').length < 10) {
+          setStatus('Проверьте номер телефона — он выглядит слишком коротким.', 'error');
+          return;
+        }
+
+        form.classList.add('is-loading');
+        setStatus('Отправляем заявку…');
+
+        try {
+          await fetch(GOOGLE_APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
+          });
+
+          form.reset();
+          setStatus('Заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
+        } catch (error) {
+          setStatus('Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.', 'error');
+        } finally {
+          form.classList.remove('is-loading');
+        }
       });
     })();
   </script>

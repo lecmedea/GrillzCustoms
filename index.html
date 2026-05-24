@@ -4164,7 +4164,7 @@
   <script>
     /* Собственная форма заявки → Google Apps Script → Google Sheets */
     (() => {
-      const GOOGLE_APPS_SCRIPT_URL = 'PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+      const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwq13gghfM7DnnltyU1v80VwU7RVE9-DnlTppEas_Zw4s1eh0ecr45dCNZA0ioXbyFu5g/exec';
       const form = document.getElementById('leadForm');
       const status = document.getElementById('leadFormStatus');
 
@@ -4180,7 +4180,7 @@
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        if (GOOGLE_APPS_SCRIPT_URL.includes('PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE')) {
+        if (GOOGLE_APPS_SCRIPT_URL.includes('https://script.google.com/macros/s/AKfycbwq13gghfM7DnnltyU1v80VwU7RVE9-DnlTppEas_Zw4s1eh0ecr45dCNZA0ioXbyFu5g/exec')) {
           setStatus('Форма почти готова: нужно вставить ссылку Google Apps Script Web App в код сайта.', 'error');
           return;
         }

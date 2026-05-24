@@ -2512,14 +2512,9 @@
       }
 
       .topbar {
-        position: relative !important;
-        top: auto !important;
-        z-index: 20;
+        position: sticky;
+        top: 0;
         background: rgba(5, 5, 5, 0.92);
-      }
-
-      .page {
-        overflow: visible;
       }
 
       .nav {
@@ -2613,531 +2608,74 @@
       }
     }
   
-    /* Mobile header fix: шапка больше не липнет и уходит вверх при скролле */
-    @media (max-width: 920px) {
-      .topbar {
-        position: relative !important;
-        top: auto !important;
-        z-index: 20;
-      }
 
-      .page {
-        overflow: visible;
-      }
-    }
-  
-    /* Mobile contacts block fix: центрируем последний CTA-блок */
-    @media (max-width: 920px) {
-      #contacts .cta {
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 28px 18px;
-        text-align: center;
-        justify-items: center;
-        overflow: hidden;
-      }
+    /* Final additions: custom form, FAQ, mobile optimization, contacts labels, legal note */
+    .custom-order-form label { display: grid; gap: 8px; }
+    .custom-order-form label span { color: var(--yellow); font-size: 12px; font-weight: 950; text-transform: uppercase; letter-spacing: 0.8px; }
+    .custom-order-form input, .custom-order-form textarea { width: 100%; border: 1px solid rgba(255, 208, 0, 0.24); border-radius: 18px; background: rgba(0,0,0,0.52); color: var(--white); padding: 15px 16px; font: inherit; outline: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+    .custom-order-form input:focus, .custom-order-form textarea:focus { border-color: rgba(255,208,0,.78); box-shadow: 0 0 0 3px rgba(255,208,0,.12), inset 0 0 0 1px rgba(255,208,0,.14); background: rgba(0,0,0,.68); }
+    .custom-order-form textarea { resize: vertical; min-height: 138px; }
+    .custom-order-form .full { grid-column: 1 / -1; }
+    .lead-honeypot { position:absolute!important; left:-9999px!important; width:1px!important; height:1px!important; opacity:0!important; pointer-events:none!important; }
+    .form-consent { display:flex!important; grid-template-columns:none!important; align-items:flex-start; gap:10px!important; color:rgba(245,245,245,.76); font-size:12px; line-height:1.45; }
+    .form-consent input { width:18px; min-width:18px; height:18px; margin-top:1px; accent-color:var(--yellow); padding:0; box-shadow:none; }
+    .form-consent span { color:rgba(245,245,245,.72)!important; font-size:12px!important; font-weight:600!important; text-transform:none!important; letter-spacing:0!important; }
+    .lead-form-status { min-height:22px; color:var(--yellow); font-size:14px; font-weight:800; }
+    .lead-form-status.error { color:#ff6b4a; }
+    .lead-form-status.success { color:#d7ff00; }
+    .custom-order-form.is-loading button[type="submit"] { pointer-events:none; opacity:.72; filter:saturate(.7); }
 
-      #contacts .cta > div {
-        width: 100%;
-        max-width: 100%;
-      }
+    .social-link { grid-template-rows: 1fr auto; gap: 6px; padding: 14px 10px 10px; text-align: center; }
+    .social-name { position: relative; z-index: 2; color: rgba(255,255,255,.82); font-size: 11px; line-height: 1; font-weight: 900; letter-spacing: .7px; text-transform: uppercase; }
+    .social-link:hover .social-name { color: var(--yellow); }
 
-      #contacts .cta h2,
-      #contacts .cta p {
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-      }
+    .legal-social-note { padding:18px 0 0; color:rgba(255,255,255,.96); font-size:12px; line-height:1.45; }
+    .legal-social-note p { max-width:980px; }
 
-      #contacts .contact-panel {
-        width: 100%;
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      #contacts .social-icons,
-      #contacts .phone-list {
-        width: 100%;
-      }
-
-      #contacts .cta::after {
-        left: 50%;
-        right: auto;
-        bottom: -18px;
-        transform: translateX(-50%) rotate(-6deg);
-        width: max-content;
-        max-width: 100%;
-        font-size: 42px;
-        text-align: center;
-      }
-    }
-  
-    /* FAQ accordion */
-    .faq-section {
-      padding-bottom: 96px;
-    }
-
-    .faq-head {
-      align-items: center;
-    }
-
-    .faq-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .faq-item {
-      border-radius: 24px;
-      border: 1px solid rgba(255, 208, 0, 0.20);
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.48));
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(10px);
-      overflow: hidden;
-    }
-
-    .faq-item summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 22px 58px 22px 24px;
-      position: relative;
-      color: var(--white);
-      font-size: 18px;
-      font-weight: 950;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-
-    .faq-item summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .faq-item summary::after {
-      content: "+";
-      position: absolute;
-      right: 22px;
-      top: 50%;
-      width: 30px;
-      height: 30px;
-      transform: translateY(-50%);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: rgba(255, 208, 0, 0.12);
-      border: 1px solid rgba(255, 208, 0, 0.28);
-      color: var(--yellow);
-      font-size: 23px;
-      line-height: 1;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .faq-item[open] summary::after {
-      content: "−";
-      background: rgba(255, 208, 0, 0.20);
-    }
-
-    .faq-answer {
-      padding: 0 24px 24px;
-      color: var(--muted);
-      font-size: 17px;
-      border-top: 1px solid rgba(255, 208, 0, 0.10);
-    }
-
-    .faq-answer p {
-      margin-top: 14px;
-    }
-
-    .faq-item:hover {
-      border-color: rgba(255, 208, 0, 0.44);
-      box-shadow: 0 22px 72px rgba(255, 208, 0, 0.08), 0 18px 60px rgba(0, 0, 0, 0.28);
-    }
-
-    .faq-featured {
-      border-color: rgba(255, 208, 0, 0.58);
-      background:
-        radial-gradient(circle at 12% 18%, rgba(255, 208, 0, 0.20), transparent 34%),
-        linear-gradient(135deg, rgba(34, 25, 0, 0.92), rgba(0, 0, 0, 0.64));
-      box-shadow:
-        0 0 0 1px rgba(255, 208, 0, 0.14),
-        0 24px 86px rgba(255, 208, 0, 0.10),
-        0 18px 60px rgba(0, 0, 0, 0.34);
-    }
-
-    .faq-featured summary {
-      color: var(--yellow);
-      text-shadow: 0 0 24px rgba(255, 208, 0, 0.18);
-    }
-
-    .faq-featured summary::after {
-      background: var(--yellow);
-      color: #050505;
-      border-color: rgba(255, 208, 0, 0.80);
-      box-shadow: 0 0 24px rgba(255, 208, 0, 0.22);
-    }
-
-    .faq-answer h3 {
-      margin-top: 24px;
-      color: var(--yellow);
-      font-size: 18px;
-      line-height: 1.15;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-
-    .faq-answer strong {
-      color: var(--white);
-      font-weight: 950;
-    }
-
-    /* Mobile lightweight mode */
-    @media (max-width: 920px) {
-      html,
-      body {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden !important;
-        overscroll-behavior-x: none;
-      }
-
-      body {
-        background:
-          radial-gradient(circle at 50% 0%, rgba(255, 208, 0, 0.10), transparent 260px),
-          linear-gradient(180deg, #060606 0%, #0b0b0b 46%, #050505 100%) !important;
-      }
-
-      body::before,
-      .moving-background,
-      .magazine-scroll-indicator,
-      .hero-gif-card,
-      .casino-rays,
-      .casino-bulbs,
-      .pixel-cursor,
-      .grillz-orbit-scene,
-      .scene-glow,
-      .energy-core,
-      .orbit-ring,
-      .flying-grill,
-      .particle {
-        display: none !important;
-      }
-
-      .page,
-      .container,
-      section,
-      header,
-      footer,
-      main,
-      .hero,
-      .hero-grid,
-      .order-section,
-      .gift-grid,
-      .cta,
-      .footer-grid,
-      .section-head,
-      .cards,
-      .services,
-      .process,
-      .portfolio,
-      .split,
-      .faq-section,
-      .faq-list,
-      .faq-item,
-      .contact-panel,
-      .order-form,
-      .order-copy {
-        max-width: 100% !important;
-        overflow-x: hidden !important;
-      }
-
-      * {
-        animation: none !important;
-        transition-property: background, color, border-color, box-shadow, opacity !important;
-      }
-
-      body.is-scrolling .topbar,
-      body.is-scrolling .hero-grid > div,
-      body.is-scrolling .order-section,
-      body.is-scrolling .section-head,
-      body.is-scrolling .card,
-      body.is-scrolling .service,
-      body.is-scrolling .gift-grid,
-      body.is-scrolling .gift-content,
-      body.is-scrolling .gift-photo-wrap,
-      body.is-scrolling .step,
-      body.is-scrolling .shot,
-      body.is-scrolling .clinic-box,
-      body.is-scrolling .bullet,
-      body.is-scrolling .cta,
-      body.is-scrolling .contact-panel,
-      body.is-scrolling .social-link,
-      body.is-scrolling .footer-grid,
-      body.is-scrolling .faq-item {
-        transform: none !important;
-        animation: none !important;
-      }
-
-      .topbar {
-        position: relative !important;
-        top: auto !important;
-      }
-
-      .nav {
-        width: 100% !important;
-      }
-
-      .nav-links {
-        display: grid !important;
-        grid-template-columns: 1fr;
-        gap: 8px;
-        width: 100%;
-      }
-
-      .hero {
-        min-height: auto;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1fr !important;
-      }
-
-      .hero-grid > div:first-child,
-      .order-section,
-      .section-head,
-      .card,
-      .service,
-      .gift-grid,
-      .gift-content,
-      .step,
-      .shot,
-      .clinic-box,
-      .bullet,
-      .cta,
-      .contact-panel,
-      .footer-grid,
-      .faq-item {
-        transform: none !important;
-      }
-
-      .faq-section {
-        padding-top: 56px;
-        padding-bottom: 64px;
-      }
-
-      .faq-item summary {
-        padding: 18px 52px 18px 18px;
-        font-size: 15px;
-        line-height: 1.25;
-      }
-
-      .faq-answer {
-        padding: 0 18px 20px;
-        font-size: 15px;
-      }
-    }
-  
-    /* Mobile spacing fix: сокращаем только широкие интервалы между секциями, FAQ не трогаем */
-    @media (max-width: 920px) {
-      main > section:not(#faq) {
-        padding-top: 41px !important;
-        padding-bottom: 41px !important;
-      }
-
-      main > section.hero {
-        padding-top: 36px !important;
-        padding-bottom: 36px !important;
-      }
-    }
-  
-    /* Mobile-only about title fix: слово «Индивидуальность» не вылезает за рамки только на мобильной версии */
-    @media (max-width: 920px) {
-      #about .section-head {
-        padding-left: 18px !important;
-        padding-right: 18px !important;
-      }
-
-      #about .section-head h2 {
-        max-width: 100%;
-        overflow-wrap: normal;
-        word-break: normal;
-        font-size: clamp(28px, 8.4vw, 42px) !important;
-        line-height: 1.02 !important;
-        letter-spacing: -1.2px !important;
-      }
-    }
-
-    @media (max-width: 420px) {
-      #about .section-head h2 {
-        font-size: clamp(25px, 7.8vw, 34px) !important;
-        letter-spacing: -0.7px !important;
-      }
-    }
-  
-    /* Legal social note */
-    .legal-social-note {
-      padding: 18px 0 0;
-      color: rgba(255, 255, 255, 0.96);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .legal-social-note p {
-      max-width: 980px;
-    }
+    .faq-section { padding-bottom: 96px; }
+    .faq-head { align-items: center; }
+    .faq-list { display: grid; gap: 12px; }
+    .faq-item { border-radius:24px; border:1px solid rgba(255,208,0,.20); background:linear-gradient(135deg, rgba(0,0,0,.78), rgba(0,0,0,.48)); box-shadow:0 18px 60px rgba(0,0,0,.28); backdrop-filter:blur(10px); overflow:hidden; }
+    .faq-item summary { list-style:none; cursor:pointer; padding:22px 58px 22px 24px; position:relative; color:var(--white); font-size:18px; font-weight:950; text-transform:uppercase; letter-spacing:.4px; }
+    .faq-item summary::-webkit-details-marker { display:none; }
+    .faq-item summary::after { content:"+"; position:absolute; right:22px; top:50%; width:30px; height:30px; transform:translateY(-50%); border-radius:50%; display:grid; place-items:center; background:rgba(255,208,0,.12); border:1px solid rgba(255,208,0,.28); color:var(--yellow); font-size:23px; line-height:1; transition:transform .2s ease, background .2s ease; }
+    .faq-item[open] summary::after { content:"−"; background:rgba(255,208,0,.20); }
+    .faq-answer { padding:0 24px 24px; color:var(--muted); font-size:17px; border-top:1px solid rgba(255,208,0,.10); }
+    .faq-answer p { margin-top:14px; }
+    .faq-item:hover { border-color:rgba(255,208,0,.44); box-shadow:0 22px 72px rgba(255,208,0,.08), 0 18px 60px rgba(0,0,0,.28); }
+    .faq-featured { border-color:rgba(255,208,0,.58); background:radial-gradient(circle at 12% 18%, rgba(255,208,0,.20), transparent 34%), linear-gradient(135deg, rgba(34,25,0,.92), rgba(0,0,0,.64)); box-shadow:0 0 0 1px rgba(255,208,0,.14), 0 24px 86px rgba(255,208,0,.10), 0 18px 60px rgba(0,0,0,.34); }
+    .faq-featured summary { color:var(--yellow); text-shadow:0 0 24px rgba(255,208,0,.18); }
+    .faq-featured summary::after { background:var(--yellow); color:#050505; border-color:rgba(255,208,0,.80); box-shadow:0 0 24px rgba(255,208,0,.22); }
+    .faq-answer h3 { margin-top:24px; color:var(--yellow); font-size:18px; line-height:1.15; text-transform:uppercase; letter-spacing:.3px; }
+    .faq-answer strong { color:var(--white); font-weight:950; }
 
     @media (max-width: 920px) {
-      .legal-social-note {
-        padding: 12px 0 0;
-        color: rgba(183, 183, 183, 0.62);
-        font-size: 11px;
-        text-align: left;
-      }
-    }
-  
-    /* Social labels under contact buttons */
-    .social-link {
-      grid-template-rows: 1fr auto;
-      gap: 6px;
-      padding: 14px 10px 10px;
-      text-align: center;
-    }
-
-    .social-name {
-      position: relative;
-      z-index: 2;
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 11px;
-      line-height: 1;
-      font-weight: 900;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
+      html, body { width:100%; max-width:100%; overflow-x:hidden!important; overscroll-behavior-x:none; }
+      body { background: radial-gradient(circle at 50% 0%, rgba(255,208,0,.10), transparent 260px), linear-gradient(180deg,#060606 0%,#0b0b0b 46%,#050505 100%) !important; }
+      body::before, .moving-background, .magazine-scroll-indicator, .hero-gif-card, .casino-rays, .casino-bulbs, .pixel-cursor, .grillz-orbit-scene, .scene-glow, .energy-core, .orbit-ring, .flying-grill, .particle { display:none!important; }
+      .page, .container, section, header, footer, main, .hero, .hero-grid, .order-section, .gift-grid, .cta, .footer-grid, .section-head, .cards, .services, .process, .portfolio, .split, .faq-section, .faq-list, .faq-item, .contact-panel, .order-form, .order-copy { max-width:100%!important; overflow-x:hidden!important; }
+      * { animation:none!important; transition-property:background, color, border-color, box-shadow, opacity!important; }
+      body.is-scrolling .topbar, body.is-scrolling .hero-grid > div, body.is-scrolling .order-section, body.is-scrolling .section-head, body.is-scrolling .card, body.is-scrolling .service, body.is-scrolling .gift-grid, body.is-scrolling .gift-content, body.is-scrolling .gift-photo-wrap, body.is-scrolling .step, body.is-scrolling .shot, body.is-scrolling .clinic-box, body.is-scrolling .bullet, body.is-scrolling .cta, body.is-scrolling .contact-panel, body.is-scrolling .social-link, body.is-scrolling .footer-grid, body.is-scrolling .faq-item { transform:none!important; animation:none!important; }
+      .topbar { position:relative!important; top:auto!important; }
+      .nav { width:100%!important; display:grid; grid-template-columns:1fr; gap:14px; padding:14px 0 16px; }
+      .brand { justify-content:center; }
+      .nav-links { display:grid!important; grid-template-columns:1fr; gap:8px; width:100%; }
+      .nav-links a { display:flex; align-items:center; justify-content:center; min-height:42px; border-radius:999px; border:1px solid rgba(255,208,0,.18); background:rgba(0,0,0,.42); color:var(--yellow); font-size:12px; font-weight:900; letter-spacing:1px; box-shadow:0 10px 28px rgba(0,0,0,.20); }
+      main > section:not(#faq) { padding-top:41px!important; padding-bottom:41px!important; }
+      main > section.hero { padding-top:36px!important; padding-bottom:36px!important; }
+      #about .section-head { padding-left:18px!important; padding-right:18px!important; }
+      #about .section-head h2 { max-width:100%; overflow-wrap:normal; word-break:normal; font-size:clamp(28px, 8.4vw, 42px)!important; line-height:1.02!important; letter-spacing:-1.2px!important; }
+      .custom-order-form { grid-template-columns:1fr!important; gap:13px!important; }
+      .custom-order-form input, .custom-order-form textarea { border-radius:16px; padding:14px 15px; }
+      .social-name { font-size:10px; color:rgba(255,255,255,.78); }
+      .legal-social-note { padding:12px 0 0; color:rgba(183,183,183,.62); font-size:11px; text-align:left; }
+      .faq-section { padding-top:56px; padding-bottom:64px; }
+      .faq-item summary { padding:18px 52px 18px 18px; font-size:15px; line-height:1.25; }
+      .faq-answer { padding:0 18px 20px; font-size:15px; }
     }
 
-    .social-link:hover .social-name {
-      color: var(--yellow);
-    }
+    @media (max-width: 420px) { #about .section-head h2 { font-size:clamp(25px, 7.8vw, 34px)!important; letter-spacing:-.7px!important; } }
 
-    @media (max-width: 920px) {
-      .social-name {
-        font-size: 10px;
-        color: rgba(255, 255, 255, 0.78);
-      }
-    }
-  
-    /* Custom order form: замена Tally на собственную форму */
-    .custom-order-form label {
-      display: grid;
-      gap: 8px;
-    }
-
-    .custom-order-form label span {
-      color: var(--yellow);
-      font-size: 12px;
-      font-weight: 950;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-    }
-
-    .custom-order-form input,
-    .custom-order-form textarea {
-      width: 100%;
-      border: 1px solid rgba(255, 208, 0, 0.24);
-      border-radius: 18px;
-      background: rgba(0, 0, 0, 0.52);
-      color: var(--white);
-      padding: 15px 16px;
-      font: inherit;
-      outline: none;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .custom-order-form input:focus,
-    .custom-order-form textarea:focus {
-      border-color: rgba(255, 208, 0, 0.78);
-      box-shadow: 0 0 0 3px rgba(255, 208, 0, 0.12), inset 0 0 0 1px rgba(255, 208, 0, 0.14);
-      background: rgba(0, 0, 0, 0.68);
-    }
-
-    .custom-order-form textarea {
-      resize: vertical;
-      min-height: 138px;
-    }
-
-    .custom-order-form .full {
-      grid-column: 1 / -1;
-    }
-
-    .lead-honeypot {
-      position: absolute !important;
-      left: -9999px !important;
-      width: 1px !important;
-      height: 1px !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-    }
-
-    .form-consent {
-      display: flex !important;
-      grid-template-columns: none !important;
-      align-items: flex-start;
-      gap: 10px !important;
-      color: rgba(245, 245, 245, 0.76);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .form-consent input {
-      width: 18px;
-      min-width: 18px;
-      height: 18px;
-      margin-top: 1px;
-      accent-color: var(--yellow);
-      padding: 0;
-      box-shadow: none;
-    }
-
-    .form-consent span {
-      color: rgba(245, 245, 245, 0.72) !important;
-      font-size: 12px !important;
-      font-weight: 600 !important;
-      text-transform: none !important;
-      letter-spacing: 0 !important;
-    }
-
-    .lead-form-status {
-      min-height: 22px;
-      color: var(--yellow);
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .lead-form-status.error {
-      color: #ff6b4a;
-    }
-
-    .lead-form-status.success {
-      color: #d7ff00;
-    }
-
-    .custom-order-form.is-loading button[type="submit"] {
-      pointer-events: none;
-      opacity: 0.72;
-      filter: saturate(0.7);
-    }
-
-    @media (max-width: 920px) {
-      .custom-order-form {
-        grid-template-columns: 1fr !important;
-        gap: 13px !important;
-      }
-
-      .custom-order-form input,
-      .custom-order-form textarea {
-        border-radius: 16px;
-        padding: 14px 15px;
-      }
-    }
   </style>
 </head>
 
@@ -3529,13 +3067,16 @@
             </div>
             <div class="contact-panel">
               <div class="social-icons" aria-label="Социальные сети Grillz Customs">
-                $1
+                <a class="social-link" href="https://t.me/grillz_customs_moscow" target="_blank" rel="noopener" aria-label="Telegram Grillz Customs">
+                  <img src="assets/logo tg.png" alt="Telegram Grillz Customs">
                   <span class="social-name">Telegram</span>
                 </a>
-                $1
+                <a class="social-link" href="https://www.instagram.com/grillz_customs_moscow/" target="_blank" rel="noopener" aria-label="Instagram* Grillz Customs">
+                  <img src="assets/logo instagram.png" alt="Instagram* Grillz Customs">
                   <span class="social-name">Instagram*</span>
                 </a>
-                $1
+                <a class="social-link" href="https://vk.com/grillz_customs" target="_blank" rel="noopener" aria-label="VK Grillz Customs">
+                  <img src="assets/logo vk.png" alt="VK Grillz Customs">
                   <span class="social-name">VK</span>
                 </a>
               </div>
@@ -3550,7 +3091,7 @@
           </div>
         </div>
       </section>
-          <section id="faq" class="faq-section">
+      <section id="faq" class="faq-section">
         <div class="container">
           <div class="section-head faq-head">
             <h2>F.A.Q. <span>частые вопросы</span></h2>
@@ -3595,140 +3136,22 @@
                 <p>Если вы ищете <strong>гриллзы на заказ</strong>, <strong>грилз в Москве</strong>, <strong>золотые зубы</strong>, <strong>фиксы</strong>, <strong>украшения на зубы</strong> или просто хотите понять, какой вариант подойдёт именно вам, лучше начать с консультации. Мы поможем выбрать материал, дизайн, количество зубов, объясним, как сделать слепки, и подскажем, какой формат будет безопаснее и удобнее именно для вашей анатомии.</p>
               </div>
             </details>
-            <details class="faq-item">
-              <summary>Что нужно для изготовления гриллз?</summary>
-              <div class="faq-answer">
-                <p>Для изготовления индивидуальных гриллз нам нужна точная модель ваших зубов. Её можно получить двумя способами: сделать цифровой 3D-скан челюсти или снять классический силиконовый оттиск.</p>
-                <p>По этой модели мы оцениваем форму зубов, особенности прикуса, линию улыбки и будущую посадку изделия. Чем точнее слепок или скан, тем комфортнее будут сидеть кастомные гриллзы.</p>
-                <p>После заявки мы подскажем, какой способ подойдёт именно вам, где можно сделать слепок и как правильно подготовить данные для работы.</p>
-              </div>
-            </details>
 
-            <details class="faq-item">
-              <summary>Как сделать слепок зубов для гриллз?</summary>
-              <div class="faq-answer">
-                <p>Есть два варианта: приехать к нам или договориться о снятии слепка с нашей помощью, либо сделать слепок или цифровой скан в стоматологической клинике и передать его нам.</p>
-                <p>Важно, чтобы оттиск был точным: без смазов, пузырей, деформаций и недоснятых участков. От качества слепка напрямую зависит фиксация, комфорт и посадка гриллз.</p>
-                <p>Если слепок сделан плохо, изделие может давить, спадать или сидеть недостаточно плотно. Поэтому мы всегда проверяем качество модели перед запуском работы.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Портятся ли зубы от гриллз?</summary>
-              <div class="faq-answer">
-                <p>При правильном изготовлении, точной посадке и нормальной гигиене гриллзы не должны портить зубы. Важно понимать, что гриллзы — это индивидуальное ювелирное изделие, которое надевается на зубы, поэтому оно должно быть изготовлено с учётом анатомии, формы зубного ряда и особенностей прикуса.</p>
-                <p>Риски обычно появляются не из-за самого факта ношения гриллз, а из-за плохой посадки, некачественного слепка, неправильного ухода или постоянного ношения без перерывов.</p>
-                <p>Мы уделяем внимание посадке, фиксации и комфорту, чтобы изделие не создавало лишнего давления на зубы и десну.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Вредны ли гриллзы для эмали?</summary>
-              <div class="faq-answer">
-                <p>Гриллзы с правильно подобранной посадкой и внутренним защитным слоем не должны травмировать эмаль при аккуратном использовании. Особенно важно, чтобы металл не давил на зубы и не натирал эмаль при снятии и надевании.</p>
-                <p>Если изделие выполнено без внутренней изоляции, многое зависит от материала, качества полировки, плотности контакта и режима ношения. Золото, платина и стоматологические сплавы считаются более стабильными материалами, но даже в этом случае важны точная посадка и гигиена.</p>
-                <p>Мы рекомендуем не носить гриллзы постоянно, снимать их перед едой и регулярно очищать изделие после использования.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Обязательно ли добавлять силикон в гриллзы?</summary>
-              <div class="faq-answer">
-                <p>Не всегда. Решение зависит от конструкции, материала, формы зубов и индивидуальных особенностей клиента.</p>
-                <p>Силиконовый внутренний слой может сделать ношение более комфортным: он работает как мягкая прослойка между металлом и зубом, помогает уменьшить ощущение давления и улучшить фиксацию.</p>
-                <p>В некоторых случаях гриллзы могут фиксироваться и без силикона — за счёт точной посадки и плотного контакта с зубами. Мы подбираем вариант индивидуально, исходя из вашей анатомии, желаемого дизайна и технической задачи.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Как ухаживать за гриллзами?</summary>
-              <div class="faq-answer">
-                <p>После каждого использования гриллзы нужно снять, промыть под проточной водой и аккуратно очистить. Можно использовать средство для полоскания полости рта без спирта.</p>
-                <p>После промывания изделие нужно высушить мягкой тканью. Для полировки подойдут специальные салфетки для ювелирных изделий или очень мягкая ткань, которая не царапает поверхность.</p>
-                <p>Не стоит чистить гриллзы абразивными пастами, жёсткими щётками и агрессивной химией. Это может повредить полировку, эмаль, покрытие, инкрустации или декоративные элементы.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Что такое КХС?</summary>
-              <div class="faq-answer">
-                <p>КХС — это кобальто-хромовый стоматологический сплав. Такие сплавы давно применяются в зуботехнической практике благодаря прочности, стабильности формы и устойчивости к нагрузкам.</p>
-                <p>В контексте гриллз КХС может использоваться как более доступная альтернатива драгоценным металлам. Он отличается высокой жёсткостью и износостойкостью, но выбор материала всегда зависит от задачи, дизайна, бюджета и пожеланий клиента.</p>
-                <p>Если вы хотите золотые гриллзы, серебряные гриллзы или изделие из другого материала, мы отдельно обсуждаем это перед началом работы.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Как крепятся гриллзы?</summary>
-              <div class="faq-answer">
-                <p>Гриллзы держатся за счёт индивидуальной посадки на зубы. Есть два основных принципа фиксации: плотный контакт изделия с зубами или внутренний силиконовый слой, который создаёт эффект мягкой фиксации и более комфортного прилегания.</p>
-                <p>Мы не приклеиваем гриллзы к зубам на постоянной основе. Это съёмное украшение, которое можно надевать и снимать.</p>
-                <p>Именно поэтому точность слепка и примерка имеют большое значение.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Можно ли носить гриллзы поверх брекетов?</summary>
-              <div class="faq-answer">
-                <p>Мы не рекомендуем делать гриллзы поверх брекет-системы. Брекеты меняют положение зубов, а гриллзы изготавливаются под конкретную форму зубного ряда в определённый момент времени.</p>
-                <p>Когда зубы двигаются, посадка изделия быстро меняется: гриллзы могут начать давить, спадать или мешать работе ортодонтической системы.</p>
-                <p>Лучше дождаться завершения ортодонтического лечения, снять брекеты и уже после этого делать слепок или 3D-скан для индивидуальных гриллз.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Можно ли заказать гриллзы дистанционно?</summary>
-              <div class="faq-answer">
-                <p>Да, дистанционный заказ возможен. Для этого нужно сделать качественный слепок или цифровой скан зубов и передать его нам.</p>
-                <p>Но важно понимать: при дистанционном заказе выше риск неточностей. Если слепок снят плохо, гриллзы могут сидеть недостаточно плотно, давить или требовать корректировки.</p>
-                <p>Идеальный вариант — когда есть возможность сделать примерку. Она помогает проверить посадку до финальной полировки, инкрустации, эмали или других декоративных этапов.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Можно ли использовать свой металл?</summary>
-              <div class="faq-answer">
-                <p>В некоторых случаях — да, это обсуждается индивидуально. Мы должны понимать, какой именно металл вы хотите использовать, подходит ли он для обработки, безопасен ли он для контакта с полостью рта и можно ли из него технически изготовить изделие.</p>
-                <p>Не каждый металл подходит для гриллз. Важны состав, проба, чистота материала, стабильность, возможность плавки, обработки, полировки и дальнейшей эксплуатации.</p>
-                <p>Если вы хотите использовать свой металл, сообщите нам об этом заранее — мы оценим возможность работы и предложим безопасный вариант.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Что такое примерка гриллз и зачем она нужна?</summary>
-              <div class="faq-answer">
-                <p>Примерка — это важный промежуточный этап перед финальной обработкой изделия. На примерке проверяется посадка, фиксация, комфорт и давление на зубы.</p>
-                <p>До финальной полировки, покрытия, эмали, родирования или инкрустации мастер может внести корректировки. Это помогает избежать ситуации, когда готовое изделие красиво выглядит, но сидит не так, как нужно.</p>
-                <p>В редких случаях после примерки может понадобиться повторный слепок или дополнительная корректировка модели. Это нормальная часть индивидуальной работы.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Можно ли есть в гриллзах?</summary>
-              <div class="faq-answer">
-                <p>Нет, мы не рекомендуем есть в гриллзах. Гриллзы — это не зубной протез и не жевательная конструкция, а ювелирное украшение для зубов.</p>
-                <p>Изделие имеет толщину, из-за которой может нарушаться нормальное смыкание зубов. Во время еды пища может попадать под гриллзы, забиваться в инкрустации, царапать поверхность, портить покрытие или создавать риск для эмали.</p>
-                <p>Также во время жевания гриллзы могут соскочить, повредить зубы или случайно быть проглочены. Перед едой изделие лучше снимать.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Можно ли заниматься спортом или драться в гриллзах?</summary>
-              <div class="faq-answer">
-                <p>Нет. Гриллзы нельзя использовать как спортивную каппу. Это жёсткое декоративное изделие, а не защитная конструкция для единоборств или контактного спорта.</p>
-                <p>При ударе гриллзы могут передать нагрузку на зубы и челюсть, травмировать эмаль, слизистую, дёсны или сами зубы. Для спорта нужна специальная спортивная каппа, изготовленная под защитные задачи.</p>
-                <p>Если вам нужна каппа для тренировок, бокса, MMA или другого контактного спорта, лучше заказывать отдельную спортивную каппу, а не использовать гриллзы.</p>
-              </div>
-            </details>
-
-            <details class="faq-item">
-              <summary>Как оформить заказ на гриллзы?</summary>
-              <div class="faq-answer">
-                <p>Оставьте заявку на сайте и укажите имя, телефон, почту и короткое описание идеи. Можно написать, какие гриллзы вы хотите: золотые, серебряные, с эмалью, камнями, на один зуб, на несколько зубов или на весь ряд.</p>
-                <p>После заявки мы свяжемся с вами, уточним задачу, расскажем про слепки или 3D-скан, обсудим материал, дизайн, сроки и дальнейшие этапы изготовления.</p>
-                <p>Чем подробнее вы опишете идею, тем точнее мы сможем предложить решение.</p>
-              </div>
-            </details>
+            <details class="faq-item"><summary>Что нужно для изготовления гриллз?</summary><div class="faq-answer"><p>Для изготовления индивидуальных гриллз нам нужна точная модель ваших зубов. Её можно получить двумя способами: сделать цифровой 3D-скан челюсти или снять классический силиконовый оттиск.</p><p>По этой модели мы оцениваем форму зубов, особенности прикуса, линию улыбки и будущую посадку изделия. Чем точнее слепок или скан, тем комфортнее будут сидеть кастомные гриллзы.</p><p>После заявки мы подскажем, какой способ подойдёт именно вам, где можно сделать слепок и как правильно подготовить данные для работы.</p></div></details>
+            <details class="faq-item"><summary>Как сделать слепок зубов для гриллз?</summary><div class="faq-answer"><p>Есть два варианта: приехать к нам или договориться о снятии слепка с нашей помощью, либо сделать слепок или цифровой скан в стоматологической клинике и передать его нам.</p><p>Важно, чтобы оттиск был точным: без смазов, пузырей, деформаций и недоснятых участков. От качества слепка напрямую зависит фиксация, комфорт и посадка гриллз.</p><p>Если слепок сделан плохо, изделие может давить, спадать или сидеть недостаточно плотно. Поэтому мы всегда проверяем качество модели перед запуском работы.</p></div></details>
+            <details class="faq-item"><summary>Портятся ли зубы от гриллз?</summary><div class="faq-answer"><p>При правильном изготовлении, точной посадке и нормальной гигиене гриллзы не должны портить зубы. Важно понимать, что гриллзы — это индивидуальное ювелирное изделие, которое надевается на зубы, поэтому оно должно быть изготовлено с учётом анатомии, формы зубного ряда и особенностей прикуса.</p><p>Риски обычно появляются не из-за самого факта ношения гриллз, а из-за плохой посадки, некачественного слепка, неправильного ухода или постоянного ношения без перерывов.</p><p>Мы уделяем внимание посадке, фиксации и комфорту, чтобы изделие не создавало лишнего давления на зубы и десну.</p></div></details>
+            <details class="faq-item"><summary>Вредны ли гриллзы для эмали?</summary><div class="faq-answer"><p>Гриллзы с правильно подобранной посадкой и внутренним защитным слоем не должны травмировать эмаль при аккуратном использовании. Особенно важно, чтобы металл не давил на зубы и не натирал эмаль при снятии и надевании.</p><p>Если изделие выполнено без внутренней изоляции, многое зависит от материала, качества полировки, плотности контакта и режима ношения. Золото, платина и стоматологические сплавы считаются более стабильными материалами, но даже в этом случае важны точная посадка и гигиена.</p><p>Мы рекомендуем не носить гриллзы постоянно, снимать их перед едой и регулярно очищать изделие после использования.</p></div></details>
+            <details class="faq-item"><summary>Обязательно ли добавлять силикон в гриллзы?</summary><div class="faq-answer"><p>Не всегда. Решение зависит от конструкции, материала, формы зубов и индивидуальных особенностей клиента.</p><p>Силиконовый внутренний слой может сделать ношение более комфортным: он работает как мягкая прослойка между металлом и зубом, помогает уменьшить ощущение давления и улучшить фиксацию.</p><p>В некоторых случаях гриллзы могут фиксироваться и без силикона — за счёт точной посадки и плотного контакта с зубами. Мы подбираем вариант индивидуально, исходя из вашей анатомии, желаемого дизайна и технической задачи.</p></div></details>
+            <details class="faq-item"><summary>Как ухаживать за гриллзами?</summary><div class="faq-answer"><p>После каждого использования гриллзы нужно снять, промыть под проточной водой и аккуратно очистить. Можно использовать средство для полоскания полости рта без спирта.</p><p>После промывания изделие нужно высушить мягкой тканью. Для полировки подойдут специальные салфетки для ювелирных изделий или очень мягкая ткань, которая не царапает поверхность.</p><p>Не стоит чистить гриллзы абразивными пастами, жёсткими щётками и агрессивной химией. Это может повредить полировку, эмаль, покрытие, инкрустации или декоративные элементы.</p></div></details>
+            <details class="faq-item"><summary>Что такое КХС?</summary><div class="faq-answer"><p>КХС — это кобальто-хромовый стоматологический сплав. Такие сплавы давно применяются в зуботехнической практике благодаря прочности, стабильности формы и устойчивости к нагрузкам.</p><p>В контексте гриллз КХС может использоваться как более доступная альтернатива драгоценным металлам. Он отличается высокой жёсткостью и износостойкостью, но выбор материала всегда зависит от задачи, дизайна, бюджета и пожеланий клиента.</p><p>Если вы хотите золотые гриллзы, серебряные гриллзы или изделие из другого материала, мы отдельно обсуждаем это перед началом работы.</p></div></details>
+            <details class="faq-item"><summary>Как крепятся гриллзы?</summary><div class="faq-answer"><p>Гриллзы держатся за счёт индивидуальной посадки на зубы. Есть два основных принципа фиксации: плотный контакт изделия с зубами или внутренний силиконовый слой, который создаёт эффект мягкой фиксации и более комфортного прилегания.</p><p>Мы не приклеиваем гриллзы к зубам на постоянной основе. Это съёмное украшение, которое можно надевать и снимать.</p><p>Именно поэтому точность слепка и примерка имеют большое значение.</p></div></details>
+            <details class="faq-item"><summary>Можно ли носить гриллзы поверх брекетов?</summary><div class="faq-answer"><p>Мы не рекомендуем делать гриллзы поверх брекет-системы. Брекеты меняют положение зубов, а гриллзы изготавливаются под конкретную форму зубного ряда в определённый момент времени.</p><p>Когда зубы двигаются, посадка изделия быстро меняется: гриллзы могут начать давить, спадать или мешать работе ортодонтической системы.</p><p>Лучше дождаться завершения ортодонтического лечения, снять брекеты и уже после этого делать слепок или 3D-скан для индивидуальных гриллз.</p></div></details>
+            <details class="faq-item"><summary>Можно ли заказать гриллзы дистанционно?</summary><div class="faq-answer"><p>Да, дистанционный заказ возможен. Для этого нужно сделать качественный слепок или цифровой скан зубов и передать его нам.</p><p>Но важно понимать: при дистанционном заказе выше риск неточностей. Если слепок снят плохо, гриллзы могут сидеть недостаточно плотно, давить или требовать корректировки.</p><p>Идеальный вариант — когда есть возможность сделать примерку. Она помогает проверить посадку до финальной полировки, инкрустации, эмали или других декоративных этапов.</p></div></details>
+            <details class="faq-item"><summary>Можно ли использовать свой металл?</summary><div class="faq-answer"><p>В некоторых случаях — да, это обсуждается индивидуально. Мы должны понимать, какой именно металл вы хотите использовать, подходит ли он для обработки, безопасен ли он для контакта с полостью рта и можно ли из него технически изготовить изделие.</p><p>Не каждый металл подходит для гриллз. Важны состав, проба, чистота материала, стабильность, возможность плавки, обработки, полировки и дальнейшей эксплуатации.</p><p>Если вы хотите использовать свой металл, сообщите нам об этом заранее — мы оценим возможность работы и предложим безопасный вариант.</p></div></details>
+            <details class="faq-item"><summary>Что такое примерка гриллз и зачем она нужна?</summary><div class="faq-answer"><p>Примерка — это важный промежуточный этап перед финальной обработкой изделия. На примерке проверяется посадка, фиксация, комфорт и давление на зубы.</p><p>До финальной полировки, покрытия, эмали, родирования или инкрустации мастер может внести корректировки. Это помогает избежать ситуации, когда готовое изделие красиво выглядит, но сидит не так, как нужно.</p><p>В редких случаях после примерки может понадобиться повторный слепок или дополнительная корректировка модели. Это нормальная часть индивидуальной работы.</p></div></details>
+            <details class="faq-item"><summary>Можно ли есть в гриллзах?</summary><div class="faq-answer"><p>Нет, мы не рекомендуем есть в гриллзах. Гриллзы — это не зубной протез и не жевательная конструкция, а ювелирное украшение для зубов.</p><p>Изделие имеет толщину, из-за которой может нарушаться нормальное смыкание зубов. Во время еды пища может попадать под гриллзы, забиваться в инкрустации, царапать поверхность, портить покрытие или создавать риск для эмали.</p><p>Также во время жевания гриллзы могут соскочить, повредить зубы или случайно быть проглочены. Перед едой изделие лучше снимать.</p></div></details>
+            <details class="faq-item"><summary>Можно ли заниматься спортом или драться в гриллзах?</summary><div class="faq-answer"><p>Нет. Гриллзы нельзя использовать как спортивную каппу. Это жёсткое декоративное изделие, а не защитная конструкция для единоборств или контактного спорта.</p><p>При ударе гриллзы могут передать нагрузку на зубы и челюсть, травмировать эмаль, слизистую, дёсны или сами зубы. Для спорта нужна специальная спортивная каппа, изготовленная под защитные задачи.</p><p>Если вам нужна каппа для тренировок, бокса, MMA или другого контактного спорта, лучше заказывать отдельную спортивную каппу, а не использовать гриллзы.</p></div></details>
+            <details class="faq-item"><summary>Как оформить заказ на гриллзы?</summary><div class="faq-answer"><p>Оставьте заявку на сайте и укажите имя, телефон, почту и короткое описание идеи. Можно написать, какие гриллзы вы хотите: золотые, серебряные, с эмалью, камнями, на один зуб, на несколько зубов или на весь ряд.</p><p>После заявки мы свяжемся с вами, уточним задачу, расскажем про слепки или 3D-скан, обсудим материал, дизайн, сроки и дальнейшие этапы изготовления.</p><p>Чем подробнее вы опишете идею, тем точнее мы сможем предложить решение.</p></div></details>
           </div>
         </div>
       </section>
@@ -4161,6 +3584,7 @@
       });
     })();
   </script>
+
   <script>
     /* Собственная форма заявки → Google Apps Script → Google Sheets */
     (() => {

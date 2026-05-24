@@ -2935,6 +2935,43 @@
         font-size: 15px;
       }
     }
+  
+    /* Mobile spacing fix: сокращаем только широкие интервалы между секциями, FAQ не трогаем */
+    @media (max-width: 920px) {
+      main > section:not(#faq) {
+        padding-top: 41px !important;
+        padding-bottom: 41px !important;
+      }
+
+      main > section.hero {
+        padding-top: 36px !important;
+        padding-bottom: 36px !important;
+      }
+    }
+  
+    /* Mobile-only about title fix: слово «Индивидуальность» не вылезает за рамки только на мобильной версии */
+    @media (max-width: 920px) {
+      #about .section-head {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+      }
+
+      #about .section-head h2 {
+        max-width: 100%;
+        overflow-wrap: normal;
+        word-break: normal;
+        font-size: clamp(28px, 8.4vw, 42px) !important;
+        line-height: 1.02 !important;
+        letter-spacing: -1.2px !important;
+      }
+    }
+
+    @media (max-width: 420px) {
+      #about .section-head h2 {
+        font-size: clamp(25px, 7.8vw, 34px) !important;
+        letter-spacing: -0.7px !important;
+      }
+    }
   </style>
 </head>
 

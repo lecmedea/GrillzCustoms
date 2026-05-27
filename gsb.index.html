@@ -24,7 +24,6 @@
         }
     </script>
     <style>
-        /* Cyberpuk custom styles */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #050505;
@@ -33,44 +32,73 @@
             -webkit-user-select: none;
             overflow: hidden;
         }
-        /* Custom scrollbar */
+        /* Скрытие полосы прокрутки */
         ::-webkit-scrollbar {
-            width: 4px;
+            width: 0px;
+            background: transparent;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #ffd000;
-            border-radius: 99px;
+
+        /* Анимация летящих логотипов-пузырей при тапе */
+        @keyframes bubble-rise {
+            0% {
+                transform: translateY(0) scale(0.4) rotate(0deg);
+                opacity: 1;
+            }
+            80% {
+                transform: translateY(-120px) scale(1) rotate(20deg);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-145px) scale(0) rotate(-15deg);
+                opacity: 0;
+            }
         }
-        /* Tap floating numbers */
-        @keyframes float-up {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100px) scale(0.8); opacity: 0; }
-        }
-        .tap-particle {
-            animation: float-up 0.8s ease-out forwards;
+        .logo-bubble {
+            animation: bubble-rise 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             pointer-events: none;
         }
-        /* Grid scan line effect */
+
+        /* Плавная idle-анимация парения главного персонажа */
+        @keyframes raw-float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-8px) rotate(1deg);
+            }
+        }
+        .idle-float {
+            animation: raw-float 4.2s ease-in-out infinite;
+        }
+
+        /* Футуристичная киберсетка заднего фона */
         .scanline {
             background: linear-gradient(
                 to bottom,
                 rgba(255,255,255,0),
                 rgba(255,255,255,0) 50%,
-                rgba(255, 208, 0, 0.04) 50%,
-                rgba(255, 208, 0, 0.04)
+                rgba(255, 208, 0, 0.015) 50%,
+                rgba(255, 208, 0, 0.015)
             );
             background-size: 100% 4px;
+        }
+
+        /* Киберспортивное неоновое свечение круга тапалки */
+        .neon-glow {
+            box-shadow: 0 0 45px rgba(255, 208, 0, 0.1);
+            transition: box-shadow 0.2s ease;
+        }
+        .neon-glow:active {
+            box-shadow: 0 0 65px rgba(255, 208, 0, 0.35);
         }
     </style>
 </head>
 <body class="scanline h-screen flex flex-col justify-between">
 
     <!-- TOP HEADER -->
-    <header class="p-4 border-b border-brandYellow/20 bg-brandSoft/80 backface-blur-md flex items-center justify-between z-10">
+    <header class="p-4 border-b border-brandYellow/20 bg-brandSoft/80 backdrop-blur-md flex items-center justify-between z-10">
         <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-full bg-brandYellow border border-brandYellow flex items-center justify-center font-black text-black text-xs shadow-[0_0_15px_rgba(255,208,0,0.4)]">
-                GC
-            </div>
+            <img src="assets/logo%20game.png" alt="Logo" class="w-9 h-9 rounded-full object-cover border border-brandYellow shadow-[0_0_15px_rgba(255,208,0,0.4)]">
             <div>
                 <h1 class="text-xs font-black tracking-widest text-brandYellow uppercase">GRILLZ CLUB</h1>
                 <p id="userStatusText" class="text-[10px] text-gray-400 font-bold tracking-wider uppercase">БАЗОВЫЙ ДОСТУП</p>
@@ -86,24 +114,26 @@
     <!-- CONTENT VIEWPORT -->
     <main id="appViewport" class="flex-grow overflow-hidden relative p-4 flex flex-col justify-center">
         
-        <!-- VIEW 1: THE FORGE (TAPPER) -->
-        <div id="viewForge" class="view-panel h-full flex flex-col items-center justify-between py-6">
+        <!-- VIEW 1: МАСТЕРСКАЯ -->
+        <div id="viewForge" class="view-panel h-full flex flex-col items-center justify-between py-4">
             <div class="text-center">
                 <span class="text-[10px] tracking-widest text-brandYellow font-black uppercase bg-brandYellow/10 px-3 py-1 rounded-full border border-brandYellow/20">
-                    ГОНКА ЗА ЗОЛОТОМ
+                    Мастерская: Уровень <span id="currentLevel">1</span>
                 </span>
-                <p class="text-gray-400 text-xs mt-3 max-w-[280px]">Нажимай металлический кастом, добывай золотую пыль и открывай топ-профили нефоров!</p>
+                <p id="levelStageName" class="text-brandYellow text-[10px] uppercase font-black mt-2 tracking-wider">Загрузка фазы...</p>
+                
+                <!-- Шкала опыта -->
+                <div class="w-48 bg-neutral-900 border border-brandYellow/10 h-2.5 rounded-full mt-3 mx-auto overflow-hidden p-[1px]">
+                    <div id="levelProgressBar" class="bg-gradient-to-r from-brandYellow to-brandAcid h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
             </div>
 
-            <!-- Tap target -->
-            <div class="relative flex items-center justify-center my-auto">
-                <div id="tapTarget" class="w-64 h-64 rounded-full bg-gradient-to-b from-[#111] to-[#010101] border-2 border-brandYellow flex items-center justify-center cursor-pointer transition-transform duration-75 active:scale-95 shadow-[0_0_80px_rgba(255,208,0,0.15)] hover:shadow-[0_0_90px_rgba(255,208,0,0.25)] relative overflow-hidden">
-                    <!-- Spinning metallic background -->
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,208,0,0.1),transparent_60%)] animate-pulse"></div>
-                    <!-- Polished Tooth Graphics -->
-                    <svg class="w-40 h-40 text-brandYellow drop-shadow-[0_0_20px_rgba(255,208,0,0.5)]" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C8.69 2 6 4.69 6 8c0 3.73 2.13 6.94 5.2 8.44l-.7 4.14c-.06.37.17.72.54.78.37.06.72-.17.78-.54l.73-4.3c.01-.11.01-.22-.01-.33-.06-.37-.41-.62-.78-.56C8.82 15.65 7 12 7 8c0-2.76 2.24-5 5-5s5 2.24 5 5c0 4-1.82 7.65-4.76 7.96-.37-.06-.72.19-.78.56-.02.11-.02.22-.01.33l.73 4.3c.06.37.41.6.78.54.37-.06.6-.41.54-.78l-.7-4.14C15.87 14.94 18 11.73 18 8c0-3.31-2.69-6-6-6z" />
-                    </svg>
+            <!-- Главный игровой персонаж — Зуб в круге с парящей анимацией -->
+            <div class="relative flex items-center justify-center my-auto idle-float">
+                <div id="tapTarget" class="w-64 h-64 rounded-full border-4 border-brandYellow bg-black inline-flex items-center justify-center cursor-pointer transition-all duration-75 active:scale-90 hover:scale-102 neon-glow relative overflow-hidden p-2">
+                    <!-- Заднее мягкое свечение внутри круга -->
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,208,0,0.1),transparent_70%)] animate-pulse"></div>
+                    <img id="characterImage" src="game pic/slepok.png" alt="Зуб" class="w-52 h-56 object-contain pointer-events-none select-none transition-transform duration-75">
                 </div>
             </div>
 
@@ -112,22 +142,31 @@
             </div>
         </div>
 
-        <!-- VIEW 2: THE MATCH (TINDER FOR NEFORS) -->
-        <div id="viewMatch" class="view-panel h-full hidden flex flex-col justify-between">
+        <!-- VIEW 2: ГРИНДЕР (ДЕЙТИНГ ДЛЯ НЕФОРОВ) -->
+        <div id="viewMatch" class="view-panel h-full hidden flex flex-col justify-between relative">
+            
+            <!-- МАНФИФЕСТ НЕФОРМАЛЬНОЙ ЗОНЫ -->
+            <div id="grinderWarning" class="absolute inset-0 bg-black/95 z-30 flex flex-col justify-center p-6 text-center animate-fade-in">
+                <span class="text-4xl mb-4">🤘</span>
+                <h3 class="text-brandYellow font-black text-base tracking-widest uppercase mb-3">ВНИМАНИЕ! ТЕРРИТОРИЯ НЕФОРОВ</h3>
+                <p class="text-xs text-gray-400 leading-relaxed max-w-[285px] mx-auto">
+                    Гриндер разработан строго для альтернативных личностей, ребелов, рок-тусовки, рейверов, скейтеров и обладателей дерзкого стиля. Нормисам и скучным людям здесь делать нечего. Готов ворваться в сообщество со своим кастомом на зубах?
+                </p>
+                <button id="btnAcceptGrinder" class="mt-8 bg-brandYellow text-black font-black text-xs py-3.5 px-6 rounded-xl uppercase tracking-wider shadow-[0_0_20px_rgba(255,208,0,0.2)] active:scale-95 transition-transform">
+                    🔥 Я не нормис, войти!
+                </button>
+            </div>
+
             <div id="swipeDeck" class="flex-grow flex items-center justify-center relative">
-                <!-- Deck container handles cards dynamically -->
-                <div id="profileCard" class="w-full max-w-[340px] aspect-[3/4] bg-brandSoft rounded-3xl border border-brandYellow/20 overflow-hidden shadow-2xl relative flex flex-col justify-end p-5 transition-all duration-300 transform scale-100">
-                    <!-- Profile avatar mock -->
+                <div id="profileCard" class="w-full max-w-[340px] aspect-[4/5] bg-brandSoft rounded-3xl border border-brandYellow/20 overflow-hidden shadow-2xl relative flex flex-col justify-end p-5 transition-all duration-300 transform scale-100">
                     <div id="profileImage" class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                     </div>
 
-                    <!-- Verified badge -->
                     <div id="vipBadge" class="absolute top-4 right-4 bg-brandYellow text-black font-black text-[9px] px-2 py-0.5 rounded-full tracking-widest hidden shadow-[0_0_10px_rgba(255,208,0,0.5)]">
                         💎 ICED-OUT VIP
                     </div>
 
-                    <!-- Profile Bio Panel -->
                     <div class="relative z-10 flex flex-col gap-2">
                         <div class="flex items-center gap-2">
                             <span id="profileName" class="text-xl font-black text-white">Диана, 21</span>
@@ -138,7 +177,7 @@
                 </div>
             </div>
 
-            <!-- Control Buttons -->
+            <!-- Кнопки управления знакомствами -->
             <div class="flex justify-center items-center gap-6 py-4">
                 <button id="btnDislike" class="w-14 h-14 rounded-full bg-brandSoft border border-neonRed/40 flex items-center justify-center text-neonRed text-xl font-black active:scale-90 transition-transform shadow-[0_0_15px_rgba(255,61,0,0.1)]">
                     ❌
@@ -152,7 +191,45 @@
             </div>
         </div>
 
-        <!-- VIEW 3: THE PREMIUM SHOP (VIP GATEWAY) -->
+        <!-- VIEW 3: СОЗДАТЬ АНКЕТКУ (РЕДАКТОР ПРОФИЛЯ) -->
+        <div id="viewCreateProfile" class="view-panel h-full hidden flex flex-col justify-between py-2 overflow-y-auto">
+            <div class="text-center">
+                <h2 class="text-lg font-black text-brandYellow tracking-wider">📝 СОЗДАТЬ АНКЕТКУ</h2>
+                <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">Заполни профиль, чтобы попасть в ленту Гриндера</p>
+            </div>
+
+            <div class="bg-brandSoft/60 p-4 rounded-2xl border border-brandYellow/10 flex flex-col gap-3 my-auto max-w-[340px] w-full mx-auto">
+                <div>
+                    <label class="block text-[9px] text-gray-400 font-bold uppercase mb-1.5">Никнейм или Имя:</label>
+                    <input id="formName" type="text" placeholder="Например: Влад, 23" class="w-full bg-black border border-brandYellow/15 text-white rounded-lg px-3 py-2 text-xs outline-none focus:border-brandYellow transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[9px] text-gray-400 font-bold uppercase mb-1.5 font-sans">Ссылка на твой Telegram (без @):</label>
+                    <input id="formTG" type="text" placeholder="username_tg" class="w-full bg-black border border-brandYellow/15 text-white rounded-lg px-3 py-2 text-xs outline-none focus:border-brandYellow transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[9px] text-gray-400 font-bold uppercase mb-1.5">Субкультура:</label>
+                    <select id="formSub" class="w-full bg-black border border-brandYellow/15 text-white rounded-lg px-3 py-2 text-xs outline-none focus:border-brandYellow transition-colors">
+                        <option value="ROCK REBEL">ROCK REBEL</option>
+                        <option value="SKATE PUNK">SKATE PUNK</option>
+                        <option value="TECHNO DJ">TECHNO DJ</option>
+                        <option value="GOTHIC LOLITA">GOTHIC LOLITA</option>
+                        <option value="CYBERPUNK">CYBERPUNK</option>
+                        <option value="HIP-HOP GOLD">HIP-HOP GOLD</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[9px] text-gray-400 font-bold uppercase mb-1.5">Твое неформальное био:</label>
+                    <textarea id="formBio" placeholder="Скажи пару слов о своем стиле, увлечениях и какие гриллзы заказывал или планируешь..." class="w-full h-16 bg-black border border-brandYellow/15 text-white rounded-lg px-3 py-2 text-xs outline-none focus:border-brandYellow transition-colors resize-none"></textarea>
+                </div>
+                <button id="btnSaveProfile" class="w-full bg-brandYellow text-black font-black text-xs uppercase py-2.5 rounded-lg tracking-wider active:scale-95 transition-transform">
+                    💾 Сохранить анкету
+                </button>
+                <p id="profileSaveStatus" class="text-[9px] text-center font-bold hidden"></p>
+            </div>
+        </div>
+
+        <!-- VIEW 4: CLUB VIP -->
         <div id="viewShop" class="view-panel h-full hidden flex flex-col justify-between py-4">
             <div class="text-center">
                 <h2 class="text-lg font-black text-brandYellow tracking-wider">🌟 КЛУБ ПРЕВИЛЛЕГИЙ GRILLZ CUSTOMS</h2>
@@ -191,18 +268,22 @@
     </main>
 
     <!-- NAVIGATION TABS -->
-    <nav class="border-t border-brandYellow/20 bg-brandSoft flex items-center justify-around py-3 z-10 shadow-[0_-5px_15px_rgba(0,0,0,0.5)]">
+    <nav class="border-t border-brandYellow/20 bg-brandSoft flex items-center justify-around py-2.5 z-10 shadow-[0_-5px_15px_rgba(0,0,0,0.5)]">
         <button id="tabForge" class="flex flex-col items-center gap-1 text-brandYellow focus:outline-none">
-            <span class="text-lg">🌋</span>
-            <span class="text-[9px] font-black uppercase tracking-wider">Кузня</span>
+            <span class="text-xl">🛠️</span>
+            <span class="text-[8px] font-black uppercase tracking-wider">Мастерская</span>
         </button>
         <button id="tabMatch" class="flex flex-col items-center gap-1 text-gray-400 focus:outline-none">
-            <span class="text-lg">🔥</span>
-            <span class="text-[9px] font-black uppercase tracking-wider">Тиндер</span>
+            <span class="text-xl">🔥</span>
+            <span class="text-[8px] font-black uppercase tracking-wider">Гриндер</span>
+        </button>
+        <button id="tabCreateProfile" class="flex flex-col items-center gap-1 text-gray-400 focus:outline-none">
+            <span class="text-xl">📝</span>
+            <span class="text-[8px] font-black uppercase tracking-wider">Анкетка</span>
         </button>
         <button id="tabShop" class="flex flex-col items-center gap-1 text-gray-400 focus:outline-none">
-            <span class="text-lg">💎</span>
-            <span class="text-[9px] font-black uppercase tracking-wider">Club VIP</span>
+            <span class="text-xl">💎</span>
+            <span class="text-[8px] font-black uppercase tracking-wider">Club VIP</span>
         </button>
     </nav>
 
@@ -219,7 +300,6 @@
                     Копировать
                 </button>
             </div>
-
             <button id="btnCloseMatchModal" class="mt-8 text-xs text-gray-400 font-bold uppercase tracking-widest hover:text-brandYellow">
                 ◀️ Продолжить поиск
             </button>
@@ -235,17 +315,28 @@
             tg.expand();
         }
 
-        // Локальное автосохранение
+        // Порог опыта на уровень
+        const XP_PER_LEVEL = 15;
+
+        // Локальное сохранение данных на устройстве
         let balance = parseInt(localStorage.getItem('grillz_gold_balance')) || 0;
         let isPremium = localStorage.getItem('grillz_is_premium') === 'true' || false;
+        let grinderAccepted = localStorage.getItem('grillz_grinder_accepted') === 'true' || false;
+        
+        let currentLevel = Math.floor(balance / XP_PER_LEVEL) + 1;
 
-        document.getElementById('goldDustBalance').textContent = balance;
-        if (isPremium) {
-            enablePremiumUI();
-        }
+        // Схема эволюции Зубчика по твоим уровням
+        const evolutionStages = [
+            { minLvl: 1, maxLvl: 9, name: "ФАЗА 1: Форма для слепка", image: "game pic/slepok.png" },
+            { minLvl: 10, maxLvl: 19, name: "ФАЗА 2: Восковая форма (Пластик)", image: "game pic/plastik.png" },
+            { minLvl: 20, maxLvl: 29, name: "ФАЗА 3: Заливка металлом КХС", image: "game pic/khs.png" },
+            { minLvl: 30, maxLvl: 49, name: "ФАЗА 4: Бронзовое литьё", image: "game pic/bronze.png" },
+            { minLvl: 50, maxLvl: 69, name: "ФАЗА 5: Золотые гриллзы 585*", image: "game pic/gold.png" },
+            { minLvl: 70, maxLvl: Infinity, name: "ФАЗА 6: Белое золото и Бриллианты", image: "game pic/WhiteGold.png" }
+        ];
 
-        // Имитируем базу неформалов (фотографии генерируются с Pollinations для идеальной визуализации нефор-стилей)
-        const neforDeck = [
+        // Первичная база неформалов
+        let neforDeck = [
             {
                 name: "Кира, 21",
                 sub: "SKATE PUNK",
@@ -282,13 +373,67 @@
 
         let currentProfileIndex = 0;
 
-        // Рендеринг карточки Тиндера
+        function loadGrinderGate() {
+            const gate = document.getElementById('grinderWarning');
+            if (grinderAccepted) {
+                gate.classList.add('hidden');
+            } else {
+                gate.classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('btnAcceptGrinder').addEventListener('click', () => {
+            grinderAccepted = true;
+            localStorage.setItem('grillz_grinder_accepted', 'true');
+            document.getElementById('grinderWarning').classList.add('hidden');
+            if (tg?.HapticFeedback) {
+                tg.HapticFeedback.notificationOccurred('success');
+            }
+        });
+
+        // Синхронизация анкеты юзера с колодой свайпов Гриндера
+        function syncUserProfileWithDeck() {
+            const savedName = localStorage.getItem('grillz_user_name');
+            const savedSub = localStorage.getItem('grillz_user_sub');
+            const savedBio = localStorage.getItem('grillz_user_bio');
+            const savedTG = localStorage.getItem('grillz_user_tg') || 'user_tg';
+
+            // Очищаем старую анкету из колоды
+            neforDeck = neforDeck.filter(item => item.isSelf !== true);
+
+            if (savedName && savedBio) {
+                // Добавляем анкету юзера третьей в колоду
+                neforDeck.splice(2, 0, {
+                    name: savedName,
+                    sub: savedSub || "MY CUSTOM STYLE",
+                    bio: savedBio,
+                    avatar: "assets/logo%20game.png",
+                    vip: isPremium,
+                    tg: savedTG,
+                    isSelf: true
+                });
+            }
+        }
+
+        // Рендеринг карточки знакомств
         function loadCurrentProfile() {
+            syncUserProfileWithDeck();
             if (currentProfileIndex >= neforDeck.length) {
-                currentProfileIndex = 0; // Начинаем колоду заново для бесконечного свайпа
+                currentProfileIndex = 0;
             }
             const p = neforDeck[currentProfileIndex];
-            document.getElementById('profileImage').style.backgroundImage = `url('${p.avatar}')`;
+            
+            if (p.avatar === "assets/logo%20game.png") {
+                document.getElementById('profileImage').style.backgroundImage = `url('assets/logo%20game.png')`;
+                document.getElementById('profileImage').style.backgroundSize = "contain";
+                document.getElementById('profileImage').style.backgroundPosition = "center 30%";
+                document.getElementById('profileImage').style.backgroundColor = "#000";
+            } else {
+                document.getElementById('profileImage').style.backgroundImage = `url('${p.avatar}')`;
+                document.getElementById('profileImage').style.backgroundSize = "cover";
+                document.getElementById('profileImage').style.backgroundPosition = "center";
+            }
+
             document.getElementById('profileName').textContent = p.name;
             document.getElementById('subcultureBadge').textContent = p.sub;
             document.getElementById('profileBio').textContent = p.bio;
@@ -301,56 +446,98 @@
             }
         }
 
+        // Обновление интерфейса характеристик
+        function updateUI() {
+            document.getElementById('goldDustBalance').textContent = balance;
+            
+            currentLevel = Math.floor(balance / XP_PER_LEVEL) + 1;
+            document.getElementById('currentLevel').textContent = currentLevel;
+
+            const xpEarnedInLevel = balance % XP_PER_LEVEL;
+            const progressPercent = (xpEarnedInLevel / XP_PER_LEVEL) * 100;
+            document.getElementById('levelProgressBar').style.width = `${progressPercent}%`;
+
+            const currentStage = evolutionStages.find(stage => currentLevel >= stage.minLvl && currentLevel <= stage.maxLvl) || evolutionStages[evolutionStages.length - 1];
+            
+            document.getElementById('levelStageName').textContent = currentStage.name;
+            
+            const charImg = document.getElementById('characterImage');
+            if (charImg.getAttribute('src') !== currentStage.image) {
+                charImg.setAttribute('src', currentStage.image);
+            }
+        }
+
+        updateUI();
         loadCurrentProfile();
 
-        // 1. ЛОГИКА ТАПЕРА (The Forge)
+        // 1. ЛОГИКА ТАПОК С ВЫЛЕТОМ ЛОГОТИПОВ-ПУЗЫРЕЙ
         const tapTarget = document.getElementById('tapTarget');
+        const charImg = document.getElementById('characterImage');
+
         tapTarget.addEventListener('touchstart', (e) => {
             e.preventDefault();
             
-            // Начисление баллов
-            balance += isPremium ? 2 : 1; // Премиумам в два раза больше мощности на майнинг!
+            balance += isPremium ? 2 : 1;
             localStorage.setItem('grillz_gold_balance', balance);
-            document.getElementById('goldDustBalance').textContent = balance;
+            
+            updateUI();
 
-            // Вибрация haptic (Telegram SDK)
             if (tg?.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('medium');
             }
 
-            // Вылет цифры + Dust
+            // Физическое упругое сжатие с небольшим вращением
+            const randomRotation = (Math.random() - 0.5) * 14; 
+            charImg.style.transform = `scale(0.8) rotate(${randomRotation}deg)`;
+
+            setTimeout(() => {
+                charImg.style.transform = 'scale(1) rotate(0deg)';
+            }, 75);
+
+            // Создание и разлет логотипа-пузыря
             const touch = e.touches[0];
             const px = touch.clientX;
             const py = touch.clientY;
 
-            const num = document.createElement('div');
-            num.className = 'absolute text-brandYellow font-black text-xl z-50 tap-particle pointer-events-none drop-shadow-[0_0_10px_rgba(255,208,0,0.8)]';
-            num.style.left = `${px - 20}px`;
-            num.style.top = `${py - 20}px`;
-            num.textContent = isPremium ? '+2' : '+1';
-            document.body.appendChild(num);
+            const logoContainer = document.createElement('div');
+            logoContainer.className = 'absolute z-50 pointer-events-none select-none logo-bubble';
+            logoContainer.style.left = `${px - 20}px`;
+            logoContainer.style.top = `${py - 20}px`;
 
+            const logoImgElement = document.createElement('img');
+            logoImgElement.src = 'assets/logo%20game.png';
+            logoImgElement.className = 'w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(255,208,0,0.8)]';
+            logoContainer.appendChild(logoImgElement);
+
+            // Цифра начисления Dust
+            const numericValue = document.createElement('div');
+            numericValue.className = 'absolute text-[11px] text-brandAcid font-black tracking-widest mt-10 ml-2 drop-shadow-[0_0_5px_rgba(215,255,0,0.5)]';
+            numericValue.textContent = isPremium ? '+2 DUST' : '+1 DUST';
+            logoContainer.appendChild(numericValue);
+
+            document.body.appendChild(logoContainer);
+
+            // Удаляем контейнер после анимации лопания
             setTimeout(() => {
-                num.remove();
-            }, 800);
+                logoContainer.remove();
+            }, 820);
         });
 
-        // 2. ЛОГИКА СВАЙПОВ (Tinder)
+        // 2. ДЕЙТИНГ-МЕХАНИКА (Свайпы)
         function triggerSwipe(type) {
             const card = document.getElementById('profileCard');
             if (type === 'like') {
-                card.style.transform = 'translateX(250px) rotate(20deg)';
+                card.style.transform = 'translateX(250px) rotate(15deg)';
                 card.style.opacity = '0';
                 
-                // Имитация случайного мэтча с вероятностью 40%
-                if (randomChance(0.4)) {
+                if (randomChance(0.40)) {
                     setTimeout(() => {
                         const matchedUser = neforDeck[currentProfileIndex];
                         showMatchPopup(matchedUser.tg);
                     }, 500);
                 }
             } else {
-                card.style.transform = 'translateX(-250px) rotate(-20deg)';
+                card.style.transform = 'translateX(-250px) rotate(-15deg)';
                 card.style.opacity = '0';
             }
 
@@ -363,7 +550,7 @@
                 loadCurrentProfile();
                 card.style.transition = 'none';
                 card.style.transform = 'translateX(0) rotate(0) scale(0.9)';
-                void card.offsetWidth; // Триггер рефлоу
+                void card.offsetWidth;
                 card.style.transition = 'all 0.3s ease';
                 card.style.transform = 'scale(1)';
                 card.style.opacity = '1';
@@ -377,7 +564,6 @@
         document.getElementById('btnLike').addEventListener('click', () => triggerSwipe('like'));
         document.getElementById('btnDislike').addEventListener('click', () => triggerSwipe('dislike'));
         document.getElementById('btnSuperlike').addEventListener('click', () => {
-            // Суперлайк дает 100% мэтч на любого премиум-клиента
             const card = document.getElementById('profileCard');
             card.style.transform = 'translateY(-250px) scale(1.1)';
             card.style.opacity = '0';
@@ -399,7 +585,7 @@
             }, 300);
         });
 
-        // 3. ОТКРЫТИЕ MODAL СВЯЗИ ПРИ МЭТЧЕ
+        // 3. ОТКРЫТИЕ MODAL СВЯЗИ ПРИ СБЛИЖЕНИИ
         const matchModal = document.getElementById('matchModal');
         function showMatchPopup(username) {
             document.getElementById('matchTGAlias').textContent = `@${username}`;
@@ -423,6 +609,7 @@
         const tabs = {
             tabForge: { panel: 'viewForge', text: 'tabForge' },
             tabMatch: { panel: 'viewMatch', text: 'tabMatch' },
+            tabCreateProfile: { panel: 'viewCreateProfile', text: 'tabCreateProfile' },
             tabShop: { panel: 'viewShop', text: 'tabShop' }
         };
 
@@ -437,13 +624,59 @@
                 document.getElementById(tabs[tabId].text).classList.add('text-brandYellow');
                 document.getElementById(tabs[tabId].text).classList.remove('text-gray-400');
                 
+                if (tabId === 'tabMatch') {
+                    loadGrinderGate();
+                }
+                
                 if (tg?.HapticFeedback) {
                     tg.HapticFeedback.impactOccurred('light');
                 }
             });
         });
 
-        // 5. ВАЛИДАЦИЯ ПРЕМИУМ-СТАТУСА (Проверка по номеру телефона)
+        // 5. ИНИЦИАЛИЗАЦИЯ И СОХРАНЕНИЕ ТВОЕЙ АНКЕТЫ
+        const savedName = localStorage.getItem('grillz_user_name');
+        const savedSub = localStorage.getItem('grillz_user_sub');
+        const savedBio = localStorage.getItem('grillz_user_bio');
+        const savedTG = localStorage.getItem('grillz_user_tg');
+
+        if (savedName) document.getElementById('formName').value = savedName;
+        if (savedSub) document.getElementById('formSub').value = savedSub;
+        if (savedBio) document.getElementById('formBio').value = savedBio;
+        if (savedTG) document.getElementById('formTG').value = savedTG;
+
+        document.getElementById('btnSaveProfile').addEventListener('click', () => {
+            const rawName = document.getElementById('formName').value.trim();
+            const rawSub = document.getElementById('formSub').value;
+            const rawBio = document.getElementById('formBio').value.trim();
+            const rawTG = document.getElementById('formTG').value.trim().replace(/[^a-zA-Z0-9_]/g, '');
+
+            const statusMsg = document.getElementById('profileSaveStatus');
+            statusMsg.classList.remove('hidden');
+
+            if (!rawName || !rawBio || !rawTG) {
+                statusMsg.textContent = "❌ Заполните все поля, пожалуйста!";
+                statusMsg.className = "text-[9px] text-center font-bold text-neonRed";
+                return;
+            }
+
+            localStorage.setItem('grillz_user_name', rawName);
+            localStorage.setItem('grillz_user_sub', rawSub);
+            localStorage.setItem('grillz_user_bio', rawBio);
+            localStorage.setItem('grillz_user_tg', rawTG);
+
+            statusMsg.textContent = "🏆 Анкета сохранена! Твой профиль добавлен в ротацию Гриндера.";
+            statusMsg.className = "text-[9px] text-center font-bold text-brandAcid";
+
+            currentProfileIndex = 0;
+            loadCurrentProfile();
+
+            setTimeout(() => {
+                statusMsg.classList.add('hidden');
+            }, 3000);
+        });
+
+        // 6. VIP ВАЛИДАЦИЯ
         function enablePremiumUI() {
             document.getElementById('userStatusText').textContent = "💎 ICED-OUT VIP";
             document.getElementById('userStatusText').classList.add('text-brandYellow');
@@ -465,16 +698,13 @@
             msgEl.className = "text-[10px] text-center mt-2.5 font-bold text-brandYellow";
 
             try {
-                // Имитация прямого защищенного запроса веб-приложения к вашей Google Таблице по API
                 const checkUrl = `https://script.google.com/macros/s/AKfycbyVM2HBplc09ccLwN9E6Hl0ms_w2xwR912aoP1DsN-m8ikiDPn9qSMhA5EsLjhRmfjESQ/exec?phone=%2B${phoneVal}`;
                 
-                // Временный высоконадежный триггер задержки
                 setTimeout(() => {
-                    // Бот проверяет данные из Google таблицы по итоговым номерам
                     isPremium = true;
                     localStorage.setItem('grillz_is_premium', 'true');
                     enablePremiumUI();
-                    msgEl.textContent = "🏆 УСПЕХ! Статус VIP активирован! Мощность кузницы х2, безлимитный доступ разблокирован.";
+                    msgEl.textContent = "🏆 УСПЕХ! Статус VIP активирован! Мощность мастерской х2, безлимитный доступ разблокирован.";
                     msgEl.className = "text-[10px] text-center mt-2.5 font-bold text-brandAcid";
                 }, 1500);
             } catch (err) {
@@ -485,4 +715,3 @@
     </script>
 </body>
 </html>
-

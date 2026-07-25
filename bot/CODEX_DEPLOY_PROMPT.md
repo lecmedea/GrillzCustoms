@@ -46,9 +46,23 @@ iVasya — нужен ХОТЯ БЫ ОДИН free LLM ключ (предпочт
 - GROQ_API_KEY  (https://console.groq.com — free, без карты обычно)
   optional GROQ_MODEL=llama-3.3-70b-versatile
 ИЛИ
-- OPENROUTER_API_KEY + OPENROUTER_MODEL=meta-llama/llama-3.3-70b-instruct:free
-ИЛИ
 - GEMINI_API_KEY (Google AI Studio)
+  optional GEMINI_MODEL=gemini-2.5-flash-lite
+ИЛИ
+- OPENROUTER_API_KEY
+  optional OPENROUTER_MODEL=openrouter/free
+ИЛИ
+- MISTRAL_API_KEY
+  optional MISTRAL_MODEL=mistral-small-latest
+ИЛИ
+- CEREBRAS_API_KEY
+  optional CEREBRAS_MODEL=gpt-oss-120b
+ИЛИ
+- CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID
+  optional CLOUDFLARE_MODEL=@cf/meta/llama-3.1-8b-instruct
+ИЛИ
+- HF_TOKEN
+  optional HF_MODEL=deepseek-ai/DeepSeek-V3-0324
 
 Генератор картинок: Pollinations, API-ключ НЕ нужен.
 
@@ -69,7 +83,8 @@ iVasya — нужен ХОТЯ БЫ ОДИН free LLM ключ (предпочт
    yc serverless function version list --function-id d4e1e154aq9us864hggr --limit 1
    или get latest version metadata
 4. Собери environment для новой версии: сохрани старые TELEGRAM_BOT_TOKEN/SITE_URL,
-   добавь GROQ_API_KEY если пользователь дал / если уже есть в env / если лежит в
+   добавь хотя бы один LLM-ключ (GROQ/GEMINI/OPENROUTER/MISTRAL/CEREBRAS/CLOUDFLARE/HF),
+   если пользователь дал / если уже есть в env / если лежит в
    безопасном месте (macOS Keychain, .env локально НЕ в git — ищи .env* и bot/.env*).
 5. Если TELEGRAM_BOT_TOKEN нигде нет — ОСТАНОВИСЬ и попроси пользователя вставить токен
    в env Console или в shell export, не выдумывай.
@@ -82,7 +97,7 @@ iVasya — нужен ХОТЯ БЫ ОДИН free LLM ключ (предпочт
    --memory=256m \
    --execution-timeout=30s \
    --source-path=bot/yandex-function/grillzcustoms-telegram-bot.zip \
-   --environment 'SITE_URL=https://grillzcustoms.ru,TELEGRAM_FETCH_TIMEOUT_MS=25000,TELEGRAM_BOT_TOKEN=...,GROQ_API_KEY=...'
+   --environment 'SITE_URL=https://grillzcustoms.ru,TELEGRAM_FETCH_TIMEOUT_MS=25000,TELEGRAM_BOT_TOKEN=...,GEMINI_API_KEY=...'
    (подставь реальные значения; не печатай полные секреты в итоговый отчёт)
 
 2. Альтернатива без yc: загрузи zip вручную через Console → Function → Create version
@@ -126,7 +141,7 @@ iVasya — нужен ХОТЯ БЫ ОДИН free LLM ключ (предпочт
 
 ## Отчёт пользователю (на русском)
 Кратко: что задеплоено, version id, что проверено, какие env выставлены (имена без значений),
-что осталось (если нет GROQ_API_KEY — явно сказать «iVasya на local FAQ fallback»).
+что осталось (если нет ни одного LLM-ключа — явно сказать «iVasya на local FAQ fallback»).
 ```
 
 ---
@@ -136,7 +151,7 @@ iVasya — нужен ХОТЯ БЫ ОДИН free LLM ключ (предпочт
 ```
 Задеплой bot/yandex-function в Yandex Cloud function d4e1e154aq9us864hggr:
 pack.sh → zip (index.js + game-ivasya.js), yc version create nodejs22 index.handler 256m 30s,
-сохрани TELEGRAM_BOT_TOKEN/SITE_URL, добавь GROQ_API_KEY если есть,
+сохрани TELEGRAM_BOT_TOKEN/SITE_URL, добавь хотя бы один LLM-ключ если есть,
 curl ?setup=commands и ?poll=1, проверь /start /game /ivasya /gen.
 Секреты в git не коммить. Отчёт по-русски.
 ```
@@ -146,7 +161,7 @@ curl ?setup=commands и ?poll=1, проверь /start /game /ivasya /gen.
 ```bash
 cd /Users/polzovatel/GrillzCustoms
 export TELEGRAM_BOT_TOKEN='…'   # если не сохранён в yc env
-export GROQ_API_KEY='…'         # https://console.groq.com
+export GEMINI_API_KEY='…'       # Google AI Studio, или другой LLM-ключ из списка выше
 bash bot/yandex-function/deploy.sh
 ```
 

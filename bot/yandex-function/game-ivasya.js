@@ -232,6 +232,31 @@ function escape(s) {
 }
 
 /* ---------- iVasya LLM ---------- */
+function chatText(data) {
+  const content = data?.choices?.[0]?.message?.content;
+  if (Array.isArray(content)) {
+    return content.map((part) => part?.text || part?.content || '').join('\n').trim();
+  }
+  return String(content || '').trim();
+}
+
+async function postJson(url, headers, body) {
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      ...headers
+    },
+    body: JSON.stringify(body)
+  });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) {
+    const message = data?.error?.message || data?.message || `${r.status} ${r.statusText}`;
+    throw new Error(message);
+  }
+  return data;
+}
+
 async function callFreeLLM(userMessage, history = []) {
   const system = `Ты — iVasya, ИИ-консультант бренда Grillz Customs (Москва). 
 Ты дерзкий уличный пацан-продавец с юмором: говоришь на смеси русского уличного сленга и нормального русского, 
@@ -251,73 +276,151 @@ ${FAQ_KB}
   // 1) Groq free
   if (process.env.GROQ_API_KEY) {
     try {
-      const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
+      const data = await postJson(
+        'https://api.groq.com/openai/v1/chat/completions',
+        {
           authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-          'content-type': 'application/json'
         },
-        body: JSON.stringify({
+        {
           model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
           messages,
           temperature: 0.85,
           max_tokens: 500
-        })
-      });
-      const data = await r.json();
-      const text = data?.choices?.[0]?.message?.content;
+        }
+      );
+      const text = chatText(data);
       if (text) return text;
     } catch (e) {
       console.error('groq', e?.message || e);
     }
   }
 
-  // 2) OpenRouter free models
+  // 2) OpenRouter free router / free models
   if (process.env.OPENROUTER_API_KEY) {
     try {
-      const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
+      const data = await postJson(
+        'https://openrouter.ai/api/v1/chat/completions',
+        {
           authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          'content-type': 'application/json',
           'HTTP-Referer': process.env.SITE_URL || 'https://grillzcustoms.ru',
           'X-Title': 'GrillzCustoms-iVasya'
         },
-        body: JSON.stringify({
-          model: process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct:free',
+        {
+          model: process.env.OPENROUTER_MODEL || 'openrouter/free',
           messages,
-          temperature: 0.85
-        })
-      });
-      const data = await r.json();
-      const text = data?.choices?.[0]?.message?.content;
+          temperature: 0.85,
+          max_tokens: 500
+        }
+      );
+      const text = chatText(data);
       if (text) return text;
     } catch (e) {
       console.error('openrouter', e?.message || e);
     }
   }
 
-  // 3) Gemini free
+  // 3) Gemini free tier
   if (process.env.GEMINI_API_KEY) {
     try {
-      const model = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
-      const r = await fetch(
+      const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
+      const data = await postJson(
         `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`,
+        {},
         {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            contents: [
-              { role: 'user', parts: [{ text: system + '\n\nКлиент: ' + userMessage }] }
-            ]
-          })
+          contents: [
+            { role: 'user', parts: [{ text: system + '\n\nКлиент: ' + userMessage }] }
+          ],
+          generationConfig: {
+            temperature: 0.85,
+            maxOutputTokens: 500
+          }
         }
       );
-      const data = await r.json();
       const text = data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join('\n');
       if (text) return text;
     } catch (e) {
       console.error('gemini', e?.message || e);
+    }
+  }
+
+  // 4) Mistral free mode
+  if (process.env.MISTRAL_API_KEY) {
+    try {
+      const data = await postJson(
+        'https://api.mistral.ai/v1/chat/completions',
+        { authorization: `Bearer ${process.env.MISTRAL_API_KEY}` },
+        {
+          model: process.env.MISTRAL_MODEL || 'mistral-small-latest',
+          messages,
+          temperature: 0.85,
+          max_tokens: 500
+        }
+      );
+      const text = chatText(data);
+      if (text) return text;
+    } catch (e) {
+      console.error('mistral', e?.message || e);
+    }
+  }
+
+  // 5) Cerebras free trial / free tier
+  if (process.env.CEREBRAS_API_KEY) {
+    try {
+      const data = await postJson(
+        'https://api.cerebras.ai/v1/chat/completions',
+        { authorization: `Bearer ${process.env.CEREBRAS_API_KEY}` },
+        {
+          model: process.env.CEREBRAS_MODEL || 'gpt-oss-120b',
+          messages,
+          temperature: 0.85,
+          max_completion_tokens: 500
+        }
+      );
+      const text = chatText(data);
+      if (text) return text;
+    } catch (e) {
+      console.error('cerebras', e?.message || e);
+    }
+  }
+
+  // 6) Cloudflare Workers AI free allocation
+  if (process.env.CLOUDFLARE_API_TOKEN && process.env.CLOUDFLARE_ACCOUNT_ID) {
+    try {
+      const accountId = encodeURIComponent(process.env.CLOUDFLARE_ACCOUNT_ID);
+      const data = await postJson(
+        `https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/v1/chat/completions`,
+        { authorization: `Bearer ${process.env.CLOUDFLARE_API_TOKEN}` },
+        {
+          model: process.env.CLOUDFLARE_MODEL || '@cf/meta/llama-3.1-8b-instruct',
+          messages,
+          temperature: 0.85,
+          max_tokens: 500
+        }
+      );
+      const text = chatText(data);
+      if (text) return text;
+    } catch (e) {
+      console.error('cloudflare', e?.message || e);
+    }
+  }
+
+  // 7) Hugging Face Inference Providers free tier
+  if (process.env.HF_TOKEN) {
+    try {
+      const data = await postJson(
+        'https://router.huggingface.co/v1/chat/completions',
+        { authorization: `Bearer ${process.env.HF_TOKEN}` },
+        {
+          model: process.env.HF_MODEL || 'deepseek-ai/DeepSeek-V3-0324',
+          messages,
+          temperature: 0.85,
+          max_tokens: 500
+        }
+      );
+      const text = chatText(data);
+      if (text) return text;
+    } catch (e) {
+      console.error('huggingface', e?.message || e);
     }
   }
 

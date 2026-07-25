@@ -3,6 +3,7 @@
 const siteUrl = process.env.SITE_URL || 'https://grillzcustoms.ru';
 const adminChatId = process.env.ADMIN_CHAT_ID || '';
 const telegramFetchTimeoutMs = Number(process.env.TELEGRAM_FETCH_TIMEOUT_MS || 25000);
+const telegramSetupTimeoutMs = Number(process.env.TELEGRAM_SETUP_TIMEOUT_MS || 6000);
 const defaultStartPhotoPath = 'assets/bot/start-grillz-customs-moscow.jpg';
 
 const gcx = require('./game-ivasya');
@@ -430,12 +431,13 @@ async function answerFor(text, firstName = '', chatId = '', userId = '') {
   };
 }
 
-async function telegram(method, payload = {}) {
+async function telegram(method, payload = {}, options = {}) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) throw new Error('TELEGRAM_BOT_TOKEN is not configured');
 
+  const timeoutMs = Number(options.timeoutMs || telegramFetchTimeoutMs);
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), telegramFetchTimeoutMs);
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
   const started = Date.now();
 
   try {
@@ -702,38 +704,40 @@ async function setupBotInterface() {
   const steps = [];
   const runStep = async (name, method, payload) => {
     try {
-      await telegram(method, payload);
+      await telegram(method, payload, { timeoutMs: telegramSetupTimeoutMs });
       steps.push({ name, ok: true });
     } catch (error) {
       steps.push({ name, ok: false, error: error?.message || String(error) });
     }
   };
 
-  await runStep('commands', 'setMyCommands', {
-    commands: [
-      { command: 'start', description: '✨ Главное меню Grillz Customs' },
-      { command: 'game', description: '🎮 Grillz Combat — Dust, свайпы, скидки' },
-      { command: 'ivasya', description: '🧢 iVasya — ИИ-консультант' },
-      { command: 'gen', description: '🖼 Генератор Grillz' },
-      { command: 'price', description: '💰 Быстрый расчёт grillz' },
-      { command: 'order', description: '📦 Как заказать' },
-      { command: 'care', description: '🧼 Уход за grillz' },
-      { command: 'menu', description: '🏠 Открыть меню' }
-    ]
-  });
-  await runStep('description', 'setMyDescription', {
-    description: 'Grillz Customs Bot: конструктор grillz, расчёт, заказ, уход, портфолио, игра Grillz Game и ежедневные квесты.'
-  });
-  await runStep('shortDescription', 'setMyShortDescription', {
-    short_description: 'Grillz Customs: конструктор, расчёт, заказ и Grillz Game.'
-  });
-  await runStep('menuButton', 'setChatMenuButton', {
-    menu_button: {
-      type: 'web_app',
-      text: '🎮 Grillz Game',
-      web_app: { url: page('gsb.index.html') }
-    }
-  });
+  await Promise.all([
+    runStep('commands', 'setMyCommands', {
+      commands: [
+        { command: 'start', description: '✨ Главное меню Grillz Customs' },
+        { command: 'game', description: '🎮 Grillz Combat — Dust, свайпы, скидки' },
+        { command: 'ivasya', description: '🧢 iVasya — ИИ-консультант' },
+        { command: 'gen', description: '🖼 Генератор Grillz' },
+        { command: 'price', description: '💰 Быстрый расчёт grillz' },
+        { command: 'order', description: '📦 Как заказать' },
+        { command: 'care', description: '🧼 Уход за grillz' },
+        { command: 'menu', description: '🏠 Открыть меню' }
+      ]
+    }),
+    runStep('description', 'setMyDescription', {
+      description: 'Grillz Customs Bot: конструктор grillz, расчёт, заказ, уход, портфолио, игра Grillz Game и ежедневные квесты.'
+    }),
+    runStep('shortDescription', 'setMyShortDescription', {
+      short_description: 'Grillz Customs: конструктор, расчёт, заказ и Grillz Game.'
+    }),
+    runStep('menuButton', 'setChatMenuButton', {
+      menu_button: {
+        type: 'web_app',
+        text: '🎮 Grillz Game',
+        web_app: { url: page('gsb.index.html') }
+      }
+    })
+  ]);
 
   return { ok: steps.every((step) => step.ok), mode: 'setup', steps };
 }

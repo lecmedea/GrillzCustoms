@@ -24,6 +24,7 @@
   <script src="assets/analytics-config.js" defer></script>
   <script src="assets/analytics.js" defer></script>
   <script src="assets/site-common.js" defer></script>
+  <script src="assets/grillz-mouth-detect.js" defer></script>
   <script src="assets/grillz-constructor.js" defer></script>
   <script src="assets/cookie-consent.js" defer></script>
 </head>
@@ -107,7 +108,13 @@
                     <button type="button" class="stage-btn is-active" id="btnView2d" data-view="layers">2D слои</button>
                     <button type="button" class="stage-btn" id="btnView3d" data-view="model">3D</button>
                   </div>
-                  <button type="button" class="stage-btn" id="btnResetView" title="Сбросить ракурс">Ракурс</button>
+                  <div class="view-mode" role="group" aria-label="Инструмент посадки" id="fitToolGroup">
+                    <button type="button" class="stage-btn is-active" id="btnToolSelect" data-tool="select" title="Клик: вкл/выкл · перетащите капу">Выбор</button>
+                    <button type="button" class="stage-btn" id="btnToolMove" data-tool="move" title="Переместить капу">Сдвиг</button>
+                    <button type="button" class="stage-btn" id="btnToolScale" data-tool="scale" title="Масштаб (тяните вверх/вниз)">Масштаб</button>
+                    <button type="button" class="stage-btn" id="btnToolRotate" data-tool="rotate" title="Поворот (тяните вбок)">Поворот</button>
+                  </div>
+                  <button type="button" class="stage-btn" id="btnResetView" title="Сбросить ракурс сцены">Ракурс</button>
                   <button type="button" class="stage-btn" id="btnCapture" title="Снимок превью">Снимок</button>
                   <button type="button" class="stage-btn" id="btnShare" title="Ссылка на сборку">Share</button>
                   <button type="button" class="stage-btn" id="btnFullscreen" title="На весь экран">Экран</button>
@@ -115,7 +122,7 @@
               </div>
 
               <div class="stage-viewport" id="stageViewport" data-mode="layers">
-                <canvas id="mouthCanvas" width="960" height="720" role="img" aria-label="Превью зубного ряда: PNG-слои Grillz Customs"></canvas>
+                <canvas id="mouthCanvas" width="960" height="720" role="img" aria-label="Превью: независимые grillz на каждом зубе"></canvas>
                 <model-viewer
                   id="grillzModel"
                   class="studio-model"
@@ -136,13 +143,13 @@
                 >
                   <button slot="ar-button" class="ar-btn" type="button" id="btnAR">AR</button>
                 </model-viewer>
-                <div class="stage-hint" id="stageHint">Фотореальные grillz · клик по зубу · 3D / AR · Share</div>
+                <div class="stage-hint" id="stageHint">Каждый grillz — отдельно на зубе · Сдвиг / Масштаб / Поворот · можно загрузить своё фото рта</div>
               </div>
 
               <div class="stage-legend">
                 <span><i class="lg lg-off"></i> выкл</span>
                 <span><i class="lg lg-on"></i> в сете</span>
-                <span><i class="lg lg-focus"></i> фокус</span>
+                <span><i class="lg lg-focus"></i> фокус + посадка</span>
                 <span class="legend-price" id="legendPriceHint">Прайс GC · ₽ / зуб</span>
               </div>
             </div>
@@ -162,20 +169,47 @@
                 <div class="choice-grid" id="mouldChoices" role="radiogroup" aria-label="Тип слепка"></div>
               </fieldset>
 
+              <!-- STEP: PHOTO / DETECT -->
+              <fieldset class="studio-block" data-block="photo">
+                <legend>2 · Ваше фото рта</legend>
+                <div class="photo-upload-row">
+                  <label class="btn secondary photo-upload-btn" for="mouthPhotoInput">Загрузить фото</label>
+                  <input type="file" id="mouthPhotoInput" accept="image/*" hidden>
+                  <button type="button" class="btn ghost" id="btnResetPhoto">Сток-улыбка</button>
+                </div>
+                <p class="field-note" id="photoDetectStatus">Загрузите фронтальное фото улыбки — MediaPipe оценит положение зубов, вы подкрутите каждую капу вручную.</p>
+              </fieldset>
+
               <!-- STEP: TEETH -->
               <fieldset class="studio-block" data-block="teeth">
-                <legend>2 · Зубы в сете</legend>
+                <legend>3 · Зубы в сете</legend>
                 <div class="preset-row" id="presetRow" role="group" aria-label="Быстрые пресеты"></div>
                 <div class="fdi-mini" aria-hidden="false">
                   <div class="fdi-row" id="fdiUpper" aria-label="Верхний ряд"></div>
                   <div class="fdi-row" id="fdiLower" aria-label="Нижний ряд"></div>
                 </div>
-                <p class="field-note">Нумерация FDI: 11–15 / 21–25 сверху, 31–35 / 41–45 снизу. Это тот же код, что использует врач и лаборатория.</p>
+                <p class="field-note">Нумерация FDI: 11–15 / 21–25 сверху, 31–35 / 41–45 снизу. Каждый grillz — отдельная капа на своём зубе.</p>
+              </fieldset>
+
+              <!-- STEP: PER-TOOTH FIT -->
+              <fieldset class="studio-block" data-block="fit" id="blockFit">
+                <legend>4 · Посадка капы · зуб <span id="fitToothId">11</span></legend>
+                <p class="field-note">Независимая регулировка: сдвиг, размер, угол. На canvas: инструменты «Сдвиг / Масштаб / Поворот».</p>
+                <div class="fit-sliders">
+                  <label>X <input type="range" id="fitNx" min="0" max="1000" value="500"><span id="fitNxVal">50%</span></label>
+                  <label>Y <input type="range" id="fitNy" min="0" max="1000" value="420"><span id="fitNyVal">42%</span></label>
+                  <label>Размер <input type="range" id="fitScale" min="30" max="220" value="90"><span id="fitScaleVal">0.90</span></label>
+                  <label>Угол <input type="range" id="fitRot" min="-450" max="450" value="0"><span id="fitRotVal">0°</span></label>
+                </div>
+                <div class="preset-row" style="margin-top:10px">
+                  <button type="button" class="preset-chip" id="btnFitResetOne">Сброс этой капы</button>
+                  <button type="button" class="preset-chip" id="btnFitResetAll">Сброс всех посадок</button>
+                </div>
               </fieldset>
 
               <!-- STEP: EDIT MODE -->
               <fieldset class="studio-block" data-block="scope">
-                <legend>3 · Область правки</legend>
+                <legend>5 · Область материала</legend>
                 <div class="scope-row">
                   <button type="button" class="scope-btn is-active" data-scope="focus" id="scopeFocus">Активный зуб <span id="focusLabel">11</span></button>
                   <button type="button" class="scope-btn" data-scope="all" id="scopeAll">Весь сет</button>
@@ -184,25 +218,25 @@
 
               <!-- STEP: MATERIAL -->
               <fieldset class="studio-block" data-block="material">
-                <legend>4 · Металл / покрытие</legend>
+                <legend>6 · Металл / покрытие</legend>
                 <div class="swatch-grid" id="materialChoices" role="listbox" aria-label="Материал"></div>
               </fieldset>
 
               <!-- STEP: STYLE -->
               <fieldset class="studio-block" data-block="style">
-                <legend>5 · Фактура</legend>
+                <legend>7 · Фактура</legend>
                 <div class="card-grid" id="styleChoices" role="listbox" aria-label="Фактура"></div>
               </fieldset>
 
               <!-- STEP: PURITY (conditional) -->
               <fieldset class="studio-block" data-block="purity" id="blockPurity">
-                <legend>6 · Проба</legend>
+                <legend>8 · Проба</legend>
                 <div class="pill-grid" id="purityChoices" role="listbox" aria-label="Проба"></div>
               </fieldset>
 
               <!-- STEP: STONES (conditional) -->
               <fieldset class="studio-block" data-block="stones" id="blockStones">
-                <legend>7 · Инкрустация / чистота</legend>
+                <legend>9 · Инкрустация / чистота</legend>
                 <div class="pill-grid" id="stonesChoices" role="listbox" aria-label="Камни"></div>
               </fieldset>
 

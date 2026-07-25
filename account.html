@@ -3,44 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Аккаунт Grillz Customs — профиль, Telegram и игра</title>
-  <meta name="description" content="Личный кабинет Grillz Customs: профиль клиента, Telegram-привязка, будущая история заказов и сохранение прогресса Grillz Tamagotchi.">
+  <title>Аккаунт Grillz Customs — вход, регистрация, кабинет</title>
+  <meta name="description" content="Личный кабинет Grillz Customs: регистрация, вход, сброс пароля, профиль. JWT-сессии, хэш паролей, защита форм.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#050505">
   <link rel="canonical" href="https://grillzcustoms.ru/account.html">
-  <link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/account.html">
-  <link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/account.html?lang=en">
-  <link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/account.html?lang=fr">
-  <link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/account.html?lang=es">
-  <link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/account.html?lang=it">
-  <link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/account.html?lang=ka">
-  <link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/account.html?lang=hy">
-  <link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/account.html?lang=uz">
-  <link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/account.html?lang=kk">
-  <link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/account.html?lang=zh-Hant">
-  <link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/account.html?lang=ja">
-  <link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/account.html?lang=ko">
-  <link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/account.html?lang=pt">
-  <link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/account.html?lang=de">
-  <link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/account.html?lang=hi">
-  <link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/account.html?lang=tr">
-  <link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/account.html?lang=el">
-  <link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/account.html">
   <link rel="icon" type="image/jpeg" href="assets/logo-grillz.jpg">
   <link rel="apple-touch-icon" href="assets/logo-grillz.jpg">
   <meta property="og:title" content="Аккаунт Grillz Customs">
-  <meta property="og:description" content="Профиль клиента, Telegram-привязка, история заказов и прогресс Grillz Tamagotchi.">
+  <meta property="og:description" content="Регистрация, вход и личный кабинет.">
   <meta property="og:image" content="https://grillzcustoms.ru/assets/logo-grillz.jpg">
   <meta property="og:url" content="https://grillzcustoms.ru/account.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="assets/site-pages.css">
+  <link rel="stylesheet" href="assets/auth.css">
   <link rel="stylesheet" href="assets/cookie-consent.css">
   <script src="assets/analytics-config.js" defer></script>
   <script src="assets/analytics.js" defer></script>
   <script src="assets/site-common.js?v=20260725-i18n5" defer></script>
-  <script src="assets/account-forum.js" defer></script>
+  <script src="assets/auth-config.js" defer></script>
+  <script src="assets/auth.js" defer></script>
   <script src="assets/cookie-consent.js" defer></script>
 </head>
 <body>
@@ -66,7 +50,7 @@
             <a href="forma.html">Форум</a>
             <a href="entertainment.html">Развлечения</a>
             <a href="contacts.html">Контакты</a>
-              <a href="account.html" aria-current="page">Аккаунт</a>
+            <a href="account.html" aria-current="page">Аккаунт</a>
             <details class="nav-more">
               <summary>Ещё</summary>
               <div class="nav-more-menu">
@@ -84,17 +68,15 @@
         </nav>
       </div>
     </header>
+
     <main id="main">
       <section class="page-hero">
         <div class="container page-hero-grid">
           <div class="hero-panel">
-            <div class="eyebrow">Профиль клиента</div>
+            <div class="eyebrow">Личный кабинет</div>
             <h1>Аккаунт <span>Grillz</span></h1>
-            <p class="lead">Профиль нужен для сохранения референсов, прогресса Tamagotchi, заявок и будущего форума. На GitHub Pages форма работает как безопасная оболочка до подключения серверного API.</p>
-            <div class="hero-actions">
-              <a class="btn" href="#signup" data-analytics="account_signup_anchor">Создать профиль</a>
-              <a class="btn secondary" href="entertainment.html" data-analytics="account_game">Открыть Tamagotchi</a>
-            </div>
+            <p class="lead">Регистрация, вход, сброс пароля и профиль. Пароли только в виде хэша, сессия — JWT. Без хранения пароля в открытом виде.</p>
+            <p class="auth-mode-badge" id="authModeBadge">Проверка API…</p>
           </div>
           <div class="hero-orbit" aria-hidden="true">
             <span class="orbit-core">GC</span>
@@ -107,75 +89,157 @@
         </div>
       </section>
 
-      <section id="signup">
-        <div class="container auth-grid">
-          <article class="auth-card">
-            <div class="eyebrow">Регистрация</div>
-            <h2>Профиль и почта</h2>
-            <form class="auth-form" id="accountDraftForm">
-              <label>Имя
-                <input name="name" autocomplete="name" placeholder="Как к вам обращаться" required>
-              </label>
-              <label>Email
-                <input name="email" type="email" autocomplete="email" placeholder="name@example.com" required>
-              </label>
-              <label>Telegram
-                <input name="telegram" autocomplete="username" placeholder="@username">
-              </label>
-              <label>Фото профиля
-                <input name="photo" type="url" placeholder="Ссылка на фото, если нужно">
-              </label>
-              <button class="btn" type="submit">Сохранить черновик</button>
-              <p class="form-status" id="accountDraftStatus" aria-live="polite"></p>
-            </form>
-          </article>
+      <section id="authRoot" class="auth-section">
+        <div class="container">
+          <div class="auth-tabs" role="tablist" aria-label="Разделы аккаунта">
+            <button type="button" class="auth-tab is-active" data-auth-tab="login" role="tab" aria-selected="true">Вход</button>
+            <button type="button" class="auth-tab" data-auth-tab="register" role="tab">Регистрация</button>
+            <button type="button" class="auth-tab" data-auth-tab="reset" role="tab">Сброс пароля</button>
+            <button type="button" class="auth-tab" data-auth-tab="profile" role="tab">Кабинет</button>
+          </div>
 
-          <article class="auth-card">
-            <div class="eyebrow">Безопасность</div>
-            <h2>Как будет работать реальный аккаунт</h2>
-            <p>Пароль должен храниться только в виде криптографического хэша с солью. В админке можно показывать логин, email, Telegram, заказы, фото профиля, игровые предметы и форумную активность, но не исходный пароль.</p>
-            <div class="detail-list">
-              <div><strong>Email-подтверждение</strong><span>Письмо с одноразовой ссылкой и сроком действия.</span></div>
-              <div><strong>Telegram Login</strong><span>Привязка Telegram ID через официальный виджет или бот.</span></div>
-              <div><strong>Admin-панель</strong><span>Роли, блокировки, модерация форума, экспорт заявок и журнал действий.</span></div>
-              <div><strong>Прогресс игры</strong><span>Состояние Tamagotchi переносится из браузера в профиль после входа.</span></div>
-            </div>
-          </article>
+          <!-- GUEST: forms -->
+          <div id="authGuest">
+            <div class="auth-grid auth-grid-forms">
+              <!-- LOGIN -->
+              <article class="auth-card" data-auth-panel="login" id="panelLogin">
+                <div class="eyebrow">Авторизация</div>
+                <h2>Вход</h2>
+                <form class="auth-form" id="formLogin" method="post" action="#" autocomplete="on" novalidate>
+                  <label>Логин или email
+                    <input name="login" type="text" autocomplete="username" required maxlength="191" placeholder="username или name@mail.ru">
+                  </label>
+                  <label>Пароль
+                    <input name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="••••••••">
+                  </label>
+                  <label class="auth-check">
+                    <input name="remember" type="checkbox"> Запомнить в этом браузере
+                  </label>
+                  <button class="btn" type="submit">Войти</button>
+                  <p class="form-status" id="loginStatus" aria-live="polite"></p>
+                </form>
+              </article>
 
-          <article class="auth-card">
-            <div class="eyebrow">Tamagotchi</div>
-            <h2>Привязка игры</h2>
-            <p id="gameSavePreview">Проверяю прогресс игры в этом браузере...</p>
-            <div class="hero-actions">
-              <a class="btn secondary" href="entertainment.html">Продолжить игру</a>
-              <a class="btn secondary" href="constructor.html">Собрать grillz</a>
-            </div>
-          </article>
+              <!-- REGISTER -->
+              <article class="auth-card" data-auth-panel="register" id="panelRegister" hidden>
+                <div class="eyebrow">Регистрация</div>
+                <h2>Создать аккаунт</h2>
+                <form class="auth-form" id="formRegister" method="post" action="#" autocomplete="on" novalidate>
+                  <label>Логин
+                    <input name="username" type="text" autocomplete="username" required pattern="[A-Za-z0-9_]{3,50}" maxlength="50" placeholder="latin_name">
+                  </label>
+                  <label>Имя (как обращаться)
+                    <input name="display_name" type="text" autocomplete="name" maxlength="100" placeholder="Сергей">
+                  </label>
+                  <label>Email
+                    <input name="email" type="email" autocomplete="email" required maxlength="191" placeholder="name@example.com">
+                  </label>
+                  <label>Telegram
+                    <input name="telegram" type="text" autocomplete="username" maxlength="64" placeholder="@username">
+                  </label>
+                  <label>Пароль
+                    <input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="мин. 8, буква и цифра">
+                  </label>
+                  <label>Повтор пароля
+                    <input name="password2" type="password" autocomplete="new-password" required minlength="8" maxlength="128">
+                  </label>
+                  <button class="btn" type="submit">Зарегистрироваться</button>
+                  <p class="form-status" id="registerStatus" aria-live="polite"></p>
+                </form>
+              </article>
 
-          <article class="auth-card">
-            <div class="eyebrow">Администрирование</div>
-            <h2>Контроль без риска утечки</h2>
-            <p>После подключения backend администратор получит панель пользователей, заявок, фото и форума. Сырые пароли намеренно не сохраняются: вместо них нужны сброс пароля, журнал входов и принудительный выход со всех устройств.</p>
-            <div class="profile-preview">
-              <span>Пользователи</span>
-              <strong>email, Telegram, роли</strong>
-              <span>Форум</span>
-              <strong>темы, жалобы, блокировки</strong>
-              <span>Игра</span>
-              <strong>уровень, предметы, баланс</strong>
+              <!-- RESET -->
+              <article class="auth-card" data-auth-panel="reset" id="panelReset" hidden>
+                <div class="eyebrow">Восстановление</div>
+                <h2>Сброс пароля</h2>
+                <form class="auth-form" id="formResetRequest" method="post" action="#">
+                  <label>Email аккаунта
+                    <input name="email" type="email" autocomplete="email" required maxlength="191" placeholder="name@example.com">
+                  </label>
+                  <button class="btn" type="submit">Запросить сброс</button>
+                  <p class="form-status" id="resetStatus" aria-live="polite"></p>
+                </form>
+                <hr class="auth-hr">
+                <form class="auth-form" id="formResetConfirm" method="post" action="#">
+                  <label>Токен из письма / API
+                    <input name="token" id="resetTokenField" type="text" required maxlength="128" autocomplete="off" placeholder="вставьте токен">
+                  </label>
+                  <label>Новый пароль
+                    <input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128">
+                  </label>
+                  <label>Повтор
+                    <input name="password2" type="password" autocomplete="new-password" required minlength="8" maxlength="128">
+                  </label>
+                  <button class="btn secondary" type="submit">Сохранить пароль</button>
+                  <p class="form-status" id="resetConfirmStatus" aria-live="polite"></p>
+                </form>
+              </article>
+
+              <!-- PROFILE panel placeholder when guest opens tab -->
+              <article class="auth-card" data-auth-panel="profile" id="panelProfileGuest" hidden>
+                <div class="eyebrow">Кабинет</div>
+                <h2>Нужен вход</h2>
+                <p>Закрытый раздел. Войдите или создайте аккаунт — без сессии кабинет недоступен.</p>
+                <button type="button" class="btn" data-auth-tab="login">К входу</button>
+              </article>
+
+              <article class="auth-card auth-security">
+                <div class="eyebrow">Защита</div>
+                <h2>Как устроен аккаунт</h2>
+                <div class="detail-list">
+                  <div><strong>1 · База</strong><span>id, username, email, password_hash (scrypt / password_hash)</span></div>
+                  <div><strong>2 · Формы</strong><span>регистрация, вход, сброс — валидация на клиенте и сервере</span></div>
+                  <div><strong>3 · API</strong><span>Yandex Function / PHP PDO — проверка и выдача JWT</span></div>
+                  <div><strong>4 · Сессия</strong><span>Bearer JWT, проверка <code>?action=me</code></span></div>
+                  <div><strong>5 · Безопасность</strong><span>хэш, rate-limit, CORS, prepared statements (PHP)</span></div>
+                </div>
+                <p class="field-note">Документация API: <code>api/auth/README.md</code> · схема MySQL: <code>api/auth/schema.sql</code></p>
+              </article>
             </div>
-          </article>
+          </div>
+
+          <!-- AUTHED -->
+          <div id="authAuthed" hidden>
+            <div class="auth-grid">
+              <article class="auth-card" data-auth-panel="profile" id="authProfileCard">
+                <!-- filled by auth.js -->
+              </article>
+              <article class="auth-card">
+                <div class="eyebrow">Tamagotchi</div>
+                <h2>Прогресс игры</h2>
+                <p id="gameSavePreview">Проверяю local save…</p>
+                <div class="hero-actions">
+                  <a class="btn secondary" href="entertainment.html">Играть</a>
+                  <a class="btn secondary" href="order.html">Заказ</a>
+                </div>
+              </article>
+              <article class="auth-card">
+                <div class="eyebrow">Безопасность</div>
+                <h2>Рекомендации</h2>
+                <ul class="auth-tips">
+                  <li>Не передавайте JWT третьим лицам.</li>
+                  <li>Сбрасывайте пароль, если устройство утеряно.</li>
+                  <li>На проде используйте AUTH_STORAGE=s3 или MySQL, не memory.</li>
+                </ul>
+              </article>
+            </div>
+          </div>
         </div>
       </section>
     </main>
-    <div class="legal-social-note"><div class="container"><p>*Instagram – запрещённая социальная сеть в России. Организация Meta Platforms Inc., продукты которой Instagram и Facebook запрещены на территории.</p></div></div>
+
+    <div class="legal-social-note">
+      <div class="container">
+        <p>*Instagram – запрещённая социальная сеть в России. Организация Meta Platforms Inc., продукты которой Instagram и Facebook запрещены на территории.</p>
+      </div>
+    </div>
     <footer>
       <div class="container footer-grid">
         <div><strong>Grillz Customs</strong><br>Искусство, которое носят на зубах. Без компромиссов.</div>
         <div class="footer-links">
-          <a href="https://vk.com/grillz_customs" target="_blank" rel="noopener" data-analytics="vk_footer">VK</a>
-          <a href="https://t.me/Grillz_Customs_bot" target="_blank" rel="noopener" data-analytics="telegram_footer">Telegram</a>
-          <a href="mailto:grillzcustoms@yandex.ru" data-analytics="email_footer">Email</a>
+          <a href="https://vk.com/grillz_customs" target="_blank" rel="noopener">VK</a>
+          <a href="https://t.me/Grillz_Customs_bot" target="_blank" rel="noopener">Telegram</a>
+          <a href="mailto:grillzcustoms@yandex.ru">Email</a>
           <a href="#main">Наверх</a>
         </div>
       </div>

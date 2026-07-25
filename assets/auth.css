@@ -1,0 +1,168 @@
+/* Account / auth UI — Grillz Customs */
+
+.auth-section {
+  padding-bottom: 56px;
+}
+
+.auth-mode-badge {
+  display: inline-flex;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 208, 0, 0.28);
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--yellow, #ffd000);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.auth-mode-badge.is-demo {
+  border-color: rgba(255, 120, 80, 0.45);
+  color: #ffb08a;
+}
+
+.auth-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+}
+
+.auth-tab {
+  appearance: none;
+  font: inherit;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 208, 0, 0.22);
+  background: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.auth-tab:hover,
+.auth-tab:focus-visible {
+  border-color: rgba(255, 208, 0, 0.55);
+  color: #fff;
+  outline: none;
+}
+
+.auth-tab.is-active {
+  background: linear-gradient(135deg, rgba(255, 208, 0, 0.22), rgba(255, 208, 0, 0.08));
+  border-color: rgba(255, 208, 0, 0.7);
+  color: #ffd000;
+}
+
+.auth-grid-forms {
+  align-items: start;
+}
+
+.auth-form .auth-check {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.auth-form .auth-check input {
+  min-height: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: #ffd000;
+}
+
+.form-status {
+  min-height: 1.2em;
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.form-status.is-ok {
+  color: #8dffb5;
+}
+
+.form-status.is-err {
+  color: #ff8f8f;
+}
+
+.auth-hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 208, 0, 0.14);
+  margin: 18px 0;
+}
+
+.auth-security code {
+  color: #ffd000;
+  font-size: 0.85em;
+}
+
+.field-note {
+  margin-top: 14px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.4;
+}
+
+.profile-head {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.profile-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  font-weight: 950;
+  color: #1a1200;
+  background: linear-gradient(145deg, #fff2b0, #ffd000 50%, #b88600);
+  box-shadow: 0 0 24px rgba(255, 208, 0, 0.25);
+}
+
+.profile-meta {
+  margin: 4px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.92rem;
+}
+
+.auth-tips {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.55;
+}
+
+.auth-tips li + li {
+  margin-top: 6px;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.btn.ghost:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+@media (max-width: 720px) {
+  .auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

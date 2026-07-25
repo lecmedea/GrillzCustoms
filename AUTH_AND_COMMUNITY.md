@@ -1,14 +1,29 @@
 # Grillz Customs accounts, forum and game persistence
 
-GitHub Pages can publish the static website, but real accounts, email login, forum posts, admin moderation and Tamagotchi cloud saves require a backend and database.
+GitHub Pages publishes the static frontend. **Real auth** is implemented as:
+
+| Layer | Path |
+|---|---|
+| UI | `account.html` + `assets/auth.js` + `assets/auth-config.js` |
+| Node API (Yandex CF) | `api/auth/index.js` — scrypt + JWT |
+| MySQL schema | `api/auth/schema.sql` |
+| PHP + PDO (alt host) | `api/php-auth/` |
+
+## Five required pieces (done)
+
+1. **Database** — MySQL table `users` (id, username, email, password_hash, …) or JSON store on Object Storage / demo memory.
+2. **Forms** — register / login / password reset on `account.html`.
+3. **Handler** — Node `?action=register|login|…` or PHP `auth.php`.
+4. **Sessions** — JWT HS256 (`Authorization: Bearer`), client stores token; `?action=me` validates.
+5. **Security** — no plaintext passwords, validation, rate limit, CORS, PDO prepared statements (PHP).
 
 ## Safe account model
 
-- Store users with `id`, `email`, `display_name`, `telegram_id`, `photo_url`, `role`, `created_at`, `last_login_at`.
-- Store passwords only as slow salted hashes, for example `argon2id` or `scrypt`.
-- Never store or show raw passwords to admins. Admin control should use password reset, session revoke and audit logs.
-- Confirm email through a one-time signed link.
-- Support Telegram login by validating Telegram's signed login payload server-side.
+- Store users with `id`, `username`, `email`, `password_hash`, `display_name`, `telegram`, `role`, `created_at`, `last_login_at`.
+- Store passwords only as slow salted hashes (`scrypt` Node / `password_hash` PHP).
+- Never store or show raw passwords to admins.
+- Reset tokens: SHA-256 of one-time secret, short TTL.
+- Frontend without API URL runs **local demo only** (PBKDF2 in browser) — not for production.
 
 ## Forum model
 

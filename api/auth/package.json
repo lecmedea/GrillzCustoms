@@ -1,0 +1,11 @@
+{
+  "name": "grillzcustoms-auth-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Auth API for Grillz Customs (Yandex Cloud Functions) — scrypt + JWT, no npm runtime deps required.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  }
+}

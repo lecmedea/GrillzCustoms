@@ -617,9 +617,11 @@ body::after {
   }
 
   .gift-photo-wrap {
-    border-radius:18px;
+    max-width:min(100%,340px);
+    padding:5px;
+    border-radius:14px;
     border-color:rgba(255,208,0,.16);
-    box-shadow:0 14px 34px rgba(0,0,0,.34);
+    box-shadow:0 12px 28px rgba(0,0,0,.34);
     transform:none;
   }
 
@@ -1360,19 +1362,26 @@ section {
 .gift-photo-wrap {
   position:relative;
   z-index:2;
-  border-radius:32px;
+  width:fit-content;
+  max-width:min(100%,420px);
+  margin-inline:auto;
+  padding:6px;
+  border-radius:18px;
   overflow:hidden;
-  border:1px solid rgba(255,208,0,.3);
+  border:1px solid rgba(255,208,0,.28);
   background:#080808;
-  box-shadow:0 28px 80px rgba(0,0,0,.45);
-  transform:rotate(2deg)
+  box-shadow:0 16px 40px rgba(0,0,0,.4);
+  transform:rotate(1.5deg);
+  line-height:0
 }
 
 .gift-photo {
   display:block;
   width:100%;
-  min-height:420px;
+  height:auto;
+  max-height:min(52vh,420px);
   object-fit:contain;
+  border-radius:12px;
   filter:contrast(1.08) saturate(1.08)
 }
 
@@ -2025,7 +2034,7 @@ section {
 }
 
 .gift-photo {
-  min-height:280px
+  min-height:0
 }
 
 .cta::after {

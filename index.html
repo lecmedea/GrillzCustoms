@@ -884,19 +884,26 @@
     .gift-photo-wrap {
       position: relative;
       z-index: 2;
-      border-radius: 32px;
+      width: fit-content;
+      max-width: min(100%, 420px);
+      margin-inline: auto;
+      padding: 6px;
+      border-radius: 18px;
       overflow: hidden;
-      border: 1px solid rgba(255, 208, 0, 0.3);
+      border: 1px solid rgba(255, 208, 0, 0.28);
       background: #080808;
-      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
-      transform: rotate(2deg);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      transform: rotate(1.5deg);
+      line-height: 0;
     }
 
     .gift-photo {
       display: block;
       width: 100%;
-      min-height: 420px;
+      height: auto;
+      max-height: min(52vh, 420px);
       object-fit: contain;
+      border-radius: 12px;
       filter: contrast(1.08) saturate(1.08);
     }
 
@@ -1616,7 +1623,8 @@
       }
 
       .gift-photo {
-        min-height: 320px;
+        min-height: 0;
+        max-height: min(48vh, 340px);
       }
 
       .flying-grill {
@@ -3411,9 +3419,16 @@
 
       .gift-photo-wrap {
         transform: none !important;
-        border-radius: 18px !important;
+        max-width: min(100%, 340px) !important;
+        padding: 5px !important;
+        border-radius: 14px !important;
         border-color: rgba(255, 208, 0, 0.16) !important;
-        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34) !important;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34) !important;
+      }
+
+      .gift-photo {
+        max-height: min(48vh, 320px) !important;
+        border-radius: 10px !important;
       }
     }
 

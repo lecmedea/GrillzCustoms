@@ -11,17 +11,20 @@ The bot token must be stored only in Yandex Cloud environment variables. Do not 
 - Public invoke URL: `https://functions.yandexcloud.net/d4e1e154aq9us864hggr`
 - Runtime: `nodejs22`
 - Entrypoint: `index.handler`
-- Telegram webhook: set to the public invoke URL on 2026-07-25
+- Telegram mode: polling is preferred if Telegram -> Yandex webhook delivery times out. Invoke `https://functions.yandexcloud.net/d4e1e154aq9us864hggr?poll=1` or attach a Yandex Cloud timer trigger.
+- Timer trigger: `grillzcustoms-bot-polling` (`a1sufdn6u3imkns2g3n6`), cron `* * ? * * *`
+- Trigger service account: `grillzcustoms-bot-invoker`
 
 ## Function settings
 
 - Runtime: `nodejs22`
 - Entry point: `index.handler`
-- Memory: `128 MB` is enough for the current webhook handler
-- Timeout: `5s`
+- Memory: `128 MB` is enough for the current handler
+- Timeout: `30s` for polling mode, because Telegram API calls can exceed a short 5 second function timeout
 - Environment variables:
   - `TELEGRAM_BOT_TOKEN`
   - `SITE_URL=https://grillzcustoms.ru`
+  - `TELEGRAM_FETCH_TIMEOUT_MS=25000` optional
   - `ADMIN_CHAT_ID` optional, for owner notifications
 
 ## Webhook
@@ -42,4 +45,4 @@ curl -sS "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getWebhookInfo"
 
 ## Notes
 
-The current implementation has no external dependencies. For webhook reliability it returns a Telegram-compatible `sendMessage` payload directly in the HTTP response instead of making a second outbound request from the function to Telegram. It answers common questions and links to the constructor, order page, works, contacts and Grillz Tamagotchi.
+The current implementation has no external dependencies. It supports both webhook-style responses and polling mode. Polling mode is used when Telegram cannot reliably deliver webhook requests to Yandex Cloud Functions. It answers common questions and links to the constructor, order page, works, contacts and Grillz Tamagotchi.

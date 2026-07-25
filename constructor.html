@@ -4,20 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Конструктор Grillz — собрать дизайн гриллз онлайн</title>
-  <meta name="description" content="Онлайн-конструктор Grillz Customs: выберите зубы, материал, стиль, пробу, камни и соберите референс для консультации.">
+  <meta name="description" content="Онлайн-ателье Grillz Customs: карта зубов FDI, металл, фактура, проба и инкрустация. Живой превью-рендер и смета для консультации.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#050505">
   <link rel="canonical" href="https://grillzcustoms.ru/constructor.html">
   <link rel="icon" type="image/jpeg" href="assets/logo-grillz.jpg">
   <link rel="apple-touch-icon" href="assets/logo-grillz.jpg">
   <meta property="og:title" content="Конструктор Grillz — собрать дизайн гриллз онлайн">
-  <meta property="og:description" content="Выберите зубы, материал, стиль, пробу и камни, чтобы подготовить референс для консультации.">
+  <meta property="og:description" content="Соберите grillz по зубам: материал, фактура, проба, камни. Живой рендер и ориентировочная смета.">
   <meta property="og:image" content="https://grillzcustoms.ru/assets/logo-grillz.jpg">
   <meta property="og:url" content="https://grillzcustoms.ru/constructor.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="assets/site-pages.css">
+  <link rel="stylesheet" href="assets/grillz-studio.css">
   <link rel="stylesheet" href="assets/cookie-consent.css">
   <script src="assets/analytics-config.js" defer></script>
   <script src="assets/analytics.js" defer></script>
@@ -25,7 +26,7 @@
   <script src="assets/grillz-constructor.js" defer></script>
   <script src="assets/cookie-consent.js" defer></script>
 </head>
-<body>
+<body class="studio-page">
   <a class="skip-link" href="#main">К основному содержанию</a>
   <div class="moving-background" aria-hidden="true"></div>
   <div class="page">
@@ -65,16 +66,17 @@
         </nav>
       </div>
     </header>
+
     <main id="main">
-      <section class="page-hero">
+      <section class="page-hero studio-hero">
         <div class="container page-hero-grid">
           <div class="hero-panel">
-            <div class="eyebrow">Онлайн-конструктор</div>
+            <div class="eyebrow">Ателье · live preview</div>
             <h1>Собери свои <span>grillz</span></h1>
-            <p class="lead">Выберите зубы, материал, стиль, пробу и камни. Конструктор создаёт понятный референс для консультации и предварительной оценки.</p>
+            <p class="lead">Карта зубов FDI, металл, фактура, проба и инкрустация — по каждому зубу отдельно. Рендер обновляется мгновенно, смета считается как ориентир для консультации.</p>
             <div class="hero-actions">
-              <a class="btn" href="#constructor" data-analytics="constructor_start">Начать сборку</a>
-              <a class="btn secondary" href="contacts.html" data-analytics="constructor_contacts">Контакты</a>
+              <a class="btn" href="#studio" data-analytics="constructor_start">Открыть студию</a>
+              <a class="btn secondary" href="order.html" data-analytics="constructor_order_hero">К заказу</a>
             </div>
           </div>
           <div class="hero-orbit" aria-hidden="true">
@@ -87,34 +89,137 @@
           </div>
         </div>
       </section>
-      <section id="constructor">
-        <div class="container constructor-shell">
-          <article class="constructor-card">
-            <h2>Зубной ряд</h2>
-            <p>Нажмите на зубы, которые хотите включить в сет. Номера даны как рабочий ориентир для консультации.</p>
-            <div class="mouth-preview">
-              <div class="teeth-arch" id="upperTeeth" aria-label="Верхний ряд зубов"></div>
-              <div class="teeth-arch" id="lowerTeeth" aria-label="Нижний ряд зубов"></div>
+
+      <section id="studio" class="studio-section" aria-label="Студия конструктора grillz">
+        <div class="container studio-layout" id="grillzStudio" data-studio-root>
+          <!-- LIVE PREVIEW -->
+          <div class="studio-stage-wrap">
+            <div class="studio-stage" id="studioStage">
+              <div class="stage-chrome">
+                <div class="stage-title">
+                  <span class="stage-dot" aria-hidden="true"></span>
+                  <span>Live · Grillz Studio</span>
+                </div>
+                <div class="stage-actions" role="toolbar" aria-label="Действия превью">
+                  <button type="button" class="stage-btn" id="btnResetView" title="Сбросить ракурс">Ракурс</button>
+                  <button type="button" class="stage-btn" id="btnCapture" title="Снимок превью">Снимок</button>
+                  <button type="button" class="stage-btn" id="btnFullscreen" title="На весь экран">Экран</button>
+                </div>
+              </div>
+
+              <div class="stage-viewport" id="stageViewport">
+                <canvas id="mouthCanvas" width="960" height="720" role="img" aria-label="Интерактивный превью зубного ряда с grillz"></canvas>
+                <div class="stage-hint" id="stageHint">Клик по зубу — вкл/выкл · двойной клик — фокус настроек · перетащите для поворота</div>
+              </div>
+
+              <div class="stage-legend">
+                <span><i class="lg lg-off"></i> выкл</span>
+                <span><i class="lg lg-on"></i> в сете</span>
+                <span><i class="lg lg-focus"></i> фокус</span>
+              </div>
             </div>
-          </article>
-          <aside class="constructor-card">
-            <h2>Параметры</h2>
-            <div class="constructor-options">
-              <div class="option-group"><strong>Материал</strong><div data-option-group="material"></div></div>
-              <div class="option-group"><strong>Стиль</strong><div data-option-group="style"></div></div>
-              <div class="option-group"><strong>Проба</strong><div data-option-group="purity"></div></div>
-              <div class="option-group"><strong>Камни</strong><div data-option-group="stones"></div></div>
-            </div>
-            <div class="summary-box" id="constructorSummary" aria-live="polite"></div>
-            <div class="hero-actions">
-              <button class="btn" type="button" id="copyConstructor">Скопировать референс</button>
-              <a class="btn secondary" href="index.html#order" data-analytics="constructor_order">Отправить заявку</a>
-            </div>
+          </div>
+
+          <!-- OPTIONS -->
+          <aside class="studio-panel" aria-label="Параметры сборки">
+            <form id="studioForm" class="studio-form" autocomplete="off" onsubmit="return false;">
+              <header class="panel-head">
+                <h2>Параметры</h2>
+                <p class="panel-sub">Настраивайте каждый зуб отдельно или примените пресет ко всему сету.</p>
+              </header>
+
+              <!-- STEP: MOULD -->
+              <fieldset class="studio-block" data-block="mould">
+                <legend>1 · Слепок</legend>
+                <div class="choice-grid" id="mouldChoices" role="radiogroup" aria-label="Тип слепка"></div>
+              </fieldset>
+
+              <!-- STEP: TEETH -->
+              <fieldset class="studio-block" data-block="teeth">
+                <legend>2 · Зубы в сете</legend>
+                <div class="preset-row" id="presetRow" role="group" aria-label="Быстрые пресеты"></div>
+                <div class="fdi-mini" aria-hidden="false">
+                  <div class="fdi-row" id="fdiUpper" aria-label="Верхний ряд"></div>
+                  <div class="fdi-row" id="fdiLower" aria-label="Нижний ряд"></div>
+                </div>
+                <p class="field-note">Нумерация FDI: 11–15 / 21–25 сверху, 31–35 / 41–45 снизу. Это тот же код, что использует врач и лаборатория.</p>
+              </fieldset>
+
+              <!-- STEP: EDIT MODE -->
+              <fieldset class="studio-block" data-block="scope">
+                <legend>3 · Область правки</legend>
+                <div class="scope-row">
+                  <button type="button" class="scope-btn is-active" data-scope="focus" id="scopeFocus">Активный зуб <span id="focusLabel">11</span></button>
+                  <button type="button" class="scope-btn" data-scope="all" id="scopeAll">Весь сет</button>
+                </div>
+              </fieldset>
+
+              <!-- STEP: MATERIAL -->
+              <fieldset class="studio-block" data-block="material">
+                <legend>4 · Металл / покрытие</legend>
+                <div class="swatch-grid" id="materialChoices" role="listbox" aria-label="Материал"></div>
+              </fieldset>
+
+              <!-- STEP: STYLE -->
+              <fieldset class="studio-block" data-block="style">
+                <legend>5 · Фактура</legend>
+                <div class="card-grid" id="styleChoices" role="listbox" aria-label="Фактура"></div>
+              </fieldset>
+
+              <!-- STEP: PURITY (conditional) -->
+              <fieldset class="studio-block" data-block="purity" id="blockPurity">
+                <legend>6 · Проба</legend>
+                <div class="pill-grid" id="purityChoices" role="listbox" aria-label="Проба"></div>
+              </fieldset>
+
+              <!-- STEP: STONES (conditional) -->
+              <fieldset class="studio-block" data-block="stones" id="blockStones">
+                <legend>7 · Инкрустация / чистота</legend>
+                <div class="pill-grid" id="stonesChoices" role="listbox" aria-label="Камни"></div>
+              </fieldset>
+
+              <!-- SUMMARY -->
+              <div class="studio-summary" id="studioSummary" aria-live="polite"></div>
+
+              <div class="studio-cta">
+                <button type="button" class="btn" id="btnCopyRef">Скопировать референс</button>
+                <button type="button" class="btn secondary" id="btnSendOrder">В заявку</button>
+                <button type="button" class="btn ghost" id="btnResetBuild">Сбросить</button>
+              </div>
+              <p class="legal-line">Ориентир по цене не является офертой. Финал зависит от слепка, посадки, веса металла и ювелирной работы.</p>
+            </form>
           </aside>
         </div>
       </section>
+
+      <section class="studio-howto">
+        <div class="container howto-grid">
+          <article class="howto-card">
+            <h3>Как это работает</h3>
+            <ol>
+              <li>Выберите способ снятия слепка.</li>
+              <li>Отметьте зубы в сете — по одному или пресетом.</li>
+              <li>Настройте металл, фактуру, пробу и камни на зубе или на всём сете.</li>
+              <li>Скопируйте референс или отправьте в заявку — мастер увидит ту же спецификацию.</li>
+            </ol>
+          </article>
+          <article class="howto-card">
+            <h3>Что получит мастер</h3>
+            <ul>
+              <li>Карта зубов FDI с параметрами каждого колпачка.</li>
+              <li>Снимок превью (PNG) и текстовый референс.</li>
+              <li>Ориентировочную смету до примерки и финального веса.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
     </main>
-    <div class="legal-social-note"><div class="container"><p>*Instagram – запрещённая социальная сеть в России. Организация Meta Platforms Inc., продукты которой Instagram и Facebook запрещены на территории.</p></div></div>
+
+    <div class="legal-social-note">
+      <div class="container">
+        <p>*Instagram – запрещённая социальная сеть в России. Организация Meta Platforms Inc., продукты которой Instagram и Facebook запрещены на территории.</p>
+      </div>
+    </div>
     <footer>
       <div class="container footer-grid">
         <div><strong>Grillz Customs</strong><br>Искусство, которое носят на зубах. Без компромиссов.</div>

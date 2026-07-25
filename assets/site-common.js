@@ -128,4 +128,18 @@
       text: target.textContent.trim().slice(0, 80)
     });
   });
+
+  // Prefill order form from Grillz Studio reference (if present)
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const fromStudio = params.get('from') === 'studio' || window.location.hash === '#order';
+    const studioText = sessionStorage.getItem('gc_grillz_order_payload');
+    if (fromStudio && studioText) {
+      const comment = document.querySelector('#order textarea[name="comment"], form textarea[name="comment"]');
+      if (comment && !comment.value.trim()) {
+        comment.value = studioText;
+        comment.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+  } catch (_) { /* ignore storage / SSR quirks */ }
 })();

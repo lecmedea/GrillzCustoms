@@ -26,7 +26,7 @@
     home: 'Главная',
     order: 'Заказ',
     services: 'Услуги',
-    works: 'Работы',
+    works: 'Наши работы',
     constructor: 'Конструктор',
     stars: 'Звёзды',
     forum: 'Форум',
@@ -68,22 +68,22 @@
 
   const LABELS = {
     ru: {},
-    en: { home:'Home', order:'Order', services:'Services', works:'Work', constructor:'Designer', stars:'Stars', forum:'Forum', entertainment:'Entertainment', contacts:'Contacts', more:'More', about:'About', certificate:'Certificate', process:'Process', trusted:'Trusted by', clinics:'For clinics', jewelry:'For workshops', faq:'F.A.Q.', account:'Account', blog:'Blog', top:'Top', leaveRequest:'Send request', consult:'Book a consultation', viewServices:'View services', orderCertificate:'Order a certificate', discussPartnership:'Discuss partnership', offerPartnership:'Offer partnership', sections:'Sections', newTopic:'New topic', activeTopics:'Active topics', createTopic:'Create topic', latestTopics:'Latest topics', rules:'Rules', accept:'Accept', necessaryCookies:'Necessary only', language:'Site language', chooseLanguage:'Choose site language', custom:'Custom', forYourStyle:'for your style', artOnTeeth:'Art worn on teeth', homeLead:'Grillz Customs creates bespoke dental jewelry: precise anatomical fit, bold aesthetics and a look that cannot be confused with anyone else.', cookieCopy:'This site uses cookies for analytics, saved game settings and interface improvements. You can accept all cookies or keep only the necessary ones.' },
-    fr: { home:'Accueil', order:'Commande', services:'Services', works:'Réalisations', constructor:'Configurateur', stars:'Stars', forum:'Forum', entertainment:'Divertissement', contacts:'Contacts', more:'Plus', about:'À propos', certificate:'Certificat', process:'Processus', trusted:'Ils nous font confiance', clinics:'Cliniques', jewelry:'Ateliers', faq:'F.A.Q.', account:'Compte', blog:'Blog', top:'Haut', leaveRequest:'Envoyer une demande', consult:'Demander un conseil', viewServices:'Voir les services', orderCertificate:'Commander un certificat', discussPartnership:'Discuter partenariat', offerPartnership:'Proposer un partenariat', sections:'Sections', newTopic:'Nouveau sujet', activeTopics:'Sujets actifs', createTopic:'Créer un sujet', latestTopics:'Derniers sujets', rules:'Règles', accept:'Accepter', necessaryCookies:'Nécessaires seulement', language:'Langue du site', chooseLanguage:'Choisir la langue du site', custom:'Grillz', forYourStyle:'sur mesure pour ton style', artOnTeeth:'Un art que l’on porte sur les dents', homeLead:'Grillz Customs crée des bijoux dentaires sur mesure : ajustement anatomique précis, esthétique affirmée et image impossible à confondre.', cookieCopy:'Ce site utilise des cookies pour l’analytique, la sauvegarde des réglages de jeu et l’amélioration de l’interface. Vous pouvez tout accepter ou garder seulement les cookies nécessaires.' },
-    es: { home:'Inicio', order:'Pedido', services:'Servicios', works:'Trabajos', constructor:'Constructor', stars:'Estrellas', forum:'Foro', entertainment:'Entretenimiento', contacts:'Contactos', more:'Más', about:'Sobre nosotros', certificate:'Certificado', process:'Proceso', trusted:'Confían en nosotros', clinics:'Clínicas', jewelry:'Talleres', faq:'F.A.Q.', account:'Cuenta', blog:'Blog', top:'Arriba', leaveRequest:'Enviar solicitud', consult:'Pedir consulta', viewServices:'Ver servicios', orderCertificate:'Pedir certificado', discussPartnership:'Hablar de colaboración', offerPartnership:'Proponer colaboración', sections:'Secciones', newTopic:'Nuevo tema', activeTopics:'Temas activos', createTopic:'Crear tema', latestTopics:'Últimos temas', rules:'Reglas', accept:'Aceptar', necessaryCookies:'Solo necesarias', language:'Idioma del sitio', chooseLanguage:'Elegir idioma del sitio', custom:'Grillz', forYourStyle:'a medida para tu estilo', artOnTeeth:'Arte que se lleva en los dientes', homeLead:'Grillz Customs crea joyería dental personalizada: ajuste anatómico preciso, estética atrevida y una imagen imposible de confundir.', cookieCopy:'Este sitio usa cookies para analítica, guardar ajustes del juego y mejorar la interfaz. Puedes aceptar todas las cookies o dejar solo las necesarias.' },
-    it: { home:'Home', order:'Ordine', services:'Servizi', works:'Lavori', constructor:'Configuratore', stars:'Star', forum:'Forum', entertainment:'Intrattenimento', contacts:'Contatti', more:'Altro', about:'Chi siamo', certificate:'Certificato', process:'Processo', trusted:'Si fidano di noi', clinics:'Cliniche', jewelry:'Laboratori', faq:'F.A.Q.', account:'Account', blog:'Blog', top:'Su', leaveRequest:'Invia richiesta', consult:'Prenota consulenza', viewServices:'Vedi servizi', orderCertificate:'Ordina certificato', discussPartnership:'Parliamo di partnership', offerPartnership:'Proponi partnership', sections:'Sezioni', newTopic:'Nuovo tema', activeTopics:'Temi attivi', createTopic:'Crea tema', latestTopics:'Ultimi temi', rules:'Regole', accept:'Accetta', necessaryCookies:'Solo necessari', language:'Lingua del sito', chooseLanguage:'Scegli la lingua del sito', custom:'Grillz', forYourStyle:'su misura per il tuo stile', artOnTeeth:'Arte da indossare sui denti', homeLead:'Grillz Customs crea gioielli dentali su misura: calzata anatomica precisa, estetica audace e un’immagine impossibile da confondere.', cookieCopy:'Questo sito usa cookie per analisi, salvataggio delle impostazioni di gioco e miglioramento dell’interfaccia. Puoi accettarli tutti o lasciare solo quelli necessari.' },
-    ka: { home:'მთავარი', order:'შეკვეთა', services:'სერვისები', works:'ნამუშევრები', constructor:'კონსტრუქტორი', stars:'ვარსკვლავები', forum:'ფორუმი', entertainment:'გართობა', contacts:'კონტაქტები', more:'მეტი', about:'ჩვენ შესახებ', certificate:'სერტიფიკატი', process:'პროცესი', trusted:'გვენდობიან', clinics:'კლინიკებისთვის', jewelry:'სახელოსნოებისთვის', faq:'F.A.Q.', account:'ანგარიში', blog:'ბლოგი', top:'ზემოთ', leaveRequest:'განაცხადის გაგზავნა', consult:'კონსულტაციის შეკვეთა', viewServices:'სერვისების ნახვა', orderCertificate:'სერტიფიკატის შეკვეთა', discussPartnership:'პარტნიორობის განხილვა', offerPartnership:'პარტნიორობის შეთავაზება', sections:'განყოფილებები', newTopic:'ახალი თემა', activeTopics:'აქტიური თემები', createTopic:'თემის შექმნა', latestTopics:'ბოლო თემები', rules:'წესები', accept:'მიღება', necessaryCookies:'მხოლოდ აუცილებელი', language:'საიტის ენა', chooseLanguage:'აირჩიეთ საიტის ენა', custom:'ინდივიდუალური', forYourStyle:'შენი სტილისთვის', artOnTeeth:'ხელოვნება, რომელსაც კბილებზე ატარებენ', homeLead:'Grillz Customs ქმნის ინდივიდუალურ კბილის სამკაულებს: ზუსტი ანატომიური მორგება, გამბედავი ესთეტიკა და სახე, რომელიც სხვაში არ აგერევა.', cookieCopy:'საიტი იყენებს cookies ანალიტიკისთვის, თამაშის პარამეტრების შესანახად და ინტერფეისის გასაუმჯობესებლად. შეგიძლიათ მიიღოთ ყველა ან დატოვოთ მხოლოდ აუცილებელი.' },
-    hy: { home:'Գլխավոր', order:'Պատվեր', services:'Ծառայություններ', works:'Աշխատանքներ', constructor:'Կոնստրուկտոր', stars:'Աստղեր', forum:'Ֆորում', entertainment:'Ժամանց', contacts:'Կոնտակտներ', more:'Ավելին', about:'Մեր մասին', certificate:'Վկայական', process:'Գործընթաց', trusted:'Մեզ վստահում են', clinics:'Կլինիկաներին', jewelry:'Արհեստանոցներին', faq:'F.A.Q.', account:'Հաշիվ', blog:'Բլոգ', top:'Վերև', leaveRequest:'Ուղարկել հայտ', consult:'Պատվիրել խորհրդատվություն', viewServices:'Տեսնել ծառայությունները', orderCertificate:'Պատվիրել վկայական', discussPartnership:'Քննարկել գործընկերությունը', offerPartnership:'Առաջարկել գործընկերություն', sections:'Բաժիններ', newTopic:'Նոր թեմա', activeTopics:'Ակտիվ թեմաներ', createTopic:'Ստեղծել թեմա', latestTopics:'Վերջին թեմաներ', rules:'Կանոններ', accept:'Ընդունել', necessaryCookies:'Միայն անհրաժեշտը', language:'Կայքի լեզու', chooseLanguage:'Ընտրել կայքի լեզուն', custom:'Անհատական', forYourStyle:'քո ոճի համար', artOnTeeth:'Արվեստ, որը կրում են ատամների վրա', homeLead:'Grillz Customs-ը ստեղծում է անհատական ատամնային զարդեր՝ ճշգրիտ անատոմիական նստվածքով, համարձակ էսթետիկայով և անկրկնելի կերպարով։', cookieCopy:'Կայքն օգտագործում է cookies՝ վերլուծության, խաղային կարգավորումների պահպանման և ինտերֆեյսի բարելավման համար։ Կարող եք ընդունել բոլորը կամ թողնել միայն անհրաժեշտները։' },
-    uz: { home:'Bosh sahifa', order:'Buyurtma', services:'Xizmatlar', works:'Ishlar', constructor:'Konstruktor', stars:'Yulduzlar', forum:'Forum', entertainment:'Ko‘ngilochar', contacts:'Kontaktlar', more:'Yana', about:'Biz haqimizda', certificate:'Sertifikat', process:'Jarayon', trusted:'Ishonch', clinics:'Klinikalar uchun', jewelry:'Ustaxonalar uchun', faq:'F.A.Q.', account:'Akkaunt', blog:'Blog', top:'Yuqoriga', leaveRequest:'Ariza yuborish', consult:'Maslahat olish', viewServices:'Xizmatlarni ko‘rish', orderCertificate:'Sertifikat buyurtma qilish', discussPartnership:'Hamkorlikni muhokama qilish', offerPartnership:'Hamkorlik taklif qilish', sections:'Bo‘limlar', newTopic:'Yangi mavzu', activeTopics:'Faol mavzular', createTopic:'Mavzu yaratish', latestTopics:'So‘nggi mavzular', rules:'Qoidalar', accept:'Qabul qilish', necessaryCookies:'Faqat zarurlari', language:'Sayt tili', chooseLanguage:'Sayt tilini tanlang', custom:'Individual', forYourStyle:'sening uslubing uchun', artOnTeeth:'Tishlarda taqiladigan san’at', homeLead:'Grillz Customs individual dental bezaklar yaratadi: anatomik mos tushish, dadil estetika va hech kimniki bilan adashmaydigan obraz.', cookieCopy:'Sayt analitika, o‘yin sozlamalarini saqlash va interfeysni yaxshilash uchun cookies ishlatadi. Hammasini qabul qilishingiz yoki faqat zarurlarini qoldirishingiz mumkin.' },
-    kk: { home:'Басты бет', order:'Тапсырыс', services:'Қызметтер', works:'Жұмыстар', constructor:'Конструктор', stars:'Жұлдыздар', forum:'Форум', entertainment:'Ойын-сауық', contacts:'Байланыс', more:'Тағы', about:'Біз туралы', certificate:'Сертификат', process:'Процесс', trusted:'Сенім артқандар', clinics:'Клиникаларға', jewelry:'Шеберханаларға', faq:'F.A.Q.', account:'Аккаунт', blog:'Блог', top:'Жоғары', leaveRequest:'Өтінім жіберу', consult:'Кеңес алу', viewServices:'Қызметтерді көру', orderCertificate:'Сертификатқа тапсырыс', discussPartnership:'Серіктестікті талқылау', offerPartnership:'Серіктестік ұсыну', sections:'Бөлімдер', newTopic:'Жаңа тақырып', activeTopics:'Белсенді тақырыптар', createTopic:'Тақырып құру', latestTopics:'Соңғы тақырыптар', rules:'Ережелер', accept:'Қабылдау', necessaryCookies:'Тек қажеттілері', language:'Сайт тілі', chooseLanguage:'Сайт тілін таңдаңыз', custom:'Жеке', forYourStyle:'сенің стиліңе арналған', artOnTeeth:'Тіске тағылатын өнер', homeLead:'Grillz Customs жеке тіс әшекейлерін жасайды: дәл анатомиялық отыру, батыл эстетика және ешкіммен шатастырмайтын образ.', cookieCopy:'Сайт аналитика, ойын баптауларын сақтау және интерфейсті жақсарту үшін cookies қолданады. Барлығын қабылдауға немесе тек қажеттілерін қалдыруға болады.' },
-    'zh-Hant': { home:'首頁', order:'訂單', services:'服務', works:'作品', constructor:'設計器', stars:'明星', forum:'論壇', entertainment:'娛樂', contacts:'聯絡', more:'更多', about:'關於我們', certificate:'禮品卡', process:'流程', trusted:'信任我們', clinics:'診所合作', jewelry:'工坊合作', faq:'F.A.Q.', account:'帳戶', blog:'部落格', top:'返回頂部', leaveRequest:'提交需求', consult:'預約諮詢', viewServices:'查看服務', orderCertificate:'訂購禮品卡', discussPartnership:'洽談合作', offerPartnership:'提出合作', sections:'分區', newTopic:'新主題', activeTopics:'熱門主題', createTopic:'建立主題', latestTopics:'最新主題', rules:'規則', accept:'接受', necessaryCookies:'僅必要', language:'網站語言', chooseLanguage:'選擇網站語言', custom:'客製', forYourStyle:'配合你的風格', artOnTeeth:'戴在牙齒上的藝術', homeLead:'Grillz Customs 製作客製牙飾：精準貼合口腔結構、強烈美學語言，讓你的造型一眼被記住。', cookieCopy:'本網站使用 cookies 進行分析、保存遊戲設定並改善介面。你可以接受全部 cookies，或僅保留必要項目。' },
-    ja: { home:'ホーム', order:'注文', services:'サービス', works:'制作例', constructor:'デザイナー', stars:'セレブ', forum:'フォーラム', entertainment:'エンタメ', contacts:'連絡先', more:'もっと見る', about:'私たちについて', certificate:'ギフト券', process:'制作プロセス', trusted:'信頼', clinics:'クリニック向け', jewelry:'工房向け', faq:'F.A.Q.', account:'アカウント', blog:'ブログ', top:'上へ', leaveRequest:'相談を送る', consult:'相談を予約', viewServices:'サービスを見る', orderCertificate:'ギフト券を注文', discussPartnership:'提携を相談', offerPartnership:'提携を提案', sections:'セクション', newTopic:'新しいトピック', activeTopics:'注目トピック', createTopic:'トピック作成', latestTopics:'最新トピック', rules:'ルール', accept:'同意する', necessaryCookies:'必要なものだけ', language:'サイト言語', chooseLanguage:'サイト言語を選択', custom:'カスタム', forYourStyle:'あなたのスタイルへ', artOnTeeth:'歯にまとうアート', homeLead:'Grillz Customs は、口元に正確にフィットするカスタム歯科ジュエリーを制作します。大胆な美学と、他と混ざらない存在感を形にします。', cookieCopy:'このサイトでは、分析、ゲーム設定の保存、インターフェース改善のために cookies を使用します。すべて許可するか、必要なものだけを残せます。' },
-    ko: { home:'홈', order:'주문', services:'서비스', works:'작업 사례', constructor:'디자이너', stars:'스타', forum:'포럼', entertainment:'엔터테인먼트', contacts:'연락처', more:'더보기', about:'소개', certificate:'상품권', process:'제작 과정', trusted:'신뢰', clinics:'클리닉용', jewelry:'공방용', faq:'F.A.Q.', account:'계정', blog:'블로그', top:'맨 위로', leaveRequest:'문의 보내기', consult:'상담 예약', viewServices:'서비스 보기', orderCertificate:'상품권 주문', discussPartnership:'협업 상담', offerPartnership:'협업 제안', sections:'섹션', newTopic:'새 주제', activeTopics:'활성 주제', createTopic:'주제 만들기', latestTopics:'최신 주제', rules:'규칙', accept:'동의', necessaryCookies:'필수만', language:'사이트 언어', chooseLanguage:'사이트 언어 선택', custom:'커스텀', forYourStyle:'당신의 스타일에 맞게', artOnTeeth:'치아 위에 착용하는 예술', homeLead:'Grillz Customs는 정확한 해부학적 핏, 대담한 미학, 누구와도 겹치지 않는 이미지를 위한 맞춤형 치아 주얼리를 만듭니다.', cookieCopy:'이 사이트는 분석, 게임 설정 저장, 인터페이스 개선을 위해 cookies를 사용합니다. 전체를 허용하거나 필수 항목만 남길 수 있습니다.' },
-    pt: { home:'Início', order:'Pedido', services:'Serviços', works:'Trabalhos', constructor:'Construtor', stars:'Estrelas', forum:'Fórum', entertainment:'Entretenimento', contacts:'Contatos', more:'Mais', about:'Sobre nós', certificate:'Certificado', process:'Processo', trusted:'Confiam', clinics:'Clínicas', jewelry:'Oficinas', faq:'F.A.Q.', account:'Conta', blog:'Blog', top:'Topo', leaveRequest:'Enviar pedido', consult:'Marcar consulta', viewServices:'Ver serviços', orderCertificate:'Pedir certificado', discussPartnership:'Falar de parceria', offerPartnership:'Propor parceria', sections:'Seções', newTopic:'Novo tópico', activeTopics:'Tópicos ativos', createTopic:'Criar tópico', latestTopics:'Últimos tópicos', rules:'Regras', accept:'Aceitar', necessaryCookies:'Apenas necessários', language:'Idioma do site', chooseLanguage:'Escolher idioma do site', custom:'Grillz', forYourStyle:'sob medida para o teu estilo', artOnTeeth:'Arte para usar nos dentes', homeLead:'A Grillz Customs cria joias dentárias sob medida: encaixe anatômico preciso, estética agressiva e um visual impossível de confundir.', cookieCopy:'Este site usa cookies para análise, guardar definições do jogo e melhorar a interface. Pode aceitar todos os cookies ou manter apenas os necessários.' },
-    de: { home:'Start', order:'Bestellung', services:'Services', works:'Arbeiten', constructor:'Konfigurator', stars:'Stars', forum:'Forum', entertainment:'Unterhaltung', contacts:'Kontakt', more:'Mehr', about:'Über uns', certificate:'Zertifikat', process:'Prozess', trusted:'Vertrauen', clinics:'Für Kliniken', jewelry:'Für Werkstätten', faq:'F.A.Q.', account:'Konto', blog:'Blog', top:'Nach oben', leaveRequest:'Anfrage senden', consult:'Beratung buchen', viewServices:'Services ansehen', orderCertificate:'Zertifikat bestellen', discussPartnership:'Partnerschaft besprechen', offerPartnership:'Partnerschaft anbieten', sections:'Bereiche', newTopic:'Neues Thema', activeTopics:'Aktive Themen', createTopic:'Thema erstellen', latestTopics:'Neueste Themen', rules:'Regeln', accept:'Akzeptieren', necessaryCookies:'Nur notwendige', language:'Sprache der Website', chooseLanguage:'Sprache der Website wählen', custom:'Custom', forYourStyle:'für deinen Stil', artOnTeeth:'Kunst, die man auf den Zähnen trägt', homeLead:'Grillz Customs fertigt individuellen Zahnschmuck: präziser anatomischer Sitz, starke Ästhetik und ein Look, den man nicht verwechselt.', cookieCopy:'Diese Website nutzt Cookies für Analyse, gespeicherte Spieleinstellungen und Verbesserungen der Oberfläche. Sie können alle Cookies akzeptieren oder nur die notwendigen behalten.' },
-    hi: { home:'होम', order:'ऑर्डर', services:'सेवाएँ', works:'काम', constructor:'डिज़ाइनर', stars:'सितारे', forum:'फ़ोरम', entertainment:'मनोरंजन', contacts:'संपर्क', more:'और', about:'हमारे बारे में', certificate:'सर्टिफिकेट', process:'प्रक्रिया', trusted:'भरोसा', clinics:'क्लिनिक के लिए', jewelry:'वर्कशॉप के लिए', faq:'F.A.Q.', account:'खाता', blog:'ब्लॉग', top:'ऊपर जाएँ', leaveRequest:'अनुरोध भेजें', consult:'परामर्श बुक करें', viewServices:'सेवाएँ देखें', orderCertificate:'सर्टिफिकेट ऑर्डर करें', discussPartnership:'साझेदारी पर बात करें', offerPartnership:'साझेदारी प्रस्तावित करें', sections:'सेक्शन', newTopic:'नया विषय', activeTopics:'सक्रिय विषय', createTopic:'विषय बनाएँ', latestTopics:'नए विषय', rules:'नियम', accept:'स्वीकार करें', necessaryCookies:'केवल आवश्यक', language:'साइट भाषा', chooseLanguage:'साइट भाषा चुनें', custom:'कस्टम', forYourStyle:'आपकी शैली के लिए', artOnTeeth:'दाँतों पर पहनी जाने वाली कला', homeLead:'Grillz Customs कस्टम डेंटल ज्वेलरी बनाता है: सटीक एनाटॉमिकल फिट, बोल्ड सौंदर्य और ऐसा लुक जो किसी और से नहीं मिलता।', cookieCopy:'यह साइट analytics, गेम सेटिंग्स सेव करने और इंटरफ़ेस सुधारने के लिए cookies का उपयोग करती है। आप सभी cookies स्वीकार कर सकते हैं या केवल आवश्यक रख सकते हैं।' },
-    tr: { home:'Ana sayfa', order:'Sipariş', services:'Hizmetler', works:'İşler', constructor:'Tasarımcı', stars:'Yıldızlar', forum:'Forum', entertainment:'Eğlence', contacts:'İletişim', more:'Daha fazla', about:'Hakkımızda', certificate:'Sertifika', process:'Süreç', trusted:'Güvenenler', clinics:'Klinikler için', jewelry:'Atölyeler için', faq:'F.A.Q.', account:'Hesap', blog:'Blog', top:'Yukarı', leaveRequest:'Talep gönder', consult:'Danışmanlık al', viewServices:'Hizmetleri gör', orderCertificate:'Sertifika sipariş et', discussPartnership:'İş birliğini konuş', offerPartnership:'İş birliği öner', sections:'Bölümler', newTopic:'Yeni konu', activeTopics:'Aktif konular', createTopic:'Konu oluştur', latestTopics:'Son konular', rules:'Kurallar', accept:'Kabul et', necessaryCookies:'Sadece gerekli', language:'Site dili', chooseLanguage:'Site dilini seç', custom:'Özel', forYourStyle:'senin tarzın için', artOnTeeth:'Dişlerde taşınan sanat', homeLead:'Grillz Customs kişiye özel dental takılar üretir: hassas anatomik oturuş, cesur estetik ve kimseyle karışmayacak bir imaj.', cookieCopy:'Bu site analiz, oyun ayarlarını kaydetme ve arayüzü iyileştirme için cookies kullanır. Tümünü kabul edebilir veya yalnızca gerekli olanları bırakabilirsiniz.' },
-    el: { home:'Αρχική', order:'Παραγγελία', services:'Υπηρεσίες', works:'Έργα', constructor:'Σχεδιαστής', stars:'Αστέρες', forum:'Φόρουμ', entertainment:'Ψυχαγωγία', contacts:'Επαφές', more:'Περισσότερα', about:'Σχετικά με εμάς', certificate:'Πιστοποιητικό', process:'Διαδικασία', trusted:'Μας εμπιστεύονται', clinics:'Για κλινικές', jewelry:'Για εργαστήρια', faq:'F.A.Q.', account:'Λογαριασμός', blog:'Blog', top:'Πάνω', leaveRequest:'Στείλε αίτημα', consult:'Κλείσε συμβουλή', viewServices:'Δες υπηρεσίες', orderCertificate:'Παράγγειλε πιστοποιητικό', discussPartnership:'Συζήτηση συνεργασίας', offerPartnership:'Πρότεινε συνεργασία', sections:'Ενότητες', newTopic:'Νέο θέμα', activeTopics:'Ενεργά θέματα', createTopic:'Δημιουργία θέματος', latestTopics:'Τελευταία θέματα', rules:'Κανόνες', accept:'Αποδοχή', necessaryCookies:'Μόνο απαραίτητα', language:'Γλώσσα ιστότοπου', chooseLanguage:'Επιλογή γλώσσας ιστότοπου', custom:'Custom', forYourStyle:'για το δικό σου στυλ', artOnTeeth:'Τέχνη που φοριέται στα δόντια', homeLead:'Η Grillz Customs δημιουργεί εξατομικευμένα dental jewelry: ακριβή ανατομική εφαρμογή, τολμηρή αισθητική και εικόνα που δεν μπερδεύεται με καμία άλλη.', cookieCopy:'Ο ιστότοπος χρησιμοποιεί cookies για analytics, αποθήκευση ρυθμίσεων παιχνιδιού και βελτίωση του interface. Μπορείτε να αποδεχτείτε όλα ή μόνο τα απαραίτητα.' }
+    en: { home:'Home', order:'Order', services:'Services', works:'Our work', constructor:'Designer', stars:'Stars', forum:'Forum', entertainment:'Entertainment', contacts:'Contacts', more:'More', about:'About', certificate:'Certificate', process:'Process', trusted:'Trusted by', clinics:'For clinics', jewelry:'For workshops', faq:'F.A.Q.', account:'Account', blog:'Blog', top:'Top', leaveRequest:'Send request', consult:'Book a consultation', viewServices:'View services', orderCertificate:'Order a certificate', discussPartnership:'Discuss partnership', offerPartnership:'Offer partnership', sections:'Sections', newTopic:'New topic', activeTopics:'Active topics', createTopic:'Create topic', latestTopics:'Latest topics', rules:'Rules', accept:'Accept', necessaryCookies:'Necessary only', language:'Site language', chooseLanguage:'Choose site language', custom:'Custom', forYourStyle:'for your style', artOnTeeth:'Art worn on teeth', homeLead:'Grillz Customs creates bespoke dental jewelry: precise anatomical fit, bold aesthetics and a look that cannot be confused with anyone else.', cookieCopy:'This site uses cookies for analytics, saved game settings and interface improvements. You can accept all cookies or keep only the necessary ones.' },
+    fr: { home:'Accueil', order:'Commande', services:'Services', works:'Nos réalisations', constructor:'Configurateur', stars:'Stars', forum:'Forum', entertainment:'Divertissement', contacts:'Contacts', more:'Plus', about:'À propos', certificate:'Certificat', process:'Processus', trusted:'Ils nous font confiance', clinics:'Cliniques', jewelry:'Ateliers', faq:'F.A.Q.', account:'Compte', blog:'Blog', top:'Haut', leaveRequest:'Envoyer une demande', consult:'Demander un conseil', viewServices:'Voir les services', orderCertificate:'Commander un certificat', discussPartnership:'Discuter partenariat', offerPartnership:'Proposer un partenariat', sections:'Sections', newTopic:'Nouveau sujet', activeTopics:'Sujets actifs', createTopic:'Créer un sujet', latestTopics:'Derniers sujets', rules:'Règles', accept:'Accepter', necessaryCookies:'Nécessaires seulement', language:'Langue du site', chooseLanguage:'Choisir la langue du site', custom:'Grillz', forYourStyle:'sur mesure pour ton style', artOnTeeth:'Un art que l’on porte sur les dents', homeLead:'Grillz Customs crée des bijoux dentaires sur mesure : ajustement anatomique précis, esthétique affirmée et image impossible à confondre.', cookieCopy:'Ce site utilise des cookies pour l’analytique, la sauvegarde des réglages de jeu et l’amélioration de l’interface. Vous pouvez tout accepter ou garder seulement les cookies nécessaires.' },
+    es: { home:'Inicio', order:'Pedido', services:'Servicios', works:'Nuestros trabajos', constructor:'Constructor', stars:'Estrellas', forum:'Foro', entertainment:'Entretenimiento', contacts:'Contactos', more:'Más', about:'Sobre nosotros', certificate:'Certificado', process:'Proceso', trusted:'Confían en nosotros', clinics:'Clínicas', jewelry:'Talleres', faq:'F.A.Q.', account:'Cuenta', blog:'Blog', top:'Arriba', leaveRequest:'Enviar solicitud', consult:'Pedir consulta', viewServices:'Ver servicios', orderCertificate:'Pedir certificado', discussPartnership:'Hablar de colaboración', offerPartnership:'Proponer colaboración', sections:'Secciones', newTopic:'Nuevo tema', activeTopics:'Temas activos', createTopic:'Crear tema', latestTopics:'Últimos temas', rules:'Reglas', accept:'Aceptar', necessaryCookies:'Solo necesarias', language:'Idioma del sitio', chooseLanguage:'Elegir idioma del sitio', custom:'Grillz', forYourStyle:'a medida para tu estilo', artOnTeeth:'Arte que se lleva en los dientes', homeLead:'Grillz Customs crea joyería dental personalizada: ajuste anatómico preciso, estética atrevida y una imagen imposible de confundir.', cookieCopy:'Este sitio usa cookies para analítica, guardar ajustes del juego y mejorar la interfaz. Puedes aceptar todas las cookies o dejar solo las necesarias.' },
+    it: { home:'Home', order:'Ordine', services:'Servizi', works:'I nostri lavori', constructor:'Configuratore', stars:'Star', forum:'Forum', entertainment:'Intrattenimento', contacts:'Contatti', more:'Altro', about:'Chi siamo', certificate:'Certificato', process:'Processo', trusted:'Si fidano di noi', clinics:'Cliniche', jewelry:'Laboratori', faq:'F.A.Q.', account:'Account', blog:'Blog', top:'Su', leaveRequest:'Invia richiesta', consult:'Prenota consulenza', viewServices:'Vedi servizi', orderCertificate:'Ordina certificato', discussPartnership:'Parliamo di partnership', offerPartnership:'Proponi partnership', sections:'Sezioni', newTopic:'Nuovo tema', activeTopics:'Temi attivi', createTopic:'Crea tema', latestTopics:'Ultimi temi', rules:'Regole', accept:'Accetta', necessaryCookies:'Solo necessari', language:'Lingua del sito', chooseLanguage:'Scegli la lingua del sito', custom:'Grillz', forYourStyle:'su misura per il tuo stile', artOnTeeth:'Arte da indossare sui denti', homeLead:'Grillz Customs crea gioielli dentali su misura: calzata anatomica precisa, estetica audace e un’immagine impossibile da confondere.', cookieCopy:'Questo sito usa cookie per analisi, salvataggio delle impostazioni di gioco e miglioramento dell’interfaccia. Puoi accettarli tutti o lasciare solo quelli necessari.' },
+    ka: { home:'მთავარი', order:'შეკვეთა', services:'სერვისები', works:'ჩვენი ნამუშევრები', constructor:'კონსტრუქტორი', stars:'ვარსკვლავები', forum:'ფორუმი', entertainment:'გართობა', contacts:'კონტაქტები', more:'მეტი', about:'ჩვენ შესახებ', certificate:'სერტიფიკატი', process:'პროცესი', trusted:'გვენდობიან', clinics:'კლინიკებისთვის', jewelry:'სახელოსნოებისთვის', faq:'F.A.Q.', account:'ანგარიში', blog:'ბლოგი', top:'ზემოთ', leaveRequest:'განაცხადის გაგზავნა', consult:'კონსულტაციის შეკვეთა', viewServices:'სერვისების ნახვა', orderCertificate:'სერტიფიკატის შეკვეთა', discussPartnership:'პარტნიორობის განხილვა', offerPartnership:'პარტნიორობის შეთავაზება', sections:'განყოფილებები', newTopic:'ახალი თემა', activeTopics:'აქტიური თემები', createTopic:'თემის შექმნა', latestTopics:'ბოლო თემები', rules:'წესები', accept:'მიღება', necessaryCookies:'მხოლოდ აუცილებელი', language:'საიტის ენა', chooseLanguage:'აირჩიეთ საიტის ენა', custom:'ინდივიდუალური', forYourStyle:'შენი სტილისთვის', artOnTeeth:'ხელოვნება, რომელსაც კბილებზე ატარებენ', homeLead:'Grillz Customs ქმნის ინდივიდუალურ კბილის სამკაულებს: ზუსტი ანატომიური მორგება, გამბედავი ესთეტიკა და სახე, რომელიც სხვაში არ აგერევა.', cookieCopy:'საიტი იყენებს cookies ანალიტიკისთვის, თამაშის პარამეტრების შესანახად და ინტერფეისის გასაუმჯობესებლად. შეგიძლიათ მიიღოთ ყველა ან დატოვოთ მხოლოდ აუცილებელი.' },
+    hy: { home:'Գլխավոր', order:'Պատվեր', services:'Ծառայություններ', works:'Մեր աշխատանքները', constructor:'Կոնստրուկտոր', stars:'Աստղեր', forum:'Ֆորում', entertainment:'Ժամանց', contacts:'Կոնտակտներ', more:'Ավելին', about:'Մեր մասին', certificate:'Վկայական', process:'Գործընթաց', trusted:'Մեզ վստահում են', clinics:'Կլինիկաներին', jewelry:'Արհեստանոցներին', faq:'F.A.Q.', account:'Հաշիվ', blog:'Բլոգ', top:'Վերև', leaveRequest:'Ուղարկել հայտ', consult:'Պատվիրել խորհրդատվություն', viewServices:'Տեսնել ծառայությունները', orderCertificate:'Պատվիրել վկայական', discussPartnership:'Քննարկել գործընկերությունը', offerPartnership:'Առաջարկել գործընկերություն', sections:'Բաժիններ', newTopic:'Նոր թեմա', activeTopics:'Ակտիվ թեմաներ', createTopic:'Ստեղծել թեմա', latestTopics:'Վերջին թեմաներ', rules:'Կանոններ', accept:'Ընդունել', necessaryCookies:'Միայն անհրաժեշտը', language:'Կայքի լեզու', chooseLanguage:'Ընտրել կայքի լեզուն', custom:'Անհատական', forYourStyle:'քո ոճի համար', artOnTeeth:'Արվեստ, որը կրում են ատամների վրա', homeLead:'Grillz Customs-ը ստեղծում է անհատական ատամնային զարդեր՝ ճշգրիտ անատոմիական նստվածքով, համարձակ էսթետիկայով և անկրկնելի կերպարով։', cookieCopy:'Կայքն օգտագործում է cookies՝ վերլուծության, խաղային կարգավորումների պահպանման և ինտերֆեյսի բարելավման համար։ Կարող եք ընդունել բոլորը կամ թողնել միայն անհրաժեշտները։' },
+    uz: { home:'Bosh sahifa', order:'Buyurtma', services:'Xizmatlar', works:'Bizning ishlar', constructor:'Konstruktor', stars:'Yulduzlar', forum:'Forum', entertainment:'Ko‘ngilochar', contacts:'Kontaktlar', more:'Yana', about:'Biz haqimizda', certificate:'Sertifikat', process:'Jarayon', trusted:'Ishonch', clinics:'Klinikalar uchun', jewelry:'Ustaxonalar uchun', faq:'F.A.Q.', account:'Akkaunt', blog:'Blog', top:'Yuqoriga', leaveRequest:'Ariza yuborish', consult:'Maslahat olish', viewServices:'Xizmatlarni ko‘rish', orderCertificate:'Sertifikat buyurtma qilish', discussPartnership:'Hamkorlikni muhokama qilish', offerPartnership:'Hamkorlik taklif qilish', sections:'Bo‘limlar', newTopic:'Yangi mavzu', activeTopics:'Faol mavzular', createTopic:'Mavzu yaratish', latestTopics:'So‘nggi mavzular', rules:'Qoidalar', accept:'Qabul qilish', necessaryCookies:'Faqat zarurlari', language:'Sayt tili', chooseLanguage:'Sayt tilini tanlang', custom:'Individual', forYourStyle:'sening uslubing uchun', artOnTeeth:'Tishlarda taqiladigan san’at', homeLead:'Grillz Customs individual dental bezaklar yaratadi: anatomik mos tushish, dadil estetika va hech kimniki bilan adashmaydigan obraz.', cookieCopy:'Sayt analitika, o‘yin sozlamalarini saqlash va interfeysni yaxshilash uchun cookies ishlatadi. Hammasini qabul qilishingiz yoki faqat zarurlarini qoldirishingiz mumkin.' },
+    kk: { home:'Басты бет', order:'Тапсырыс', services:'Қызметтер', works:'Біздің жұмыстар', constructor:'Конструктор', stars:'Жұлдыздар', forum:'Форум', entertainment:'Ойын-сауық', contacts:'Байланыс', more:'Тағы', about:'Біз туралы', certificate:'Сертификат', process:'Процесс', trusted:'Сенім артқандар', clinics:'Клиникаларға', jewelry:'Шеберханаларға', faq:'F.A.Q.', account:'Аккаунт', blog:'Блог', top:'Жоғары', leaveRequest:'Өтінім жіберу', consult:'Кеңес алу', viewServices:'Қызметтерді көру', orderCertificate:'Сертификатқа тапсырыс', discussPartnership:'Серіктестікті талқылау', offerPartnership:'Серіктестік ұсыну', sections:'Бөлімдер', newTopic:'Жаңа тақырып', activeTopics:'Белсенді тақырыптар', createTopic:'Тақырып құру', latestTopics:'Соңғы тақырыптар', rules:'Ережелер', accept:'Қабылдау', necessaryCookies:'Тек қажеттілері', language:'Сайт тілі', chooseLanguage:'Сайт тілін таңдаңыз', custom:'Жеке', forYourStyle:'сенің стиліңе арналған', artOnTeeth:'Тіске тағылатын өнер', homeLead:'Grillz Customs жеке тіс әшекейлерін жасайды: дәл анатомиялық отыру, батыл эстетика және ешкіммен шатастырмайтын образ.', cookieCopy:'Сайт аналитика, ойын баптауларын сақтау және интерфейсті жақсарту үшін cookies қолданады. Барлығын қабылдауға немесе тек қажеттілерін қалдыруға болады.' },
+    'zh-Hant': { home:'首頁', order:'訂單', services:'服務', works:'我們的作品', constructor:'設計器', stars:'明星', forum:'論壇', entertainment:'娛樂', contacts:'聯絡', more:'更多', about:'關於我們', certificate:'禮品卡', process:'流程', trusted:'信任我們', clinics:'診所合作', jewelry:'工坊合作', faq:'F.A.Q.', account:'帳戶', blog:'部落格', top:'返回頂部', leaveRequest:'提交需求', consult:'預約諮詢', viewServices:'查看服務', orderCertificate:'訂購禮品卡', discussPartnership:'洽談合作', offerPartnership:'提出合作', sections:'分區', newTopic:'新主題', activeTopics:'熱門主題', createTopic:'建立主題', latestTopics:'最新主題', rules:'規則', accept:'接受', necessaryCookies:'僅必要', language:'網站語言', chooseLanguage:'選擇網站語言', custom:'客製', forYourStyle:'配合你的風格', artOnTeeth:'戴在牙齒上的藝術', homeLead:'Grillz Customs 製作客製牙飾：精準貼合口腔結構、強烈美學語言，讓你的造型一眼被記住。', cookieCopy:'本網站使用 cookies 進行分析、保存遊戲設定並改善介面。你可以接受全部 cookies，或僅保留必要項目。' },
+    ja: { home:'ホーム', order:'注文', services:'サービス', works:'私たちの制作例', constructor:'デザイナー', stars:'セレブ', forum:'フォーラム', entertainment:'エンタメ', contacts:'連絡先', more:'もっと見る', about:'私たちについて', certificate:'ギフト券', process:'制作プロセス', trusted:'信頼', clinics:'クリニック向け', jewelry:'工房向け', faq:'F.A.Q.', account:'アカウント', blog:'ブログ', top:'上へ', leaveRequest:'相談を送る', consult:'相談を予約', viewServices:'サービスを見る', orderCertificate:'ギフト券を注文', discussPartnership:'提携を相談', offerPartnership:'提携を提案', sections:'セクション', newTopic:'新しいトピック', activeTopics:'注目トピック', createTopic:'トピック作成', latestTopics:'最新トピック', rules:'ルール', accept:'同意する', necessaryCookies:'必要なものだけ', language:'サイト言語', chooseLanguage:'サイト言語を選択', custom:'カスタム', forYourStyle:'あなたのスタイルへ', artOnTeeth:'歯にまとうアート', homeLead:'Grillz Customs は、口元に正確にフィットするカスタム歯科ジュエリーを制作します。大胆な美学と、他と混ざらない存在感を形にします。', cookieCopy:'このサイトでは、分析、ゲーム設定の保存、インターフェース改善のために cookies を使用します。すべて許可するか、必要なものだけを残せます。' },
+    ko: { home:'홈', order:'주문', services:'서비스', works:'우리 작업 사례', constructor:'디자이너', stars:'스타', forum:'포럼', entertainment:'엔터테인먼트', contacts:'연락처', more:'더보기', about:'소개', certificate:'상품권', process:'제작 과정', trusted:'신뢰', clinics:'클리닉용', jewelry:'공방용', faq:'F.A.Q.', account:'계정', blog:'블로그', top:'맨 위로', leaveRequest:'문의 보내기', consult:'상담 예약', viewServices:'서비스 보기', orderCertificate:'상품권 주문', discussPartnership:'협업 상담', offerPartnership:'협업 제안', sections:'섹션', newTopic:'새 주제', activeTopics:'활성 주제', createTopic:'주제 만들기', latestTopics:'최신 주제', rules:'규칙', accept:'동의', necessaryCookies:'필수만', language:'사이트 언어', chooseLanguage:'사이트 언어 선택', custom:'커스텀', forYourStyle:'당신의 스타일에 맞게', artOnTeeth:'치아 위에 착용하는 예술', homeLead:'Grillz Customs는 정확한 해부학적 핏, 대담한 미학, 누구와도 겹치지 않는 이미지를 위한 맞춤형 치아 주얼리를 만듭니다.', cookieCopy:'이 사이트는 분석, 게임 설정 저장, 인터페이스 개선을 위해 cookies를 사용합니다. 전체를 허용하거나 필수 항목만 남길 수 있습니다.' },
+    pt: { home:'Início', order:'Pedido', services:'Serviços', works:'Nossos trabalhos', constructor:'Construtor', stars:'Estrelas', forum:'Fórum', entertainment:'Entretenimento', contacts:'Contatos', more:'Mais', about:'Sobre nós', certificate:'Certificado', process:'Processo', trusted:'Confiam', clinics:'Clínicas', jewelry:'Oficinas', faq:'F.A.Q.', account:'Conta', blog:'Blog', top:'Topo', leaveRequest:'Enviar pedido', consult:'Marcar consulta', viewServices:'Ver serviços', orderCertificate:'Pedir certificado', discussPartnership:'Falar de parceria', offerPartnership:'Propor parceria', sections:'Seções', newTopic:'Novo tópico', activeTopics:'Tópicos ativos', createTopic:'Criar tópico', latestTopics:'Últimos tópicos', rules:'Regras', accept:'Aceitar', necessaryCookies:'Apenas necessários', language:'Idioma do site', chooseLanguage:'Escolher idioma do site', custom:'Grillz', forYourStyle:'sob medida para o teu estilo', artOnTeeth:'Arte para usar nos dentes', homeLead:'A Grillz Customs cria joias dentárias sob medida: encaixe anatômico preciso, estética agressiva e um visual impossível de confundir.', cookieCopy:'Este site usa cookies para análise, guardar definições do jogo e melhorar a interface. Pode aceitar todos os cookies ou manter apenas os necessários.' },
+    de: { home:'Start', order:'Bestellung', services:'Services', works:'Unsere Arbeiten', constructor:'Konfigurator', stars:'Stars', forum:'Forum', entertainment:'Unterhaltung', contacts:'Kontakt', more:'Mehr', about:'Über uns', certificate:'Zertifikat', process:'Prozess', trusted:'Vertrauen', clinics:'Für Kliniken', jewelry:'Für Werkstätten', faq:'F.A.Q.', account:'Konto', blog:'Blog', top:'Nach oben', leaveRequest:'Anfrage senden', consult:'Beratung buchen', viewServices:'Services ansehen', orderCertificate:'Zertifikat bestellen', discussPartnership:'Partnerschaft besprechen', offerPartnership:'Partnerschaft anbieten', sections:'Bereiche', newTopic:'Neues Thema', activeTopics:'Aktive Themen', createTopic:'Thema erstellen', latestTopics:'Neueste Themen', rules:'Regeln', accept:'Akzeptieren', necessaryCookies:'Nur notwendige', language:'Sprache der Website', chooseLanguage:'Sprache der Website wählen', custom:'Custom', forYourStyle:'für deinen Stil', artOnTeeth:'Kunst, die man auf den Zähnen trägt', homeLead:'Grillz Customs fertigt individuellen Zahnschmuck: präziser anatomischer Sitz, starke Ästhetik und ein Look, den man nicht verwechselt.', cookieCopy:'Diese Website nutzt Cookies für Analyse, gespeicherte Spieleinstellungen und Verbesserungen der Oberfläche. Sie können alle Cookies akzeptieren oder nur die notwendigen behalten.' },
+    hi: { home:'होम', order:'ऑर्डर', services:'सेवाएँ', works:'हमारे काम', constructor:'डिज़ाइनर', stars:'सितारे', forum:'फ़ोरम', entertainment:'मनोरंजन', contacts:'संपर्क', more:'और', about:'हमारे बारे में', certificate:'सर्टिफिकेट', process:'प्रक्रिया', trusted:'भरोसा', clinics:'क्लिनिक के लिए', jewelry:'वर्कशॉप के लिए', faq:'F.A.Q.', account:'खाता', blog:'ब्लॉग', top:'ऊपर जाएँ', leaveRequest:'अनुरोध भेजें', consult:'परामर्श बुक करें', viewServices:'सेवाएँ देखें', orderCertificate:'सर्टिफिकेट ऑर्डर करें', discussPartnership:'साझेदारी पर बात करें', offerPartnership:'साझेदारी प्रस्तावित करें', sections:'सेक्शन', newTopic:'नया विषय', activeTopics:'सक्रिय विषय', createTopic:'विषय बनाएँ', latestTopics:'नए विषय', rules:'नियम', accept:'स्वीकार करें', necessaryCookies:'केवल आवश्यक', language:'साइट भाषा', chooseLanguage:'साइट भाषा चुनें', custom:'कस्टम', forYourStyle:'आपकी शैली के लिए', artOnTeeth:'दाँतों पर पहनी जाने वाली कला', homeLead:'Grillz Customs कस्टम डेंटल ज्वेलरी बनाता है: सटीक एनाटॉमिकल फिट, बोल्ड सौंदर्य और ऐसा लुक जो किसी और से नहीं मिलता।', cookieCopy:'यह साइट analytics, गेम सेटिंग्स सेव करने और इंटरफ़ेस सुधारने के लिए cookies का उपयोग करती है। आप सभी cookies स्वीकार कर सकते हैं या केवल आवश्यक रख सकते हैं।' },
+    tr: { home:'Ana sayfa', order:'Sipariş', services:'Hizmetler', works:'Çalışmalarımız', constructor:'Tasarımcı', stars:'Yıldızlar', forum:'Forum', entertainment:'Eğlence', contacts:'İletişim', more:'Daha fazla', about:'Hakkımızda', certificate:'Sertifika', process:'Süreç', trusted:'Güvenenler', clinics:'Klinikler için', jewelry:'Atölyeler için', faq:'F.A.Q.', account:'Hesap', blog:'Blog', top:'Yukarı', leaveRequest:'Talep gönder', consult:'Danışmanlık al', viewServices:'Hizmetleri gör', orderCertificate:'Sertifika sipariş et', discussPartnership:'İş birliğini konuş', offerPartnership:'İş birliği öner', sections:'Bölümler', newTopic:'Yeni konu', activeTopics:'Aktif konular', createTopic:'Konu oluştur', latestTopics:'Son konular', rules:'Kurallar', accept:'Kabul et', necessaryCookies:'Sadece gerekli', language:'Site dili', chooseLanguage:'Site dilini seç', custom:'Özel', forYourStyle:'senin tarzın için', artOnTeeth:'Dişlerde taşınan sanat', homeLead:'Grillz Customs kişiye özel dental takılar üretir: hassas anatomik oturuş, cesur estetik ve kimseyle karışmayacak bir imaj.', cookieCopy:'Bu site analiz, oyun ayarlarını kaydetme ve arayüzü iyileştirme için cookies kullanır. Tümünü kabul edebilir veya yalnızca gerekli olanları bırakabilirsiniz.' },
+    el: { home:'Αρχική', order:'Παραγγελία', services:'Υπηρεσίες', works:'Τα έργα μας', constructor:'Σχεδιαστής', stars:'Αστέρες', forum:'Φόρουμ', entertainment:'Ψυχαγωγία', contacts:'Επαφές', more:'Περισσότερα', about:'Σχετικά με εμάς', certificate:'Πιστοποιητικό', process:'Διαδικασία', trusted:'Μας εμπιστεύονται', clinics:'Για κλινικές', jewelry:'Για εργαστήρια', faq:'F.A.Q.', account:'Λογαριασμός', blog:'Blog', top:'Πάνω', leaveRequest:'Στείλε αίτημα', consult:'Κλείσε συμβουλή', viewServices:'Δες υπηρεσίες', orderCertificate:'Παράγγειλε πιστοποιητικό', discussPartnership:'Συζήτηση συνεργασίας', offerPartnership:'Πρότεινε συνεργασία', sections:'Ενότητες', newTopic:'Νέο θέμα', activeTopics:'Ενεργά θέματα', createTopic:'Δημιουργία θέματος', latestTopics:'Τελευταία θέματα', rules:'Κανόνες', accept:'Αποδοχή', necessaryCookies:'Μόνο απαραίτητα', language:'Γλώσσα ιστότοπου', chooseLanguage:'Επιλογή γλώσσας ιστότοπου', custom:'Custom', forYourStyle:'για το δικό σου στυλ', artOnTeeth:'Τέχνη που φοριέται στα δόντια', homeLead:'Η Grillz Customs δημιουργεί εξατομικευμένα dental jewelry: ακριβή ανατομική εφαρμογή, τολμηρή αισθητική και εικόνα που δεν μπερδεύεται με καμία άλλη.', cookieCopy:'Ο ιστότοπος χρησιμοποιεί cookies για analytics, αποθήκευση ρυθμίσεων παιχνιδιού και βελτίωση του interface. Μπορείτε να αποδεχτείτε όλα ή μόνο τα απαραίτητα.' }
   };
 
   const SEO = {
@@ -92,9 +92,9 @@
       brandTitle: 'Grillz Customs — кастомные grillz в Москве',
       description: 'Кастомные гриллзы, tooth gems, подарочные сертификаты, спортивные каппы и индивидуальные украшения на зубы в Москве.',
       introTitle: 'Grillz Customs говорит на твоём языке',
-      introBody: 'Выберите язык, чтобы читать ключевые разделы сайта, навигацию и SEO-описания в локальной подаче. Основной контент постепенно расширяется отдельными языковыми версиями.',
+      introBody: 'Выберите язык: навигация, метаданные и SEO-описания переведены локально, а длинный контент страницы догружается в полном переводе в браузере.',
       introNote: 'Трендовые темы: diamond grillz, gold grillz, tooth gems, celebrity grillz, custom dental jewelry.',
-      tags: ['кастомные гриллзы', 'diamond grillz', 'gold grillz', 'tooth gems', 'гриллзы Москва', 'звёзды в гриллзах']
+      tags: ['грилзы на заказ', 'гриллзы крида', 'custom teeth', 'diamond grillz', 'gold grillz', 'tooth gems', 'где купить грилзы', 'звёзды в гриллзах']
     }
   };
 
@@ -153,6 +153,25 @@
 
   const OG_LOCALES = Object.fromEntries(LANGS.map(([code, , , locale]) => [code, locale]));
   const LANG_SET = new Set(LANGS.map(([code]) => code));
+  const TRANSLATOR_LANGS = {
+    en: 'en',
+    fr: 'fr',
+    es: 'es',
+    it: 'it',
+    ka: 'ka',
+    hy: 'hy',
+    uz: 'uz',
+    kk: 'kk',
+    'zh-Hant': 'zh-TW',
+    ja: 'ja',
+    ko: 'ko',
+    pt: 'pt',
+    de: 'de',
+    hi: 'hi',
+    tr: 'tr',
+    el: 'el'
+  };
+  const TRANSLATOR_CODES = Object.values(TRANSLATOR_LANGS).join(',');
   const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
   const label = (lang, key) => {
     const langLabels = LABELS[lang] || {};
@@ -162,6 +181,7 @@
   };
   const PHRASES = Object.fromEntries(Object.entries(LABEL_KEYS).map(([key, value]) => [value, key]));
   PHRASES['Форма'] = 'forum';
+  PHRASES['Работы'] = 'works';
   PHRASES['Блог'] = 'blog';
 
   function normalize(text) {
@@ -255,45 +275,110 @@
       .gc-language-switcher {
         position: relative;
         z-index: 7;
+        display: inline-grid;
+        grid-template-columns: 25px minmax(74px, 108px) 12px;
+        align-items: center;
         align-self: flex-start;
-        margin-left: clamp(14px, 2vw, 34px);
-        padding: 6px;
-        border: 1px solid rgba(255, 208, 0, .34);
-        border-radius: 10px;
-        background: linear-gradient(145deg, rgba(0, 0, 0, .92), rgba(41, 31, 4, .72));
-        box-shadow: 6px 6px 0 #050505, 0 0 0 1px rgba(255, 208, 0, .18), 0 16px 36px rgba(0, 0, 0, .38);
-        transform: rotate(1.4deg);
+        gap: 5px;
+        margin-left: clamp(20px, 3vw, 52px);
+        padding: 4px 8px 4px 4px;
+        border: 1px solid rgba(255, 208, 0, .48);
+        border-radius: 999px;
+        background:
+          radial-gradient(circle at 26% 22%, rgba(255, 245, 174, .3), transparent 28%),
+          linear-gradient(145deg, rgba(7, 7, 7, .96), rgba(48, 36, 5, .74));
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, .14),
+          inset 0 -10px 16px rgba(0, 0, 0, .44),
+          0 0 0 1px rgba(0, 0, 0, .74),
+          4px 5px 0 #050505,
+          0 18px 42px rgba(0, 0, 0, .36),
+          0 0 28px rgba(255, 208, 0, .12);
+        transform: rotate(.7deg);
       }
 
       .gc-language-switcher::before {
-        content: "LANG";
-        display: block;
-        margin: 0 0 4px;
-        color: var(--yellow, #ffd000);
+        content: "Aa";
+        display: grid;
+        place-items: center;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        color: #050505;
+        background:
+          linear-gradient(145deg, #fff3a2, #ffd000 50%, #ad7e00);
+        border: 1px solid #050505;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.78), 2px 2px 0 #050505;
         font-size: 9px;
         font-weight: 950;
-        letter-spacing: 1.3px;
+        letter-spacing: 0;
         line-height: 1;
       }
 
+      .gc-language-switcher::after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 6px solid var(--yellow, #ffd000);
+        filter: drop-shadow(1px 1px 0 #050505);
+        pointer-events: none;
+      }
+
+      .gc-language-switcher > label {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        margin: -1px !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        clip-path: inset(50%) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+      }
+
       .gc-language-select {
-        width: 148px;
-        min-height: 42px;
-        border: 2px solid var(--yellow, #ffd000);
-        border-radius: 6px;
-        background: linear-gradient(180deg, #ffd000 0%, #fff08a 42%, #bd8a00 100%);
-        color: #050505;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 3px 3px 0 #050505;
+        width: 100%;
+        min-height: 30px;
+        border: 0;
+        border-radius: 999px;
+        appearance: none;
+        background: transparent;
+        color: var(--yellow, #ffd000);
+        box-shadow: none;
         cursor: pointer;
-        font: 950 12px/1 Arial, Helvetica, sans-serif;
-        letter-spacing: .3px;
+        font: 950 11px/1 Arial, Helvetica, sans-serif;
+        letter-spacing: .5px;
         text-transform: uppercase;
-        padding: 0 10px;
+        padding: 0 2px;
       }
 
       .gc-language-select:focus-visible {
         outline: 3px solid rgba(255, 255, 255, .82);
         outline-offset: 3px;
+      }
+
+      #google_translate_element,
+      .goog-te-banner-frame,
+      iframe.goog-te-banner-frame,
+      .goog-te-balloon-frame,
+      .goog-tooltip,
+      .goog-tooltip:hover {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        opacity: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+      }
+
+      .goog-te-gadget {
+        font-size: 0 !important;
+      }
+
+      body {
+        top: 0 !important;
       }
 
       .localized-seo-panel {
@@ -351,14 +436,32 @@
       }
 
       @media (max-width: 920px) {
+        .topbar .nav-row > a[href$="works.html"],
+        .topbar .nav-row > a[href$="constructor.html"],
+        .topbar .nav-row > a[href$="stars.html"],
+        .topbar .nav-row > a[href$="forma.html"],
+        .topbar .nav-row > a[href$="entertainment.html"] {
+          display: none !important;
+        }
+
         .gc-language-switcher {
-          width: 100%;
-          margin: 12px 0 0;
+          grid-template-columns: 23px minmax(62px, 88px) 10px;
+          width: auto;
+          justify-self: end;
+          margin: 8px 0 0 auto;
+          padding: 3px 7px 3px 3px;
           transform: none;
         }
 
+        .gc-language-switcher::before {
+          width: 23px;
+          height: 23px;
+          font-size: 8px;
+        }
+
         .gc-language-select {
-          width: 100%;
+          min-height: 28px;
+          font-size: 10px;
         }
 
         .localized-seo-panel .localized-seo-card {
@@ -376,7 +479,8 @@
     const nav = document.querySelector('.topbar .nav');
     if (!nav) return;
     const wrap = document.createElement('div');
-    wrap.className = 'gc-language-switcher';
+    wrap.className = 'gc-language-switcher notranslate';
+    wrap.setAttribute('translate', 'no');
     wrap.innerHTML = `
       <label class="visually-hidden" for="gcLanguageSelect">${label(currentLang, 'chooseLanguage')}</label>
       <select class="gc-language-select" id="gcLanguageSelect" aria-label="${label(currentLang, 'chooseLanguage')}">
@@ -388,6 +492,87 @@
     select.value = currentLang;
     select.addEventListener('change', () => {
       setLanguage(select.value, true);
+    });
+  }
+
+  function setTranslatorCookie(target) {
+    const value = target ? `/ru/${target}` : '';
+    const lifetime = target ? 'max-age=31536000' : 'max-age=0';
+    const base = `googtrans=${value};path=/;${lifetime};SameSite=Lax`;
+    document.cookie = base;
+    const host = location.hostname;
+    if (host && host.includes('.')) {
+      document.cookie = `${base};domain=.${host}`;
+      const parts = host.split('.');
+      if (parts.length > 2) document.cookie = `${base};domain=.${parts.slice(-2).join('.')}`;
+    }
+  }
+
+  function ensureAutoTranslator() {
+    if (!document.getElementById('google_translate_element')) {
+      const container = document.createElement('div');
+      container.id = 'google_translate_element';
+      container.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(container);
+    }
+
+    if (!window.googleTranslateElementInit) {
+      window.googleTranslateElementInit = function googleTranslateElementInit() {
+        if (!window.google?.translate?.TranslateElement) return;
+        new window.google.translate.TranslateElement({
+          pageLanguage: 'ru',
+          includedLanguages: TRANSLATOR_CODES,
+          autoDisplay: false,
+          multilanguagePage: true
+        }, 'google_translate_element');
+      };
+    }
+
+    if (!document.getElementById('gcGoogleTranslateScript')) {
+      const script = document.createElement('script');
+      script.id = 'gcGoogleTranslateScript';
+      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  }
+
+  function afterPageLoad(callback) {
+    if (document.readyState === 'complete') {
+      window.setTimeout(callback, 80);
+      return;
+    }
+    window.addEventListener('load', () => window.setTimeout(callback, 80), { once: true });
+  }
+
+  function syncAutoTranslator(persist) {
+    const target = TRANSLATOR_LANGS[currentLang];
+    if (!target) {
+      setTranslatorCookie('');
+      document.documentElement.classList.remove('gc-auto-translated');
+      if (persist && document.querySelector('.goog-te-combo')) {
+        window.setTimeout(() => location.reload(), 80);
+      }
+      return;
+    }
+
+    document.documentElement.classList.add('gc-auto-translated');
+    setTranslatorCookie(target);
+    afterPageLoad(() => {
+      ensureAutoTranslator();
+
+      let attempts = 0;
+      const applyExternalLanguage = () => {
+        const combo = document.querySelector('.goog-te-combo');
+        if (combo) {
+          combo.value = target;
+          combo.dispatchEvent(new Event('change'));
+          return;
+        }
+        attempts += 1;
+        if (attempts < 28) window.setTimeout(applyExternalLanguage, 350);
+      };
+      applyExternalLanguage();
     });
   }
 
@@ -502,6 +687,7 @@
     ensureAlternates();
     ensureLocalizedPanel();
     syncSwitcher();
+    syncAutoTranslator(persist);
   }
 
   function init() {

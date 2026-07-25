@@ -14,6 +14,8 @@
   // ~10× previous 24 ≈ 240; mobile slightly fewer for perf
   const COUNT_DESKTOP = 240;
   const COUNT_MOBILE = 140;
+  /** Hero-scale cubes: ~8–10× typical scatter size */
+  const HERO_COUNT = 5;
 
   /** Mulberry32 — deterministic chaos (stable layout, no flicker) */
   function mulberry32(seed) {
@@ -113,17 +115,52 @@
     });
 
     const frag = document.createDocumentFragment();
-    for (let i = 0; i < count; i += 1) {
+
+    function placeCube({ src, left, top, size, rot, opacity, z, eager }) {
       const img = document.createElement('img');
-      img.className = 'ice-cube';
-      img.src = TYPES[i % 3];
+      img.className = 'ice-cube' + (size >= 400 ? ' ice-cube--hero' : '');
+      img.src = src;
       img.width = 420;
       img.height = 420;
       img.alt = '';
       img.decoding = 'async';
-      img.loading = i < 36 ? 'eager' : 'lazy';
+      img.loading = eager ? 'eager' : 'lazy';
       img.setAttribute('aria-hidden', 'true');
+      img.style.left = left + '%';
+      img.style.top = top + '%';
+      img.style.width = size + 'px';
+      img.style.opacity = String(opacity);
+      img.style.transform = `translate(-50%, -50%) rotate(${rot.toFixed(1)}deg)`;
+      img.style.zIndex = String(z);
+      frag.appendChild(img);
+    }
 
+    // 5 oversized cubes (~8–10× normal scatter) across the layout
+    const heroSlots = [
+      { left: 18, top: 12 },
+      { left: 78, top: 28 },
+      { left: 42, top: 48 },
+      { left: 12, top: 72 },
+      { left: 68, top: 88 }
+    ];
+    for (let h = 0; h < HERO_COUNT; h += 1) {
+      const slot = heroSlots[h];
+      const size = mobile
+        ? 520 + rand() * 180   // ~520–700px (≈8–10× ~70px base)
+        : 640 + rand() * 280;  // ~640–920px (≈8–10× ~80px mid scatter)
+      placeCube({
+        src: TYPES[h % 3],
+        left: slot.left + (rand() - 0.5) * 10,
+        top: slot.top + (rand() - 0.5) * 8,
+        size,
+        rot: -28 + rand() * 56,
+        opacity: 0.22 + rand() * 0.2,
+        z: 0,
+        eager: true
+      });
+    }
+
+    for (let i = 0; i < count; i += 1) {
       // Full plane scatter — not edge-biased
       // Use jittered grid + random offset so center is filled too
       const cols = mobile ? 8 : 12;
@@ -148,16 +185,18 @@
         : 48 + rand() * 110;
       const rot = -40 + rand() * 80;
       const opacity = 0.28 + rand() * 0.42;
-      const z = Math.floor(rand() * 3);
+      const z = 1 + Math.floor(rand() * 3);
 
-      img.style.left = left + '%';
-      img.style.top = top + '%';
-      img.style.width = size + 'px';
-      img.style.opacity = String(opacity);
-      img.style.transform = `translate(-50%, -50%) rotate(${rot.toFixed(1)}deg)`;
-      img.style.zIndex = String(z);
-
-      frag.appendChild(img);
+      placeCube({
+        src: TYPES[i % 3],
+        left,
+        top,
+        size,
+        rot,
+        opacity,
+        z,
+        eager: i < 36
+      });
     }
     host.appendChild(frag);
   }

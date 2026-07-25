@@ -102,6 +102,15 @@ body.forma-page {
   /* position/size/rotation set inline by JS */
 }
 
+/* Giant hero cubes (~8–10× normal) — softer so content stays readable */
+.forma-page .forum-ice-bg .ice-cube--hero {
+  filter:
+    drop-shadow(0 28px 60px rgba(0, 0, 0, 0.65))
+    saturate(1.2)
+    contrast(1.08);
+  mix-blend-mode: screen;
+}
+
 .forma-page .page > header,
 .forma-page .page > main,
 .forma-page .page > footer,

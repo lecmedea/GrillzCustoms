@@ -2223,6 +2223,75 @@ body::after{content:"";position:fixed;top:-30vh;left:-28vw;width:22vw;height:170
   box-shadow:none;
 }
 
+.mobile-scroll-top{
+  position:fixed;
+  right:calc(18px + env(safe-area-inset-right));
+  bottom:calc(92px + env(safe-area-inset-bottom));
+  z-index:190;
+  display:none;
+  place-items:center;
+  width:58px;
+  height:58px;
+  border:2px solid #050505;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 34% 24%,rgba(255,255,255,.74) 0 11%,transparent 12%),
+    linear-gradient(180deg,#fff08a 0%,#ffd000 46%,#bd8a00 100%);
+  box-shadow:5px 5px 0 #050505,0 18px 38px rgba(0,0,0,.46),0 0 30px rgba(255,208,0,.24);
+  opacity:0;
+  pointer-events:none;
+  transform:translate3d(0,18px,0) scale(.9);
+  transition:opacity .22s ease-out,transform .22s ease-out;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.mobile-scroll-top.is-visible{
+  opacity:1;
+  pointer-events:auto;
+  transform:translate3d(0,0,0) scale(1);
+}
+
+.mobile-scroll-top:active{
+  transform:translate3d(2px,2px,0) scale(.96);
+}
+
+.mobile-scroll-top:focus-visible{
+  outline:3px solid rgba(255,255,255,.86);
+  outline-offset:4px;
+}
+
+.mobile-scroll-top-arrow{
+  position:relative;
+  display:block;
+  width:29px;
+  height:22px;
+}
+
+.mobile-scroll-top-arrow::before,
+.mobile-scroll-top-arrow::after{
+  content:"";
+  position:absolute;
+  top:8px;
+  width:20px;
+  height:5px;
+  border-radius:999px;
+  background:#050505;
+  box-shadow:0 1px 0 rgba(255,255,255,.18);
+}
+
+.mobile-scroll-top-arrow::before{
+  left:0;
+  transform:rotate(-42deg);
+  transform-origin:100% 50%;
+}
+
+.mobile-scroll-top-arrow::after{
+  right:0;
+  transform:rotate(42deg);
+  transform-origin:0 50%;
+}
+
 @media (max-width:720px){
   .topbar .nav-links a,
   .topbar .nav-more summary{
@@ -2238,5 +2307,23 @@ body::after{content:"";position:fixed;top:-30vh;left:-28vw;width:22vw;height:170
   .topbar .nav-more summary:hover,
   .topbar .nav-more summary:focus-visible{
     transform:translate(1px,1px);
+  }
+}
+
+@media (max-width:920px){
+  .mobile-scroll-top{
+    display:grid;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .mobile-scroll-top{
+    transition:opacity .01ms ease-out;
+    transform:none;
+  }
+
+  .mobile-scroll-top.is-visible,
+  .mobile-scroll-top:active{
+    transform:none;
   }
 }

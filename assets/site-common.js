@@ -71,6 +71,59 @@
 
   initMagazineIndicator();
 
+  function initMobileScrollTop() {
+    const mobileQuery = window.matchMedia('(max-width: 920px)');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let button = document.querySelector('.mobile-scroll-top');
+    let frame = null;
+
+    if (!button) {
+      button = document.createElement('button');
+      button.className = 'mobile-scroll-top';
+      button.type = 'button';
+      button.tabIndex = -1;
+      button.setAttribute('aria-label', 'Вернуться наверх');
+      button.setAttribute('aria-hidden', 'true');
+      button.innerHTML = '<span class="mobile-scroll-top-arrow" aria-hidden="true"></span>';
+      document.body.appendChild(button);
+    }
+
+    function renderVisibility() {
+      const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      const shouldShow = mobileQuery.matches && progress >= 0.3;
+
+      button.classList.toggle('is-visible', shouldShow);
+      button.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+      button.tabIndex = shouldShow ? 0 : -1;
+      frame = null;
+    }
+
+    function requestVisibility() {
+      if (frame === null) frame = requestAnimationFrame(renderVisibility);
+    }
+
+    button.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: reducedMotionQuery.matches ? 'auto' : 'smooth'
+      });
+      window.GrillzAnalytics?.track('mobile_scroll_top');
+    });
+
+    renderVisibility();
+    window.addEventListener('scroll', requestVisibility, { passive: true });
+    window.addEventListener('resize', requestVisibility);
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', requestVisibility);
+    } else if (typeof mobileQuery.addListener === 'function') {
+      mobileQuery.addListener(requestVisibility);
+    }
+  }
+
+  initMobileScrollTop();
+
   document.querySelectorAll('.nav-more').forEach((details) => {
     document.addEventListener('click', (event) => {
       if (!details.contains(event.target)) details.removeAttribute('open');

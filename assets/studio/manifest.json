@@ -1,54 +1,44 @@
 {
-  "version": 1,
-  "glb": "assets/studio/models/gc-grillz-studio.glb",
+  "version": 2,
+  "mode": "photoreal",
   "mouthBg": "assets/studio/mouth-bg.jpg",
   "teethPath": "assets/studio/teeth/{kind}_{material}.png",
-  "overlayPath": "assets/studio/overlays/{style}.png",
-  "kinds": [
-    "incisor",
-    "lateral",
-    "canine",
-    "premolar"
+  "stylePiecePath": "assets/studio/photo/pieces/{material}_{style}_{index}.png",
+  "archPath": "assets/studio/photo/arches/{material}_{style}.png",
+  "fdiUpperFront": [
+    "13",
+    "12",
+    "11",
+    "21",
+    "22",
+    "23"
   ],
-  "materials": [
-    "enamel",
-    "yellow-gold",
-    "white-gold",
-    "rose-gold",
-    "silver",
-    "chrome",
-    "faux-gold",
-    "premium"
+  "fdiLowerFront": [
+    "43",
+    "42",
+    "41",
+    "31",
+    "32",
+    "33"
   ],
-  "styles": [
-    "polished",
-    "pineapple",
-    "open-face",
-    "laser",
-    "diamond-dust",
-    "moissanite",
-    "diamond"
-  ],
-  "fdiToKind": {
-    "15": "premolar",
-    "14": "premolar",
-    "13": "canine",
-    "12": "lateral",
-    "11": "incisor",
-    "21": "incisor",
-    "22": "lateral",
-    "23": "canine",
-    "24": "premolar",
-    "25": "premolar",
-    "45": "premolar",
-    "44": "premolar",
-    "43": "canine",
-    "42": "lateral",
-    "41": "incisor",
-    "31": "incisor",
-    "32": "lateral",
-    "33": "canine",
-    "34": "premolar",
-    "35": "premolar"
+  "pieceIndex": {
+    "13": 0,
+    "12": 1,
+    "11": 2,
+    "21": 3,
+    "22": 4,
+    "23": 5,
+    "43": 0,
+    "42": 1,
+    "41": 2,
+    "31": 3,
+    "32": 4,
+    "33": 5
+  },
+  "kindIndex": {
+    "canine": 0,
+    "lateral": 1,
+    "incisor": 2,
+    "premolar": 1
   }
 }

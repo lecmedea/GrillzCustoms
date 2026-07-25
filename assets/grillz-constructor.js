@@ -12,7 +12,17 @@
   const ASSET = {
     teeth: (kind, mat) => `assets/studio/teeth/${kind}_${mat}.png`,
     overlay: (style) => `assets/studio/overlays/${style}.png`,
+    /** Photoreal product-photo pieces: material × style × slot 0..5 (canine→canine) */
+    piece: (mat, style, index) => `assets/studio/photo/pieces/${mat}_${style}_${index}.png`,
     mouthBg: 'assets/studio/mouth-bg.jpg'
+  };
+
+  /** Front 6 map to photoreal bridge slots; outer premolars reuse lateral/canine slots */
+  const PIECE_INDEX = {
+    '13': 0, '12': 1, '11': 2, '21': 3, '22': 4, '23': 5,
+    '14': 0, '15': 0, '24': 5, '25': 5,
+    '43': 0, '42': 1, '41': 2, '31': 3, '32': 4, '33': 5,
+    '44': 0, '45': 0, '34': 5, '35': 5
   };
 
   const UPPER = ['15', '14', '13', '12', '11', '21', '22', '23', '24', '25'];
@@ -620,79 +630,121 @@
 
   async function preloadAssets() {
     mouthBg = await loadImage(ASSET.mouthBg);
-    const kinds = ['incisor', 'lateral', 'canine', 'premolar'];
-    const mats = Object.keys(prices.material).concat(['enamel']);
-    const styles = ['polished', 'pineapple', 'open-face', 'laser', 'diamond-dust', 'moissanite', 'diamond'];
-    const jobs = [];
-    kinds.forEach((k) => mats.forEach((m) => jobs.push(loadImage(ASSET.teeth(k, m === 'enamel' ? 'enamel' : m)))));
-    styles.forEach((s) => jobs.push(loadImage(ASSET.overlay(s))));
-    await Promise.all(jobs);
+    // warm cache for default starter (11+21 yellow polished)
+    await Promise.all([
+      loadImage(ASSET.piece('yellow-gold', 'polished', 2)),
+      loadImage(ASSET.piece('yellow-gold', 'polished', 3)),
+      loadImage(ASSET.teeth('incisor', 'enamel'))
+    ]);
   }
 
-  /* ---------- canvas 2D with PNG layers ---------- */
-  function archLayout(list, cx, cy, radiusX, radiusY, size, isUpper) {
+  /* ---------- canvas 2D photoreal layers ---------- */
+  /**
+   * Positions tuned for the photoreal smile background:
+   * upper arch sits on visible upper teeth band, lower on lower teeth band.
+   */
+  function archLayout(list, W, H, isUpper) {
     const n = list.length;
+    // smile photo geometry (approx)
+    const cy = isUpper ? H * 0.42 : H * 0.62;
+    const radiusX = W * (isUpper ? 0.28 : 0.26);
+    const radiusY = H * (isUpper ? 0.055 : 0.05);
+    const base = Math.min(W, H) * (isUpper ? 0.095 : 0.088);
     return list.map((id, i) => {
       const t = n === 1 ? 0.5 : i / (n - 1);
-      const ang = Math.PI * (0.18 + t * 0.64);
-      const x = cx + Math.cos(ang) * radiusX;
-      const y = cy + Math.sin(ang) * radiusY * 0.55;
-      const rot = (t - 0.5) * (isUpper ? 0.45 : -0.45);
-      const scale = size * (0.92 + Math.sin(ang) * 0.1);
+      // flatter arc matching frontal smile photo
+      const ang = Math.PI * (0.22 + t * 0.56);
+      const x = W * 0.5 + Math.cos(ang) * radiusX;
+      const y = cy + Math.sin(ang) * radiusY * (isUpper ? 0.35 : 0.35);
+      // minimal rotation — product photos are already frontal
+      const rot = (t - 0.5) * (isUpper ? 0.12 : -0.12);
+      const midBoost = 1 + Math.sin(ang) * 0.08;
+      // centrals slightly larger
+      const isCentral = id === '11' || id === '21' || id === '31' || id === '41';
+      const scale = base * midBoost * (isCentral ? 1.12 : 1);
       return { id, x, y, rot, scale, upper: isUpper };
     });
   }
 
+  function pieceSrc(id, toothState) {
+    if (!toothState.on) {
+      return ASSET.teeth(kindFor(id), 'enamel');
+    }
+    const style = toothState.style || 'polished';
+    const mat = toothState.material || 'yellow-gold';
+    const index = PIECE_INDEX[id] ?? 2;
+    return ASSET.piece(mat, style, index);
+  }
+
   function drawToothLayer(ctx, layout, toothState, images) {
     const { id, x, y, rot, scale, upper } = layout;
-    const kind = kindFor(id);
     const on = toothState.on;
-    const mat = on ? toothState.material : 'enamel';
-    const base = images.get(ASSET.teeth(kind, mat));
-    const overlay = on ? images.get(ASSET.overlay(toothState.style)) : null;
-    const s = scale * 1.35;
+    const src = pieceSrc(id, toothState);
+    let img = images.get(src);
+    // fallback to polished / kind sprite
+    if (!img && on) {
+      img = images.get(ASSET.piece(toothState.material, 'polished', PIECE_INDEX[id] ?? 2))
+        || images.get(ASSET.teeth(kindFor(id), toothState.material));
+    }
+    if (!img && !on) {
+      img = images.get(ASSET.teeth(kindFor(id), 'enamel'));
+    }
+    const s = scale * (on ? 1.55 : 1.35);
+
+    // soft contact shadow under metal caps
+    if (on && img) {
+      ctx.save();
+      ctx.translate(x + 1, y + scale * 0.08);
+      ctx.rotate(rot);
+      ctx.fillStyle = 'rgba(0,0,0,0.28)';
+      ctx.beginPath();
+      ctx.ellipse(0, s * 0.28, s * 0.28, s * 0.08, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
 
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(rot);
     if (!upper) ctx.scale(1, -1);
 
-    if (base) {
-      ctx.drawImage(base, -s / 2, -s / 2, s, s);
-    } else {
-      // fallback rect
-      ctx.fillStyle = on ? '#e0b020' : '#e8e0d0';
-      ctx.fillRect(-s * 0.3, -s * 0.4, s * 0.6, s * 0.8);
-    }
-
-    if (overlay && on && toothState.style !== 'polished') {
-      ctx.globalCompositeOperation = 'source-atop';
-      ctx.globalAlpha = toothState.style === 'open-face' ? 0.95 : 0.75;
-      ctx.drawImage(overlay, -s / 2, -s / 2, s, s);
+    if (img) {
+      // photoreal piece already has lighting — draw clean
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      if (!on) {
+        // enamel ghost only when needed — mostly smile bg shows natural teeth
+        ctx.globalAlpha = 0.0; // hide enamel sprites; natural smile is the base
+      }
+      ctx.drawImage(img, -s / 2, -s * 0.52, s, s);
       ctx.globalAlpha = 1;
-      ctx.globalCompositeOperation = 'source-over';
     }
 
     if (state.focus === id) {
-      ctx.strokeStyle = 'rgba(126,224,255,0.95)';
-      ctx.lineWidth = Math.max(2, s * 0.035);
-      ctx.setLineDash([5, 4]);
-      ctx.strokeRect(-s / 2, -s / 2, s, s);
+      ctx.strokeStyle = 'rgba(126,224,255,0.9)';
+      ctx.lineWidth = Math.max(2, s * 0.03);
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, s * 0.34, s * 0.42, 0, 0, Math.PI * 2);
+      ctx.stroke();
       ctx.setLineDash([]);
     }
-
     ctx.restore();
 
-    // label
+    // small FDI chip
     ctx.save();
-    ctx.font = `700 ${Math.max(10, scale * 0.22)}px system-ui,sans-serif`;
+    const chipY = y + (upper ? scale * 0.42 : -scale * 0.42);
+    ctx.font = `700 ${Math.max(9, scale * 0.18)}px system-ui,sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = on ? 'rgba(20,12,0,0.85)' : 'rgba(40,30,20,0.55)';
-    ctx.fillText(id, x, y + (upper ? scale * 0.22 : -scale * 0.22));
+    const tw = ctx.measureText(id).width + 10;
+    ctx.fillStyle = on ? 'rgba(0,0,0,0.55)' : 'rgba(0,0,0,0.35)';
+    ctx.fillRect(x - tw / 2, chipY - 8, tw, 16);
+    ctx.fillStyle = on ? '#ffd000' : 'rgba(255,255,255,0.75)';
+    ctx.fillText(id, x, chipY);
     ctx.restore();
 
-    hitMap.push({ id, x, y, r: scale * 0.62 });
+    hitMap.push({ id, x, y, r: scale * 0.7 });
   }
 
   async function resolveImages() {
@@ -700,9 +752,14 @@
     const srcs = new Set();
     ALL_TEETH.forEach((id) => {
       const t = state.teeth[id];
-      const kind = kindFor(id);
-      srcs.add(ASSET.teeth(kind, t.on ? t.material : 'enamel'));
-      if (t.on) srcs.add(ASSET.overlay(t.style));
+      srcs.add(pieceSrc(id, t));
+      if (t.on) {
+        // polished fallback
+        srcs.add(ASSET.piece(t.material, 'polished', PIECE_INDEX[id] ?? 2));
+        srcs.add(ASSET.teeth(kindFor(id), t.material));
+      } else {
+        srcs.add(ASSET.teeth(kindFor(id), 'enamel'));
+      }
     });
     await Promise.all([...srcs].map(async (s) => {
       map.set(s, await loadImage(s));
@@ -728,8 +785,18 @@
     const W = cssW;
     const H = cssH;
 
+    // photoreal smile base
     if (mouthBg) {
-      ctx.drawImage(mouthBg, 0, 0, W, H);
+      // cover crop
+      const iw = mouthBg.naturalWidth || mouthBg.width;
+      const ih = mouthBg.naturalHeight || mouthBg.height;
+      const scale = Math.max(W / iw, H / ih);
+      const dw = iw * scale;
+      const dh = ih * scale;
+      ctx.drawImage(mouthBg, (W - dw) / 2, (H - dh) / 2, dw, dh);
+      // subtle darken for metal contrast
+      ctx.fillStyle = 'rgba(0,0,0,0.12)';
+      ctx.fillRect(0, 0, W, H);
     } else {
       ctx.fillStyle = '#0a0406';
       ctx.fillRect(0, 0, W, H);
@@ -737,31 +804,28 @@
 
     ctx.save();
     ctx.translate(W / 2, H / 2);
-    ctx.rotate(state.view.yaw * 0.35);
-    ctx.scale(1 + state.view.pitch * 0.02, 1 - Math.abs(state.view.yaw) * 0.04);
+    // gentler orbit so photo stays believable
+    ctx.rotate(state.view.yaw * 0.18);
+    ctx.scale(1 + state.view.pitch * 0.015, 1 - Math.abs(state.view.yaw) * 0.02);
     ctx.translate(-W / 2, -H / 2);
 
     hitMap = [];
     const images = await resolveImages();
-    const base = Math.min(W, H) * 0.078;
-    const upperLayout = archLayout(UPPER, W * 0.5, H * 0.34, W * 0.34, H * 0.16, base, true);
-    const lowerLayout = archLayout(LOWER, W * 0.5, H * 0.64, W * 0.32, H * 0.14, base * 0.95, false);
+    const upperLayout = archLayout(UPPER, W, H, true);
+    const lowerLayout = archLayout(LOWER, W, H, false);
 
-    upperLayout.forEach((L) => {
-      L.y -= H * 0.015;
-      drawToothLayer(ctx, L, state.teeth[L.id], images);
-    });
-    lowerLayout.forEach((L) => {
-      L.y += H * 0.015;
-      drawToothLayer(ctx, L, state.teeth[L.id], images);
-    });
+    // draw off-teeth hit targets first (invisible), then metal on top
+    upperLayout.forEach((L) => drawToothLayer(ctx, L, state.teeth[L.id], images));
+    lowerLayout.forEach((L) => drawToothLayer(ctx, L, state.teeth[L.id], images));
     ctx.restore();
 
     if (!activeTeeth().length) {
-      ctx.fillStyle = 'rgba(255,255,255,0.75)';
-      ctx.font = '700 16px system-ui,sans-serif';
+      ctx.fillStyle = 'rgba(0,0,0,0.45)';
+      ctx.fillRect(W * 0.2, H * 0.46, W * 0.6, 36);
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.font = '700 14px system-ui,sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('Выберите зубы для сета', W / 2, H * 0.5);
+      ctx.fillText('Нажмите на зубы — наденем фотореальные grillz', W / 2, H * 0.5);
     }
     needsDraw = false;
   }

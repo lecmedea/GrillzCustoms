@@ -210,6 +210,14 @@
   margin-top: 12px;
 }
 
+.fit-sliders.is-hidden {
+  display: none;
+}
+
+.stage-viewport {
+  overscroll-behavior: contain;
+}
+
 .fit-sliders label {
   display: grid;
   grid-template-columns: 64px 1fr 52px;

@@ -109,10 +109,12 @@
                     <button type="button" class="stage-btn" id="btnView3d" data-view="model">3D</button>
                   </div>
                   <div class="view-mode" role="group" aria-label="Инструмент посадки" id="fitToolGroup">
-                    <button type="button" class="stage-btn is-active" id="btnToolSelect" data-tool="select" title="Клик: вкл/выкл · перетащите капу">Выбор</button>
-                    <button type="button" class="stage-btn" id="btnToolMove" data-tool="move" title="Переместить капу">Сдвиг</button>
-                    <button type="button" class="stage-btn" id="btnToolScale" data-tool="scale" title="Масштаб (тяните вверх/вниз)">Масштаб</button>
-                    <button type="button" class="stage-btn" id="btnToolRotate" data-tool="rotate" title="Поворот (тяните вбок)">Поворот</button>
+                    <button type="button" class="stage-btn is-active" id="btnToolSelect" data-tool="select" title="Клик: вкл/выкл · drag: сдвиг">Выбор</button>
+                    <button type="button" class="stage-btn" id="btnToolMove" data-tool="move" title="Сдвиг капы">Сдвиг</button>
+                    <button type="button" class="stage-btn" id="btnToolScale" data-tool="scale" title="Масштаб оба (колесо / drag)">Масштаб</button>
+                    <button type="button" class="stage-btn" id="btnToolScaleX" data-tool="scaleX" title="Только ширина">Ширина</button>
+                    <button type="button" class="stage-btn" id="btnToolScaleY" data-tool="scaleY" title="Только высота">Высота</button>
+                    <button type="button" class="stage-btn" id="btnToolRotate" data-tool="rotate" title="Поворот">Поворот</button>
                   </div>
                   <button type="button" class="stage-btn" id="btnResetView" title="Сбросить ракурс сцены">Ракурс</button>
                   <button type="button" class="stage-btn" id="btnCapture" title="Снимок превью">Снимок</button>
@@ -143,7 +145,7 @@
                 >
                   <button slot="ar-button" class="ar-btn" type="button" id="btnAR">AR</button>
                 </model-viewer>
-                <div class="stage-hint" id="stageHint">Каждый grillz — отдельно на зубе · Сдвиг / Масштаб / Поворот · можно загрузить своё фото рта</div>
+                <div class="stage-hint" id="stageHint">Колесо — размер капы (Shift=ширина, Alt=высота) · масштаб фото — только слайдер справа</div>
               </div>
 
               <div class="stage-legend">
@@ -177,7 +179,14 @@
                   <input type="file" id="mouthPhotoInput" accept="image/*" hidden>
                   <button type="button" class="btn ghost" id="btnResetPhoto">Сток-улыбка</button>
                 </div>
-                <p class="field-note" id="photoDetectStatus">Загрузите фронтальное фото улыбки — MediaPipe оценит положение зубов, вы подкрутите каждую капу вручную.</p>
+                <div class="fit-sliders is-hidden" id="blockPhotoZoom">
+                  <label>Масштаб фото
+                    <input type="range" id="photoZoom" min="50" max="300" value="100" step="1">
+                    <span id="photoZoomVal">100%</span>
+                  </label>
+                  <button type="button" class="preset-chip" id="btnPhotoZoomLock">Закрепить масштаб фото</button>
+                </div>
+                <p class="field-note" id="photoDetectStatus">Масштаб загруженного фото — только слайдер выше (не колесо/тачпад). Колесо всегда крутит размер grillz.</p>
               </fieldset>
 
               <!-- STEP: TEETH -->
@@ -198,7 +207,8 @@
                 <div class="fit-sliders">
                   <label>X <input type="range" id="fitNx" min="0" max="1000" value="500"><span id="fitNxVal">50%</span></label>
                   <label>Y <input type="range" id="fitNy" min="0" max="1000" value="420"><span id="fitNyVal">42%</span></label>
-                  <label>Размер <input type="range" id="fitScale" min="30" max="220" value="90"><span id="fitScaleVal">0.90</span></label>
+                  <label>Ширина <input type="range" id="fitScaleX" min="25" max="280" value="90"><span id="fitScaleXVal">0.90</span></label>
+                  <label>Высота <input type="range" id="fitScaleY" min="25" max="280" value="90"><span id="fitScaleYVal">0.90</span></label>
                   <label>Угол <input type="range" id="fitRot" min="-450" max="450" value="0"><span id="fitRotVal">0°</span></label>
                 </div>
                 <div class="preset-row" style="margin-top:10px">

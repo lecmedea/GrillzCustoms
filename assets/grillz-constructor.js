@@ -27,32 +27,32 @@
 
   /**
    * Default anchors on stock smile photo (normalized 0..1).
-   * Each grillz is independent — own nx/ny/scale/rot.
+   * Each grillz is independent — own nx/ny/scaleX/scaleY/rot.
    * Calibrated for assets/studio/mouth-bg.jpg frontal smile.
    */
   const DEFAULT_ANCHORS = {
     // upper L→R
-    '15': { nx: 0.18, ny: 0.445, scale: 0.072, rot: 0.18 },
-    '14': { nx: 0.24, ny: 0.430, scale: 0.078, rot: 0.12 },
-    '13': { nx: 0.30, ny: 0.418, scale: 0.086, rot: 0.08 },
-    '12': { nx: 0.37, ny: 0.408, scale: 0.082, rot: 0.04 },
-    '11': { nx: 0.45, ny: 0.402, scale: 0.098, rot: 0.01 },
-    '21': { nx: 0.55, ny: 0.402, scale: 0.098, rot: -0.01 },
-    '22': { nx: 0.63, ny: 0.408, scale: 0.082, rot: -0.04 },
-    '23': { nx: 0.70, ny: 0.418, scale: 0.086, rot: -0.08 },
-    '24': { nx: 0.76, ny: 0.430, scale: 0.078, rot: -0.12 },
-    '25': { nx: 0.82, ny: 0.445, scale: 0.072, rot: -0.18 },
-    // lower L→R (patient right→left in FDI: 45..35)
-    '45': { nx: 0.20, ny: 0.605, scale: 0.068, rot: -0.12 },
-    '44': { nx: 0.26, ny: 0.615, scale: 0.072, rot: -0.08 },
-    '43': { nx: 0.33, ny: 0.622, scale: 0.078, rot: -0.05 },
-    '42': { nx: 0.40, ny: 0.628, scale: 0.074, rot: -0.02 },
-    '41': { nx: 0.47, ny: 0.630, scale: 0.080, rot: 0.0 },
-    '31': { nx: 0.53, ny: 0.630, scale: 0.080, rot: 0.0 },
-    '32': { nx: 0.60, ny: 0.628, scale: 0.074, rot: 0.02 },
-    '33': { nx: 0.67, ny: 0.622, scale: 0.078, rot: 0.05 },
-    '34': { nx: 0.74, ny: 0.615, scale: 0.072, rot: 0.08 },
-    '35': { nx: 0.80, ny: 0.605, scale: 0.068, rot: 0.12 }
+    '15': { nx: 0.18, ny: 0.445, scaleX: 0.072, scaleY: 0.072, rot: 0.18 },
+    '14': { nx: 0.24, ny: 0.430, scaleX: 0.078, scaleY: 0.078, rot: 0.12 },
+    '13': { nx: 0.30, ny: 0.418, scaleX: 0.086, scaleY: 0.086, rot: 0.08 },
+    '12': { nx: 0.37, ny: 0.408, scaleX: 0.082, scaleY: 0.082, rot: 0.04 },
+    '11': { nx: 0.45, ny: 0.402, scaleX: 0.098, scaleY: 0.098, rot: 0.01 },
+    '21': { nx: 0.55, ny: 0.402, scaleX: 0.098, scaleY: 0.098, rot: -0.01 },
+    '22': { nx: 0.63, ny: 0.408, scaleX: 0.082, scaleY: 0.082, rot: -0.04 },
+    '23': { nx: 0.70, ny: 0.418, scaleX: 0.086, scaleY: 0.086, rot: -0.08 },
+    '24': { nx: 0.76, ny: 0.430, scaleX: 0.078, scaleY: 0.078, rot: -0.12 },
+    '25': { nx: 0.82, ny: 0.445, scaleX: 0.072, scaleY: 0.072, rot: -0.18 },
+    // lower
+    '45': { nx: 0.20, ny: 0.605, scaleX: 0.068, scaleY: 0.068, rot: -0.12 },
+    '44': { nx: 0.26, ny: 0.615, scaleX: 0.072, scaleY: 0.072, rot: -0.08 },
+    '43': { nx: 0.33, ny: 0.622, scaleX: 0.078, scaleY: 0.078, rot: -0.05 },
+    '42': { nx: 0.40, ny: 0.628, scaleX: 0.074, scaleY: 0.074, rot: -0.02 },
+    '41': { nx: 0.47, ny: 0.630, scaleX: 0.080, scaleY: 0.080, rot: 0.0 },
+    '31': { nx: 0.53, ny: 0.630, scaleX: 0.080, scaleY: 0.080, rot: 0.0 },
+    '32': { nx: 0.60, ny: 0.628, scaleX: 0.074, scaleY: 0.074, rot: 0.02 },
+    '33': { nx: 0.67, ny: 0.622, scaleX: 0.078, scaleY: 0.078, rot: 0.05 },
+    '34': { nx: 0.74, ny: 0.615, scaleX: 0.072, scaleY: 0.072, rot: 0.08 },
+    '35': { nx: 0.80, ny: 0.605, scaleX: 0.068, scaleY: 0.068, rot: 0.12 }
   };
 
   const UPPER = ['15', '14', '13', '12', '11', '21', '22', '23', '24', '25'];
@@ -230,8 +230,25 @@
   }
 
   function defaultFit(id) {
-    const a = DEFAULT_ANCHORS[id] || { nx: 0.5, ny: 0.5, scale: 0.08, rot: 0 };
-    return { nx: a.nx, ny: a.ny, scale: a.scale, rot: a.rot };
+    const a = DEFAULT_ANCHORS[id] || { nx: 0.5, ny: 0.5, scaleX: 0.08, scaleY: 0.08, rot: 0 };
+    // migrate legacy `scale` → scaleX/scaleY
+    const sx = a.scaleX ?? a.scale ?? 0.08;
+    const sy = a.scaleY ?? a.scale ?? sx;
+    return { nx: a.nx, ny: a.ny, scaleX: sx, scaleY: sy, rot: a.rot || 0 };
+  }
+
+  function normalizeFit(raw, id) {
+    const d = defaultFit(id);
+    if (!raw || typeof raw !== 'object') return { ...d };
+    const sx = Number(raw.scaleX ?? raw.scale ?? d.scaleX);
+    const sy = Number(raw.scaleY ?? raw.scale ?? d.scaleY);
+    return {
+      nx: clamp01(Number(raw.nx) || d.nx),
+      ny: clamp01(Number(raw.ny) || d.ny),
+      scaleX: Math.max(0.025, Math.min(0.28, sx || d.scaleX)),
+      scaleY: Math.max(0.025, Math.min(0.28, sy || d.scaleY)),
+      rot: Number(raw.rot) || 0
+    };
   }
 
   function defaultTooth(id, overrides = {}) {
@@ -253,8 +270,9 @@
       mould: 'studio',
       scope: 'focus',
       focus: '11',
-      tool: 'select', // select | move | scale | rotate
+      tool: 'select', // select | move | scale | scaleX | scaleY | rotate
       view: { yaw: 0, pitch: 0 },
+      photoZoom: 1, // only for custom uploaded photo; controlled by UI slider, not wheel
       customPhoto: false,
       teeth
     };
@@ -272,14 +290,27 @@
       const a = anchors[id];
       if (!a) return;
       const t = state.teeth[id];
-      t.fit = {
+      t.fit = normalizeFit({
         nx: a.nx,
         ny: a.ny,
-        scale: a.scale,
+        scaleX: a.scaleX ?? a.scale,
+        scaleY: a.scaleY ?? a.scale,
         rot: a.rot
-      };
+      }, id);
       if (enableDetected) t.on = true;
     });
+  }
+
+  function ensureFitMigrated(id) {
+    const fit = ensureFit(id);
+    if (fit.scale != null && (fit.scaleX == null || fit.scaleY == null)) {
+      fit.scaleX = fit.scaleX ?? fit.scale;
+      fit.scaleY = fit.scaleY ?? fit.scale;
+      delete fit.scale;
+    }
+    if (fit.scaleX == null) fit.scaleX = 0.08;
+    if (fit.scaleY == null) fit.scaleY = fit.scaleX;
+    return fit;
   }
 
   function activeTeeth() {
@@ -325,16 +356,11 @@
     ALL_TEETH.forEach((id) => {
       const t = data.teeth?.[id];
       if (!t) return;
-      const fit = t.fit
-        ? {
-            nx: clamp01(Number(t.fit.nx) || defaultFit(id).nx),
-            ny: clamp01(Number(t.fit.ny) || defaultFit(id).ny),
-            scale: Math.max(0.03, Math.min(0.25, Number(t.fit.scale) || defaultFit(id).scale)),
-            rot: Number(t.fit.rot) || 0
-          }
-        : defaultFit(id);
-      next.teeth[id] = { ...normalizeSpec(t), on: !!t.on, fit };
+      next.teeth[id] = { ...normalizeSpec(t), on: !!t.on, fit: normalizeFit(t.fit, id) };
     });
+    if (typeof data.photoZoom === 'number') {
+      next.photoZoom = Math.max(0.5, Math.min(3, data.photoZoom));
+    }
     state = next;
   }
 
@@ -739,14 +765,15 @@
 
   /* ---------- Independent per-tooth fit layout ---------- */
   function layoutTooth(id, W, H) {
-    const fit = ensureFit(id);
+    const fit = ensureFitMigrated(id);
     const isUpper = UPPER.includes(id);
-    // map normalized fit onto the drawn photo rect (cover-crop space)
     const { ox, oy, dw, dh } = canvasSpace;
     const x = ox + fit.nx * dw;
     const y = oy + fit.ny * dh;
-    const scale = fit.scale * Math.min(dw, dh);
-    return { id, x, y, rot: fit.rot, scale, upper: isUpper, fit };
+    const base = Math.min(dw, dh);
+    const scaleX = fit.scaleX * base;
+    const scaleY = fit.scaleY * base;
+    return { id, x, y, rot: fit.rot, scaleX, scaleY, upper: isUpper, fit };
   }
 
   function pieceSrc(id, toothState) {
@@ -758,22 +785,21 @@
   }
 
   function drawToothCap(ctx, layout, toothState, images) {
-    const { id, x, y, rot, scale, upper } = layout;
+    const { id, x, y, rot, scaleX, scaleY, upper } = layout;
     const on = toothState.on;
-    // hit target always (for empty teeth too)
-    hitMap.push({ id, x, y, r: Math.max(18, scale * 0.55) });
+    const hitR = Math.max(16, Math.max(scaleX, scaleY) * 0.55);
+    hitMap.push({ id, x, y, r: hitR });
 
     if (!on) {
-      // faint target ring so user can click empty tooth
+      // subtle empty target — no number labels
       ctx.save();
-      ctx.strokeStyle = state.focus === id ? 'rgba(126,224,255,0.55)' : 'rgba(255,255,255,0.18)';
+      ctx.strokeStyle = state.focus === id ? 'rgba(126,224,255,0.5)' : 'rgba(255,255,255,0.14)';
       ctx.lineWidth = 1.5;
       ctx.setLineDash([3, 3]);
       ctx.beginPath();
-      ctx.ellipse(x, y, scale * 0.28, scale * 0.36, rot, 0, Math.PI * 2);
+      ctx.ellipse(x, y, scaleX * 0.32, scaleY * 0.4, rot, 0, Math.PI * 2);
       ctx.stroke();
       ctx.restore();
-      drawChip(ctx, id, x, y, upper, scale, false);
       return;
     }
 
@@ -783,67 +809,49 @@
       img = images.get(ASSET.piece(toothState.material, 'polished', PIECE_INDEX[id] ?? 2))
         || images.get(ASSET.teeth(kindFor(id), toothState.material));
     }
-    const s = scale * 1.35;
+    const sx = scaleX * 1.35;
+    const sy = scaleY * 1.35;
 
-    // independent shadow per cap
     ctx.save();
-    ctx.translate(x + 1.5, y + scale * 0.06);
+    ctx.translate(x + 1.5, y + scaleY * 0.06);
     ctx.rotate(rot);
     ctx.fillStyle = 'rgba(0,0,0,0.32)';
     ctx.beginPath();
-    ctx.ellipse(0, s * 0.22, s * 0.26, s * 0.07, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, sy * 0.22, sx * 0.26, sy * 0.07, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
 
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(rot);
-    // lower jaw caps flip vertically so root side faces gum
     if (!upper) ctx.scale(1, -1);
     if (img) {
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
-      // each piece is a separate cap — no shared bridge lines
-      ctx.drawImage(img, -s / 2, -s * 0.52, s, s);
+      ctx.drawImage(img, -sx / 2, -sy * 0.52, sx, sy);
     } else {
       ctx.fillStyle = '#d4a017';
       ctx.beginPath();
-      ctx.ellipse(0, 0, s * 0.28, s * 0.4, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, sx * 0.28, sy * 0.4, 0, 0, Math.PI * 2);
       ctx.fill();
     }
     if (state.focus === id) {
       ctx.strokeStyle = 'rgba(126,224,255,0.95)';
-      ctx.lineWidth = Math.max(2, s * 0.028);
+      ctx.lineWidth = Math.max(2, Math.min(sx, sy) * 0.03);
       ctx.setLineDash([5, 4]);
       ctx.beginPath();
-      ctx.ellipse(0, 0, s * 0.34, s * 0.44, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, sx * 0.34, sy * 0.44, 0, 0, Math.PI * 2);
       ctx.stroke();
       ctx.setLineDash([]);
-      // transform handles
+      // handles: top = height, right = width
       ctx.fillStyle = '#7ee0ff';
       ctx.beginPath();
-      ctx.arc(0, -s * 0.48, 5, 0, Math.PI * 2);
+      ctx.arc(0, -sy * 0.48, 5, 0, Math.PI * 2);
       ctx.fill();
       ctx.beginPath();
-      ctx.arc(s * 0.36, 0, 5, 0, Math.PI * 2);
+      ctx.arc(sx * 0.38, 0, 5, 0, Math.PI * 2);
       ctx.fill();
     }
-    ctx.restore();
-
-    drawChip(ctx, id, x, y, upper, scale, true);
-  }
-
-  function drawChip(ctx, id, x, y, upper, scale, on) {
-    ctx.save();
-    const chipY = y + (upper ? scale * 0.48 : -scale * 0.48);
-    ctx.font = `700 ${Math.max(9, scale * 0.2)}px system-ui,sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    const tw = ctx.measureText(id).width + 10;
-    ctx.fillStyle = on ? 'rgba(0,0,0,0.55)' : 'rgba(0,0,0,0.3)';
-    ctx.fillRect(x - tw / 2, chipY - 8, tw, 16);
-    ctx.fillStyle = on ? '#ffd000' : 'rgba(255,255,255,0.7)';
-    ctx.fillText(id, x, chipY);
     ctx.restore();
   }
 
@@ -871,7 +879,10 @@
     }
     const iw = mouthBg.naturalWidth || mouthBg.width || W;
     const ih = mouthBg.naturalHeight || mouthBg.height || H;
-    const scale = Math.max(W / iw, H / ih);
+    // base cover scale, then user photoZoom (slider only; never from wheel)
+    const cover = Math.max(W / iw, H / ih);
+    const zoom = state.customPhoto ? (state.photoZoom || 1) : 1;
+    const scale = cover * zoom;
     const dw = iw * scale;
     const dh = ih * scale;
     canvasSpace = { W, H, ox: (W - dw) / 2, oy: (H - dh) / 2, dw, dh };
@@ -913,14 +924,6 @@
       drawToothCap(ctx, L, state.teeth[id], images);
     });
 
-    if (!activeTeeth().length) {
-      ctx.fillStyle = 'rgba(0,0,0,0.5)';
-      ctx.fillRect(W * 0.15, H * 0.45, W * 0.7, 40);
-      ctx.fillStyle = 'rgba(255,255,255,0.92)';
-      ctx.font = '700 13px system-ui,sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('Клик по зубу — отдельная капа · или загрузите своё фото рта', W / 2, H * 0.5);
-    }
     needsDraw = false;
   }
 
@@ -1025,9 +1028,22 @@
         const n = canvasToNorm(p.x, p.y);
         fit.nx = n.nx;
         fit.ny = n.ny;
-      } else if (tool === 'scale') {
+      } else if (tool === 'scale' || tool === 'scaleY') {
+        // uniform (scale) or height-only (scaleY): vertical drag
         const factor = 1 - dy * 0.004;
-        fit.scale = Math.max(0.03, Math.min(0.22, pointer.startFit.scale * factor));
+        if (tool === 'scale') {
+          const baseX = pointer.startFit.scaleX ?? pointer.startFit.scale ?? 0.08;
+          const baseY = pointer.startFit.scaleY ?? pointer.startFit.scale ?? baseX;
+          fit.scaleX = Math.max(0.025, Math.min(0.28, baseX * factor));
+          fit.scaleY = Math.max(0.025, Math.min(0.28, baseY * factor));
+        } else {
+          const baseY = pointer.startFit.scaleY ?? pointer.startFit.scale ?? 0.08;
+          fit.scaleY = Math.max(0.025, Math.min(0.28, baseY * factor));
+        }
+      } else if (tool === 'scaleX') {
+        const factor = 1 + dx * 0.004;
+        const baseX = pointer.startFit.scaleX ?? pointer.startFit.scale ?? 0.08;
+        fit.scaleX = Math.max(0.025, Math.min(0.28, baseX * factor));
       } else if (tool === 'rotate') {
         fit.rot = pointer.startFit.rot + dx * 0.01;
       }
@@ -1081,13 +1097,23 @@
     vp.addEventListener('touchend', onUp);
     window.addEventListener('resize', () => { needsDraw = true; });
 
-    // wheel scale on focused
+    // wheel / trackpad: ONLY scales focused grillz (never photo zoom)
     vp.addEventListener('wheel', (e) => {
-      if (viewMode !== 'layers' || !state.focus || !state.teeth[state.focus]?.on) return;
+      if (viewMode !== 'layers') return;
       e.preventDefault();
-      const fit = ensureFit(state.focus);
+      e.stopPropagation();
+      if (!state.focus || !state.teeth[state.focus]?.on) return;
+      const fit = ensureFitMigrated(state.focus);
       const dir = e.deltaY > 0 ? 0.96 : 1.04;
-      fit.scale = Math.max(0.03, Math.min(0.22, fit.scale * dir));
+      // shift = width only, alt = height only, default = uniform
+      if (e.shiftKey) {
+        fit.scaleX = Math.max(0.025, Math.min(0.28, fit.scaleX * dir));
+      } else if (e.altKey) {
+        fit.scaleY = Math.max(0.025, Math.min(0.28, fit.scaleY * dir));
+      } else {
+        fit.scaleX = Math.max(0.025, Math.min(0.28, fit.scaleX * dir));
+        fit.scaleY = Math.max(0.025, Math.min(0.28, fit.scaleY * dir));
+      }
       renderFitSliders();
       needsDraw = true;
       save();
@@ -1097,7 +1123,7 @@
   /* ---------- fit UI ---------- */
   function renderFitSliders() {
     const id = state.focus || '11';
-    const fit = ensureFit(id);
+    const fit = ensureFitMigrated(id);
     const set = (elId, val) => {
       const el = byId(elId);
       if (el) el.value = String(val);
@@ -1109,12 +1135,21 @@
     if (byId('fitToothId')) byId('fitToothId').textContent = id;
     set('fitNx', Math.round(fit.nx * 1000));
     set('fitNy', Math.round(fit.ny * 1000));
-    set('fitScale', Math.round(fit.scale * 1000));
+    set('fitScaleX', Math.round(fit.scaleX * 1000));
+    set('fitScaleY', Math.round(fit.scaleY * 1000));
     set('fitRot', Math.round(fit.rot * 100));
     setTxt('fitNxVal', Math.round(fit.nx * 100) + '%');
     setTxt('fitNyVal', Math.round(fit.ny * 100) + '%');
-    setTxt('fitScaleVal', fit.scale.toFixed(2));
+    setTxt('fitScaleXVal', fit.scaleX.toFixed(2));
+    setTxt('fitScaleYVal', fit.scaleY.toFixed(2));
     setTxt('fitRotVal', Math.round((fit.rot * 180) / Math.PI) + '°');
+
+    const pz = byId('photoZoom');
+    const pzVal = byId('photoZoomVal');
+    const pzBlock = byId('blockPhotoZoom');
+    if (pzBlock) pzBlock.classList.toggle('is-hidden', !state.customPhoto);
+    if (pz) pz.value = String(Math.round((state.photoZoom || 1) * 100));
+    if (pzVal) pzVal.textContent = Math.round((state.photoZoom || 1) * 100) + '%';
   }
 
   function bindFitUi() {
@@ -1123,7 +1158,7 @@
       if (!el) return;
       el.addEventListener('input', () => {
         if (!state.focus) return;
-        const fit = ensureFit(state.focus);
+        const fit = ensureFitMigrated(state.focus);
         apply(fit, Number(el.value));
         renderFitSliders();
         needsDraw = true;
@@ -1132,16 +1167,28 @@
     };
     bindRange('fitNx', (fit, v) => { fit.nx = v / 1000; });
     bindRange('fitNy', (fit, v) => { fit.ny = v / 1000; });
-    bindRange('fitScale', (fit, v) => { fit.scale = v / 1000; });
+    bindRange('fitScaleX', (fit, v) => { fit.scaleX = v / 1000; });
+    bindRange('fitScaleY', (fit, v) => { fit.scaleY = v / 1000; });
     bindRange('fitRot', (fit, v) => { fit.rot = v / 100; });
+
+    const pz = byId('photoZoom');
+    pz?.addEventListener('input', () => {
+      if (!state.customPhoto) return;
+      state.photoZoom = Math.max(0.5, Math.min(3, Number(pz.value) / 100));
+      renderFitSliders();
+      needsDraw = true;
+    });
+    pz?.addEventListener('change', () => save());
+    byId('btnPhotoZoomLock')?.addEventListener('click', () => {
+      save();
+      toast(`Масштаб фото закреплён: ${Math.round((state.photoZoom || 1) * 100)}%`);
+    });
 
     byId('btnFitResetOne')?.addEventListener('click', () => {
       if (!state.focus) return;
-      state.teeth[state.focus].fit = defaultFit(state.focus);
-      // if custom anchors from detection stored in DEFAULT after upload, use those
-      if (state._detectedAnchors?.[state.focus]) {
-        state.teeth[state.focus].fit = { ...state._detectedAnchors[state.focus] };
-      }
+      state.teeth[state.focus].fit = state._detectedAnchors?.[state.focus]
+        ? normalizeFit(state._detectedAnchors[state.focus], state.focus)
+        : defaultFit(state.focus);
       commit();
       renderFitSliders();
       toast('Посадка капы сброшена');
@@ -1149,7 +1196,7 @@
     byId('btnFitResetAll')?.addEventListener('click', () => {
       ALL_TEETH.forEach((id) => {
         state.teeth[id].fit = state._detectedAnchors?.[id]
-          ? { ...state._detectedAnchors[id] }
+          ? normalizeFit(state._detectedAnchors[id], id)
           : defaultFit(id);
       });
       commit();
@@ -1157,14 +1204,22 @@
       toast('Все посадки сброшены');
     });
 
-    ['btnToolSelect', 'btnToolMove', 'btnToolScale', 'btnToolRotate'].forEach((bid) => {
+    ['btnToolSelect', 'btnToolMove', 'btnToolScale', 'btnToolScaleX', 'btnToolScaleY', 'btnToolRotate'].forEach((bid) => {
       byId(bid)?.addEventListener('click', () => {
         const tool = byId(bid).dataset.tool;
         state.tool = tool;
         document.querySelectorAll('#fitToolGroup .stage-btn').forEach((b) => {
           b.classList.toggle('is-active', b.dataset.tool === tool);
         });
-        toast(tool === 'select' ? 'Режим: выбор / вкл-выкл' : `Режим: ${tool}`);
+        const labels = {
+          select: 'выбор / вкл-выкл',
+          move: 'сдвиг',
+          scale: 'масштаб (оба)',
+          scaleX: 'ширина',
+          scaleY: 'высота',
+          rotate: 'поворот'
+        };
+        toast(`Режим: ${labels[tool] || tool}`);
       });
     });
   }
@@ -1184,6 +1239,7 @@
         if (!img) throw new Error('bad image');
         mouthBg = img;
         state.customPhoto = true;
+        state.photoZoom = 1;
 
         let result = null;
         if (window.GrillzMouthDetect?.detectToothAnchors) {
@@ -1235,6 +1291,7 @@
       }
       mouthBg = stockMouthBg;
       state.customPhoto = false;
+      state.photoZoom = 1;
       state._detectedAnchors = null;
       ALL_TEETH.forEach((id) => {
         state.teeth[id].fit = defaultFit(id);

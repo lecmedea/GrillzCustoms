@@ -158,7 +158,8 @@
         anchors[id] = {
           nx: clamp01(nx),
           ny: clamp01(ny),
-          scale,
+          scaleX: scale,
+          scaleY: scale,
           rot: rot * 0.35 // damp extreme angles for frontal grillz sprites
         };
       });
@@ -203,7 +204,8 @@
         anchors[id] = {
           nx: 0.5 + Math.cos(ang) * 0.28,
           ny: cy + Math.sin(ang) * 0.04,
-          scale,
+          scaleX: scale,
+          scaleY: scale,
           rot: (t - 0.5) * 0.15
         };
       });

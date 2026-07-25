@@ -5,6 +5,8 @@ const adminChatId = process.env.ADMIN_CHAT_ID || '';
 const telegramFetchTimeoutMs = Number(process.env.TELEGRAM_FETCH_TIMEOUT_MS || 25000);
 const defaultStartPhotoPath = 'assets/bot/start-grillz-customs-moscow.jpg';
 
+const gcx = require('./game-ivasya');
+
 function response(statusCode, body, headers = {}) {
   return {
     statusCode,
@@ -58,8 +60,12 @@ function keyboard(view = 'main') {
   const rows = {
     main: [
       [
-        { text: '🎮 Grillz Game', url: page('gsb.index.html') },
+        { text: '🎮 Grillz Game', callback_data: 'gc:game' },
         { text: '🦷 Конструктор', url: page('constructor.html') }
+      ],
+      [
+        { text: '🧢 iVasya', callback_data: 'gc:ivasya' },
+        { text: '🖼 Генератор Grillz', callback_data: 'gc:gen' }
       ],
       [
         { text: '⚡ Мини-квест', callback_data: 'gc:quest' },
@@ -82,15 +88,7 @@ function keyboard(view = 'main') {
         { text: '📍 Контакты', callback_data: 'gc:contacts' }
       ]
     ],
-    game: [
-      [{ text: '🎮 Открыть старую игру', url: page('gsb.index.html') }],
-      [{ text: '🕹️ Tamagotchi на сайте', url: page('entertainment.html') }],
-      [
-        { text: '⚡ Квест дня', callback_data: 'gc:quest' },
-        { text: '💎 VIP-режим', callback_data: 'gc:vip' }
-      ],
-      [menuButton]
-    ],
+    game: (gcx.gameKeyboard().inline_keyboard),
     price: [
       [
         { text: '🦷 Собрать сет', url: page('constructor.html') },
@@ -133,16 +131,25 @@ function keyboard(view = 'main') {
 }
 
 function commandRoute(text) {
+  const t = compactText(text);
   if (text === 'gc:menu' || text.startsWith('/start') || text.startsWith('/menu')) return 'menu';
-  if (text === 'gc:game' || text.startsWith('/game') || text.includes('игр') || text.includes('tamagotchi') || text.includes('тамагочи')) return 'game';
-  if (text === 'gc:quest' || text.includes('квест') || text.includes('dust')) return 'quest';
-  if (text === 'gc:price' || text.startsWith('/price') || text.includes('цена') || text.includes('стоим') || text.includes('прайс')) return 'price';
-  if (text === 'gc:order' || text.startsWith('/order') || text.includes('заказ') || text.includes('слеп') || text.includes('скан')) return 'order';
-  if (text === 'gc:materials' || text.includes('материал') || text.includes('золото') || text.includes('серебро') || text.includes('камн')) return 'materials';
-  if (text === 'gc:care' || text.startsWith('/care') || text.includes('уход') || text.includes('чист')) return 'care';
-  if (text === 'gc:vip' || text.includes('vip') || text.includes('премиум')) return 'vip';
-  if (text === 'gc:contacts' || text.includes('контакт') || text.includes('адрес') || text.includes('связ')) return 'contacts';
-  if (text.includes('звезд') || text.includes('звёзд') || text.includes('селеб')) return 'stars';
+  if (text === 'gc:game' || text.startsWith('/game') || t.includes('игр') || t.includes('combat') || t.includes('tamagotchi') || t.includes('тамагочи')) return 'game';
+  if (text === 'gc:gtap') return 'gtap';
+  if (text === 'gc:gswipe') return 'gswipe';
+  if (text === 'gc:gstat') return 'gstat';
+  if (text === 'gc:greward') return 'greward';
+  if (text === 'gc:gstreak') return 'gstreak';
+  if (text === 'gc:ivasya' || text.startsWith('/ivasya') || t.includes('ivasya') || t.includes('ивася') || t.includes('вася')) return 'ivasya';
+  if (text === 'gc:gen' || text.startsWith('/gen') || t.includes('генератор')) return 'gen';
+  if (text.startsWith('gc:gen:')) return 'gen_run';
+  if (text === 'gc:quest' || t.includes('квест') || t.includes('dust')) return 'quest';
+  if (text === 'gc:price' || text.startsWith('/price') || t.includes('цена') || t.includes('стоим') || t.includes('прайс')) return 'price';
+  if (text === 'gc:order' || text.startsWith('/order') || t.includes('заказ') || t.includes('слеп') || t.includes('скан')) return 'order';
+  if (text === 'gc:materials' || t.includes('материал') || t.includes('золото') || t.includes('серебро') || t.includes('камн')) return 'materials';
+  if (text === 'gc:care' || text.startsWith('/care') || t.includes('уход') || t.includes('чист')) return 'care';
+  if (text === 'gc:vip' || t.includes('vip') || t.includes('премиум')) return 'vip';
+  if (text === 'gc:contacts' || t.includes('контакт') || t.includes('адрес') || t.includes('связ')) return 'contacts';
+  if (t.includes('звезд') || t.includes('звёзд') || t.includes('селеб')) return 'stars';
   return 'fallback';
 }
 
@@ -186,9 +193,13 @@ function dailyQuest(chatId = '') {
   return quests[hashText(`${day}:${chatId}`) % quests.length];
 }
 
-function answerFor(text, firstName = '', chatId = '') {
+async function answerFor(text, firstName = '', chatId = '', userId = '') {
   const route = commandRoute(text);
   const name = firstName ? `${escapeHtml(firstName)}, ` : '';
+  const uid = userId || chatId;
+
+  // leave iVasya mode on menu
+  if (route === 'menu') gcx.setIvasyaMode(uid, false);
 
   if (route === 'menu') {
     return {
@@ -198,39 +209,87 @@ function answerFor(text, firstName = '', chatId = '') {
         '',
         '👍 Добро пожаловать в официальный бот @Grillz_Customs_bot!',
         '',
-        'Мы создаем индивидуальные украшения премиум-класса: идеальная анатомическая посадка, агрессиввная эстетика, драгоценные материалы и образ под твой характер.',
+        `${name}меню прокачано:`,
+        '🎮 <b>Grillz Game</b> — Combat-тапы + Tinder-свайпы → Dust → скидки / free-cap коды',
+        '🧢 <b>iVasya</b> — дерзкий ИИ-консультант (FAQ + юмор + продажа)',
+        '🖼 <b>Генератор Grillz</b> — бесплатная генерация референсов (Pollinations)',
+        '🦷 <b>Конструктор</b> на сайте — собери сет по зубам',
         '',
-        '🔥 <b>Более 15 лет в игре. Без каких-либо компромиссов мы прём как бульдозер продвигая культуру гриллз на российском рынке.</b>',
-        '',
-        `${name}я снова в режиме мастерской: конструктора, прайс-листа, инфо по уходу, помогу с оформлением заказа, а затем можешь поиграть, пока твои гриллз изготавливаются в нашей волшебной мастерской! 💗`,
-        '',
-        '<b>Новый фичи бота:</b> ',
-        '🎮 <b>Grillz Game</b>: старый фан-режим с Gold Dust, фазами зубчика, VIP-бустом и гриндер-механикой.',
-        '🦷 <b>Конструктор</b>: можно собрать сет по зубам и отправить референс.',
-        '💎 <b>Мастерская</b>: материалы, посадка, полировка и кастом под образ.',
-        '',
-        '👇 Используйте меню снизу для старта:'
+        '👇 Жми кнопки:'
       ].join('\n'),
       reply_markup: keyboard('main')
     };
   }
 
   if (route === 'game') {
+    gcx.setIvasyaMode(uid, false);
     return {
       text: [
-        '🎮 <b>Grillz Game возвращается</b>',
+        gcx.gameStatusText(uid, firstName),
         '',
-        'Там есть старый вайб: тап по зубчику, Gold Dust, прокачка от слепка до белого золота и бриллиантов, VIP x2 и карточки знакомств.',
+        '<b>Как фармить:</b>',
+        '🦷 Тап — Gold Dust (энергия)',
+        '❤️ Свайп — матчи + бонус Dust',
+        '🎁 Награды — коды на скидку / free consult',
         '',
-        'Фазы:',
-        '1. 🦷 Форма для слепка',
-        '2. 🧱 Восковая форма',
-        '3. 🏭 Заливка металлом КХС',
-        '4. 🟤 Бронзовое литьё',
-        '5. 🟡 Золото 585',
-        '6. 💎 Белое золото и бриллианты'
+        'Цель: набить Dust, пока улыбка не попросит золото 😎'
       ].join('\n'),
-      reply_markup: keyboard('game')
+      reply_markup: gcx.gameKeyboard()
+    };
+  }
+
+  if (route === 'gtap') {
+    const r = gcx.doTap(uid);
+    return { text: r.text, reply_markup: r.markup };
+  }
+  if (route === 'gswipe') {
+    const r = gcx.doSwipe(uid);
+    return { text: r.text, reply_markup: r.markup };
+  }
+  if (route === 'gstat' || route === 'gstreak') {
+    return { text: gcx.gameStatusText(uid, firstName), reply_markup: gcx.gameKeyboard() };
+  }
+  if (route === 'greward') {
+    return { text: gcx.rewardsText(uid), reply_markup: gcx.gameKeyboard() };
+  }
+
+  if (route === 'ivasya') {
+    gcx.setIvasyaMode(uid, true);
+    return {
+      text: [
+        '🧢 <b>iVasya на линии</b>',
+        '',
+        'Йо. Я твой уличный консультант: FAQ, металл, посадка, уход — и шутки в каждом сообщении.',
+        'Пиши вопрос обычным текстом. Чтобы выйти — /menu.',
+        '',
+        'Примеры: «сколько стоит 6 зубов?», «можно есть?», «что лучше золото или серебро?»'
+      ].join('\n'),
+      reply_markup: gcx.ivasyaKeyboard()
+    };
+  }
+
+  if (route === 'gen') {
+    gcx.setIvasyaMode(uid, false);
+    return {
+      text: [
+        '🖼 <b>Генератор Grillz</b>',
+        '',
+        'Бесплатная генерация референсов через Pollinations (Flux). Выбери стиль или пришли текст: «6 верхних yellow gold open face».',
+        '',
+        '⚠️ Это вайб-референс, не финальный CAD. Для посадки — слепок + мастерская.'
+      ].join('\n'),
+      reply_markup: gcx.generatorKeyboard()
+    };
+  }
+
+  if (route === 'gen_run') {
+    const key = String(text).split(':').pop();
+    const prompt = gcx.GEN_PROMPTS[key] || gcx.GEN_PROMPTS.gold;
+    const url = gcx.grillzImageUrl(prompt);
+    return {
+      photo: url,
+      text: `🖼 Референс: <b>${escapeHtml(prompt)}</b>\n\nСгенерировано бесплатно · Pollinations/Flux\nСобрать похожее → конструктор на сайте.`,
+      reply_markup: gcx.generatorKeyboard()
     };
   }
 
@@ -528,9 +587,33 @@ async function replyToUpdate(update) {
 
   const chatId = message.chat.id;
   const sender = senderFromUpdate(update);
-  const text = compactText(inputFromUpdate(update));
+  const rawInput = inputFromUpdate(update);
+  const text = compactText(rawInput);
   const firstName = displayNameFromSender(sender);
-  const answer = answerFor(text, firstName, chatId);
+  const userId = sender.id || chatId;
+
+  let answer;
+  // free-text to iVasya when mode on and not a command/callback
+  const isCommand = text.startsWith('/') || text.startsWith('gc:');
+  if (gcx.isIvasyaMode(userId) && !isCommand && rawInput && String(rawInput).trim()) {
+    const r = await gcx.ivasyaReply(userId, String(rawInput).trim(), firstName);
+    answer = {
+      text: `🧢 <b>iVasya</b>\n\n${escapeHtml(r.rawAnswer || '').replace(/\n/g, '\n')}`,
+      reply_markup: r.reply_markup
+    };
+  } else {
+    answer = await answerFor(text, firstName, chatId, userId);
+  }
+
+  // free-form image gen: "ген ..." / "gen ..."
+  if (!isCommand && (text.startsWith('ген ') || text.startsWith('gen '))) {
+    const prompt = String(rawInput).replace(/^(ген|gen)\s+/i, '').trim() || 'custom gold grillz';
+    answer = {
+      photo: gcx.grillzImageUrl(prompt),
+      text: `🖼 <b>Генератор</b>\n${escapeHtml(prompt)}`,
+      reply_markup: gcx.generatorKeyboard()
+    };
+  }
 
   await replyByEditingOrSending(update, chatId, answer);
   await notifyAdmin(message, chatId, firstName);
@@ -628,7 +711,9 @@ async function setupBotInterface() {
   await runStep('commands', 'setMyCommands', {
     commands: [
       { command: 'start', description: '✨ Главное меню Grillz Customs' },
-      { command: 'game', description: '🎮 Grillz Game и квест дня' },
+      { command: 'game', description: '🎮 Grillz Combat — Dust, свайпы, скидки' },
+      { command: 'ivasya', description: '🧢 iVasya — ИИ-консультант' },
+      { command: 'gen', description: '🖼 Генератор Grillz' },
       { command: 'price', description: '💰 Быстрый расчёт grillz' },
       { command: 'order', description: '📦 Как заказать' },
       { command: 'care', description: '🧼 Уход за grillz' },
@@ -671,10 +756,20 @@ module.exports.handler = async function handler(event) {
     return response(200, { ok: true, skipped: true });
   }
 
+  // Preferred path: call Telegram API from function (async-safe for iVasya / photos)
+  try {
+    await replyToUpdate(update);
+    return response(200, { ok: true, mode: 'api' });
+  } catch (error) {
+    console.error(JSON.stringify({ scope: 'handler', errorName: error?.name, errorMessage: error?.message }));
+  }
+
+  // Fallback webhook-style response body
   const chatId = message.chat.id;
   const text = compactText(inputFromUpdate(update));
   const firstName = displayNameFromSender(senderFromUpdate(update));
-  const reply = answerFor(text, firstName, chatId);
+  const sender = senderFromUpdate(update);
+  const reply = await answerFor(text, firstName, chatId, sender.id || chatId);
 
   if (reply.photo) {
     return response(200, {

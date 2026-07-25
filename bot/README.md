@@ -28,6 +28,17 @@ The bot token must be stored only in Yandex Cloud environment variables. Do not 
   - `TELEGRAM_FETCH_TIMEOUT_MS=25000` optional
   - `START_PHOTO_URL` optional, defaults to `https://grillzcustoms.ru/assets/bot/start-grillz-customs-moscow.jpg`
   - `ADMIN_CHAT_ID` optional, for owner notifications
+  - **iVasya (free LLM, pick one):**
+    - `GROQ_API_KEY` — recommended free tier (https://console.groq.com)
+    - or `OPENROUTER_API_KEY` + optional `OPENROUTER_MODEL=meta-llama/llama-3.3-70b-instruct:free`
+    - or `GEMINI_API_KEY` from Google AI Studio
+  - Image gen uses **Pollinations** (no key): `https://image.pollinations.ai/...`
+
+## Grillz Game / iVasya / Generator
+
+- **Grillz Game** in-bot: tap for Gold Dust (energy), Tinder-like swipes, streak, discount codes at Dust milestones.
+- **iVasya**: street-slang AI seller grounded on site FAQ; needs one free LLM key above (else local FAQ wit).
+- **Генератор Grillz**: Pollinations Flux image refs; buttons or message `ген 6 upper yellow gold`.
 
 ## Webhook
 

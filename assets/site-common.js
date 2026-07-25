@@ -2,7 +2,7 @@
   if (!window.__grillzI18nLoading && !window.__grillzI18nReady) {
     window.__grillzI18nLoading = true;
     const i18nScript = document.createElement('script');
-    i18nScript.src = 'assets/i18n.js?v=20260725-i18n3';
+    i18nScript.src = 'assets/i18n.js?v=20260725-i18n4';
     i18nScript.defer = true;
     document.head.appendChild(i18nScript);
   }

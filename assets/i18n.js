@@ -545,111 +545,6 @@
         pointer-events: none;
       }
 
-      .magazine-scroll-indicator {
-        position: fixed !important;
-        top: 88px !important;
-        right: 10px !important;
-        bottom: 26px !important;
-        width: 42px !important;
-        z-index: 120 !important;
-        pointer-events: none !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: stretch !important;
-      }
-
-      .magazine-body {
-        position: relative !important;
-        width: 30px !important;
-        height: 100% !important;
-        min-height: 0 !important;
-        padding: 0 !important;
-        border-radius: 10px 10px 16px 16px !important;
-        background:
-          linear-gradient(90deg, rgba(255,255,255,.1), transparent 20%, rgba(0,0,0,.35) 78%, rgba(255,255,255,.08)),
-          linear-gradient(180deg, rgba(20,20,20,.96), rgba(8,8,8,.96)) !important;
-        border: 1px solid rgba(255, 208, 0, .28) !important;
-        box-shadow: inset 0 0 18px rgba(0,0,0,.65), 0 0 22px rgba(255,208,0,.1), 0 12px 36px rgba(0,0,0,.42) !important;
-        overflow: hidden !important;
-      }
-
-      .ammo-track {
-        position: absolute !important;
-        inset: 10px 5px 12px !important;
-        display: grid !important;
-        grid-template-rows: repeat(var(--ammo-count, 80), 1fr) !important;
-        gap: 2px !important;
-        justify-items: stretch !important;
-        z-index: 3 !important;
-      }
-
-      .ammo-slot {
-        position: relative !important;
-        width: auto !important;
-        min-height: 5px !important;
-        height: auto !important;
-        border: 0 !important;
-        background: transparent !important;
-        pointer-events: auto !important;
-        cursor: pointer !important;
-      }
-
-      .ammo-round {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 18px;
-        height: 7px;
-        transform: translate(-120px, -50%) scale(.35) rotate(-18deg);
-        opacity: 0;
-        border-radius: 999px 4px 4px 999px;
-        background: linear-gradient(90deg, #f8f8f8 0%, #d8d8d8 22%, #8f8f8f 34%, #fff2a6 34%, #ffd000 58%, #b87900 100%);
-        border: 1px solid rgba(255,255,255,.18);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -1px 2px rgba(0,0,0,.28), 0 2px 3px rgba(0,0,0,.55), 0 0 10px rgba(255,208,0,.2);
-      }
-
-      .ammo-round::before {
-        content: "";
-        position: absolute;
-        right: -3px;
-        top: 50%;
-        width: 6px;
-        height: 6px;
-        transform: translateY(-50%) rotate(45deg);
-        border-radius: 2px;
-        background: linear-gradient(135deg, #fff6c9, #ffd000 55%, #a66800);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 2px 3px rgba(0,0,0,.45), 0 0 8px rgba(255,208,0,.22);
-      }
-
-      .ammo-slot.loaded .ammo-round {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1) rotate(0deg);
-      }
-
-      .ammo-slot.active .ammo-round {
-        filter: drop-shadow(0 0 10px rgba(255,208,0,.7));
-        animation: gcAmmoActive 1.35s ease-in-out infinite;
-      }
-
-      .magazine-percent {
-        position: absolute !important;
-        right: 36px !important;
-        bottom: 4px !important;
-        min-width: 44px !important;
-        padding: 5px 7px !important;
-        border-radius: 999px !important;
-        background: rgba(0,0,0,.62) !important;
-        border: 1px solid rgba(255,208,0,.22) !important;
-        color: var(--yellow, #ffd000) !important;
-        font-size: 10px !important;
-        font-weight: 950 !important;
-        letter-spacing: .6px !important;
-        text-align: center !important;
-        pointer-events: none !important;
-        backdrop-filter: blur(8px) !important;
-        z-index: 4 !important;
-      }
-
       @keyframes gcEmblemAura {
         0%, 100% { box-shadow: 0 30px 100px rgba(0,0,0,.55), 0 0 22px rgba(255,208,0,.08); filter: saturate(1.06) contrast(1.04); }
         45% { box-shadow: 0 34px 110px rgba(0,0,0,.6), 0 0 44px rgba(255,208,0,.2); filter: saturate(1.16) contrast(1.07); }
@@ -666,11 +561,6 @@
         0%, 100% { opacity: .58; filter: blur(0); }
         44% { opacity: .98; filter: drop-shadow(0 0 10px rgba(255,208,0,.45)); }
         68% { opacity: .72; }
-      }
-
-      @keyframes gcAmmoActive {
-        0%, 100% { transform: translate(-50%, -50%) scale(1); }
-        50% { transform: translate(-50%, -50%) scale(1.18); }
       }
 
       .localized-seo-panel {
@@ -896,70 +786,6 @@
     window.addEventListener('load', () => window.setTimeout(callback, 80), { once: true });
   }
 
-  function ensureUnifiedScrollIndicator() {
-    if (window.matchMedia('(max-width: 720px)').matches) return;
-    if (window.__grillzUnifiedScrollAbort) window.__grillzUnifiedScrollAbort.abort();
-
-    const controller = new AbortController();
-    window.__grillzUnifiedScrollAbort = controller;
-
-    let indicator = document.querySelector('.magazine-scroll-indicator');
-    if (!indicator) {
-      indicator = document.createElement('aside');
-      indicator.className = 'magazine-scroll-indicator';
-      indicator.setAttribute('aria-label', 'Визуальный индикатор прокрутки сайта');
-      document.body.prepend(indicator);
-    }
-
-    indicator.innerHTML = '<div class="magazine-body"><div class="ammo-track" id="ammoTrack"></div><div class="magazine-percent" id="magazinePercent">0%</div></div>';
-
-    const track = indicator.querySelector('#ammoTrack');
-    const percent = indicator.querySelector('#magazinePercent');
-    const sections = [...document.querySelectorAll('main > section')];
-    const total = Math.max(sections.length * 8, 16);
-    if (!track) return;
-
-    track.style.setProperty('--ammo-count', total);
-    for (let index = 0; index < total; index += 1) {
-      const slot = document.createElement('button');
-      const section = sections[Math.min(sections.length - 1, Math.floor((index / total) * sections.length))];
-      slot.className = 'ammo-slot';
-      slot.type = 'button';
-      slot.setAttribute('aria-label', 'Перейти к части страницы');
-      slot.innerHTML = '<span class="ammo-round" aria-hidden="true"></span>';
-      slot.addEventListener('click', () => section?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-      track.appendChild(slot);
-    }
-
-    const slots = [...track.querySelectorAll('.ammo-slot')];
-    let progressFrame = null;
-    const renderProgress = () => {
-      const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-      const progress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
-      const loaded = Math.round(progress * total);
-      slots.forEach((slot, index) => {
-        slot.classList.toggle('loaded', index < loaded);
-        slot.classList.toggle('active', index === Math.max(0, loaded - 1));
-      });
-      if (percent) percent.textContent = Math.round(progress * 100) + '%';
-      progressFrame = null;
-    };
-    const requestProgress = () => {
-      if (progressFrame === null) progressFrame = requestAnimationFrame(renderProgress);
-    };
-
-    renderProgress();
-    window.addEventListener('scroll', requestProgress, { passive: true, signal: controller.signal });
-    window.addEventListener('resize', requestProgress, { signal: controller.signal });
-  }
-
-  function scheduleUnifiedScrollIndicator() {
-    afterPageLoad(() => {
-      ensureUnifiedScrollIndicator();
-      window.setTimeout(ensureUnifiedScrollIndicator, 260);
-    });
-  }
-
   function syncAutoTranslator(persist) {
     const target = TRANSLATOR_LANGS[currentLang];
     if (!target) {
@@ -1101,7 +927,6 @@
     applyMetadata();
     ensureAlternates();
     ensureLocalizedPanel();
-    scheduleUnifiedScrollIndicator();
     syncSwitcher();
     syncAutoTranslator(persist);
   }

@@ -65,7 +65,7 @@
   </script>
   <script src="assets/analytics-config.js" defer></script>
   <script src="assets/analytics.js" defer></script>
-  <script src="assets/i18n.js?v=20260725-i18n4" defer></script>
+  <script src="assets/i18n.js?v=20260725-i18n5" defer></script>
 
   <style>
     * {
@@ -3493,11 +3493,100 @@
       box-shadow: none !important;
     }
 
+    /* Главная: десктопный индикатор как на внутренних страницах */
+    .home-page .magazine-scroll-indicator {
+      position: fixed !important;
+      right: 18px !important;
+      top: 50% !important;
+      bottom: auto !important;
+      width: auto !important;
+      transform: translateY(-50%) !important;
+      z-index: 50 !important;
+      pointer-events: none !important;
+      display: block !important;
+    }
+
+    .home-page .magazine-body {
+      position: relative !important;
+      width: 42px !important;
+      height: auto !important;
+      min-height: 300px !important;
+      padding: 10px 8px !important;
+      border: 1px solid rgba(255, 208, 0, .3) !important;
+      border-radius: 24px !important;
+      background: linear-gradient(180deg, rgba(0, 0, 0, .82), rgba(0, 0, 0, .48)) !important;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .44), 0 0 30px rgba(255, 208, 0, .1) !important;
+      backdrop-filter: blur(12px) !important;
+      overflow: visible !important;
+    }
+
+    .home-page .magazine-body::before,
+    .home-page .magazine-body::after {
+      content: none !important;
+    }
+
+    .home-page .ammo-track {
+      position: static !important;
+      inset: auto !important;
+      display: grid !important;
+      grid-template-rows: none !important;
+      gap: 4px !important;
+      justify-items: center !important;
+      z-index: auto !important;
+    }
+
+    .home-page .ammo-slot {
+      position: relative !important;
+      width: 14px !important;
+      height: 6px !important;
+      min-height: 0 !important;
+      border: 0 !important;
+      border-radius: 999px !important;
+      background: rgba(255, 255, 255, .14) !important;
+      pointer-events: auto !important;
+      cursor: pointer !important;
+      transform: none;
+    }
+
+    .home-page .ammo-slot.loaded {
+      background: var(--yellow) !important;
+      box-shadow: 0 0 12px rgba(255, 208, 0, .6) !important;
+    }
+
+    .home-page .ammo-slot.active {
+      transform: scaleX(1.35) !important;
+    }
+
+    .home-page .ammo-round {
+      display: none !important;
+    }
+
+    .home-page .magazine-percent {
+      position: static !important;
+      min-width: 0 !important;
+      margin-top: 9px !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      color: var(--yellow) !important;
+      font-size: 10px !important;
+      font-weight: 950 !important;
+      letter-spacing: 0 !important;
+      text-align: center !important;
+      pointer-events: none !important;
+      backdrop-filter: none !important;
+    }
+
     .mobile-ice-bg {
       display: none;
     }
 
     @media (max-width: 920px) {
+      .home-page .magazine-scroll-indicator {
+        display: none !important;
+      }
+
       .page {
         position: relative;
         isolation: isolate;
@@ -3514,53 +3603,124 @@
 
       .mobile-ice-bg img {
         position: absolute;
-        width: clamp(78px, 23vw, 118px);
+        width: clamp(116px, 38vw, 194px);
         height: auto;
         object-fit: contain;
-        opacity: .32;
-        filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .38)) saturate(1.05);
+        opacity: .72;
+        filter: drop-shadow(0 18px 34px rgba(0, 0, 0, .62)) saturate(1.22) contrast(1.1);
       }
 
       .mobile-ice-bg .ice-cube:nth-child(1) {
-        top: 5%;
-        left: -8%;
-        transform: rotate(-16deg);
+        top: 2.5%;
+        left: -2%;
+        transform: rotate(-18deg);
       }
 
       .mobile-ice-bg .ice-cube:nth-child(2) {
-        top: 17%;
-        right: -10%;
-        width: clamp(90px, 27vw, 132px);
-        opacity: .28;
-        transform: rotate(18deg);
+        top: 5%;
+        right: -8%;
+        width: clamp(132px, 42vw, 208px);
+        opacity: .76;
+        transform: rotate(17deg);
       }
 
       .mobile-ice-bg .ice-cube:nth-child(3) {
-        top: 32%;
-        left: 4%;
-        opacity: .24;
-        transform: rotate(8deg);
+        top: 10%;
+        left: 9%;
+        opacity: .64;
+        transform: rotate(7deg);
       }
 
       .mobile-ice-bg .ice-cube:nth-child(4) {
-        top: 51%;
-        right: -7%;
-        opacity: .30;
-        transform: rotate(-10deg);
+        top: 16%;
+        right: 8%;
+        width: clamp(104px, 33vw, 164px);
+        opacity: .66;
+        transform: rotate(-11deg);
       }
 
       .mobile-ice-bg .ice-cube:nth-child(5) {
-        top: 70%;
-        left: -9%;
-        opacity: .26;
-        transform: rotate(18deg);
+        top: 22%;
+        left: -8%;
+        width: clamp(140px, 45vw, 220px);
+        opacity: .72;
+        transform: rotate(21deg);
       }
 
       .mobile-ice-bg .ice-cube:nth-child(6) {
-        top: 87%;
+        top: 29%;
+        right: -7%;
+        opacity: .66;
+        transform: rotate(-20deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(7) {
+        top: 36%;
+        left: 9%;
+        width: clamp(108px, 34vw, 170px);
+        opacity: .66;
+        transform: rotate(-7deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(8) {
+        top: 43%;
+        right: 15%;
+        width: clamp(124px, 38vw, 188px);
+        opacity: .6;
+        transform: rotate(14deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(9) {
+        top: 50%;
+        left: -5%;
+        opacity: .7;
+        transform: rotate(-24deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(10) {
+        top: 57%;
+        right: -8%;
+        width: clamp(144px, 46vw, 224px);
+        opacity: .72;
+        transform: rotate(9deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(11) {
+        top: 64%;
+        left: 13%;
+        width: clamp(104px, 33vw, 160px);
+        opacity: .58;
+        transform: rotate(25deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(12) {
+        top: 72%;
         right: 7%;
-        opacity: .22;
-        transform: rotate(-18deg);
+        opacity: .68;
+        transform: rotate(-14deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(13) {
+        top: 80%;
+        left: -6%;
+        width: clamp(132px, 42vw, 208px);
+        opacity: .72;
+        transform: rotate(12deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(14) {
+        top: 88%;
+        right: -6%;
+        opacity: .66;
+        transform: rotate(-23deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(15) {
+        top: 96%;
+        left: 18%;
+        width: clamp(108px, 35vw, 172px);
+        opacity: .58;
+        transform: rotate(6deg);
       }
 
       .page > header,
@@ -3604,6 +3764,15 @@
 
   <div class="page">
     <div class="mobile-ice-bg" aria-hidden="true">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-gold.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-silver.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-diamond.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-gold.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-silver.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-diamond.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-gold.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-silver.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-diamond.png" width="420" height="420" alt="" loading="lazy" decoding="async">
       <img class="ice-cube" src="assets/mobile/grillz-ice-gold.png" width="420" height="420" alt="" loading="lazy" decoding="async">
       <img class="ice-cube" src="assets/mobile/grillz-ice-silver.png" width="420" height="420" alt="" loading="lazy" decoding="async">
       <img class="ice-cube" src="assets/mobile/grillz-ice-diamond.png" width="420" height="420" alt="" loading="lazy" decoding="async">
@@ -4266,8 +4435,7 @@
       window.addEventListener('resize', requestBackgroundMove);
 
       const sectionIds = ['top', 'about', 'services', 'gift', 'process', 'clinics', 'contacts'];
-      const ammoPerSection = 10;
-      const totalAmmo = sectionIds.length * ammoPerSection;
+      const totalAmmo = 24;
       const ammoTrack = document.getElementById('ammoTrack');
       const magazinePercent = document.getElementById('magazinePercent');
 
@@ -4276,7 +4444,7 @@
         ammoTrack.innerHTML = '';
         for (let i = 0; i < totalAmmo; i++) {
           const slot = document.createElement('button');
-          const sectionIndex = Math.min(sectionIds.length - 1, Math.floor(i / ammoPerSection));
+          const sectionIndex = Math.min(sectionIds.length - 1, Math.floor((i / totalAmmo) * sectionIds.length));
           slot.className = 'ammo-slot';
           slot.type = 'button';
           slot.dataset.index = i;
@@ -4447,6 +4615,8 @@
     /* FIX: надёжное восстановление заполнения обоймы при скролле */
     (() => {
       function initMagazineScrollIndicator() {
+        if (window.matchMedia('(max-width: 920px)').matches) return;
+
         let indicator = document.querySelector('.magazine-scroll-indicator');
 
         if (!indicator) {
@@ -4483,15 +4653,14 @@
         }
 
         const sectionIds = ['top', 'order', 'about', 'services', 'gift', 'process', 'works', 'trusted', 'clinics', 'jewelry', 'contacts'];
-        const ammoPerSection = 8;
-        const totalAmmo = sectionIds.length * ammoPerSection;
+        const totalAmmo = 24;
 
         ammoTrack.innerHTML = '';
         ammoTrack.style.setProperty('--ammo-count', totalAmmo);
 
         for (let i = 0; i < totalAmmo; i++) {
           const slot = document.createElement('button');
-          const sectionIndex = Math.min(sectionIds.length - 1, Math.floor(i / ammoPerSection));
+          const sectionIndex = Math.min(sectionIds.length - 1, Math.floor((i / totalAmmo) * sectionIds.length));
 
           slot.className = 'ammo-slot';
           slot.type = 'button';

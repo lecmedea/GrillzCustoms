@@ -1,109 +1,433 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://grillzcustoms.ru/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/order.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/order.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/order.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/order.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/order.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/order.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/order.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/order.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/order.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/order.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/order.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/order.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/order.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/order.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/order.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/order.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/order.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/order.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/order.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/about.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/about.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/about.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/about.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/about.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/about.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/about.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/about.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/about.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/about.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/about.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/about.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/about.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/about.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/about.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/about.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/about.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/about.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/services.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/services.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/services.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/services.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/services.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/services.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/services.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/services.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/services.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/services.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/services.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/services.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/services.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/services.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/services.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/services.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/services.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/services.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/services.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/gift.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/gift.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/gift.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/gift.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/gift.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/gift.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/gift.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/gift.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/gift.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/gift.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/gift.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/gift.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/gift.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/gift.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/gift.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/gift.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/gift.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/gift.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/gift.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/process.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/process.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/process.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/process.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/process.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/process.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/process.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/process.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/process.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/process.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/process.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/process.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/process.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/process.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/process.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/process.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/process.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/process.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/process.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/works.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/works.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/works.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/works.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/works.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/works.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/works.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/works.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/works.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/works.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/works.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/works.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/works.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/works.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/works.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/works.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/works.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/works.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/works.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/trusted.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/trusted.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/trusted.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/trusted.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/trusted.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/trusted.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/trusted.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/trusted.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/trusted.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/trusted.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/trusted.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/trusted.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/trusted.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/trusted.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/trusted.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/trusted.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/trusted.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/trusted.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/trusted.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/clinics.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/clinics.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/clinics.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/clinics.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/clinics.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/clinics.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/clinics.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/clinics.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/clinics.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/clinics.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/clinics.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/clinics.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/clinics.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/clinics.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/clinics.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/clinics.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/clinics.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/clinics.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/clinics.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/jewelry.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/jewelry.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/jewelry.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/jewelry.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/jewelry.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/jewelry.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/jewelry.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/jewelry.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/jewelry.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/jewelry.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/jewelry.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/jewelry.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/jewelry.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/jewelry.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/jewelry.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/jewelry.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/jewelry.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/jewelry.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/jewelry.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/contacts.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/contacts.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/contacts.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/contacts.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/contacts.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/contacts.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/contacts.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/contacts.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/contacts.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/contacts.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/contacts.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/contacts.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/contacts.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/contacts.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/contacts.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/contacts.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/contacts.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/contacts.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/contacts.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/faq.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/faq.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/faq.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/faq.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/faq.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/faq.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/faq.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/faq.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/faq.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/faq.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/faq.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/faq.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/faq.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/faq.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/faq.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/faq.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/faq.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/faq.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/stars.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/stars.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/stars.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/stars.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/stars.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/stars.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/stars.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/stars.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/stars.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/stars.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/stars.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/stars.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/stars.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/stars.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/stars.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/stars.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/stars.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/stars.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/stars.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/entertainment.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/entertainment.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/entertainment.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/entertainment.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/entertainment.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/entertainment.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/entertainment.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/entertainment.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/entertainment.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/entertainment.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/entertainment.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/entertainment.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/entertainment.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/entertainment.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/entertainment.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/entertainment.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/entertainment.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/entertainment.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/entertainment.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/constructor.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/constructor.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/constructor.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/constructor.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/constructor.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/constructor.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/constructor.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/constructor.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/constructor.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/constructor.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/constructor.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/constructor.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/constructor.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/constructor.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/constructor.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/constructor.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/constructor.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/constructor.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/constructor.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/account.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/account.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/account.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/account.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/account.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/account.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/account.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/account.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/account.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/account.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/account.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/account.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/account.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/account.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/account.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/account.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/account.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/account.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/account.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/forum.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/forum.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/forum.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/forum.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/forum.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/forum.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/forum.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/forum.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/forum.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/forum.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/forum.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/forum.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/forum.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/forum.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/forum.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/forum.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/forum.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/forum.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/forum.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://grillzcustoms.ru/forma.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://grillzcustoms.ru/forma.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://grillzcustoms.ru/forma.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://grillzcustoms.ru/forma.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://grillzcustoms.ru/forma.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://grillzcustoms.ru/forma.html?lang=it" />
+    <xhtml:link rel="alternate" hreflang="ka" href="https://grillzcustoms.ru/forma.html?lang=ka" />
+    <xhtml:link rel="alternate" hreflang="hy" href="https://grillzcustoms.ru/forma.html?lang=hy" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://grillzcustoms.ru/forma.html?lang=uz" />
+    <xhtml:link rel="alternate" hreflang="kk" href="https://grillzcustoms.ru/forma.html?lang=kk" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://grillzcustoms.ru/forma.html?lang=zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://grillzcustoms.ru/forma.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://grillzcustoms.ru/forma.html?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://grillzcustoms.ru/forma.html?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://grillzcustoms.ru/forma.html?lang=de" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://grillzcustoms.ru/forma.html?lang=hi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://grillzcustoms.ru/forma.html?lang=tr" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://grillzcustoms.ru/forma.html?lang=el" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://grillzcustoms.ru/forma.html" />
     <lastmod>2026-07-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>

@@ -585,6 +585,34 @@ body::after {
   grid-template-columns:repeat(3,1fr);
 }
 
+.trend-tag-cloud {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:24px;
+}
+
+.trend-tag-cloud a {
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  padding:8px 12px;
+  border:1px solid rgba(255,208,0,.32);
+  border-radius:999px;
+  color:#050505;
+  background:linear-gradient(180deg,#fff08a 0%,#ffd000 52%,#bd8a00 100%);
+  box-shadow:3px 3px 0 #050505,0 10px 24px rgba(0,0,0,.28);
+  font-size:12px;
+  font-weight:950;
+  text-transform:uppercase;
+  letter-spacing:.35px;
+}
+
+.trend-tag-cloud a:focus-visible {
+  outline:3px solid rgba(255,255,255,.86);
+  outline-offset:3px;
+}
+
 @media (max-width:1100px) {
   .celebrity-grid,.service-mosaic,.constructor-shell,.tamagotchi-panel,.auth-grid,.forum-grid {
     grid-template-columns:1fr 1fr;

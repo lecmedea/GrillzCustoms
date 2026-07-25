@@ -12,18 +12,48 @@
   --ice-cool: rgba(180, 200, 220, 0.04);
 }
 
-/* Ive-like dark field: soft voids + precise abstract hairlines */
+/*
+ * Kill global site-background.jpg (site-pages.css paints it on
+ * .moving-background::before). Without this, forum looks like every other page.
+ */
 .forma-page .moving-background {
-  background-color: var(--ice-void) !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  opacity: 1 !important;
+  background-color: #050505 !important;
   background-image:
-    /* soft depth wells */
-    radial-gradient(ellipse 90% 55% at 12% 8%, rgba(40, 44, 52, 0.45), transparent 58%),
-    radial-gradient(ellipse 70% 50% at 92% 78%, rgba(28, 30, 36, 0.4), transparent 55%),
-    radial-gradient(ellipse 50% 35% at 50% 45%, rgba(255, 255, 255, 0.02), transparent 60%),
-    /* cool Audigier-gold whisper */
+    radial-gradient(ellipse 90% 55% at 12% 8%, rgba(40, 44, 52, 0.5), transparent 58%),
+    radial-gradient(ellipse 70% 50% at 92% 78%, rgba(28, 30, 36, 0.42), transparent 55%),
+    radial-gradient(ellipse 50% 35% at 50% 45%, rgba(255, 255, 255, 0.025), transparent 60%),
     radial-gradient(ellipse 40% 30% at 70% 20%, var(--ice-gold-hair), transparent 70%),
-    linear-gradient(180deg, #070708 0%, var(--ice-void) 40%, #030304 100%) !important;
-  opacity: 1;
+    linear-gradient(180deg, #070708 0%, #050505 40%, #030304 100%) !important;
+  background-size: auto !important;
+  background-position: center !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+.forma-page .moving-background::before,
+.forma-page .moving-background::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* body::after light sweep is the gold “beam” from site-pages — mute on forum */
+.forma-page::after,
+body.forma-page::after {
+  display: none !important;
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+body.forma-page {
+  background: #050505 !important;
 }
 
 /* SVG / CSS line lattice (Ive precision geometry) */

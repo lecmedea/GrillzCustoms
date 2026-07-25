@@ -735,7 +735,7 @@ body::before {
   width:108vw;
   top:0;
   height:360vh;
-  background-image:radial-gradient(circle at 50% 18%,rgba(255,208,0,.06),transparent 34%),url("site-background.png");
+  background-image:radial-gradient(circle at 50% 18%,rgba(255,208,0,.06),transparent 34%),url("optimized/site-background.jpg");
   background-size:100% 100%;
   background-position:center top;
   background-repeat:no-repeat;

@@ -42,4 +42,4 @@ curl -sS "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getWebhookInfo"
 
 ## Notes
 
-The current implementation has no external dependencies and uses the standard Telegram Bot API over HTTPS. It answers common questions, links to the constructor, order page, works, contacts and Grillz Tamagotchi, and can forward user messages to an admin chat if `ADMIN_CHAT_ID` is configured.
+The current implementation has no external dependencies. For webhook reliability it returns a Telegram-compatible `sendMessage` payload directly in the HTTP response instead of making a second outbound request from the function to Telegram. It answers common questions and links to the constructor, order page, works, contacts and Grillz Tamagotchi.

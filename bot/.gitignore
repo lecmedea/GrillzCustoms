@@ -1,0 +1,5 @@
+bot/yandex-function/*.zip
+yandex-function/*.zip
+yandex-function/grillzcustoms-telegram-bot.zip
+.env
+.env.*

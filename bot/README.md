@@ -56,8 +56,31 @@ Check the webhook:
 curl -sS "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getWebhookInfo"
 ```
 
+## Deploy
+
+```bash
+# pack only (Console upload)
+bash bot/yandex-function/pack.sh
+# → bot/yandex-function/grillzcustoms-telegram-bot.zip
+
+# full deploy if yc CLI is installed + authorized
+export TELEGRAM_BOT_TOKEN='…'   # if not already in function env
+export GROQ_API_KEY='…'         # free: https://console.groq.com
+bash bot/yandex-function/deploy.sh
+```
+
+After deploy:
+
+```bash
+curl -sS "https://functions.yandexcloud.net/d4e1e154aq9us864hggr?setup=commands"
+```
+
+**Codex one-shot prompt:** see `bot/CODEX_DEPLOY_PROMPT.md` (copy the PROMPT block into Codex).
+
+Console folder: https://console.yandex.cloud/folders/b1g4vg12cnanadnute6g
+
 ## Notes
 
-The current implementation has no external dependencies. It supports both webhook-style responses and polling mode. Polling mode is used when Telegram cannot reliably deliver webhook requests to Yandex Cloud Functions.
+The current implementation has no external npm dependencies. It supports both webhook-style responses and polling mode. Polling mode is used when Telegram cannot reliably deliver webhook requests to Yandex Cloud Functions.
 
-The live bot has an emoji-first interface, inline callback sections, Telegram commands, a WebApp button for `gsb.index.html`, daily mini quests, quick price/order/care/materials answers and links to the constructor, portfolio, stars page, forum, contacts and Grillz Tamagotchi. The `/start` command sends a branded photo from `assets/bot/start-grillz-customs-moscow.jpg` with the main menu caption.
+Features: Grillz Combat (tap/swipe/Dust/rewards), iVasya (FAQ + street seller LLM), Grillz image generator (Pollinations), constructor/order/care links, daily quests. The `/start` command sends a branded photo with the main menu.

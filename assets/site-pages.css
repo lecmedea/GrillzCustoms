@@ -2337,3 +2337,100 @@ body::after{content:"";position:fixed;top:-30vh;left:-28vw;width:22vw;height:170
     transform:translate(1px,1px);
   }
 }
+
+/* ===== Mobile overflow safety (2026-07-26) ===== */
+@media (max-width: 920px) {
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+  }
+  body {
+    width: 100% !important;
+  }
+  .page,
+  .container,
+  main,
+  section,
+  header,
+  footer {
+    max-width: 100% !important;
+    overflow-x: clip;
+  }
+  .container {
+    width: min(100%, 100%) !important;
+    padding-left: max(14px, env(safe-area-inset-left)) !important;
+    padding-right: max(14px, env(safe-area-inset-right)) !important;
+    box-sizing: border-box !important;
+  }
+  h1, h2, h3, h4, p, li, label, span, a, .lead, .eyebrow,
+  .detail-list, .detail-list strong, .detail-list span,
+  .rich-panel, .hero-panel, .card, .service, .step,
+  .auth-card, .board-main, .board-main h3, .board-main .desc,
+  .forma-panel, .feed-item, .sum-teeth, .field-note {
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    max-width: 100% !important;
+  }
+  img, video, canvas, svg {
+    max-width: 100% !important;
+    height: auto;
+  }
+  .hero-panel, .rich-panel, .detail-card, .card, .service, .step,
+  .clinic-box, .cta, .contact-panel, .game-card, .auth-card,
+  .board-cat, .forma-meta-card, .forma-panel, .studio-panel,
+  .studio-stage, .howto-card {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .page-hero-grid,
+  .detail-grid,
+  .cards,
+  .services,
+  .process,
+  .portfolio,
+  .auth-grid,
+  .forma-meta-grid,
+  .forma-composer,
+  .studio-layout,
+  .howto-grid,
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    min-width: 0 !important;
+  }
+  .nav, .nav-links, .nav-row {
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+  .nav-links a, .nav-more summary {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+  .swatch-grid, .pill-grid, .fdi-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .fdi-row {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+  .board-row {
+    grid-template-columns: 40px minmax(0, 1fr) !important;
+  }
+  .board-stat { display: none !important; }
+  .fit-sliders label {
+    grid-template-columns: 56px minmax(0, 1fr) 48px !important;
+  }
+  .studio-cta .btn,
+  .hero-actions .btn,
+  .auth-form .btn {
+    width: 100%;
+    max-width: 100%;
+  }
+  .magazine-scroll-indicator {
+    display: none !important;
+  }
+  pre, code {
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+  }
+}

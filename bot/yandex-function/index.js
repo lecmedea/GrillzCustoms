@@ -3,7 +3,7 @@
 const siteUrl = process.env.SITE_URL || 'https://grillzcustoms.ru';
 const adminChatId = process.env.ADMIN_CHAT_ID || '';
 const telegramFetchTimeoutMs = Number(process.env.TELEGRAM_FETCH_TIMEOUT_MS || 25000);
-const telegramSetupTimeoutMs = Number(process.env.TELEGRAM_SETUP_TIMEOUT_MS || 6000);
+const telegramSetupTimeoutMs = Number(process.env.TELEGRAM_SETUP_TIMEOUT_MS || 15000);
 const defaultStartPhotoPath = 'assets/bot/start-grillz-customs-moscow.jpg';
 
 const gcx = require('./game-ivasya');

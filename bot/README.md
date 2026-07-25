@@ -14,6 +14,7 @@ The bot token must be stored only in Yandex Cloud environment variables. Do not 
 - Telegram mode: polling is preferred if Telegram -> Yandex webhook delivery times out. Invoke `https://functions.yandexcloud.net/d4e1e154aq9us864hggr?poll=1` or attach a Yandex Cloud timer trigger.
 - Timer trigger: `grillzcustoms-bot-polling` (`a1sufdn6u3imkns2g3n6`), cron `* * ? * * *`
 - Trigger service account: `grillzcustoms-bot-invoker`
+- Bot interface setup: invoke `https://functions.yandexcloud.net/d4e1e154aq9us864hggr?setup=commands` after deployment to refresh Telegram commands, description and the game menu button.
 
 ## Function settings
 
@@ -45,4 +46,6 @@ curl -sS "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getWebhookInfo"
 
 ## Notes
 
-The current implementation has no external dependencies. It supports both webhook-style responses and polling mode. Polling mode is used when Telegram cannot reliably deliver webhook requests to Yandex Cloud Functions. It answers common questions and links to the constructor, order page, works, contacts and Grillz Tamagotchi.
+The current implementation has no external dependencies. It supports both webhook-style responses and polling mode. Polling mode is used when Telegram cannot reliably deliver webhook requests to Yandex Cloud Functions.
+
+The live bot has an emoji-first interface, inline callback sections, Telegram commands, a WebApp button for `gsb.index.html`, daily mini quests, quick price/order/care/materials answers and links to the constructor, portfolio, stars page, forum, contacts and Grillz Tamagotchi.

@@ -35,57 +35,14 @@
   window.addEventListener('scroll', requestBackgroundMove, { passive: true });
   window.addEventListener('resize', requestBackgroundMove);
 
-  function initMagazineIndicator() {
-    if (window.matchMedia('(max-width: 720px)').matches) return;
-    let indicator = document.querySelector('.magazine-scroll-indicator');
-    if (!indicator) {
-      indicator = document.createElement('aside');
-      indicator.className = 'magazine-scroll-indicator';
-      indicator.setAttribute('aria-label', 'Визуальный индикатор прокрутки сайта');
-      indicator.innerHTML = '<div class="magazine-body"><div class="ammo-track" id="ammoTrack"></div><div class="magazine-percent" id="magazinePercent">0%</div></div>';
-      document.body.prepend(indicator);
-    }
-
-    const track = indicator.querySelector('#ammoTrack');
-    const percent = indicator.querySelector('#magazinePercent');
-    const sections = [...document.querySelectorAll('main > section')];
-    const total = Math.max(sections.length * 8, 16);
-    track.innerHTML = '';
-
-    for (let index = 0; index < total; index += 1) {
-      const slot = document.createElement('button');
-      const section = sections[Math.min(sections.length - 1, Math.floor((index / total) * sections.length))];
-      slot.className = 'ammo-slot';
-      slot.type = 'button';
-      slot.setAttribute('aria-label', 'Перейти к части страницы');
-      slot.addEventListener('click', () => section?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-      track.appendChild(slot);
-    }
-
-    const slots = [...track.querySelectorAll('.ammo-slot')];
-    let progressFrame = null;
-    function renderProgress() {
-      const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-      const progress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
-      const loaded = Math.round(progress * total);
-      slots.forEach((slot, index) => {
-        slot.classList.toggle('loaded', index < loaded);
-        slot.classList.toggle('active', index === Math.max(0, loaded - 1));
-      });
-      if (percent) percent.textContent = Math.round(progress * 100) + '%';
-      progressFrame = null;
-    }
-
-    function requestProgress() {
-      if (progressFrame === null) progressFrame = requestAnimationFrame(renderProgress);
-    }
-
-    renderProgress();
-    window.addEventListener('scroll', requestProgress, { passive: true });
-    window.addEventListener('resize', requestProgress);
+  // Smooth magazine / progress indicator (GPU fill + lerp) — single shared module
+  if (!window.__grillzScrollIndicatorLoading && !window.__grillzScrollIndicatorReady) {
+    window.__grillzScrollIndicatorLoading = true;
+    const scrollInd = document.createElement('script');
+    scrollInd.src = 'assets/scroll-indicator.js?v=20260725-smooth1';
+    scrollInd.defer = true;
+    document.head.appendChild(scrollInd);
   }
-
-  initMagazineIndicator();
 
   document.querySelectorAll('.nav-more').forEach((details) => {
     document.addEventListener('click', (event) => {

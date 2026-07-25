@@ -156,58 +156,124 @@ body::after {
     linear-gradient(180deg,rgba(255,255,255,.44),transparent);
 }
 
+/* Smooth scroll indicator — transform-only fill */
 .magazine-scroll-indicator {
   position:fixed;
-  right:18px;
+  right:16px;
   top:50%;
-  transform:translateY(-50%);
+  transform:translate3d(0,-50%,0);
   z-index:50;
   pointer-events:none;
+  contain:layout style;
 }
 
-.magazine-body {
-  width:42px;
-  min-height:300px;
-  padding:10px 8px;
-  border:1px solid rgba(255,208,0,.3);
-  border-radius:24px;
-  background:linear-gradient(180deg,rgba(0,0,0,.82),rgba(0,0,0,.48));
-  box-shadow:0 18px 60px rgba(0,0,0,.44),0 0 30px rgba(255,208,0,.1);
-  backdrop-filter:blur(12px);
+.magazine-body,
+.mag-body-smooth {
+  width:40px;
+  padding:12px 10px 10px;
+  border:1px solid rgba(255,208,0,.28);
+  border-radius:22px;
+  background:
+    linear-gradient(165deg,rgba(255,255,255,.06),transparent 40%),
+    linear-gradient(180deg,rgba(12,12,12,.92),rgba(5,5,5,.88));
+  box-shadow:
+    0 18px 48px rgba(0,0,0,.45),
+    0 0 0 1px rgba(255,208,0,.06) inset,
+    0 0 28px rgba(255,208,0,.08);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
 }
 
-.ammo-track {
-  display:grid;
-  gap:4px;
-  justify-items:center;
-}
-
-.ammo-slot {
-  width:14px;
-  height:6px;
+.mag-rail {
+  appearance:none;
+  display:block;
+  position:relative;
+  width:12px;
+  height:min(42vh,320px);
+  margin:0 auto;
+  padding:0;
   border:0;
-  border-radius:999px;
-  background:rgba(255,255,255,.14);
+  background:transparent;
   pointer-events:auto;
   cursor:pointer;
 }
 
-.ammo-slot.loaded {
-  background:var(--yellow);
-  box-shadow:0 0 12px rgba(255,208,0,.6);
+.mag-track {
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  background:rgba(255,255,255,.1);
+  box-shadow:inset 0 0 8px rgba(0,0,0,.35);
 }
 
-.ammo-slot.active {
-  transform:scaleX(1.35);
+.mag-fill {
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  top:0;
+  border-radius:999px;
+  background:
+    linear-gradient(180deg,#fff6b0 0%,#ffd000 38%,#e0a010 72%,#9a6200 100%);
+  box-shadow:0 0 14px rgba(255,208,0,.55),0 0 28px rgba(255,208,0,.2);
+  transform:scaleY(0);
+  transform-origin:bottom center;
+  will-change:transform;
+  backface-visibility:hidden;
+}
+
+.mag-head {
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:16px;
+  height:16px;
+  margin-left:0;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fffef5,#ffd000 45%,#c48900);
+  box-shadow:0 0 0 2px rgba(5,5,5,.85),0 0 16px rgba(255,208,0,.75);
+  transform:translate3d(-50%,0,0);
+  will-change:transform;
+  pointer-events:none;
+  z-index:2;
+}
+
+.mag-ticks {
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:2px 0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.mag-ticks i {
+  display:block;
+  height:1px;
+  margin:0 -3px;
+  background:rgba(255,255,255,.12);
+}
+
+.mag-ticks i:nth-child(odd) {
+  background:rgba(255,208,0,.14);
 }
 
 .magazine-percent {
-  margin-top:9px;
+  margin-top:10px;
   color:var(--yellow);
   font-size:10px;
   font-weight:950;
+  letter-spacing:.04em;
   text-align:center;
+  font-variant-numeric:tabular-nums;
+  text-shadow:0 0 12px rgba(255,208,0,.35);
 }
+
+/* legacy ammo (unused after smooth upgrade — keep minimal no-op) */
+.ammo-track{display:none}
+.ammo-slot{display:none}
 
 .ui-icon,.step-icon svg {
   width:28px;
@@ -2121,13 +2187,16 @@ body::after{content:"";position:fixed;top:-30vh;left:-28vw;width:22vw;height:170
 .orbit-core::after{content:"GC";position:absolute;inset:0;display:grid;place-items:center;color:#160f04;font-size:28px;font-weight:950;letter-spacing:-1px;text-shadow:0 1px 0 rgba(255,255,255,.38)}
 .orbit-chip{height:46px;border-radius:18px 18px 20px 20px;background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,249,202,.54) 18%,transparent 19%),linear-gradient(90deg,#6d4300,#f8d76b 16%,#b57908 32%,#ffefac 50%,#a66b05 68%,#ffd85d 84%,#6b4200);box-shadow:inset 0 2px 6px rgba(255,255,255,.55),inset 0 -14px 18px rgba(84,48,0,.42),0 12px 34px rgba(0,0,0,.5),0 0 28px rgba(255,208,0,.34)}
 .orbit-chip::before{background:repeating-linear-gradient(90deg,rgba(82,48,0,.46) 0 2px,rgba(255,251,213,.72) 2px 9px,rgba(150,95,0,.42) 9px 11px),linear-gradient(180deg,rgba(255,255,255,.44),transparent)}
-.magazine-scroll-indicator{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:50;pointer-events:none}
-.magazine-body{width:42px;min-height:300px;padding:10px 8px;border:1px solid rgba(255,208,0,.3);border-radius:24px;background:linear-gradient(180deg,rgba(0,0,0,.82),rgba(0,0,0,.48));box-shadow:0 18px 60px rgba(0,0,0,.44),0 0 30px rgba(255,208,0,.1);backdrop-filter:blur(12px)}
-.ammo-track{display:grid;gap:4px;justify-items:center}
-.ammo-slot{width:14px;height:6px;border:0;border-radius:999px;background:rgba(255,255,255,.14);pointer-events:auto;cursor:pointer}
-.ammo-slot.loaded{background:var(--yellow);box-shadow:0 0 12px rgba(255,208,0,.6)}
-.ammo-slot.active{transform:scaleX(1.35)}
-.magazine-percent{margin-top:9px;color:var(--yellow);font-size:10px;font-weight:950;text-align:center}
+.magazine-scroll-indicator{position:fixed;right:16px;top:50%;transform:translate3d(0,-50%,0);z-index:50;pointer-events:none;contain:layout style}
+.magazine-body,.mag-body-smooth{width:40px;padding:12px 10px 10px;border:1px solid rgba(255,208,0,.28);border-radius:22px;background:linear-gradient(165deg,rgba(255,255,255,.06),transparent 40%),linear-gradient(180deg,rgba(12,12,12,.92),rgba(5,5,5,.88));box-shadow:0 18px 48px rgba(0,0,0,.45),0 0 28px rgba(255,208,0,.08);backdrop-filter:blur(14px)}
+.mag-rail{appearance:none;display:block;position:relative;width:12px;height:min(42vh,320px);margin:0 auto;padding:0;border:0;background:transparent;pointer-events:auto;cursor:pointer}
+.mag-track{position:absolute;inset:0;border-radius:999px;background:rgba(255,255,255,.1);box-shadow:inset 0 0 8px rgba(0,0,0,.35)}
+.mag-fill{position:absolute;inset:0;border-radius:999px;background:linear-gradient(180deg,#fff6b0 0%,#ffd000 38%,#e0a010 72%,#9a6200 100%);box-shadow:0 0 14px rgba(255,208,0,.55);transform:scaleY(0);transform-origin:bottom center;will-change:transform}
+.mag-head{position:absolute;left:50%;bottom:0;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fffef5,#ffd000 45%,#c48900);box-shadow:0 0 0 2px rgba(5,5,5,.85),0 0 16px rgba(255,208,0,.75);transform:translate3d(-50%,0,0);will-change:transform;pointer-events:none;z-index:2}
+.mag-ticks{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:2px 0;pointer-events:none;z-index:1}
+.mag-ticks i{display:block;height:1px;margin:0 -3px;background:rgba(255,255,255,.12)}
+.magazine-percent{margin-top:10px;color:var(--yellow);font-size:10px;font-weight:950;text-align:center;font-variant-numeric:tabular-nums}
+.ammo-track,.ammo-slot{display:none}
 .ui-icon,.step-icon svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .step{position:relative}
 .step-icon{position:absolute;right:18px;top:18px;width:42px;height:42px;border-radius:16px;display:grid;place-items:center;color:var(--yellow);background:rgba(255,208,0,.1);border:1px solid rgba(255,208,0,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 24px rgba(255,208,0,.12)}

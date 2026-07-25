@@ -1,4 +1,12 @@
 (() => {
+  if (!window.__grillzMobileScrollTopLoading && !window.__grillzMobileScrollTopReady) {
+    window.__grillzMobileScrollTopLoading = true;
+    const script = document.createElement('script');
+    script.src = 'assets/mobile-scroll-top.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+
   const root = document.documentElement;
   let latestScrollY = window.scrollY;
   let frame = null;

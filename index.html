@@ -3474,7 +3474,83 @@
       box-shadow: none !important;
     }
 
+    .mobile-ice-bg {
+      display: none;
+    }
+
     @media (max-width: 920px) {
+      .page {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .mobile-ice-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        display: block;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .mobile-ice-bg img {
+        position: absolute;
+        width: clamp(78px, 23vw, 118px);
+        height: auto;
+        object-fit: contain;
+        opacity: .32;
+        filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .38)) saturate(1.05);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(1) {
+        top: 5%;
+        left: -8%;
+        transform: rotate(-16deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(2) {
+        top: 17%;
+        right: -10%;
+        width: clamp(90px, 27vw, 132px);
+        opacity: .28;
+        transform: rotate(18deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(3) {
+        top: 32%;
+        left: 4%;
+        opacity: .24;
+        transform: rotate(8deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(4) {
+        top: 51%;
+        right: -7%;
+        opacity: .30;
+        transform: rotate(-10deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(5) {
+        top: 70%;
+        left: -9%;
+        opacity: .26;
+        transform: rotate(18deg);
+      }
+
+      .mobile-ice-bg .ice-cube:nth-child(6) {
+        top: 87%;
+        right: 7%;
+        opacity: .22;
+        transform: rotate(-18deg);
+      }
+
+      .page > header,
+      .page > main,
+      .page > footer {
+        position: relative;
+        z-index: 1;
+      }
+
       .topbar .nav-links a,
       .topbar .nav-more summary {
         width: 100%;
@@ -3493,9 +3569,10 @@
     }
   </style>
   <script src="assets/cookie-consent.js" defer></script>
+  <script src="assets/mobile-scroll-top.js" defer></script>
 </head>
 
-<body>
+<body class="home-page">
   <a class="skip-link" href="#top">К основному содержанию</a>
   <div class="moving-background" aria-hidden="true"></div>
 
@@ -3507,6 +3584,14 @@
   </aside>
 
   <div class="page">
+    <div class="mobile-ice-bg" aria-hidden="true">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-gold.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-silver.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-diamond.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-gold.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-silver.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+      <img class="ice-cube" src="assets/mobile/grillz-ice-diamond.png" width="420" height="420" alt="" loading="lazy" decoding="async">
+    </div>
     <header class="topbar">
       <div class="container nav">
         <a class="brand" href="#top" aria-label="Grillz Customs">

@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#050505">
   <link rel="icon" type="image/jpeg" href="assets/logo-grillz.jpg">
   <link rel="apple-touch-icon" href="assets/logo-grillz.jpg">
+  <link rel="stylesheet" href="assets/cookie-consent.css">
 
   <!-- SEO -->
   <meta name="description" content="Grillz Customs — кастомные гриллзы, подарочные сертификаты, спортивные каппы и индивидуальные украшения на зубы в Москве. Заявка онлайн, консультация, изготовление под заказ.">
@@ -3274,7 +3275,149 @@
         margin-top: 8px;
       }
     }
+    /* 2026 premium update */
+    .nav {
+      align-items: start;
+    }
+
+    .nav-links {
+      display: grid !important;
+      grid-template-columns: 1fr;
+      gap: 9px;
+      width: min(780px, 100%);
+    }
+
+    .nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav-row-top {
+      justify-content: flex-end;
+    }
+
+    .nav-row-bottom {
+      justify-content: flex-start;
+    }
+
+    .nav-links a,
+    .nav-more summary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 208, 0, 0.16);
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+    }
+
+    .nav-links a[aria-current="page"] {
+      color: #050505;
+      background: var(--yellow);
+      border-color: var(--yellow);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: -30vh;
+      left: -28vw;
+      width: 22vw;
+      height: 170vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      transform: rotate(18deg) translate3d(-120vw, 0, 0);
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.02) 18%, rgba(255,236,145,.22) 50%, rgba(255,255,255,.025) 82%, transparent 100%);
+      filter: blur(16px);
+      mix-blend-mode: screen;
+      animation: pageLightSweep 13s cubic-bezier(.16,1,.3,1) infinite;
+    }
+
+    @keyframes pageLightSweep {
+      0%, 58% { opacity: 0; transform: rotate(18deg) translate3d(-120vw, 0, 0); }
+      64% { opacity: .95; }
+      78% { opacity: .18; transform: rotate(18deg) translate3d(155vw, 0, 0); }
+      100% { opacity: 0; transform: rotate(18deg) translate3d(155vw, 0, 0); }
+    }
+
+    body.is-scrolling .topbar,
+    body.is-scrolling .hero-grid > div,
+    body.is-scrolling .order-section,
+    body.is-scrolling .section-head,
+    body.is-scrolling .card,
+    body.is-scrolling .service,
+    body.is-scrolling .gift-grid,
+    body.is-scrolling .gift-content,
+    body.is-scrolling .gift-photo-wrap,
+    body.is-scrolling .step,
+    body.is-scrolling .shot,
+    body.is-scrolling .clinic-box,
+    body.is-scrolling .bullet,
+    body.is-scrolling .cta,
+    body.is-scrolling .contact-panel,
+    body.is-scrolling .social-link,
+    body.is-scrolling .footer-grid,
+    body.is-scrolling .faq-item {
+      animation: none !important;
+      transform: none !important;
+    }
+
+    .ui-icon {
+      width: 28px;
+      height: 28px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .gift-photo {
+      content: url("assets/optimized/sertificat-grillz-enhanced.jpg");
+    }
+
+    @media (max-width: 920px) {
+      .nav-links,
+      .nav-row {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
+
+      .nav-links a,
+      .nav-more summary {
+        width: 100%;
+        min-height: 42px;
+        border: 1px solid rgba(255, 208, 0, 0.22) !important;
+        background: linear-gradient(180deg, rgba(255, 208, 0, 0.1), rgba(0, 0, 0, 0.48)) !important;
+        color: var(--yellow) !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 10px 24px rgba(0,0,0,.22);
+      }
+
+      .nav-more-menu {
+        border-radius: 22px;
+        background: rgba(5, 5, 5, 0.94);
+        border: 1px solid rgba(255, 208, 0, 0.2);
+        padding: 10px;
+      }
+
+      .gift-grid {
+        padding: 18px !important;
+        border-radius: 24px !important;
+      }
+
+      .gift-photo-wrap {
+        transform: none !important;
+        border-radius: 18px !important;
+        border-color: rgba(255, 208, 0, 0.16) !important;
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34) !important;
+      }
+    }
   </style>
+  <script src="assets/cookie-consent.js" defer></script>
 </head>
 
 <body>
@@ -3297,25 +3440,33 @@
         </a>
 
         <nav class="nav-links" aria-label="Навигация по сайту">
-          <a href="order.html">Заказ</a>
-          <a href="services.html">Услуги</a>
-          <a href="works.html">Работы</a>
-          <a href="stars.html">Звёзды</a>
-          <a href="entertainment.html">Развлечения</a>
-          <a href="contacts.html">Контакты</a>
-          <details class="nav-more">
-            <summary>Ещё</summary>
-            <div class="nav-more-menu">
-              <a href="about.html">О нас</a>
-              <a href="gift.html">Сертификат</a>
-              <a href="process.html">Процесс</a>
-              <a href="trusted.html">Доверяют</a>
-              <a href="clinics.html">Клиникам</a>
-              <a href="jewelry.html">Мастерским</a>
-              <a href="faq.html">F.A.Q.</a>
+            <div class="nav-row nav-row-top">
+              <a href="#top" aria-current="page">Главная</a>
+              <a href="order.html">Заказ</a>
+              <a href="services.html">Услуги</a>
+              <a href="works.html">Работы</a>
+              <a href="constructor.html">Конструктор</a>
             </div>
-          </details>
-        </nav>
+            <div class="nav-row nav-row-bottom">
+              <a href="stars.html">Звёзды</a>
+              <a href="entertainment.html">Развлечения</a>
+              <a href="contacts.html">Контакты</a>
+              <details class="nav-more">
+                <summary>Ещё</summary>
+                <div class="nav-more-menu">
+                  <a href="about.html">О нас</a>
+                <a href="gift.html">Сертификат</a>
+                <a href="process.html">Процесс</a>
+                <a href="trusted.html">Доверяют</a>
+                <a href="clinics.html">Клиникам</a>
+                <a href="jewelry.html">Мастерским</a>
+                <a href="faq.html">F.A.Q.</a>
+                <a href="account.html">Аккаунт</a>
+                <a href="forum.html">Форум</a>
+                </div>
+              </details>
+            </div>
+          </nav>
       </div>
     </header>
 
@@ -3449,28 +3600,28 @@
 
           <div class="services">
             <article class="service">
-              <div class="icon">G</div>
+              <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5l3 4 3-5 3 5 3-4v11a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V5z"/><path d="M8 13h8"/></svg></div>
               <div>
                 <h3>Индивидуальные grillz</h3>
                 <p>Кастомные украшения под каждого клиента: образ, форма, посадка и вау-эффект.</p>
               </div>
             </article>
             <article class="service">
-              <div class="icon">★</div>
+              <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4"/><path d="M12 17v4"/><path d="M3 12h4"/><path d="M17 12h4"/><path d="M7.8 7.8l2.8 2.8"/><path d="M13.4 13.4l2.8 2.8"/><path d="M16.2 7.8l-2.8 2.8"/><path d="M10.6 13.4l-2.8 2.8"/></svg></div>
               <div>
                 <h3>Эстетика + точность</h3>
                 <p>Не просто «золото на зубах», а детальная работа, которая должна сидеть правильно.</p>
               </div>
             </article>
             <article class="service">
-              <div class="icon">M</div>
+              <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 10c2-4 12-4 14 0"/><path d="M5 10v5c0 3 3 5 7 5s7-2 7-5v-5"/><path d="M8 12h8"/><path d="M8 16c2 1 6 1 8 0"/></svg></div>
               <div>
                 <h3>Спортивные каппы</h3>
                 <p>Каппы любого уровня: для спорта, тренировок, защиты и индивидуальных задач.</p>
               </div>
             </article>
             <article class="service">
-              <div class="icon">3D</div>
+              <div class="icon"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5"/><path d="M12 12v9"/><path d="M12 12L4 7.5"/></svg></div>
               <div>
                 <h3>3D и фрезерный центр</h3>
                 <p>3D-моделирование, фрезеровка и зуботехнические работы любой сложности.</p>
@@ -3506,7 +3657,7 @@
           </div>
 
           <div class="gift-photo-wrap">
-            <img class="gift-photo" src="assets/sertificat-grillz.JPG" width="1080" height="1080" loading="lazy" alt="Подарочный сертификат Grillz Customs">
+            <img class="gift-photo" src="assets/optimized/sertificat-grillz-enhanced.jpg" width="1080" height="1080" loading="lazy" alt="Подарочный сертификат Grillz Customs">
           </div>
         </div>
       </section>

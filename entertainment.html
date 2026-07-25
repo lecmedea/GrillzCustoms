@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Развлечения Grillz Customs — мини-игры и интерактивы</title>
-  <meta name="description" content="Лёгкие HTML5-игры Grillz Customs без тяжёлых зависимостей: forge clicker, memory match и подбор стиля гриллз.">
+  <title>Grillz Tamagotchi — браузерная игра Grillz Customs</title>
+  <meta name="description" content="Grillz Tamagotchi — браузерная игра Grillz Customs: зубик с гриллзами живёт в комнате-полости рта, прокачивается в реальном времени и обставляет комнату.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#050505">
   <link rel="canonical" href="https://grillzcustoms.ru/entertainment.html">
   <link rel="icon" type="image/jpeg" href="assets/logo-grillz.jpg">
   <link rel="apple-touch-icon" href="assets/logo-grillz.jpg">
-  <meta property="og:title" content="Развлечения Grillz Customs — мини-игры и интерактивы">
-  <meta property="og:description" content="Лёгкие HTML5-игры Grillz Customs без тяжёлых зависимостей: forge clicker, memory match и подбор стиля гриллз.">
+  <meta property="og:title" content="Grillz Tamagotchi — браузерная игра Grillz Customs">
+  <meta property="og:description" content="Зубик с гриллзами живёт в комнате-полости рта, прокачивается в реальном времени и обставляет комнату.">
   <meta property="og:image" content="https://grillzcustoms.ru/assets/logo-grillz.jpg">
   <meta property="og:url" content="https://grillzcustoms.ru/entertainment.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="assets/site-pages.css">
+  <link rel="stylesheet" href="assets/cookie-consent.css">
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -44,6 +45,7 @@
   <script src="assets/analytics.js" defer></script>
   <script src="assets/site-common.js" defer></script>
   <script src="assets/entertainment.js" defer></script>
+  <script src="assets/cookie-consent.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">К основному содержанию</a>
@@ -57,25 +59,33 @@
           <span>Grillz Customs</span>
         </a>
         <nav class="nav-links" aria-label="Навигация по сайту">
-          <a href="order.html">Заказ</a>
-          <a href="services.html">Услуги</a>
-          <a href="works.html">Работы</a>
-          <a href="stars.html">Звёзды</a>
-          <a href="entertainment.html" aria-current="page">Развлечения</a>
-          <a href="contacts.html">Контакты</a>
-          <details class="nav-more">
-            <summary>Ещё</summary>
-            <div class="nav-more-menu">
-              <a href="about.html">О нас</a>
-              <a href="gift.html">Сертификат</a>
-              <a href="process.html">Процесс</a>
-              <a href="trusted.html">Доверяют</a>
-              <a href="clinics.html">Клиникам</a>
-              <a href="jewelry.html">Мастерским</a>
-              <a href="faq.html">F.A.Q.</a>
+            <div class="nav-row nav-row-top">
+              <a href="index.html">Главная</a>
+              <a href="order.html">Заказ</a>
+              <a href="services.html">Услуги</a>
+              <a href="works.html">Работы</a>
+              <a href="constructor.html">Конструктор</a>
             </div>
-          </details>
-        </nav>
+            <div class="nav-row nav-row-bottom">
+              <a href="stars.html">Звёзды</a>
+              <a href="entertainment.html" aria-current="page">Развлечения</a>
+              <a href="contacts.html">Контакты</a>
+              <details class="nav-more">
+                <summary>Ещё</summary>
+                <div class="nav-more-menu">
+                  <a href="about.html">О нас</a>
+                <a href="gift.html">Сертификат</a>
+                <a href="process.html">Процесс</a>
+                <a href="trusted.html">Доверяют</a>
+                <a href="clinics.html">Клиникам</a>
+                <a href="jewelry.html">Мастерским</a>
+                <a href="faq.html">F.A.Q.</a>
+                <a href="account.html">Аккаунт</a>
+                <a href="forum.html">Форум</a>
+                </div>
+              </details>
+            </div>
+          </nav>
       </div>
     </header>
     <main id="main">
@@ -83,8 +93,8 @@
         <div class="container page-hero-grid">
           <div class="hero-panel">
             <div class="eyebrow">Развлечения</div>
-            <h1>Игры и <span>интерактивы</span></h1>
-            <p class="lead">Лёгкая страница для вовлечения: мини-игры работают прямо в браузере, лежат в GitHub и не требуют внешних игровых движков.</p>
+            <h1>Grillz <span>Tamagotchi</span></h1>
+            <p class="lead">Зубик с гриллзами живёт в комнате-полости рта, требует ухода, копит shine coins и открывает мебель по реальному времени.</p>
             <div class="hero-actions">
               <a class="btn" href="index.html#order" data-analytics="hero_order">Оставить заявку</a>
               <a class="btn secondary" href="contacts.html" data-analytics="hero_contacts">Контакты</a>
@@ -103,30 +113,56 @@
       
       <section>
         <div class="container entertainment-grid">
-          <article class="game-card">
-            <div class="game-head"><h2>Grillz Forge</h2><span id="forgeLevel">Уровень 1</span></div>
-            <button class="forge-button" id="forgeButton" type="button" aria-describedby="forgeHint"><img src="assets/optimized/game-slepok.jpg" width="260" height="260" alt="Слепок для мини-игры Grillz Forge"></button>
-            <p id="forgeHint">Нажимайте на слепок, зарабатывайте dust и открывайте материалы.</p>
-            <div class="progress" aria-label="Прогресс уровня"><span id="forgeProgress"></span></div>
-            <div class="game-stats"><span>Dust: <strong id="forgeDust">0</strong></span><span>Материал: <strong id="forgeMaterial">Слепок</strong></span></div>
-            <button class="btn secondary" type="button" id="forgeReset">Сбросить</button>
-          </article>
-          <article class="game-card">
-            <div class="game-head"><h2>Material Match</h2><span id="matchMoves">0 ходов</span></div>
-            <div class="match-board" id="matchBoard" aria-label="Игра на память с материалами гриллз"></div>
-            <p id="matchStatus" aria-live="polite">Найдите пары материалов.</p>
-            <button class="btn secondary" type="button" id="matchRestart">Новая партия</button>
-          </article>
-          <article class="game-card style-card">
-            <div class="game-head"><h2>Style Picker</h2><span>Подбор идеи</span></div>
-            <div class="style-options" id="styleOptions">
-              <button type="button" data-style="clean">Чистый</button>
-              <button type="button" data-style="stage">Сцена</button>
-              <button type="button" data-style="luxury">Люкс</button>
-              <button type="button" data-style="sport">Спорт</button>
+          <article class="game-card mouth-game">
+            <div class="game-head">
+              <h2 id="petName">Зубик GC</h2>
+              <span id="petLevel">Уровень 1</span>
             </div>
-            <div class="style-result" id="styleResult" aria-live="polite">Выберите настроение, чтобы получить направление для консультации.</div>
-            <a class="btn" href="index.html#order" data-analytics="entertainment_order">Обсудить идею</a>
+            <div class="mouth-room" aria-label="Комната в виде полости рта">
+              <div class="gum-arch" aria-hidden="true"></div>
+              <div class="room-item" data-item="mirror" hidden>Зеркало</div>
+              <div class="room-item" data-item="lamp" hidden>Лампа</div>
+              <div class="room-item" data-item="sofa" hidden>Диван</div>
+              <div class="room-item" data-item="speaker" hidden>Колонка</div>
+              <div class="tooth-pet" aria-hidden="true"><div class="tooth-face"><span></span><span></span></div></div>
+            </div>
+            <div class="tamagotchi-panel">
+              <div class="game-card">
+                <div class="game-head"><h2>Состояние</h2><span id="petCoins">0 coins</span></div>
+                <div class="stat-bars">
+                  <label class="stat-line">Сытость <meter id="hungerMeter" min="0" max="100"></meter><span id="hungerValue">0%</span></label>
+                  <label class="stat-line">Блеск <meter id="shineMeter" min="0" max="100"></meter><span id="shineValue">0%</span></label>
+                  <label class="stat-line">Настроение <meter id="moodMeter" min="0" max="100"></meter><span id="moodValue">0%</span></label>
+                  <label class="stat-line">Комфорт <meter id="comfortMeter" min="0" max="100"></meter><span id="comfortValue">0%</span></label>
+                </div>
+                <div class="game-actions" aria-label="Действия ухода">
+                  <button type="button" data-action="feed">Минералы</button>
+                  <button type="button" data-action="polish">Полировка</button>
+                  <button type="button" data-action="play">Поиграть</button>
+                  <button type="button" data-action="rest">Отдых</button>
+                </div>
+                <div class="job-panel" id="jobPanel" aria-live="polite">Свободен. Можно запустить долгую работу.</div>
+              </div>
+              <div class="game-card">
+                <div class="game-head"><h2>Мастерская</h2><span>Реальное время</span></div>
+                <p>Длинные задания продолжаются после закрытия страницы. Чем лучше состояние зубика, тем выше награда.</p>
+                <div class="game-actions" aria-label="Долгие задания">
+                  <button type="button" data-job="polish">10 мин: микрополировка</button>
+                  <button type="button" data-job="cast">45 мин: отливка</button>
+                  <button type="button" data-job="fit">2 ч: примерка</button>
+                  <button type="button" data-job="stones">6 ч: закрепка камней</button>
+                </div>
+                <h3>Комната</h3>
+                <div class="shop-actions" aria-label="Покупка мебели">
+                  <button type="button" data-buy="mirror">Зеркало · 120</button>
+                  <button type="button" data-buy="lamp">Лампа · 260</button>
+                  <button type="button" data-buy="sofa">Диван · 520</button>
+                  <button type="button" data-buy="speaker">Колонка · 900</button>
+                </div>
+              </div>
+            </div>
+            <div class="game-stats"><span>XP: <strong id="petXp">0</strong></span><span>Следующий уровень: <strong id="nextLevel">100</strong></span><span>Последний визит: <strong id="lastVisit">сейчас</strong></span></div>
+            <button class="btn secondary" type="button" id="forgeReset">Сбросить игру</button>
           </article>
         </div>
       </section>

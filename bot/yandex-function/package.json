@@ -1,0 +1,11 @@
+{
+  "name": "grillzcustoms-telegram-bot-yandex-function",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Serverless Telegram bot handler for Grillz Customs on Yandex Cloud Functions.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=22"
+  }
+}

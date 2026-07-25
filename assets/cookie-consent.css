@@ -1,0 +1,120 @@
+.cookie-consent {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 250;
+  width: min(940px, calc(100vw - 28px));
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: 118px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid rgba(255, 208, 0, 0.28);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(5, 5, 5, 0.94), rgba(20, 15, 7, 0.88));
+  color: #f5f5f5;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.58), 0 0 42px rgba(255, 208, 0, 0.14);
+  backdrop-filter: blur(18px);
+}
+
+.cookie-consent[hidden] {
+  display: none;
+}
+
+.cookie-plate {
+  position: relative;
+  min-height: 94px;
+}
+
+.oat-cookie {
+  position: absolute;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.36), transparent 18%),
+    radial-gradient(circle at 62% 38%, #3d2413 0 6%, transparent 7%),
+    radial-gradient(circle at 38% 63%, #53301a 0 7%, transparent 8%),
+    radial-gradient(circle at 68% 70%, #2b190d 0 5%, transparent 6%),
+    radial-gradient(circle at 44% 46%, #8d6431 0 5%, transparent 6%),
+    linear-gradient(135deg, #d4a357, #8c5d24 72%, #503011);
+  box-shadow: inset -10px -14px 22px rgba(56, 30, 9, 0.45), inset 10px 10px 22px rgba(255, 232, 176, 0.38), 0 18px 34px rgba(0,0,0,.32);
+}
+
+.oat-cookie:first-child {
+  left: 0;
+  top: 6px;
+  transform: rotate(-11deg);
+}
+
+.oat-cookie:nth-child(2) {
+  right: 4px;
+  bottom: 0;
+  transform: rotate(13deg) scale(0.92);
+}
+
+.cookie-copy strong {
+  display: block;
+  color: #ffd000;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  margin-bottom: 4px;
+}
+
+.cookie-copy p {
+  color: rgba(245, 245, 245, 0.74);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.cookie-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.cookie-actions button {
+  min-height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 208, 0, 0.32);
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.44);
+  color: #ffd000;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  cursor: pointer;
+}
+
+.cookie-actions button:first-child {
+  background: #ffd000;
+  color: #050505;
+  border-color: #ffd000;
+}
+
+@media (max-width: 760px) {
+  .cookie-consent {
+    grid-template-columns: 1fr;
+    bottom: 10px;
+  }
+
+  .cookie-plate {
+    min-height: 70px;
+  }
+
+  .oat-cookie {
+    width: 58px;
+    height: 58px;
+  }
+
+  .cookie-actions {
+    justify-content: stretch;
+  }
+
+  .cookie-actions button {
+    flex: 1 1 130px;
+  }
+}

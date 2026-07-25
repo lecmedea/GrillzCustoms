@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Аккаунт Grillz Customs — профиль, Telegram и игра</title>
+  <meta name="description" content="Личный кабинет Grillz Customs: профиль клиента, Telegram-привязка, будущая история заказов и сохранение прогресса Grillz Tamagotchi.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#050505">
+  <link rel="canonical" href="https://grillzcustoms.ru/account.html">
+  <link rel="icon" type="image/jpeg" href="assets/logo-grillz.jpg">
+  <link rel="apple-touch-icon" href="assets/logo-grillz.jpg">
+  <meta property="og:title" content="Аккаунт Grillz Customs">
+  <meta property="og:description" content="Профиль клиента, Telegram-привязка, история заказов и прогресс Grillz Tamagotchi.">
+  <meta property="og:image" content="https://grillzcustoms.ru/assets/logo-grillz.jpg">
+  <meta property="og:url" content="https://grillzcustoms.ru/account.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site-pages.css">
+  <link rel="stylesheet" href="assets/cookie-consent.css">
+  <script src="assets/analytics-config.js" defer></script>
+  <script src="assets/analytics.js" defer></script>
+  <script src="assets/site-common.js" defer></script>
+  <script src="assets/account-forum.js" defer></script>
+  <script src="assets/cookie-consent.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">К основному содержанию</a>
+  <div class="moving-background" aria-hidden="true"></div>
+  <div class="page">
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="index.html" aria-label="Grillz Customs — на главную">
+          <img class="brand-logo" src="assets/logo-grillz.jpg" width="54" height="54" alt="Логотип Grillz Customs">
+          <span>Grillz Customs</span>
+        </a>
+        <nav class="nav-links" aria-label="Навигация по сайту">
+          <div class="nav-row nav-row-top">
+            <a href="index.html">Главная</a>
+            <a href="order.html">Заказ</a>
+            <a href="services.html">Услуги</a>
+            <a href="works.html">Работы</a>
+            <a href="constructor.html">Конструктор</a>
+          </div>
+          <div class="nav-row nav-row-bottom">
+            <a href="stars.html">Звёзды</a>
+            <a href="entertainment.html">Развлечения</a>
+            <a href="contacts.html">Контакты</a>
+            <details class="nav-more">
+              <summary>Ещё</summary>
+              <div class="nav-more-menu">
+                <a href="about.html">О нас</a>
+                <a href="gift.html">Сертификат</a>
+                <a href="process.html">Процесс</a>
+                <a href="trusted.html">Доверяют</a>
+                <a href="clinics.html">Клиникам</a>
+                <a href="jewelry.html">Мастерским</a>
+                <a href="faq.html">F.A.Q.</a>
+                <a href="account.html" aria-current="page">Аккаунт</a>
+                <a href="forum.html">Форум</a>
+              </div>
+            </details>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <section class="page-hero">
+        <div class="container page-hero-grid">
+          <div class="hero-panel">
+            <div class="eyebrow">Профиль клиента</div>
+            <h1>Аккаунт <span>Grillz</span></h1>
+            <p class="lead">Профиль нужен для сохранения референсов, прогресса Tamagotchi, заявок и будущего форума. На GitHub Pages форма работает как безопасная оболочка до подключения серверного API.</p>
+            <div class="hero-actions">
+              <a class="btn" href="#signup" data-analytics="account_signup_anchor">Создать профиль</a>
+              <a class="btn secondary" href="entertainment.html" data-analytics="account_game">Открыть Tamagotchi</a>
+            </div>
+          </div>
+          <div class="hero-orbit" aria-hidden="true">
+            <span class="orbit-core">GC</span>
+            <span class="orbit-line orbit-line-1"></span>
+            <span class="orbit-line orbit-line-2"></span>
+            <span class="orbit-chip orbit-chip-1"></span>
+            <span class="orbit-chip orbit-chip-2"></span>
+            <span class="orbit-chip orbit-chip-3"></span>
+          </div>
+        </div>
+      </section>
+
+      <section id="signup">
+        <div class="container auth-grid">
+          <article class="auth-card">
+            <div class="eyebrow">Регистрация</div>
+            <h2>Профиль и почта</h2>
+            <form class="auth-form" id="accountDraftForm">
+              <label>Имя
+                <input name="name" autocomplete="name" placeholder="Как к вам обращаться" required>
+              </label>
+              <label>Email
+                <input name="email" type="email" autocomplete="email" placeholder="name@example.com" required>
+              </label>
+              <label>Telegram
+                <input name="telegram" autocomplete="username" placeholder="@username">
+              </label>
+              <label>Фото профиля
+                <input name="photo" type="url" placeholder="Ссылка на фото, если нужно">
+              </label>
+              <button class="btn" type="submit">Сохранить черновик</button>
+              <p class="form-status" id="accountDraftStatus" aria-live="polite"></p>
+            </form>
+          </article>
+
+          <article class="auth-card">
+            <div class="eyebrow">Безопасность</div>
+            <h2>Как будет работать реальный аккаунт</h2>
+            <p>Пароль должен храниться только в виде криптографического хэша с солью. В админке можно показывать логин, email, Telegram, заказы, фото профиля, игровые предметы и форумную активность, но не исходный пароль.</p>
+            <div class="detail-list">
+              <div><strong>Email-подтверждение</strong><span>Письмо с одноразовой ссылкой и сроком действия.</span></div>
+              <div><strong>Telegram Login</strong><span>Привязка Telegram ID через официальный виджет или бот.</span></div>
+              <div><strong>Admin-панель</strong><span>Роли, блокировки, модерация форума, экспорт заявок и журнал действий.</span></div>
+              <div><strong>Прогресс игры</strong><span>Состояние Tamagotchi переносится из браузера в профиль после входа.</span></div>
+            </div>
+          </article>
+
+          <article class="auth-card">
+            <div class="eyebrow">Tamagotchi</div>
+            <h2>Привязка игры</h2>
+            <p id="gameSavePreview">Проверяю прогресс игры в этом браузере...</p>
+            <div class="hero-actions">
+              <a class="btn secondary" href="entertainment.html">Продолжить игру</a>
+              <a class="btn secondary" href="constructor.html">Собрать grillz</a>
+            </div>
+          </article>
+
+          <article class="auth-card">
+            <div class="eyebrow">Администрирование</div>
+            <h2>Контроль без риска утечки</h2>
+            <p>После подключения backend администратор получит панель пользователей, заявок, фото и форума. Сырые пароли намеренно не сохраняются: вместо них нужны сброс пароля, журнал входов и принудительный выход со всех устройств.</p>
+            <div class="profile-preview">
+              <span>Пользователи</span>
+              <strong>email, Telegram, роли</strong>
+              <span>Форум</span>
+              <strong>темы, жалобы, блокировки</strong>
+              <span>Игра</span>
+              <strong>уровень, предметы, баланс</strong>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+    <div class="legal-social-note"><div class="container"><p>*Instagram – запрещённая социальная сеть в России. Организация Meta Platforms Inc., продукты которой Instagram и Facebook запрещены на территории.</p></div></div>
+    <footer>
+      <div class="container footer-grid">
+        <div><strong>Grillz Customs</strong><br>Искусство, которое носят на зубах. Без компромиссов.</div>
+        <div class="footer-links">
+          <a href="https://vk.com/grillz_customs" target="_blank" rel="noopener" data-analytics="vk_footer">VK</a>
+          <a href="https://t.me/Grillz_Customs_bot" target="_blank" rel="noopener" data-analytics="telegram_footer">Telegram</a>
+          <a href="mailto:grillzcustoms@yandex.ru" data-analytics="email_footer">Email</a>
+          <a href="#main">Наверх</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

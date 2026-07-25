@@ -26,6 +26,7 @@ The bot token must be stored only in Yandex Cloud environment variables. Do not 
   - `TELEGRAM_BOT_TOKEN`
   - `SITE_URL=https://grillzcustoms.ru`
   - `TELEGRAM_FETCH_TIMEOUT_MS=25000` optional
+  - `START_PHOTO_URL` optional, defaults to `https://grillzcustoms.ru/assets/bot/start-grillz-customs-moscow.jpg`
   - `ADMIN_CHAT_ID` optional, for owner notifications
 
 ## Webhook
@@ -48,4 +49,4 @@ curl -sS "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getWebhookInfo"
 
 The current implementation has no external dependencies. It supports both webhook-style responses and polling mode. Polling mode is used when Telegram cannot reliably deliver webhook requests to Yandex Cloud Functions.
 
-The live bot has an emoji-first interface, inline callback sections, Telegram commands, a WebApp button for `gsb.index.html`, daily mini quests, quick price/order/care/materials answers and links to the constructor, portfolio, stars page, forum, contacts and Grillz Tamagotchi.
+The live bot has an emoji-first interface, inline callback sections, Telegram commands, a WebApp button for `gsb.index.html`, daily mini quests, quick price/order/care/materials answers and links to the constructor, portfolio, stars page, forum, contacts and Grillz Tamagotchi. The `/start` command sends a branded photo from `assets/bot/start-grillz-customs-moscow.jpg` with the main menu caption.

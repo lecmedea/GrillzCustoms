@@ -3,6 +3,7 @@
 const siteUrl = process.env.SITE_URL || 'https://grillzcustoms.ru';
 const adminChatId = process.env.ADMIN_CHAT_ID || '';
 const telegramFetchTimeoutMs = Number(process.env.TELEGRAM_FETCH_TIMEOUT_MS || 25000);
+const defaultStartPhotoPath = 'assets/bot/start-grillz-customs-moscow.jpg';
 
 function response(statusCode, body, headers = {}) {
   return {
@@ -40,6 +41,16 @@ function escapeHtml(value) {
 
 function page(path) {
   return `${siteUrl.replace(/\/$/, '')}/${String(path).replace(/^\//, '')}`;
+}
+
+function startPhotoUrl() {
+  return process.env.START_PHOTO_URL || page(defaultStartPhotoPath);
+}
+
+function displayNameFromSender(sender = {}) {
+  const fullName = [sender.first_name, sender.last_name].filter(Boolean).join(' ').trim();
+  const displayName = fullName || (sender.username ? `@${sender.username}` : 'друг');
+  return displayName.slice(0, 48);
 }
 
 function keyboard(view = 'main') {
@@ -181,14 +192,24 @@ function answerFor(text, firstName = '', chatId = '') {
 
   if (route === 'menu') {
     return {
+      photo: text.startsWith('/start') ? startPhotoUrl() : '',
       text: [
-        `✨ <b>Grillz Customs Bot</b>`,
+        '⚡️ <b>GRILLZ CUSTOMS MOSCOW — ИСКУССТВО, КОТОРОЕ НОСЯТ НА ЗУБАХ</b> ⚡️',
         '',
-        `${name}я снова в режиме мастерской: конструктор, прайс, уход, заказ, портфолио и игра в одном меню.`,
+        '👍 Добро пожаловать в официальный бот @Grillz_Customs_bot!',
         '',
+        'Мы создаем индивидуальные украшения премиум-класса: идеальная анатомическая посадка, агрессиввная эстетика, драгоценные материалы и образ под твой характер.',
+        '',
+        '🔥 <b>Более 15 лет в игре. Без каких-либо компромиссов мы прём как бульдозер продвигая культуру гриллз на российском рынке.</b>',
+        '',
+        `${name}я снова в режиме мастерской: конструктора, прайс-листа, инфо по уходу, помогу с оформлением заказа, а затем можешь поиграть, пока твои гриллз изготавливаются в нашей волшебной мастерской! 💗`,
+        '',
+        '<b>Новый фичи бота:</b> ',
         '🎮 <b>Grillz Game</b>: старый фан-режим с Gold Dust, фазами зубчика, VIP-бустом и гриндер-механикой.',
         '🦷 <b>Конструктор</b>: можно собрать сет по зубам и отправить референс.',
-        '💎 <b>Мастерская</b>: материалы, посадка, полировка и кастом под образ.'
+        '💎 <b>Мастерская</b>: материалы, посадка, полировка и кастом под образ.',
+        '',
+        '👇 Используйте меню снизу для старта:'
       ].join('\n'),
       reply_markup: keyboard('main')
     };
@@ -464,6 +485,33 @@ async function replyByEditingOrSending(update, chatId, answer) {
     }
   }
 
+  if (answer.photo) {
+    if (callbackQuery && messageId && callbackQuery.message?.photo) {
+      try {
+        await telegram('editMessageCaption', {
+          chat_id: chatId,
+          message_id: messageId,
+          caption: answer.text,
+          parse_mode: 'HTML',
+          reply_markup: answer.reply_markup
+        });
+        return true;
+      } catch (error) {
+        if (String(error?.message || '').includes('message is not modified')) return true;
+        console.error(JSON.stringify({ scope: 'editMessageCaption', errorName: error?.name, errorMessage: error?.message }));
+      }
+    }
+
+    await telegram('sendPhoto', {
+      chat_id: chatId,
+      photo: answer.photo,
+      caption: answer.text,
+      parse_mode: 'HTML',
+      reply_markup: answer.reply_markup
+    });
+    return true;
+  }
+
   await telegram('sendMessage', {
     chat_id: chatId,
     text: answer.text,
@@ -481,7 +529,7 @@ async function replyToUpdate(update) {
   const chatId = message.chat.id;
   const sender = senderFromUpdate(update);
   const text = compactText(inputFromUpdate(update));
-  const firstName = sender.first_name || '';
+  const firstName = displayNameFromSender(sender);
   const answer = answerFor(text, firstName, chatId);
 
   await replyByEditingOrSending(update, chatId, answer);
@@ -625,8 +673,19 @@ module.exports.handler = async function handler(event) {
 
   const chatId = message.chat.id;
   const text = compactText(inputFromUpdate(update));
-  const firstName = senderFromUpdate(update).first_name || '';
+  const firstName = displayNameFromSender(senderFromUpdate(update));
   const reply = answerFor(text, firstName, chatId);
+
+  if (reply.photo) {
+    return response(200, {
+      method: 'sendPhoto',
+      chat_id: chatId,
+      photo: reply.photo,
+      caption: reply.text,
+      parse_mode: 'HTML',
+      reply_markup: reply.reply_markup
+    });
+  }
 
   return response(200, {
     method: 'sendMessage',

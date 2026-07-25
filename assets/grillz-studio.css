@@ -134,6 +134,75 @@
   -webkit-user-select: none;
 }
 
+.stage-viewport[data-mode="model"] #mouthCanvas {
+  display: none;
+}
+
+.studio-model {
+  display: none;
+  width: 100%;
+  height: min(72vh, 560px);
+  min-height: 420px;
+  background: radial-gradient(ellipse at 50% 40%, rgba(255, 180, 100, 0.12), transparent 55%), #0a0406;
+  --poster-color: transparent;
+}
+
+.stage-viewport[data-mode="model"] .studio-model {
+  display: block;
+}
+
+.stage-viewport[data-mode="model"] {
+  cursor: default;
+}
+
+.view-mode {
+  display: inline-flex;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 208, 0, 0.18);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.view-mode .stage-btn {
+  min-height: 32px;
+  padding: 6px 10px;
+}
+
+.view-mode .stage-btn.is-active {
+  background: rgba(255, 208, 0, 0.2);
+  border-color: rgba(255, 208, 0, 0.75);
+  color: #fff;
+}
+
+.ar-btn {
+  appearance: none;
+  position: absolute;
+  left: 14px;
+  bottom: 54px;
+  z-index: 3;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 208, 0, 0.45);
+  background: rgba(0, 0, 0, 0.72);
+  color: var(--studio-gold, #ffd000);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.ar-btn:hover {
+  background: rgba(255, 208, 0, 0.16);
+}
+
+.legend-price {
+  margin-left: auto;
+  color: var(--studio-gold, #ffd000);
+  font-weight: 800;
+}
+
 .stage-hint {
   position: absolute;
   left: 14px;

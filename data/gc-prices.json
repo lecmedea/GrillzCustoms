@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "currency": "RUB",
+  "updated": "2026-07-25",
+  "note": "Прайс Grillz Customs (за 1 зуб, без оферты). Финал зависит от веса металла, пробы и сложности посадки.",
+  "mould": {
+    "studio": {
+      "title": "Слепок в студии GC",
+      "price": 0
+    },
+    "mail": {
+      "title": "Слепочный набор почтой",
+      "price": 3000
+    },
+    "clinic": {
+      "title": "Слепок / 3D-скан из клиники",
+      "price": 0
+    }
+  },
+  "material": {
+    "yellow-gold": {
+      "title": "Жёлтое золото",
+      "price": 32000,
+      "family": "gold"
+    },
+    "white-gold": {
+      "title": "Белое золото",
+      "price": 36000,
+      "family": "gold"
+    },
+    "rose-gold": {
+      "title": "Красное золото",
+      "price": 34000,
+      "family": "gold"
+    },
+    "silver": {
+      "title": "Серебро 925",
+      "price": 12000,
+      "family": "metal"
+    },
+    "chrome": {
+      "title": "КХС / сталь",
+      "price": 6500,
+      "family": "metal"
+    },
+    "faux-gold": {
+      "title": "Faux gold (покрытие)",
+      "price": 7500,
+      "family": "metal"
+    },
+    "premium": {
+      "title": "Premium stone set",
+      "price": 48000,
+      "family": "stone"
+    }
+  },
+  "styleMetal": {
+    "polished": {
+      "title": "Polished",
+      "price": 0
+    },
+    "open-face": {
+      "title": "Open face",
+      "price": 2500
+    },
+    "pineapple": {
+      "title": "Pineapple / ice cut",
+      "price": 4500
+    },
+    "laser": {
+      "title": "Laser",
+      "price": 3500
+    },
+    "diamond-dust": {
+      "title": "Diamond dust",
+      "price": 6000
+    }
+  },
+  "styleStone": {
+    "moissanite": {
+      "title": "Moissanite pave",
+      "price": 18000
+    },
+    "diamond": {
+      "title": "Diamond pave",
+      "price": 55000
+    }
+  },
+  "purity": {
+    "10k": {
+      "title": "10K",
+      "price": 0
+    },
+    "14k": {
+      "title": "14K",
+      "price": 0
+    },
+    "18k": {
+      "title": "18K",
+      "price": 12000
+    }
+  },
+  "stones": {
+    "none": {
+      "title": "Без доп. камней",
+      "price": 0
+    },
+    "si": {
+      "title": "SI",
+      "price": 0
+    },
+    "vs": {
+      "title": "VS",
+      "price": 8000
+    },
+    "vvs": {
+      "title": "VVS",
+      "price": 18000
+    }
+  },
+  "setDiscounts": [
+    {
+      "minTeeth": 6,
+      "percent": 5
+    },
+    {
+      "minTeeth": 10,
+      "percent": 8
+    },
+    {
+      "minTeeth": 16,
+      "percent": 12
+    }
+  ]
+}

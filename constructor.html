@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="assets/site-pages.css">
   <link rel="stylesheet" href="assets/grillz-studio.css">
   <link rel="stylesheet" href="assets/cookie-consent.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <script src="assets/analytics-config.js" defer></script>
   <script src="assets/analytics.js" defer></script>
   <script src="assets/site-common.js" defer></script>
@@ -102,21 +103,47 @@
                   <span>Live · Grillz Studio</span>
                 </div>
                 <div class="stage-actions" role="toolbar" aria-label="Действия превью">
+                  <div class="view-mode" role="group" aria-label="Режим превью">
+                    <button type="button" class="stage-btn is-active" id="btnView2d" data-view="layers">2D слои</button>
+                    <button type="button" class="stage-btn" id="btnView3d" data-view="model">3D</button>
+                  </div>
                   <button type="button" class="stage-btn" id="btnResetView" title="Сбросить ракурс">Ракурс</button>
                   <button type="button" class="stage-btn" id="btnCapture" title="Снимок превью">Снимок</button>
+                  <button type="button" class="stage-btn" id="btnShare" title="Ссылка на сборку">Share</button>
                   <button type="button" class="stage-btn" id="btnFullscreen" title="На весь экран">Экран</button>
                 </div>
               </div>
 
-              <div class="stage-viewport" id="stageViewport">
-                <canvas id="mouthCanvas" width="960" height="720" role="img" aria-label="Интерактивный превью зубного ряда с grillz"></canvas>
-                <div class="stage-hint" id="stageHint">Клик по зубу — вкл/выкл · двойной клик — фокус настроек · перетащите для поворота</div>
+              <div class="stage-viewport" id="stageViewport" data-mode="layers">
+                <canvas id="mouthCanvas" width="960" height="720" role="img" aria-label="Превью зубного ряда: PNG-слои Grillz Customs"></canvas>
+                <model-viewer
+                  id="grillzModel"
+                  class="studio-model"
+                  src="assets/studio/models/gc-grillz-studio.glb"
+                  alt="3D-модель grillz Grillz Customs"
+                  camera-controls
+                  touch-action="pan-y"
+                  shadow-intensity="0.9"
+                  exposure="1.15"
+                  environment-image="neutral"
+                  ar
+                  ar-modes="webxr scene-viewer quick-look"
+                  ar-scale="auto"
+                  poster="assets/studio/mouth-bg.jpg"
+                  loading="eager"
+                  reveal="auto"
+                  hidden
+                >
+                  <button slot="ar-button" class="ar-btn" type="button" id="btnAR">AR</button>
+                </model-viewer>
+                <div class="stage-hint" id="stageHint">2D: клик по зубу · 3D: вращение / AR · Share копирует ссылку с hash</div>
               </div>
 
               <div class="stage-legend">
                 <span><i class="lg lg-off"></i> выкл</span>
                 <span><i class="lg lg-on"></i> в сете</span>
                 <span><i class="lg lg-focus"></i> фокус</span>
+                <span class="legend-price" id="legendPriceHint">Прайс GC · ₽ / зуб</span>
               </div>
             </div>
           </div>
@@ -184,10 +211,11 @@
 
               <div class="studio-cta">
                 <button type="button" class="btn" id="btnCopyRef">Скопировать референс</button>
+                <button type="button" class="btn secondary" id="btnSharePanel">Скопировать share-link</button>
                 <button type="button" class="btn secondary" id="btnSendOrder">В заявку</button>
                 <button type="button" class="btn ghost" id="btnResetBuild">Сбросить</button>
               </div>
-              <p class="legal-line">Ориентир по цене не является офертой. Финал зависит от слепка, посадки, веса металла и ювелирной работы.</p>
+              <p class="legal-line">Цены — прайс Grillz Customs за 1 зуб. Не оферта: финал зависит от веса металла, пробы, камней и посадки после слепка.</p>
             </form>
           </aside>
         </div>

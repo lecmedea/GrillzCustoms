@@ -273,7 +273,48 @@ ${FAQ_KB}
     { role: 'user', content: userMessage }
   ];
 
-  // 1) Groq free
+  // 1) Private Vercel proxy with encrypted provider key
+  if (process.env.IVASYA_PROXY_URL && process.env.IVASYA_PROXY_TOKEN) {
+    try {
+      const data = await postJson(
+        process.env.IVASYA_PROXY_URL,
+        { authorization: `Bearer ${process.env.IVASYA_PROXY_TOKEN}` },
+        { messages }
+      );
+      const text = String(data?.answer || '').trim();
+      if (text) return text;
+    } catch (e) {
+      console.error('ivasya_proxy', e?.message || e);
+    }
+  }
+
+  // 2) SiliconFlow / any OpenAI-compatible Chinese provider
+  if (process.env.SILICONFLOW_API_KEY || process.env.OPENAI_COMPAT_API_KEY) {
+    try {
+      const baseUrl = String(
+        process.env.SILICONFLOW_BASE_URL ||
+        process.env.OPENAI_COMPAT_BASE_URL ||
+        'https://api.siliconflow.com/v1'
+      ).replace(/\/$/, '');
+      const apiKey = process.env.SILICONFLOW_API_KEY || process.env.OPENAI_COMPAT_API_KEY;
+      const data = await postJson(
+        `${baseUrl}/chat/completions`,
+        { authorization: `Bearer ${apiKey}` },
+        {
+          model: process.env.SILICONFLOW_MODEL || process.env.OPENAI_COMPAT_MODEL || 'Qwen/Qwen2-7B-Instruct',
+          messages,
+          temperature: 0.85,
+          max_tokens: 500
+        }
+      );
+      const text = chatText(data);
+      if (text) return text;
+    } catch (e) {
+      console.error('openai_compatible', e?.message || e);
+    }
+  }
+
+  // 3) Groq free
   if (process.env.GROQ_API_KEY) {
     try {
       const data = await postJson(
@@ -295,7 +336,7 @@ ${FAQ_KB}
     }
   }
 
-  // 2) OpenRouter free router / free models
+  // 4) OpenRouter free router / free models
   if (process.env.OPENROUTER_API_KEY) {
     try {
       const data = await postJson(
@@ -319,7 +360,7 @@ ${FAQ_KB}
     }
   }
 
-  // 3) Gemini free tier
+  // 5) Gemini free tier
   if (process.env.GEMINI_API_KEY) {
     try {
       const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
@@ -343,7 +384,7 @@ ${FAQ_KB}
     }
   }
 
-  // 4) Mistral free mode
+  // 6) Mistral free mode
   if (process.env.MISTRAL_API_KEY) {
     try {
       const data = await postJson(
@@ -363,7 +404,7 @@ ${FAQ_KB}
     }
   }
 
-  // 5) Cerebras free trial / free tier
+  // 7) Cerebras free trial / free tier
   if (process.env.CEREBRAS_API_KEY) {
     try {
       const data = await postJson(
@@ -383,7 +424,7 @@ ${FAQ_KB}
     }
   }
 
-  // 6) Cloudflare Workers AI free allocation
+  // 8) Cloudflare Workers AI free allocation
   if (process.env.CLOUDFLARE_API_TOKEN && process.env.CLOUDFLARE_ACCOUNT_ID) {
     try {
       const accountId = encodeURIComponent(process.env.CLOUDFLARE_ACCOUNT_ID);
@@ -404,7 +445,7 @@ ${FAQ_KB}
     }
   }
 
-  // 7) Hugging Face Inference Providers free tier
+  // 9) Hugging Face Inference Providers free tier
   if (process.env.HF_TOKEN) {
     try {
       const data = await postJson(

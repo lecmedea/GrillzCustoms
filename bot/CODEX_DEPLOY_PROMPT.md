@@ -43,6 +43,18 @@
 - ADMIN_CHAT_ID
 
 iVasya — нужен ХОТЯ БЫ ОДИН free LLM ключ (предпочтительно Groq):
+- IVASYA_PROXY_URL
+- IVASYA_PROXY_TOKEN
+  (лучший режим: SiliconFlow key лежит в Vercel sensitive env, Yandex видит только proxy URL/token)
+ИЛИ
+- SILICONFLOW_API_KEY
+  optional SILICONFLOW_MODEL=Qwen/Qwen2-7B-Instruct
+  optional SILICONFLOW_BASE_URL=https://api.siliconflow.com/v1
+ИЛИ
+- OPENAI_COMPAT_API_KEY
+  optional OPENAI_COMPAT_MODEL=Qwen/Qwen2-7B-Instruct
+  optional OPENAI_COMPAT_BASE_URL=https://api.siliconflow.com/v1
+ИЛИ
 - GROQ_API_KEY  (https://console.groq.com — free, без карты обычно)
   optional GROQ_MODEL=llama-3.3-70b-versatile
 ИЛИ
@@ -66,6 +78,17 @@ iVasya — нужен ХОТЯ БЫ ОДИН free LLM ключ (предпочт
 
 Генератор картинок: Pollinations, API-ключ НЕ нужен.
 
+### Vercel proxy для “шифровки” LLM ключа
+1. Деплой API route `api/ivasya-proxy.js` на Vercel.
+2. В Vercel Project Settings → Environment Variables добавь sensitive:
+   - SILICONFLOW_API_KEY
+   - IVASYA_PROXY_TOKEN
+   - SILICONFLOW_MODEL=Qwen/Qwen2-7B-Instruct
+3. В Yandex Function env добавь только:
+   - IVASYA_PROXY_URL=https://<vercel-domain>/api/ivasya-proxy
+   - IVASYA_PROXY_TOKEN
+4. Сам SiliconFlow key не хранить в Yandex и не коммитить в git.
+
 ## Пошаговый план (выполни всё сам, где возможно)
 
 ### A. Подготовка кода
@@ -83,7 +106,7 @@ iVasya — нужен ХОТЯ БЫ ОДИН free LLM ключ (предпочт
    yc serverless function version list --function-id d4e1e154aq9us864hggr --limit 1
    или get latest version metadata
 4. Собери environment для новой версии: сохрани старые TELEGRAM_BOT_TOKEN/SITE_URL,
-   добавь хотя бы один LLM-ключ (GROQ/GEMINI/OPENROUTER/MISTRAL/CEREBRAS/CLOUDFLARE/HF),
+   добавь хотя бы один LLM-ключ или proxy env (IVASYA_PROXY/SILICONFLOW/OPENAI_COMPAT/GROQ/GEMINI/OPENROUTER/MISTRAL/CEREBRAS/CLOUDFLARE/HF),
    если пользователь дал / если уже есть в env / если лежит в
    безопасном месте (macOS Keychain, .env локально НЕ в git — ищи .env* и bot/.env*).
 5. Если TELEGRAM_BOT_TOKEN нигде нет — ОСТАНОВИСЬ и попроси пользователя вставить токен

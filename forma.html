@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Форма — доска Grillz Customs: анкеты, касты, коллабы</title>
+  <meta name="description" content="Форма Grillz Customs: доска комьюнити в архитектуре классического борда — анкеты, оплачиваемые съёмки, кастинги, референсы, мастерские и отзывы.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#050505">
+  <link rel="canonical" href="https://grillzcustoms.ru/forma.html">
+  <link rel="icon" type="image/jpeg" href="assets/logo-grillz.jpg">
+  <link rel="apple-touch-icon" href="assets/logo-grillz.jpg">
+  <meta property="og:title" content="Форма — доска Grillz Customs">
+  <meta property="og:description" content="Анкеты, касты, коллабы, референсы и B2B-разделы. Архитектура борда, оформление Grillz Customs.">
+  <meta property="og:image" content="https://grillzcustoms.ru/assets/logo-grillz.jpg">
+  <meta property="og:url" content="https://grillzcustoms.ru/forma.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site-pages.css">
+  <link rel="stylesheet" href="assets/forma-board.css">
+  <link rel="stylesheet" href="assets/cookie-consent.css">
+  <script src="assets/analytics-config.js" defer></script>
+  <script src="assets/analytics.js" defer></script>
+  <script src="assets/site-common.js" defer></script>
+  <script src="assets/forma-board.js" defer></script>
+  <script src="assets/cookie-consent.js" defer></script>
+</head>
+<body class="forma-page">
+  <a class="skip-link" href="#main">К основному содержанию</a>
+  <div class="moving-background" aria-hidden="true"></div>
+  <div class="page">
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="index.html" aria-label="Grillz Customs — на главную">
+          <img class="brand-logo" src="assets/logo-grillz.jpg" width="54" height="54" alt="Логотип Grillz Customs">
+          <span>Grillz Customs</span>
+        </a>
+        <nav class="nav-links" aria-label="Навигация по сайту">
+          <div class="nav-row nav-row-top">
+            <a href="index.html">Главная</a>
+            <a href="order.html">Заказ</a>
+            <a href="services.html">Услуги</a>
+            <a href="works.html">Работы</a>
+            <a href="constructor.html">Конструктор</a>
+          </div>
+          <div class="nav-row nav-row-bottom">
+            <a href="stars.html">Звёзды</a>
+            <a href="forma.html" aria-current="page">Форма</a>
+            <a href="contacts.html">Контакты</a>
+            <details class="nav-more">
+              <summary>Ещё</summary>
+              <div class="nav-more-menu">
+                <a href="about.html">О нас</a>
+                <a href="gift.html">Сертификат</a>
+                <a href="process.html">Процесс</a>
+                <a href="trusted.html">Доверяют</a>
+                <a href="clinics.html">Клиникам</a>
+                <a href="jewelry.html">Мастерским</a>
+                <a href="faq.html">F.A.Q.</a>
+                <a href="entertainment.html">Развлечения</a>
+                <a href="account.html">Аккаунт</a>
+                <a href="forum.html">Форум</a>
+              </div>
+            </details>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="container page-hero-grid">
+          <div class="hero-panel">
+            <div class="eyebrow">Доска комьюнити · board index</div>
+            <h1>Форма <span>Grillz</span></h1>
+            <p class="lead">Та же архитектура, что у больших кастинг-бордов: категории → разделы → счётчики → последнее сообщение → кто онлайн → статистика. Оформление, цвета и тон — Grillz Customs.</p>
+            <div class="hero-actions">
+              <a class="btn" href="#board" data-analytics="forma_open_board">К разделам</a>
+              <a class="btn secondary" href="#composer" data-analytics="forma_new_topic">Новая тема</a>
+            </div>
+          </div>
+          <div class="hero-orbit" aria-hidden="true">
+            <span class="orbit-core">FM</span>
+            <span class="orbit-line orbit-line-1"></span>
+            <span class="orbit-line orbit-line-2"></span>
+            <span class="orbit-chip orbit-chip-1"></span>
+            <span class="orbit-chip orbit-chip-2"></span>
+            <span class="orbit-chip orbit-chip-3"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="forma-shell" id="board">
+        <div class="container">
+          <nav class="forma-crumbs" aria-label="Хлебные крошки">
+            <a href="index.html">Grillz Customs</a>
+            <span class="sep">/</span>
+            <span>Форма</span>
+            <span class="sep">/</span>
+            <span>Список разделов</span>
+          </nav>
+
+          <div class="forma-toolbar">
+            <div class="forma-tools" role="toolbar" aria-label="Быстрые действия доски">
+              <button type="button" class="forma-tool" id="btnActiveTopics">Активные темы</button>
+              <button type="button" class="forma-tool" id="btnNewTopic">Новая тема</button>
+              <button type="button" class="forma-tool" id="btnExpandAll">Развернуть</button>
+              <button type="button" class="forma-tool" id="btnCollapseAll">Свернуть</button>
+              <a class="forma-tool" href="account.html">Аккаунт</a>
+              <a class="forma-tool" href="constructor.html">Конструктор</a>
+            </div>
+            <form class="forma-search" role="search" onsubmit="return false;">
+              <label class="visually-hidden" for="formaSearch">Поиск по разделам</label>
+              <input id="formaSearch" type="search" placeholder="Поиск: кастинг, анкета, клип…" autocomplete="off">
+            </form>
+          </div>
+
+          <!-- CATEGORY → FORUM ROWS (core massovki-like architecture) -->
+          <div class="board-list" id="boardList" aria-live="polite"></div>
+
+          <div class="forma-meta-grid">
+            <article class="forma-meta-card" id="formaOnlineWrap">
+              <h2>Кто сейчас на Форме</h2>
+              <div id="formaOnline"></div>
+            </article>
+            <article class="forma-meta-card">
+              <h2>Статистика</h2>
+              <div class="forma-stats" id="formaStats"></div>
+            </article>
+          </div>
+
+          <div class="forma-feed" id="feed">
+            <div class="feed-head">
+              <div>
+                <div class="eyebrow">Лента</div>
+                <h2>Последние темы</h2>
+              </div>
+            </div>
+            <div class="feed-list" id="feedList"></div>
+          </div>
+
+          <div class="forma-composer" id="composer">
+            <article class="forma-panel">
+              <div class="eyebrow">Композер</div>
+              <h2>Создать тему</h2>
+              <p class="lead-mini">Черновик сохраняется в браузере. Когда подключим backend — уйдёт в общий поток с модерацией.</p>
+              <form class="forma-form" id="formaTopicForm" autocomplete="on">
+                <label for="topicAuthor">Ник / имя
+                  <input id="topicAuthor" name="author" placeholder="Как к вам обращаться" maxlength="40">
+                </label>
+                <label for="topicForum">Раздел
+                  <select id="topicForum" name="forum" required></select>
+                </label>
+                <label for="topicTitle">Заголовок
+                  <input id="topicTitle" name="title" placeholder="Например: кастинг улыбок 25 июля" required maxlength="120">
+                </label>
+                <label for="topicMessage">Сообщение
+                  <textarea id="topicMessage" name="message" rows="5" placeholder="Дата, локация, гонорар или описание анкеты / идеи" required maxlength="4000"></textarea>
+                </label>
+                <button class="btn" type="submit">Опубликовать черновик</button>
+                <p class="forma-form-status" id="formaFormStatus" aria-live="polite"></p>
+              </form>
+            </article>
+            <article class="forma-panel">
+              <div class="eyebrow">Правила</div>
+              <h2>Как на больших бордах</h2>
+              <ul class="rules-list">
+                <li><strong>Конкретика</strong>В оплачиваемых разделах — дата, место, сумма или «по запросу».</li>
+                <li><strong>Свой опыт</strong>В отзывах только личное. Без накруток и чужих фото.</li>
+                <li><strong>Без спама</strong>Повтор одних и тех же объявлений режется модерацией.</li>
+                <li><strong>Безопасность</strong>Не светите паспорт, карты и приватные чаты в открытую.</li>
+              </ul>
+            </article>
+          </div>
+
+          <footer class="forma-board-footer">
+            <a href="index.html">На главную</a>
+            <a href="forum.html">Классический форум</a>
+            <a href="order.html">Заказ</a>
+            <a href="contacts.html">Контакты</a>
+            <span>Часовой пояс: UTC+03:00 (Москва)</span>
+            <span class="forma-clock" id="formaClock" aria-live="off"></span>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    <div class="legal-social-note">
+      <div class="container">
+        <p>*Instagram – запрещённая социальная сеть в России. Организация Meta Platforms Inc., продукты которой Instagram и Facebook запрещены на территории.</p>
+      </div>
+    </div>
+    <footer>
+      <div class="container footer-grid">
+        <div><strong>Grillz Customs</strong><br>Искусство, которое носят на зубах. Без компромиссов.</div>
+        <div class="footer-links">
+          <a href="https://vk.com/grillz_customs" target="_blank" rel="noopener" data-analytics="vk_footer">VK</a>
+          <a href="https://t.me/Grillz_Customs_bot" target="_blank" rel="noopener" data-analytics="telegram_footer">Telegram</a>
+          <a href="mailto:grillzcustoms@yandex.ru" data-analytics="email_footer">Email</a>
+          <a href="#main">Наверх</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

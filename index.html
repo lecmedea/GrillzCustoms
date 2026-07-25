@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grillz Customs — искусство, которое носят на зубах</title>
+  <meta name="theme-color" content="#050505">
   <link rel="icon" type="image/jpeg" href="assets/logo-grillz.jpg">
   <link rel="apple-touch-icon" href="assets/logo-grillz.jpg">
 
@@ -19,6 +20,32 @@
   <meta property="og:url" content="https://grillzcustoms.ru/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Grillz Customs — кастомные grillz под твой стиль">
+  <meta name="twitter:description" content="Индивидуальные гриллзы, подарочные сертификаты, спортивные каппы и украшения на зубы под заказ.">
+  <meta name="twitter:image" content="https://grillzcustoms.ru/assets/logo-grillz.jpg">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Grillz Customs",
+      "url": "https://grillzcustoms.ru/",
+      "image": "https://grillzcustoms.ru/assets/logo-grillz.jpg",
+      "email": "grillzcustoms@yandex.ru",
+      "telephone": ["+79999962206", "+79161112397"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Москва",
+        "addressCountry": "RU"
+      },
+      "sameAs": [
+        "https://vk.com/grillz_customs",
+        "https://t.me/Grillz_Customs_bot"
+      ]
+    }
+  </script>
+  <script src="assets/analytics-config.js" defer></script>
+  <script src="assets/analytics.js" defer></script>
 
   <style>
     * {
@@ -167,15 +194,61 @@
 
     .nav-links {
       display: flex;
-      gap: 20px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 14px;
       color: var(--muted);
       font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 0.8px;
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"],
+    .nav-more summary:hover {
       color: var(--yellow);
+    }
+
+    .nav-links a,
+    .nav-more summary {
+      white-space: nowrap;
+    }
+
+    .nav-more {
+      position: relative;
+    }
+
+    .nav-more summary {
+      cursor: pointer;
+      list-style: none;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-more summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .nav-more-menu {
+      position: absolute;
+      top: calc(100% + 14px);
+      right: 0;
+      min-width: 190px;
+      display: grid;
+      gap: 6px;
+      padding: 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 208, 0, 0.20);
+      background: rgba(5, 5, 5, 0.94);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.44);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-more-menu a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 12px;
     }
 
     .btn {
@@ -3138,10 +3211,74 @@
         padding: 14px 15px;
       }
     }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: 12px;
+      z-index: 300;
+      transform: translateY(-140%);
+      background: var(--yellow);
+      color: #050505;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .skip-link:focus-visible {
+      transform: translateY(0);
+    }
+
+    a,
+    button {
+      touch-action: manipulation;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 4px;
+    }
+
+    main > section {
+      scroll-margin-top: 96px;
+    }
+
+    @media (max-width: 920px) {
+      .nav-more {
+        width: 100%;
+      }
+
+      .nav-more summary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 208, 0, 0.18);
+        background: rgba(0, 0, 0, 0.42);
+        color: var(--yellow);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 1px;
+      }
+
+      .nav-more-menu {
+        position: static;
+        min-width: 0;
+        margin-top: 8px;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <a class="skip-link" href="#top">К основному содержанию</a>
   <div class="moving-background" aria-hidden="true"></div>
 
   <aside class="magazine-scroll-indicator" aria-label="Визуальный индикатор прокрутки сайта">
@@ -3155,21 +3292,29 @@
     <header class="topbar">
       <div class="container nav">
         <a class="brand" href="#top" aria-label="Grillz Customs">
-          <img class="brand-logo" src="assets/logo-grillz.jpg" alt="Логотип Grillz Customs">
+          <img class="brand-logo" src="assets/logo-grillz.jpg" width="54" height="54" alt="Логотип Grillz Customs">
           <span>Grillz Customs</span>
         </a>
 
         <nav class="nav-links" aria-label="Навигация по сайту">
-          <a href="#about">О нас</a>
-          <a href="#services">Услуги</a>
-          <a href="#order">Заказ</a>
-          <a href="#gift">Сертификат</a>
-          <a href="#process">Процесс</a>
-          <a href="#works">Галерея</a>
-          <a href="#clinics">Клиникам</a>
-          <a href="#jewelry">Мастерским</a>
-          <a href="#contacts">Контакты</a>
-          <a href="#faq">F.A.Q.</a>
+          <a href="order.html">Заказ</a>
+          <a href="services.html">Услуги</a>
+          <a href="works.html">Работы</a>
+          <a href="stars.html">Звёзды</a>
+          <a href="entertainment.html">Развлечения</a>
+          <a href="contacts.html">Контакты</a>
+          <details class="nav-more">
+            <summary>Ещё</summary>
+            <div class="nav-more-menu">
+              <a href="about.html">О нас</a>
+              <a href="gift.html">Сертификат</a>
+              <a href="process.html">Процесс</a>
+              <a href="trusted.html">Доверяют</a>
+              <a href="clinics.html">Клиникам</a>
+              <a href="jewelry.html">Мастерским</a>
+              <a href="faq.html">F.A.Q.</a>
+            </div>
+          </details>
         </nav>
       </div>
     </header>
@@ -3186,7 +3331,7 @@
             </p>
 
             <div class="hero-actions">
-              <a class="btn" href="https://vk.com/grillz_customs" target="_blank" rel="noopener">Заказать консультацию</a>
+              <a class="btn" href="https://vk.com/grillz_customs" target="_blank" rel="noopener" data-analytics="hero_vk_consult">Заказать консультацию</a>
               <a class="btn secondary" href="#services">Смотреть услуги</a>
             </div>
 
@@ -3207,7 +3352,7 @@
           </div>
 
           <a class="hero-gif-card" href="https://t.me/Grillz_Customs_bot" target="_blank" rel="noopener" aria-label="Открыть Telegram-бот Grillz Customs">
-            <img class="hero-gif" src="assets/hero-grillz-banner.gif" alt="Анимированный баннер Grillz Customs">
+            <img class="hero-gif" src="assets/hero-grillz-banner.gif" width="422" height="636" fetchpriority="high" alt="Анимированный баннер Grillz Customs">
             <span class="casino-rays" aria-hidden="true"></span>
             <span class="casino-bulbs bulbs-top" aria-hidden="true"></span>
             <span class="casino-bulbs bulbs-right" aria-hidden="true"></span>
@@ -3357,11 +3502,11 @@
               <span>Вау-подарок без банальности</span>
             </div>
 
-            <a class="btn" href="https://vk.com/grillz_customs" target="_blank" rel="noopener">Заказать сертификат</a>
+            <a class="btn" href="https://vk.com/grillz_customs" target="_blank" rel="noopener" data-analytics="gift_vk">Заказать сертификат</a>
           </div>
 
           <div class="gift-photo-wrap">
-            <img class="gift-photo" src="assets/sertificat-grillz.JPG" alt="Подарочный сертификат Grillz Customs">
+            <img class="gift-photo" src="assets/sertificat-grillz.JPG" width="1080" height="1080" loading="lazy" alt="Подарочный сертификат Grillz Customs">
           </div>
         </div>
       </section>
@@ -3403,42 +3548,42 @@
 
           <div class="portfolio works-portfolio">
             <a class="shot gallery-item motion-banner" href="assets/Gwork-01.png" aria-label="Открыть работу Grillz Customs 1">
-              <img src="assets/Gwork-01.png" alt="Работа Grillz Customs 1">
+              <img src="assets/optimized/Gwork-01.jpg" width="900" height="604" loading="lazy" alt="Работа Grillz Customs 1">
               <div class="shot-info"><strong>Кастомные grillz</strong></div>
             </a>
 
             <a class="shot gallery-item motion-banner" href="assets/Gwork-02.png" aria-label="Открыть работу Grillz Customs 2">
-              <img src="assets/Gwork-02.png" alt="Работа Grillz Customs 2">
+              <img src="assets/optimized/Gwork-02.jpg" width="900" height="604" loading="lazy" alt="Работа Grillz Customs 2">
               <div class="shot-info"><strong>Золотой акцент</strong></div>
             </a>
 
             <a class="shot gallery-item motion-banner" href="assets/Gwork-03.png" aria-label="Открыть работу Grillz Customs 3">
-              <img src="assets/Gwork-03.png" alt="Работа Grillz Customs 3">
+              <img src="assets/optimized/Gwork-03.jpg" width="900" height="604" loading="lazy" alt="Работа Grillz Customs 3">
               <div class="shot-info"><strong>Индивидуальный стиль</strong></div>
             </a>
 
             <a class="shot gallery-item motion-banner" href="assets/Gwork-04.png" aria-label="Открыть работу Grillz Customs 4">
-              <img src="assets/Gwork-04.png" alt="Работа Grillz Customs 4">
+              <img src="assets/optimized/Gwork-04.jpg" width="900" height="604" loading="lazy" alt="Работа Grillz Customs 4">
               <div class="shot-info"><strong>Премиальный блеск</strong></div>
             </a>
 
             <a class="shot gallery-item motion-banner" href="assets/Gwork-05.png" aria-label="Открыть работу Grillz Customs 5">
-              <img src="assets/Gwork-05.png" alt="Работа Grillz Customs 5">
+              <img src="assets/optimized/Gwork-05.jpg" width="900" height="604" loading="lazy" alt="Работа Grillz Customs 5">
               <div class="shot-info"><strong>Детальная посадка</strong></div>
             </a>
 
             <a class="shot gallery-item motion-banner" href="assets/Gwork-06.png" aria-label="Открыть работу Grillz Customs 6">
-              <img src="assets/Gwork-06.png" alt="Работа Grillz Customs 6">
+              <img src="assets/optimized/Gwork-06.jpg" width="900" height="604" loading="lazy" alt="Работа Grillz Customs 6">
               <div class="shot-info"><strong>Уличный стиль</strong></div>
             </a>
 
             <a class="shot gallery-item motion-banner" href="assets/Gwork-07.png" aria-label="Открыть работу Grillz Customs 7">
-              <img src="assets/Gwork-07.png" alt="Работа Grillz Customs 7">
+              <img src="assets/optimized/Gwork-07.jpg" width="900" height="604" loading="lazy" alt="Работа Grillz Customs 7">
               <div class="shot-info"><strong>Custom design</strong></div>
             </a>
 
             <a class="shot gallery-item motion-banner" href="assets/Gwork-08.png" aria-label="Открыть работу Grillz Customs 8">
-              <img src="assets/Gwork-08.png" alt="Работа Grillz Customs 8">
+              <img src="assets/optimized/Gwork-08.jpg" width="900" height="604" loading="lazy" alt="Работа Grillz Customs 8">
               <div class="shot-info"><strong>Gold energy</strong></div>
             </a>
           </div>
@@ -3454,17 +3599,17 @@
 
           <div class="portfolio trusted-portfolio">
             <a class="shot gallery-item trusted-shot motion-banner" href="assets/zvezda1.png" aria-label="Открыть фото Егор Крид">
-              <img src="assets/zvezda1.png" alt="Егор Крид — Grillz Customs">
+              <img src="assets/optimized/zvezda1.jpg" width="900" height="600" loading="lazy" alt="Егор Крид — Grillz Customs">
               <div class="shot-info"><strong>ЕГОР КРИД</strong></div>
             </a>
 
             <a class="shot gallery-item trusted-shot motion-banner" href="assets/zvezda2.png" aria-label="Открыть фото Томми Кэш">
-              <img src="assets/zvezda2.png" alt="Томми Кэш — Grillz Customs">
+              <img src="assets/optimized/zvezda2.jpg" width="900" height="600" loading="lazy" alt="Томми Кэш — Grillz Customs">
               <div class="shot-info"><strong>ТОММИ КЭШ</strong></div>
             </a>
 
             <a class="shot gallery-item trusted-shot motion-banner" href="assets/zvezda3.png" aria-label="Открыть фото Влад Валов">
-              <img src="assets/zvezda3.png" alt="Влад Валов — Grillz Customs">
+              <img src="assets/optimized/zvezda3.jpg" width="900" height="600" loading="lazy" alt="Влад Валов — Grillz Customs">
               <div class="shot-info"><strong>ВЛАД ВАЛОВ</strong></div>
             </a>
           </div>
@@ -3480,7 +3625,7 @@
               Grillz Customs приглашает к сотрудничеству стоматологические клиники и практикующих стоматологов.
               Это способ выделиться, дать клиентам больше и заработать на тренде.
             </p>
-            <a class="btn" href="mailto:grillzcustoms@yandex.ru">Обсудить сотрудничество</a>
+            <a class="btn" href="mailto:grillzcustoms@yandex.ru" data-analytics="clinics_email">Обсудить сотрудничество</a>
           </div>
 
           <div class="bullets">
@@ -3504,7 +3649,7 @@
               Вместе можно создавать кастомные grillz, каппы и украшения на стыке dental art, ювелирного
               дизайна и уличной культуры.
             </p>
-            <a class="btn" href="mailto:grillzcustoms@yandex.ru">Предложить партнёрство</a>
+            <a class="btn" href="mailto:grillzcustoms@yandex.ru" data-analytics="jewelry_email">Предложить партнёрство</a>
           </div>
 
           <div class="bullets">
@@ -3529,13 +3674,16 @@
             </div>
             <div class="contact-panel">
               <div class="social-icons" aria-label="Социальные сети Grillz Customs">
-                $1
+                <a class="social-link" href="https://t.me/Grillz_Customs_bot" target="_blank" rel="noopener" aria-label="Открыть Telegram Grillz Customs" data-analytics="contact_telegram">
+                  <img src="assets/optimized/logo-tg.png" width="58" height="58" loading="lazy" alt="">
                   <span class="social-name">Telegram</span>
                 </a>
-                $1
+                <a class="social-link" href="https://www.instagram.com/grillz_customs/" target="_blank" rel="noopener" aria-label="Открыть Instagram Grillz Customs" data-analytics="contact_instagram">
+                  <img src="assets/optimized/logo-instagram.png" width="58" height="58" loading="lazy" alt="">
                   <span class="social-name">Instagram*</span>
                 </a>
-                $1
+                <a class="social-link" href="https://vk.com/grillz_customs" target="_blank" rel="noopener" aria-label="Открыть VK Grillz Customs" data-analytics="contact_vk">
+                  <img src="assets/optimized/logo-vk.png" width="58" height="58" loading="lazy" alt="">
                   <span class="social-name">VK</span>
                 </a>
               </div>
@@ -3545,7 +3693,7 @@
                 <a href="tel:+79161112397">+7 (916) 111-23-97</a>
               </div>
 
-              <a class="btn secondary" href="mailto:grillzcustoms@yandex.ru">grillzcustoms@yandex.ru</a>
+              <a class="btn secondary" href="mailto:grillzcustoms@yandex.ru" data-analytics="contact_email">grillzcustoms@yandex.ru</a>
             </div>
           </div>
         </div>
@@ -3896,8 +4044,7 @@
             '',
             'Комментарий:',
             comment
-          ].join('
-');
+          ].join('\n');
 
           const mailto = `mailto:grillzcustoms@yandex.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
           window.location.href = mailto;
@@ -4162,6 +4309,17 @@
     })();
   </script>
   <script>
+    /* Делегирование событий для подключённых счётчиков без отправки данных при пустой конфигурации */
+    document.addEventListener('click', (event) => {
+      const target = event.target.closest('[data-analytics]');
+      if (!target) return;
+      window.GrillzAnalytics?.track(target.dataset.analytics, {
+        href: target.getAttribute('href') || '',
+        text: target.textContent.trim().slice(0, 80)
+      });
+    });
+  </script>
+  <script>
     /* Собственная форма заявки → Google Apps Script → Google Sheets */
     (() => {
       const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwq13gghfM7DnnltyU1v80VwU7RVE9-DnlTppEas_Zw4s1eh0ecr45dCNZA0ioXbyFu5g/exec';
@@ -4213,6 +4371,7 @@
 
         form.classList.add('is-loading');
         setStatus('Отправляем заявку…');
+        window.GrillzAnalytics?.track('lead_submit_attempt');
 
         try {
           await fetch(GOOGLE_APPS_SCRIPT_URL, {
@@ -4224,8 +4383,10 @@
 
           form.reset();
           setStatus('Заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
+          window.GrillzAnalytics?.track('lead_submit_success');
         } catch (error) {
           setStatus('Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.', 'error');
+          window.GrillzAnalytics?.track('lead_submit_error');
         } finally {
           form.classList.remove('is-loading');
         }

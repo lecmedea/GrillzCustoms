@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GRILLZ CLUB — Tap & Match</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -98,7 +98,7 @@
     <!-- TOP HEADER -->
     <header class="p-4 border-b border-brandYellow/20 bg-brandSoft/80 backdrop-blur-md flex items-center justify-between z-10">
         <div class="flex items-center gap-3">
-            <img src="assets/logo%20game.png" alt="Logo" class="w-9 h-9 rounded-full object-cover border border-brandYellow shadow-[0_0_15px_rgba(255,208,0,0.4)]">
+            <img src="assets/optimized/logo-game.png" width="640" height="360" alt="Logo" class="w-9 h-9 rounded-full object-cover border border-brandYellow shadow-[0_0_15px_rgba(255,208,0,0.4)]">
             <div>
                 <h1 class="text-xs font-black tracking-widest text-brandYellow uppercase">GRILLZ CLUB</h1>
                 <p id="userStatusText" class="text-[10px] text-gray-400 font-bold tracking-wider uppercase">БАЗОВЫЙ ДОСТУП</p>
@@ -133,7 +133,7 @@
                 <div id="tapTarget" class="w-64 h-64 rounded-full border-4 border-brandYellow bg-black inline-flex items-center justify-center cursor-pointer transition-all duration-75 active:scale-90 hover:scale-102 neon-glow relative overflow-hidden p-2">
                     <!-- Заднее мягкое свечение внутри круга -->
                     <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,208,0,0.1),transparent_70%)] animate-pulse"></div>
-                    <img id="characterImage" src="game pic/slepok.png" alt="Зуб" class="w-52 h-56 object-contain pointer-events-none select-none transition-transform duration-75">
+                    <img id="characterImage" src="game pic/slepok.png" width="2048" height="2048" alt="Зуб" class="w-52 h-56 object-contain pointer-events-none select-none transition-transform duration-75">
                 </div>
             </div>
 
@@ -407,7 +407,7 @@
                     name: savedName,
                     sub: savedSub || "MY CUSTOM STYLE",
                     bio: savedBio,
-                    avatar: "assets/logo%20game.png",
+                    avatar: "assets/optimized/logo-game.png",
                     vip: isPremium,
                     tg: savedTG,
                     isSelf: true
@@ -423,8 +423,8 @@
             }
             const p = neforDeck[currentProfileIndex];
             
-            if (p.avatar === "assets/logo%20game.png") {
-                document.getElementById('profileImage').style.backgroundImage = `url('assets/logo%20game.png')`;
+            if (p.avatar === "assets/optimized/logo-game.png") {
+                document.getElementById('profileImage').style.backgroundImage = `url('assets/optimized/logo-game.png')`;
                 document.getElementById('profileImage').style.backgroundSize = "contain";
                 document.getElementById('profileImage').style.backgroundPosition = "center 30%";
                 document.getElementById('profileImage').style.backgroundColor = "#000";
@@ -505,7 +505,7 @@
             logoContainer.style.top = `${py - 20}px`;
 
             const logoImgElement = document.createElement('img');
-            logoImgElement.src = 'assets/logo%20game.png';
+            logoImgElement.src = 'assets/optimized/logo-game.png';
             logoImgElement.className = 'w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(255,208,0,0.8)]';
             logoContainer.appendChild(logoImgElement);
 

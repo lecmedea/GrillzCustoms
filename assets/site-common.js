@@ -119,7 +119,7 @@
   if (!window.__webSlingerLoading && !window.__webSlingerMounted) {
     window.__webSlingerLoading = true;
     const webSlinger = document.createElement('script');
-    webSlinger.src = 'assets/web-slinger.js?v=20260804-1';
+    webSlinger.src = 'assets/web-slinger.js?v=20260805-2';
     webSlinger.dataset.brand = 'grillz';
     document.body.appendChild(webSlinger);
   }

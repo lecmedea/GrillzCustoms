@@ -60,6 +60,7 @@ def build_arch(source: Path, output: Path) -> None:
     }
     document: dict = {
         "asset": {"version": "2.0", "generator": "Grillz Customs EOFF dental converter"},
+        "extensionsUsed": ["KHR_mesh_quantization"],
         "scene": 0,
         "scenes": [{"nodes": []}],
         "nodes": [],
@@ -86,8 +87,17 @@ def build_arch(source: Path, output: Path) -> None:
         document["bufferViews"].append({"buffer": 0, "byteOffset": offset, "byteLength": len(payload), "target": target})
         return len(document["bufferViews"]) - 1
 
-    def add_accessor(view: int, component: int, count: int, kind: str, values: np.ndarray) -> int:
+    def add_accessor(
+        view: int,
+        component: int,
+        count: int,
+        kind: str,
+        values: np.ndarray,
+        normalized: bool = False,
+    ) -> int:
         accessor = {"bufferView": view, "componentType": component, "count": count, "type": kind}
+        if normalized:
+            accessor["normalized"] = True
         if kind == "VEC3":
             accessor["min"] = values.min(axis=0).astype(float).tolist()
             accessor["max"] = values.max(axis=0).astype(float).tolist()
@@ -115,12 +125,18 @@ def build_arch(source: Path, output: Path) -> None:
                 vertices += np.array([x, row_y, z], dtype=np.float32)
                 normals = normals_for(vertices, faces)
 
-                position_view = add_view(vertices.astype("<f4").tobytes(), 34962)
-                normal_view = add_view(normals.astype("<f4").tobytes(), 34962)
-                index_view = add_view(faces.astype("<u4").reshape(-1).tobytes(), 34963)
-                position_accessor = add_accessor(position_view, 5126, len(vertices), "VEC3", vertices)
-                normal_accessor = add_accessor(normal_view, 5126, len(normals), "VEC3", normals)
-                index_accessor = add_accessor(index_view, 5125, faces.size, "SCALAR", faces.reshape(-1))
+                bounds_min = vertices.min(axis=0)
+                bounds_max = vertices.max(axis=0)
+                center = (bounds_min + bounds_max) * 0.5
+                half_range = np.maximum((bounds_max - bounds_min) * 0.5, 1e-6)
+                quantized_vertices = np.rint((vertices - center) / half_range * 32767).clip(-32767, 32767).astype("<i2")
+                quantized_normals = np.rint(normals * 127).clip(-127, 127).astype("i1")
+                position_view = add_view(quantized_vertices.tobytes(), 34962)
+                normal_view = add_view(quantized_normals.tobytes(), 34962)
+                index_view = add_view(faces.astype("<u2").reshape(-1).tobytes(), 34963)
+                position_accessor = add_accessor(position_view, 5122, len(vertices), "VEC3", quantized_vertices, True)
+                normal_accessor = add_accessor(normal_view, 5120, len(normals), "VEC3", quantized_normals, True)
+                index_accessor = add_accessor(index_view, 5123, faces.size, "SCALAR", faces.reshape(-1))
                 document["meshes"].append({
                     "name": f"tooth_{tooth_id}",
                     "primitives": [{
@@ -129,7 +145,12 @@ def build_arch(source: Path, output: Path) -> None:
                         "material": 0,
                     }],
                 })
-                document["nodes"].append({"name": f"tooth_{tooth_id}", "mesh": len(document["meshes"]) - 1})
+                document["nodes"].append({
+                    "name": f"tooth_{tooth_id}",
+                    "mesh": len(document["meshes"]) - 1,
+                    "translation": center.astype(float).tolist(),
+                    "scale": half_range.astype(float).tolist(),
+                })
                 document["scenes"][0]["nodes"].append(len(document["nodes"]) - 1)
 
     document["buffers"][0]["byteLength"] = len(binary)

@@ -775,7 +775,10 @@
 
   /* ---------- Independent per-tooth fit layout ---------- */
   function layoutTooth(id, W, H) {
-    const fit = ensureFitMigrated(id);
+    // Stock preview always uses the calibrated anatomical map. Uploaded photos use detector anchors.
+    const fit = state.customPhoto && state._detectedAnchors?.[id]
+      ? normalizeFit(state._detectedAnchors[id], id)
+      : defaultFit(id);
     const isUpper = UPPER.includes(id);
     const { ox, oy, dw, dh } = canvasSpace;
     const x = ox + fit.nx * dw;
@@ -994,77 +997,12 @@
       pointer.moved = false;
       pointer.x = pt.clientX;
       pointer.y = pt.clientY;
-      const id = hitTest(pt.clientX, pt.clientY);
-      pointer.grabId = id;
-      if (id) {
-        state.focus = id;
-        ensureFit(id);
-        pointer.startFit = { ...state.teeth[id].fit };
-        pointer.mode = state.tool || 'select';
-        // auto-enable on grab in move tools
-        if (pointer.mode !== 'select' && !state.teeth[id].on) {
-          setToothOn(id, true, { focus: true });
-        }
-        renderFitSliders();
-      } else {
-        pointer.mode = 'pan';
-        pointer.startFit = { yaw: state.view.yaw, pitch: state.view.pitch };
-      }
-      vp.classList.add('is-dragging');
-      needsDraw = true;
     };
 
     const onMove = (e) => {
       if (!pointer.down || viewMode !== 'layers') return;
       const pt = e.touches ? e.touches[0] : e;
-      const dx = pt.clientX - pointer.x;
-      const dy = pt.clientY - pointer.y;
-      if (Math.abs(dx) + Math.abs(dy) > 3) pointer.moved = true;
-
-      if (pointer.mode === 'pan' || (!pointer.grabId && pointer.mode === 'select')) {
-        state.view.yaw = Math.max(-0.4, Math.min(0.4, (pointer.startFit?.yaw ?? state.view.yaw) + dx * 0.003));
-        state.view.pitch = Math.max(-0.25, Math.min(0.25, (pointer.startFit?.pitch ?? state.view.pitch) + dy * 0.003));
-        // for pan we update start relative continuously
-        pointer.x = pt.clientX;
-        pointer.y = pt.clientY;
-        pointer.startFit = { yaw: state.view.yaw, pitch: state.view.pitch };
-        needsDraw = true;
-        e.preventDefault();
-        return;
-      }
-
-      if (!pointer.grabId || !pointer.startFit) return;
-      const id = pointer.grabId;
-      const fit = ensureFit(id);
-      const tool = pointer.mode === 'select' ? 'move' : pointer.mode; // drag in select = move if already on
-
-      if (tool === 'move' || (pointer.mode === 'select' && state.teeth[id].on)) {
-        const p = clientToCanvas(pt.clientX, pt.clientY);
-        const n = canvasToNorm(p.x, p.y);
-        fit.nx = n.nx;
-        fit.ny = n.ny;
-      } else if (tool === 'scale' || tool === 'scaleY') {
-        // uniform (scale) or height-only (scaleY): vertical drag
-        const factor = 1 - dy * 0.004;
-        if (tool === 'scale') {
-          const baseX = pointer.startFit.scaleX ?? pointer.startFit.scale ?? 0.08;
-          const baseY = pointer.startFit.scaleY ?? pointer.startFit.scale ?? baseX;
-          fit.scaleX = Math.max(0.025, Math.min(0.28, baseX * factor));
-          fit.scaleY = Math.max(0.025, Math.min(0.28, baseY * factor));
-        } else {
-          const baseY = pointer.startFit.scaleY ?? pointer.startFit.scale ?? 0.08;
-          fit.scaleY = Math.max(0.025, Math.min(0.28, baseY * factor));
-        }
-      } else if (tool === 'scaleX') {
-        const factor = 1 + dx * 0.004;
-        const baseX = pointer.startFit.scaleX ?? pointer.startFit.scale ?? 0.08;
-        fit.scaleX = Math.max(0.025, Math.min(0.28, baseX * factor));
-      } else if (tool === 'rotate') {
-        fit.rot = pointer.startFit.rot + dx * 0.01;
-      }
-      renderFitSliders();
-      needsDraw = true;
-      e.preventDefault();
+      if (Math.hypot(pt.clientX - pointer.x, pt.clientY - pointer.y) > 8) pointer.moved = true;
     };
 
     const onUp = (e) => {
@@ -1077,88 +1015,30 @@
         const pt = e.changedTouches ? e.changedTouches[0] : e;
         const id = hitTest(pt.clientX, pt.clientY);
         if (id) {
-          if (state.tool === 'select') {
-            // toggle on click
-            if (state.focus === id && state.teeth[id].on) {
-              // second click on focused = toggle off only if not dragging
-              toggleTooth(id);
-            } else if (!state.teeth[id].on) {
-              setToothOn(id, true);
-            } else {
-              state.focus = id;
-            }
+          if (state.focus === id && state.teeth[id].on) {
+            toggleTooth(id);
+          } else if (!state.teeth[id].on) {
+            setToothOn(id, true);
           } else {
             state.focus = id;
-            if (!state.teeth[id].on) setToothOn(id, true);
           }
           commit();
           window.GrillzAnalytics?.track('constructor_tooth', { id, on: state.teeth[id].on });
         }
-      } else {
-        save();
-        renderFitSliders();
-        needsDraw = true;
       }
-      pointer.grabId = null;
-      pointer.startFit = null;
-      pointer.mode = null;
     };
 
     vp.addEventListener('mousedown', onDown);
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseup', onUp);
     vp.addEventListener('touchstart', onDown, { passive: true });
-    vp.addEventListener('touchmove', onMove, { passive: false });
+    vp.addEventListener('touchmove', onMove, { passive: true });
     vp.addEventListener('touchend', onUp);
     window.addEventListener('resize', () => { needsDraw = true; });
-
-    // wheel / trackpad: ONLY scales focused grillz (never photo zoom)
-    vp.addEventListener('wheel', (e) => {
-      if (viewMode !== 'layers') return;
-      e.preventDefault();
-      e.stopPropagation();
-      if (!state.focus || !state.teeth[state.focus]?.on) return;
-      const fit = ensureFitMigrated(state.focus);
-      const dir = e.deltaY > 0 ? 0.96 : 1.04;
-      // shift = width only, alt = height only, default = uniform
-      if (e.shiftKey) {
-        fit.scaleX = Math.max(0.025, Math.min(0.28, fit.scaleX * dir));
-      } else if (e.altKey) {
-        fit.scaleY = Math.max(0.025, Math.min(0.28, fit.scaleY * dir));
-      } else {
-        fit.scaleX = Math.max(0.025, Math.min(0.28, fit.scaleX * dir));
-        fit.scaleY = Math.max(0.025, Math.min(0.28, fit.scaleY * dir));
-      }
-      renderFitSliders();
-      needsDraw = true;
-      save();
-    }, { passive: false });
   }
 
   /* ---------- fit UI ---------- */
   function renderFitSliders() {
-    const id = state.focus || '11';
-    const fit = ensureFitMigrated(id);
-    const set = (elId, val) => {
-      const el = byId(elId);
-      if (el) el.value = String(val);
-    };
-    const setTxt = (elId, t) => {
-      const el = byId(elId);
-      if (el) el.textContent = t;
-    };
-    if (byId('fitToothId')) byId('fitToothId').textContent = id;
-    set('fitNx', Math.round(fit.nx * 1000));
-    set('fitNy', Math.round(fit.ny * 1000));
-    set('fitScaleX', Math.round(fit.scaleX * 1000));
-    set('fitScaleY', Math.round(fit.scaleY * 1000));
-    set('fitRot', Math.round(fit.rot * 100));
-    setTxt('fitNxVal', Math.round(fit.nx * 100) + '%');
-    setTxt('fitNyVal', Math.round(fit.ny * 100) + '%');
-    setTxt('fitScaleXVal', fit.scaleX.toFixed(2));
-    setTxt('fitScaleYVal', fit.scaleY.toFixed(2));
-    setTxt('fitRotVal', Math.round((fit.rot * 180) / Math.PI) + '°');
-
     const pz = byId('photoZoom');
     const pzVal = byId('photoZoomVal');
     const pzBlock = byId('blockPhotoZoom');
@@ -1168,24 +1048,6 @@
   }
 
   function bindFitUi() {
-    const bindRange = (elId, apply) => {
-      const el = byId(elId);
-      if (!el) return;
-      el.addEventListener('input', () => {
-        if (!state.focus) return;
-        const fit = ensureFitMigrated(state.focus);
-        apply(fit, Number(el.value));
-        renderFitSliders();
-        needsDraw = true;
-      });
-      el.addEventListener('change', () => save());
-    };
-    bindRange('fitNx', (fit, v) => { fit.nx = v / 1000; });
-    bindRange('fitNy', (fit, v) => { fit.ny = v / 1000; });
-    bindRange('fitScaleX', (fit, v) => { fit.scaleX = v / 1000; });
-    bindRange('fitScaleY', (fit, v) => { fit.scaleY = v / 1000; });
-    bindRange('fitRot', (fit, v) => { fit.rot = v / 100; });
-
     const pz = byId('photoZoom');
     pz?.addEventListener('input', () => {
       if (!state.customPhoto) return;
@@ -1199,44 +1061,6 @@
       toast(`Масштаб фото закреплён: ${Math.round((state.photoZoom || 1) * 100)}%`);
     });
 
-    byId('btnFitResetOne')?.addEventListener('click', () => {
-      if (!state.focus) return;
-      state.teeth[state.focus].fit = state._detectedAnchors?.[state.focus]
-        ? normalizeFit(state._detectedAnchors[state.focus], state.focus)
-        : defaultFit(state.focus);
-      commit();
-      renderFitSliders();
-      toast('Посадка капы сброшена');
-    });
-    byId('btnFitResetAll')?.addEventListener('click', () => {
-      ALL_TEETH.forEach((id) => {
-        state.teeth[id].fit = state._detectedAnchors?.[id]
-          ? normalizeFit(state._detectedAnchors[id], id)
-          : defaultFit(id);
-      });
-      commit();
-      renderFitSliders();
-      toast('Все посадки сброшены');
-    });
-
-    ['btnToolSelect', 'btnToolMove', 'btnToolScale', 'btnToolScaleX', 'btnToolScaleY', 'btnToolRotate'].forEach((bid) => {
-      byId(bid)?.addEventListener('click', () => {
-        const tool = byId(bid).dataset.tool;
-        state.tool = tool;
-        document.querySelectorAll('#fitToolGroup .stage-btn').forEach((b) => {
-          b.classList.toggle('is-active', b.dataset.tool === tool);
-        });
-        const labels = {
-          select: 'выбор / вкл-выкл',
-          move: 'сдвиг',
-          scale: 'масштаб (оба)',
-          scaleX: 'ширина',
-          scaleY: 'высота',
-          rotate: 'поворот'
-        };
-        toast(`Режим: ${labels[tool] || tool}`);
-      });
-    });
   }
 
   /* ---------- photo upload + detect ---------- */

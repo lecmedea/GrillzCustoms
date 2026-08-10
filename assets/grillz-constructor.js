@@ -25,6 +25,16 @@
     '44': 0, '45': 0, '34': 5, '35': 5
   };
 
+  /** Transparent padding in the render sprites, measured once from their alpha bounds. */
+  const PIECE_CROP = {
+    0: [0.378, 0.056, 0.250, 0.891],
+    1: [0.303, 0.053, 0.394, 0.897],
+    2: [0.247, 0.050, 0.506, 0.900],
+    3: [0.253, 0.050, 0.494, 0.900],
+    4: [0.303, 0.053, 0.391, 0.900],
+    5: [0.366, 0.056, 0.256, 0.894]
+  };
+
   /**
    * Default anchors on stock smile photo (normalized 0..1).
    * Each grillz is independent — own nx/ny/scaleX/scaleY/rot.
@@ -828,7 +838,12 @@
     if (img) {
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(img, -sx / 2, -sy * 0.52, sx, sy);
+      const crop = PIECE_CROP[PIECE_INDEX[id] ?? 2];
+      const sourceX = crop[0] * img.naturalWidth;
+      const sourceY = crop[1] * img.naturalHeight;
+      const sourceW = crop[2] * img.naturalWidth;
+      const sourceH = crop[3] * img.naturalHeight;
+      ctx.drawImage(img, sourceX, sourceY, sourceW, sourceH, -sx / 2, -sy * 0.52, sx, sy);
     } else {
       ctx.fillStyle = '#d4a017';
       ctx.beginPath();

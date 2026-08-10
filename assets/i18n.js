@@ -817,31 +817,11 @@
     });
   }
 
-  function ensureAlternates() {
-    document.querySelectorAll('link[data-i18n-alternate]').forEach((node) => node.remove());
+  function ensureCanonical() {
     const canonical = getCanonicalUrl();
     const canonicalNode = document.querySelector('link[rel="canonical"]') || document.head.appendChild(document.createElement('link'));
     canonicalNode.setAttribute('rel', 'canonical');
     canonicalNode.setAttribute('href', canonical);
-
-    if (document.querySelector('link[rel="alternate"][hreflang]:not([data-i18n-alternate])')) return;
-
-    const fragment = document.createDocumentFragment();
-    LANGS.forEach(([code]) => {
-      const link = document.createElement('link');
-      link.rel = 'alternate';
-      link.hreflang = code;
-      link.href = code === 'ru' ? canonical : canonical + '?lang=' + encodeURIComponent(code);
-      link.dataset.i18nAlternate = 'true';
-      fragment.appendChild(link);
-    });
-    const fallback = document.createElement('link');
-    fallback.rel = 'alternate';
-    fallback.hreflang = 'x-default';
-    fallback.href = canonical;
-    fallback.dataset.i18nAlternate = 'true';
-    fragment.appendChild(fallback);
-    document.head.appendChild(fragment);
   }
 
   function ensureLocalizedPanel() {
@@ -925,7 +905,7 @@
     }
     applyTextTranslations();
     applyMetadata();
-    ensureAlternates();
+    ensureCanonical();
     ensureLocalizedPanel();
     syncSwitcher();
     syncAutoTranslator(persist);

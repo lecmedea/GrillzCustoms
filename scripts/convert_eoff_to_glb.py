@@ -58,6 +58,20 @@ def build_arch(source: Path, output: Path) -> None:
         "upperjaw": ([11, 12, 13, 14, 15], [21, 22, 23, 24, 25], 5.5),
         "lowerjaw": ([41, 42, 43, 44, 45], [31, 32, 33, 34, 35], -5.4),
     }
+    all_tooth_ids = [tooth_id for right_ids, left_ids, _ in rows.values() for tooth_id in (*right_ids, *left_ids)]
+    grill_materials = [
+        {
+            "name": f"grillz_{tooth_id}",
+            "alphaMode": "BLEND",
+            "doubleSided": True,
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [0.95, 0.76, 0.2, 0.0],
+                "metallicFactor": 1.0,
+                "roughnessFactor": 0.2,
+            },
+        }
+        for tooth_id in all_tooth_ids
+    ]
     document: dict = {
         "asset": {"version": "2.0", "generator": "Grillz Customs EOFF dental converter"},
         "extensionsUsed": ["KHR_mesh_quantization"],
@@ -65,14 +79,25 @@ def build_arch(source: Path, output: Path) -> None:
         "scenes": [{"nodes": []}],
         "nodes": [],
         "meshes": [],
-        "materials": [{
-            "name": "anatomical-enamel",
-            "pbrMetallicRoughness": {
-                "baseColorFactor": [0.96, 0.82, 0.36, 1.0],
-                "metallicFactor": 0.9,
-                "roughnessFactor": 0.22,
+        "materials": [
+            {
+                "name": "anatomical-enamel",
+                "pbrMetallicRoughness": {
+                    "baseColorFactor": [0.93, 0.91, 0.84, 1.0],
+                    "metallicFactor": 0.0,
+                    "roughnessFactor": 0.34,
+                },
             },
-        }],
+            {
+                "name": "healthy-gingiva",
+                "pbrMetallicRoughness": {
+                    "baseColorFactor": [0.52, 0.16, 0.19, 1.0],
+                    "metallicFactor": 0.0,
+                    "roughnessFactor": 0.56,
+                },
+            },
+            *grill_materials,
+        ],
         "buffers": [{"byteLength": 0}],
         "bufferViews": [],
         "accessors": [],
@@ -104,15 +129,59 @@ def build_arch(source: Path, output: Path) -> None:
         document["accessors"].append(accessor)
         return len(document["accessors"]) - 1
 
+    # A small shared sphere becomes overlapping gingiva pads around the root line.
+    # This hides the open scan boundary while keeping the supplied tooth surfaces intact.
+    gum_vertices = []
+    gum_faces = []
+    gum_latitudes, gum_longitudes = 12, 20
+    for latitude in range(gum_latitudes + 1):
+        phi = -math.pi / 2 + math.pi * latitude / gum_latitudes
+        for longitude in range(gum_longitudes):
+            theta = 2 * math.pi * longitude / gum_longitudes
+            gum_vertices.append([
+                math.cos(phi) * math.sin(theta),
+                math.sin(phi),
+                math.cos(phi) * math.cos(theta),
+            ])
+    for latitude in range(gum_latitudes):
+        for longitude in range(gum_longitudes):
+            current = latitude * gum_longitudes + longitude
+            following = latitude * gum_longitudes + (longitude + 1) % gum_longitudes
+            above = current + gum_longitudes
+            above_following = following + gum_longitudes
+            gum_faces.extend([[current, following, above], [following, above_following, above]])
+    gum_vertices = np.asarray(gum_vertices, dtype=np.float32)
+    gum_faces = np.asarray(gum_faces, dtype=np.uint16)
+    gum_normals = normals_for(gum_vertices, gum_faces)
+    gum_position_view = add_view(gum_vertices.astype("<f4").tobytes(), 34962)
+    gum_normal_view = add_view(gum_normals.astype("<f4").tobytes(), 34962)
+    gum_index_view = add_view(gum_faces.astype("<u2").reshape(-1).tobytes(), 34963)
+    gum_position_accessor = add_accessor(gum_position_view, 5126, len(gum_vertices), "VEC3", gum_vertices)
+    gum_normal_accessor = add_accessor(gum_normal_view, 5126, len(gum_normals), "VEC3", gum_normals)
+    gum_index_accessor = add_accessor(gum_index_view, 5123, gum_faces.size, "SCALAR", gum_faces.reshape(-1))
+    document["meshes"].append({
+        "name": "gingiva-pad",
+        "primitives": [{
+            "attributes": {"POSITION": gum_position_accessor, "NORMAL": gum_normal_accessor},
+            "indices": gum_index_accessor,
+            "material": 1,
+        }],
+    })
+    gum_mesh_index = len(document["meshes"]) - 1
+
     for jaw, (right_ids, left_ids, row_y) in rows.items():
-        for side, tooth_ids in ((-1, right_ids), (1, left_ids)):
-            for position, tooth_id in enumerate(tooth_ids, start=1):
+        for side, side_tooth_ids in ((-1, right_ids), (1, left_ids)):
+            for position, tooth_id in enumerate(side_tooth_ids, start=1):
                 source_vertices, faces = jaw_sources[jaw][position]
                 vertices = source_vertices - source_vertices.mean(axis=0)
                 # EOFF Z is the tooth's long axis. Map it vertically and place crowns in a U-shaped arch.
                 vertices = vertices[:, [0, 2, 1]]
                 vertices[:, 1] *= 0.72
                 vertices[:, 2] *= 0.82
+                if jaw == "upperjaw":
+                    # Upper roots point away from the bite; the original library uses the lower-jaw direction.
+                    vertices[:, 1] *= -1
+                    faces = faces[:, [0, 2, 1]]
                 if side > 0:
                     vertices[:, 0] *= -1
                     faces = faces[:, [0, 2, 1]]
@@ -150,6 +219,33 @@ def build_arch(source: Path, output: Path) -> None:
                     "mesh": len(document["meshes"]) - 1,
                     "translation": center.astype(float).tolist(),
                     "scale": half_range.astype(float).tolist(),
+                })
+                document["scenes"][0]["nodes"].append(len(document["nodes"]) - 1)
+
+                # A separate, barely expanded shell gives every tooth its own close-fitting grill.
+                # It reuses the same geometry buffers, so per-tooth control does not duplicate mesh data.
+                document["meshes"].append({
+                    "name": f"grillz_{tooth_id}",
+                    "primitives": [{
+                        "attributes": {"POSITION": position_accessor, "NORMAL": normal_accessor},
+                        "indices": index_accessor,
+                        "material": 2 + all_tooth_ids.index(tooth_id),
+                    }],
+                })
+                document["nodes"].append({
+                    "name": f"grillz_{tooth_id}",
+                    "mesh": len(document["meshes"]) - 1,
+                    "translation": center.astype(float).tolist(),
+                    "scale": (half_range * 1.012).astype(float).tolist(),
+                })
+                document["scenes"][0]["nodes"].append(len(document["nodes"]) - 1)
+
+                gum_direction = 1 if jaw == "upperjaw" else -1
+                document["nodes"].append({
+                    "name": f"gingiva_{tooth_id}",
+                    "mesh": gum_mesh_index,
+                    "translation": [float(center[0]), float(row_y + gum_direction * 3.15), float(center[2] + 1.35)],
+                    "scale": [float(half_range[0] * 1.12), 3.45, float(half_range[2] * 1.35)],
                 })
                 document["scenes"][0]["nodes"].append(len(document["nodes"]) - 1)
 

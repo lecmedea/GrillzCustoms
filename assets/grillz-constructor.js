@@ -1176,61 +1176,33 @@
       try {
         const model = mv.model;
         if (!model) return;
-        // Material 0 = metal default; recolor by majority / focus tooth
-        const focus = state.focus && state.teeth[state.focus]?.on
-          ? state.teeth[state.focus]
-          : activeTeeth()[0] && state.teeth[activeTeeth()[0]];
-        const matId = focus ? focus.material : 'yellow-gold';
-        const rgb = MAT_RGB[matId] || MAT_RGB['yellow-gold'];
-        const mat0 = model.materials?.[0];
-        if (mat0?.pbrMetallicRoughness) {
-          mat0.pbrMetallicRoughness.setBaseColorFactor([rgb[0], rgb[1], rgb[2], 1]);
-          mat0.pbrMetallicRoughness.setMetallicFactor(isStoneFamily(matId) ? 0.35 : 1);
-          mat0.pbrMetallicRoughness.setRoughnessFactor(
-            focus?.style === 'polished' ? 0.22 : focus?.style === 'pineapple' ? 0.45 : 0.32
-          );
+        const materials = Array.from(model.materials || []);
+        const enamel = materials.find((material) => material.name === 'anatomical-enamel') || materials[0];
+        if (enamel?.pbrMetallicRoughness) {
+          enamel.pbrMetallicRoughness.setBaseColorFactor([0.93, 0.91, 0.84, 1]);
+          enamel.pbrMetallicRoughness.setMetallicFactor(0);
+          enamel.pbrMetallicRoughness.setRoughnessFactor(0.34);
         }
-        // Toggle tooth nodes visibility via scene graph
-        const scene = mv.model?.scene || mv.model;
-        const walk = (node) => {
-          if (!node) return;
-          const name = node.name || '';
-          if (name.startsWith('tooth_')) {
-            const id = name.replace('tooth_', '');
-            const on = !!state.teeth[id]?.on;
-            // model-viewer scene graph
-            if (node.visible !== undefined) node.visible = on;
-            if (node.scale) {
-              // hide by scale if no visible flag
-              const s = on ? 1 : 0.001;
-              if (typeof node.scale.set === 'function') node.scale.set(s, s, s);
-            }
-          }
-          const children = node.children || [];
-          children.forEach(walk);
-        };
-        // three.js scene behind model-viewer
-        const symbolScene = mv[Object.getOwnPropertySymbols(mv).find(() => false)]
-          || mv.model?.scene;
-        if (mv.model?.materials) {
-          // try scene from modelViewer internals
-          const root = mv.modelScene || mv[_mvSceneKey(mv)];
-          if (root) walk(root);
-        }
-        // Official-ish approach: iterate model.materials only for color;
-        // for nodes use updateComplete + symbol tree
-        try {
-          // eslint-disable-next-line no-underscore-dangle
-          const scene = mv.modelScene || (mv.shadowRoot && null);
-          void scene;
-        } catch (_) { /* */ }
 
-        // Use model-viewer variant-less approach: CSS filter on viewer as backup
-        mv.style.filter = isGold(matId)
-          ? 'saturate(1.15) contrast(1.05)'
-          : matId === 'chrome' || matId === 'silver'
-            ? 'saturate(0.35) brightness(1.08)'
-            : 'none';
+        ALL_TEETH.forEach((id) => {
+          const spec = state.teeth[id];
+          const grill = materials.find((material) => material.name === `grillz_${id}`);
+          if (!grill?.pbrMetallicRoughness) return;
+          const matId = spec?.material || 'yellow-gold';
+          const rgb = MAT_RGB[matId] || MAT_RGB['yellow-gold'];
+          const on = !!spec?.on;
+          const roughness = spec?.style === 'polished'
+            ? 0.18
+            : spec?.style === 'pineapple'
+              ? 0.38
+              : spec?.style === 'diamond-cut'
+                ? 0.24
+                : 0.28;
+          grill.pbrMetallicRoughness.setBaseColorFactor([rgb[0], rgb[1], rgb[2], on ? 1 : 0]);
+          grill.pbrMetallicRoughness.setMetallicFactor(isStoneFamily(matId) ? 0.55 : 1);
+          grill.pbrMetallicRoughness.setRoughnessFactor(roughness);
+        });
+        mv.style.filter = 'none';
       } catch (err) {
         console.warn('model materials', err);
       }
@@ -1239,23 +1211,8 @@
     if (mv.loaded) apply();
     else mv.addEventListener('load', apply, { once: true });
 
-    // Also try scene-graph API when available (model-viewer 3+)
-    mv.updateComplete?.then?.(() => {
-      try {
-        // Hide inactive teeth via transform if we can find nodes
-        const names = ALL_TEETH.map((id) => `tooth_${id}`);
-        names.forEach((name) => {
-          const id = name.replace('tooth_', '');
-          const on = !!state.teeth[id]?.on;
-          // model-viewer experimental: getAvailableVariants etc. — fallback scale via CSS not possible per-node
-          void on;
-        });
-        apply();
-      } catch (_) { /* */ }
-    });
+    mv.updateComplete?.then?.(apply);
   }
-
-  function _mvSceneKey() { return null; }
 
   /* ---------- actions ---------- */
   async function copyRef() {

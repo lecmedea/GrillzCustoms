@@ -2209,8 +2209,12 @@ body::after{content:"";position:fixed;top:-30vh;left:-28vw;width:22vw;height:170
 @keyframes serviceReveal{to{opacity:1;transform:translateY(0) rotate(0)}}
 .celebrity-grid,.news-grid,.constructor-shell,.auth-grid,.forum-grid{display:grid;gap:18px}
 .celebrity-grid{grid-template-columns:repeat(4,1fr)}
+.celebrity-grid-archive{grid-template-columns:repeat(3,1fr)}
 .celebrity-card,.news-card,.constructor-card,.auth-card,.forum-card{border:1px solid rgba(255,208,0,.2);border-radius:28px;background:linear-gradient(135deg,rgba(0,0,0,.78),rgba(0,0,0,.48));box-shadow:0 18px 60px rgba(0,0,0,.28);overflow:hidden;backdrop-filter:blur(10px)}
 .celebrity-card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;filter:contrast(1.08) saturate(1.06)}
+.celebrity-image-stack{display:grid;grid-template-columns:1fr 1fr;background:#050505}
+.celebrity-image-stack img{aspect-ratio:1/1;min-height:240px}
+.celebrity-card-wide{grid-column:span 2}
 .celebrity-copy,.news-copy,.constructor-card,.auth-card,.forum-card{padding:22px}
 .celebrity-meta,.source-line{color:var(--yellow);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.7px}
 .celebrity-copy p,.news-copy p,.source-line + p{color:var(--muted);margin-top:10px}
@@ -2242,7 +2246,7 @@ body::after{content:"";position:fixed;top:-30vh;left:-28vw;width:22vw;height:170
 .profile-preview span{color:var(--yellow);font-size:12px;font-weight:950;text-transform:uppercase}
 .profile-preview strong{color:var(--white);font-size:14px}
 @media (max-width:1100px){.celebrity-grid,.service-mosaic,.constructor-shell,.tamagotchi-panel,.auth-grid,.forum-grid{grid-template-columns:1fr 1fr}.service-mosaic .service,.service-mosaic .service:nth-child(4){grid-column:auto;grid-row:auto}}
-@media (max-width:720px){body::after,.magazine-scroll-indicator{display:none}.nav-links,.nav-row{display:grid;grid-template-columns:1fr;width:100%}.nav-links a,.nav-more summary{min-height:42px;width:100%}.celebrity-grid,.news-grid,.service-mosaic,.constructor-shell,.tamagotchi-panel,.auth-grid,.forum-grid{grid-template-columns:1fr}.gift-photo-wrap{border-radius:18px;border-color:rgba(255,208,0,.16);box-shadow:0 14px 34px rgba(0,0,0,.34);transform:none}.page-gift{padding:18px;border-radius:24px}.mouth-room{min-height:390px}.tooth-pet{width:126px;height:176px}.stat-line{grid-template-columns:82px 1fr 42px}.profile-preview{grid-template-columns:1fr}}
+@media (max-width:720px){body::after,.magazine-scroll-indicator{display:none}.nav-links,.nav-row{display:grid;grid-template-columns:1fr;width:100%}.nav-links a,.nav-more summary{min-height:42px;width:100%}.celebrity-grid,.news-grid,.service-mosaic,.constructor-shell,.tamagotchi-panel,.auth-grid,.forum-grid{grid-template-columns:1fr}.celebrity-card-wide{grid-column:auto}.celebrity-image-stack{grid-template-columns:1fr}.celebrity-image-stack img{min-height:0}.gift-photo-wrap{border-radius:18px;border-color:rgba(255,208,0,.16);box-shadow:0 14px 34px rgba(0,0,0,.34);transform:none}.page-gift{padding:18px;border-radius:24px}.mouth-room{min-height:390px}.tooth-pet{width:126px;height:176px}.stat-line{grid-template-columns:82px 1fr 42px}.profile-preview{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){body::after,.service-mosaic .service{animation:none}}
 
 /* Shared photorealistic orbit banner */
@@ -2336,4 +2340,26 @@ body::after{content:"";position:fixed;top:-30vh;left:-28vw;width:22vw;height:170
   .topbar .nav-more summary:focus-visible{
     transform:translate(1px,1px);
   }
+}
+
+/* Development-state ribbon shared by the beta sections. */
+.beta-warning{
+  position:relative;
+  z-index:120;
+  width:100%;
+  margin:0;
+  padding:clamp(14px,2vw,24px) clamp(16px,4vw,54px);
+  border:0;
+  border-bottom:4px solid #ff2020;
+  background:#000;
+  color:#ff2525;
+  font-size:clamp(18px,2.2vw,32px);
+  font-weight:1000;
+  line-height:1.08;
+  letter-spacing:.02em;
+  text-align:center;
+  text-transform:uppercase;
+  text-wrap:balance;
+  text-shadow:0 0 18px rgba(255,20,20,.36);
+  box-shadow:0 12px 30px rgba(0,0,0,.55);
 }

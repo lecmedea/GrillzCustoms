@@ -2320,7 +2320,7 @@ body::after{content:"";position:fixed;top:-30vh;left:-28vw;width:22vw;height:170
 }
 
 /* Keep the expanded “Ещё” menu above decorative page layers and section cards. */
-.topbar,.topbar .container,.topbar .nav,.topbar .nav-links,.topbar .nav-row,.topbar .nav-more{position:relative;z-index:500;overflow:visible}
+body .topbar,.topbar .container,.topbar .nav,.topbar .nav-links,.topbar .nav-row,.topbar .nav-more{position:relative;z-index:500!important;overflow:visible}
 .topbar .nav-more-menu{z-index:1000}
 .mobile-stars-link{display:none!important}
 @media(max-width:720px){

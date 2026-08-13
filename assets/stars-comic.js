@@ -1,32 +1,23 @@
 (() => {
   const cards = [...document.querySelectorAll('[data-reveal]')];
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  if (reduceMotion.matches || !('IntersectionObserver' in window)) cards.forEach(card => card.classList.add('is-visible'));
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  if (reducedMotion.matches || !('IntersectionObserver' in window)) cards.forEach(card => card.classList.add('is-visible'));
   else {
-    const observer = new IntersectionObserver((entries) => entries.forEach(entry => {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       entry.target.classList.add('is-visible');
       observer.unobserve(entry.target);
-      if (innerWidth > 720 && window.WebSlinger && !document.body.dataset.slingerStarted) {
-        document.body.dataset.slingerStarted = 'true';
-        window.WebSlinger.fire();
-      }
-    }), { rootMargin: '0px 0px -12% 0px', threshold: .08 });
+    }), { rootMargin: '0px 0px -10% 0px', threshold: .06 });
     cards.forEach(card => observer.observe(card));
   }
 
-  const audio = document.getElementById('starsSoundtrack');
-  const toggle = document.querySelector('.comic-audio-toggle');
-  if (!audio || !toggle) return;
-  const label = playing => {
-    toggle.textContent = playing ? 'Выключить саундтрек' : 'Включить саундтрек';
-    toggle.setAttribute('aria-pressed', String(playing));
-  };
-  toggle.addEventListener('click', async () => {
-    if (audio.paused) {
-      try { audio.currentTime = 0; await audio.play(); label(true); }
-      catch (_) { label(false); }
-    } else { audio.pause(); label(false); }
+  const status = document.querySelector('.comic-flight-status');
+  window.addEventListener('webslinger:start', () => {
+    document.body.classList.add('comic-flight-active');
+    if (status) status.textContent = 'Сергей в полёте · саундтрек запущен · 12 секунд';
   });
-  audio.addEventListener('ended', () => label(false));
+  window.addEventListener('webslinger:stop', () => {
+    document.body.classList.remove('comic-flight-active');
+    if (status) status.textContent = 'Красная кнопка внизу запускает полёт Сергея и музыку';
+  });
 })();

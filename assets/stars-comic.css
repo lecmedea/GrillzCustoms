@@ -39,7 +39,7 @@
 .speech{position:absolute;right:3%;top:4%;max-width:27%;padding:13px 16px;background:#fff;color:#080808;border:3px solid #050505;border-radius:44% 52% 48% 38%/46% 42% 54% 48%;font-weight:900;line-height:1.25;transform:rotate(2deg)}
 .speech:after{content:"";position:absolute;left:25px;bottom:-16px;border:10px solid transparent;border-top-color:#050505;transform:rotate(18deg)}
 .comic-card::after{position:absolute;z-index:3;right:2%;top:43%;padding:8px 12px;background:#090909;border:2px solid var(--comic-gold);color:#fff;font:950 .7rem/1 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;transform:rotate(-4deg)}
-.comic-ally::after{content:"КОМАНДА СЕРГЕЯ"}.comic-villain::after{content:"КРОВЬ САКУРЫ";background:#7c0910;border-color:#ff534e}.comic-wildcard::after{content:"СТОРОНА НЕИЗВЕСТНА";background:#322806}
+.comic-card:not(.comic-protagonist):not(.comic-villain):not(.comic-wildcard):not(.comic-divider)::after,.comic-ally::after{content:"КОМАНДА СЕРГЕЯ"}.comic-villain::after{content:"КРОВЬ САКУРЫ";background:#7c0910;border-color:#ff534e}.comic-wildcard::after{content:"СТОРОНА НЕИЗВЕСТНА";background:#322806}
 .comic-placeholder .comic-media{display:grid;place-items:center;background:repeating-linear-gradient(-45deg,#0e141d 0 13px,#1b2632 14px 27px)}
 .comic-placeholder .comic-media span{font:900 clamp(2rem,4vw,4rem)/.85 Impact,sans-serif;color:rgba(255,208,0,.82);text-align:center;transform:rotate(-7deg)}
 .comic-protagonist{border-color:var(--comic-gold);box-shadow:12px 14px 0 var(--comic-red)}.comic-protagonist .comic-media img{object-fit:contain;filter:contrast(1.12) saturate(.9)}

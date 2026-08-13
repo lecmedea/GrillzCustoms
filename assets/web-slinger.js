@@ -97,5 +97,10 @@
   window.addEventListener('resize', updateButtonOffset, { passive: true });
   button.addEventListener('click', fire);
   window.addEventListener('pagehide', clear, { once: true });
-  window.WebSlinger = { fire, clear, isActive: () => active };
+  window.WebSlinger = {
+    fire,
+    clear,
+    isActive: () => active,
+    isAudioPlaying: () => Boolean(audio && !audio.paused),
+  };
 })();

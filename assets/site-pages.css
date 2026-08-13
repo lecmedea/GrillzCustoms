@@ -2319,6 +2319,15 @@ body::after{content:"";position:fixed;top:-30vh;left:-28vw;width:22vw;height:170
   box-shadow:6px 6px 0 #050505,0 22px 54px rgba(0,0,0,.48);
 }
 
+/* Keep the expanded “Ещё” menu above decorative page layers and section cards. */
+.topbar,.topbar .container,.topbar .nav,.topbar .nav-links,.topbar .nav-row,.topbar .nav-more{position:relative;z-index:500;overflow:visible}
+.topbar .nav-more-menu{z-index:1000}
+.mobile-stars-link{display:none!important}
+@media(max-width:720px){
+  .topbar .nav-row-bottom>a[href="stars.html"]{display:none}
+  .topbar .mobile-stars-link{display:flex!important}
+}
+
 .topbar .nav-more-menu a{
   transform:none;
   box-shadow:none;

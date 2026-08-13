@@ -45,6 +45,15 @@
   }
 
   document.querySelectorAll('.nav-more').forEach((details) => {
+    const menu = details.querySelector('.nav-more-menu');
+    if (menu && !menu.querySelector('.mobile-stars-link')) {
+      const starsLink = document.createElement('a');
+      starsLink.href = 'stars.html';
+      starsLink.textContent = 'Звёзды';
+      starsLink.className = 'mobile-stars-link';
+      if (location.pathname.endsWith('/stars.html')) starsLink.setAttribute('aria-current', 'page');
+      menu.prepend(starsLink);
+    }
     document.addEventListener('click', (event) => {
       if (!details.contains(event.target)) details.removeAttribute('open');
     });

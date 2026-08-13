@@ -7,6 +7,8 @@
   const script = document.currentScript;
   const brand = script?.dataset.brand || (script?.src.includes('/js/') ? 'path' : 'grillz');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const isStarsComic = document.body.classList.contains('stars-comic-page');
+  const runDuration = isStarsComic ? 12000 : 4200;
   const ns = 'http://www.w3.org/2000/svg';
   const assetRoot = new URL(brand === 'path' ? '../assets/web-slinger/' : 'web-slinger/', script.src);
   const frames = Array.from({ length: 9 }, (_, index) => new URL(`spider-frame-${String(index + 1).padStart(2, '0')}.png`, assetRoot).href);
@@ -41,6 +43,9 @@
     .web-slinger.is-firing .web-slinger__hero--1{animation:web-slinger-fly-one 3300ms cubic-bezier(.2,.66,.25,1) 120ms both}
     .web-slinger.is-firing .web-slinger__hero--2{animation:web-slinger-fly-two 3500ms cubic-bezier(.18,.7,.24,1) 310ms both}
     .web-slinger.is-firing .web-slinger__hero--3{animation:web-slinger-fly-three 3350ms cubic-bezier(.2,.68,.24,1) 520ms both}
+    .stars-comic-page .web-slinger.is-firing .web-slinger__hero--1{animation-duration:11200ms}
+    .stars-comic-page .web-slinger.is-firing .web-slinger__hero--2{animation-duration:11600ms}
+    .stars-comic-page .web-slinger.is-firing .web-slinger__hero--3{animation-duration:11400ms}
     .web-slinger-hit{animation:web-slinger-spin 820ms cubic-bezier(.42,0,.2,1) both!important;transform-origin:center center!important;backface-visibility:hidden;will-change:rotate}
     @keyframes web-slinger-draw{from{stroke-dashoffset:var(--ws-length)}to{stroke-dashoffset:0}}
     @keyframes web-slinger-fade{0%,58%{opacity:1}100%{opacity:0}}
@@ -127,7 +132,7 @@
       const style = getComputedStyle(element);
       return rect.width > 90 && rect.height > 24 && rect.top < innerHeight - 40 && rect.bottom > 40 && style.visibility !== 'hidden' && style.display !== 'none';
     };
-    const blocks = [...document.querySelectorAll('.stat,.trend,.card,.hero-card,.service-card,.path-card,.case,.bay__inner')].filter(isVisible);
+    const blocks = [...document.querySelectorAll('.stat,.trend,.card,.hero-card,.service-card,.path-card,.case,.bay__inner,.comic-card')].filter(isVisible);
     const text = [...document.querySelectorAll('h1,h2,h3,p')].filter(isVisible);
     const mixed = [];
     const count = Math.max(blocks.length, text.length);
@@ -153,10 +158,12 @@
   function animatePoses(thisRun) {
     heroImages.forEach((image, heroIndex) => {
       const sequence = poseSequences[heroIndex];
-      for (let step = 0; step < 14; step += 1) {
+      const steps = isStarsComic ? 48 : 14;
+      const interval = isStarsComic ? 230 : 215;
+      for (let step = 0; step < steps; step += 1) {
         later(() => {
           if (runId === thisRun) image.src = frames[sequence[step % sequence.length]];
-        }, 180 + heroIndex * 180 + step * 215);
+        }, 180 + heroIndex * 180 + step * interval);
       }
     });
   }
@@ -192,12 +199,12 @@
     if (!reducedMotion.matches) {
       animatePoses(thisRun);
       const targets = visibleTargets().sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
-      const schedule = [760, 1050, 1290, 1540, 1800, 2070, 2350, 2620, 2890];
+      const schedule = isStarsComic ? [900,1900,3000,4100,5300,6500,7700,9000,10400] : [760,1050,1290,1540,1800,2070,2350,2620,2890];
       const selected = targets.length <= 9 ? targets : targets.filter((_, index) => index % Math.ceil(targets.length / 9) === 0).slice(0, 9);
       selected.forEach((element, index) => later(() => spin(element, thisRun), schedule[index]));
     }
 
-    timer = window.setTimeout(clear, reducedMotion.matches ? 180 : 4200);
+    timer = window.setTimeout(clear, reducedMotion.matches ? 180 : runDuration);
   }
 
   button.addEventListener('click', fire);

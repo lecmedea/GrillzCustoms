@@ -1,4 +1,4 @@
 window.GRILLZ_ANALYTICS_CONFIG = {
-  yandexMetrikaId: '',
+  yandexMetrikaId: 111104258,
   googleTagId: ''
 };

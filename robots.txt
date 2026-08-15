@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Clean-param: lang /
 
 Sitemap: https://grillzcustoms.ru/sitemap.xml

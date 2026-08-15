@@ -4641,7 +4641,7 @@
 
           form.reset();
           setStatus('Заявка отправлена. Мы свяжемся с вами в ближайшее время.', 'success');
-          window.GrillzAnalytics?.track('lead_submit_success');
+          window.GrillzAnalytics?.track('request-form-submit');
         } catch (error) {
           setStatus('Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.', 'error');
           window.GrillzAnalytics?.track('lead_submit_error');

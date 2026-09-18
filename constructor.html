@@ -17,24 +17,23 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="assets/site-pages.css?v=20260813-nav">
-  <link rel="stylesheet" href="assets/grillz-studio.css">
+  <link rel="stylesheet" href="assets/site-pages.css?v=20260918">
+  <link rel="stylesheet" href="assets/grillz-studio.css?v=20260918">
+  <link rel="stylesheet" href="assets/grillz-studio-v3.css?v=20260918">
   <link rel="stylesheet" href="assets/cookie-consent.css">
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+  <script src="assets/grillz-design.js?v=20260918" defer></script>
   <script src="assets/analytics-config.js" defer></script>
   <script src="assets/analytics.js" defer></script>
-  <script src="assets/site-common.js?v=20260813-sergey12s3" defer></script>
-  <script src="assets/grillz-mouth-detect.js" defer></script>
-  <script src="assets/grillz-constructor.js" defer></script>
+  <script src="assets/site-common.js?v=20260918" defer></script>
+  <script src="assets/grillz-mouth-detect.js?v=20260918" defer></script>
+  <script src="assets/grillz-constructor.js?v=20260918" defer></script>
   <script src="assets/cookie-consent.js" defer></script>
 </head>
 <body class="studio-page">
   <a class="skip-link" href="#main">К основному содержанию</a>
   <div class="moving-background" aria-hidden="true"></div>
   <div class="page">
-    <aside class="beta-warning" role="note" aria-label="Предупреждение о beta-версии">
-      WARNING! ВНИМАНИЕ! ДАННЫЙ РАЗДЕЛ НАХОДИТСЯ В РАЗРАБОТКЕ, ЭТО ЛИШЬ BETA-ВЕРСИЯ И НАД НЕЙ ЕЩЁ ПОКА ВЕДЁТСЯ РАБОТА НАШИМИ СПЕЦИАЛИСТАМИ ИЗ КАБО-ВЕРДЕ!
-    </aside>
+
     <header class="topbar">
       <div class="container nav">
         <a class="brand" href="index.html" aria-label="Grillz Customs — на главную">
@@ -77,22 +76,15 @@
       <section class="page-hero studio-hero">
         <div class="container page-hero-grid">
           <div class="hero-panel">
-            <div class="eyebrow">Ателье · live preview</div>
+            <div class="eyebrow">Grillz Customs · онлайн-ателье</div>
             <h1>Собери свои <span>grillz</span></h1>
-            <p class="lead">Карта зубов FDI, металл, фактура, проба и инкрустация — по каждому зубу отдельно. Рендер обновляется мгновенно, смета считается как ориентир для консультации.</p>
+            <p class="lead">Карта зубов FDI, металл, фактура, проба и инкрустация — по каждому зубу отдельно. Выберите готовый образ или создайте свой. Это визуальный референс: точная физическая посадка определяется по слепку или 3D-скану.</p>
             <div class="hero-actions">
               <a class="btn" href="#studio" data-analytics="constructor_start">Открыть студию</a>
               <a class="btn secondary" href="order.html" data-analytics="constructor_order_hero">К заказу</a>
             </div>
           </div>
-          <div class="hero-orbit" aria-hidden="true">
-            <span class="orbit-core">GC</span>
-            <span class="orbit-line orbit-line-1"></span>
-            <span class="orbit-line orbit-line-2"></span>
-            <span class="orbit-chip orbit-chip-1"></span>
-            <span class="orbit-chip orbit-chip-2"></span>
-            <span class="orbit-chip orbit-chip-3"></span>
-          </div>
+
         </div>
       </section>
 
@@ -108,90 +100,76 @@
                 </div>
                 <div class="stage-actions" role="toolbar" aria-label="Действия превью">
                   <div class="view-mode" role="group" aria-label="Режим превью">
-                    <button type="button" class="stage-btn is-active" id="btnView2d" data-view="layers">2D слои</button>
+                    <button type="button" class="stage-btn is-active" id="btnView2d" data-view="layers">На улыбке</button>
                     <button type="button" class="stage-btn" id="btnView3d" data-view="model">3D</button>
                   </div>
                   <button type="button" class="stage-btn" id="btnResetView" title="Сбросить ракурс сцены">Ракурс</button>
                   <button type="button" class="stage-btn" id="btnCapture" title="Снимок превью">Снимок</button>
-                  <button type="button" class="stage-btn" id="btnShare" title="Ссылка на сборку">Share</button>
+                  <button type="button" class="stage-btn" id="btnShare" title="Ссылка на сборку">Ссылка</button>
                   <button type="button" class="stage-btn" id="btnFullscreen" title="На весь экран">Экран</button>
                 </div>
               </div>
 
               <div class="stage-viewport" id="stageViewport" data-mode="layers">
-                <canvas id="mouthCanvas" width="960" height="720" role="img" aria-label="Превью: независимые grillz на каждом зубе"></canvas>
+                <canvas id="mouthCanvas" width="960" height="720" tabindex="0" role="img" aria-label="Превью гриллз. Выбор зубов также доступен кнопками FDI. В режиме посадки стрелки перемещают выбранную накладку."></canvas>
                 <model-viewer
                   id="grillzModel"
                   class="studio-model"
-                  src="assets/studio/models/gc-anatomical-dental-arch.glb"
                   alt="Анатомическая 3D-модель верхнего и нижнего зубного ряда"
                   camera-controls
-                  camera-orbit="0deg 82deg 52m"
-                  camera-target="0m 0m -4m"
-                  field-of-view="24deg"
-                  min-camera-orbit="auto 55deg 32m"
-                  max-camera-orbit="auto 115deg 90m"
+                  camera-orbit="0deg 82deg 90%"
+                  camera-target="auto auto auto"
+                  field-of-view="30deg"
+                  min-camera-orbit="auto 35deg 65%"
+                  max-camera-orbit="auto 145deg 200%"
                   touch-action="pan-y"
                   shadow-intensity="0.9"
                   exposure="1.15"
                   environment-image="neutral"
-                  ar
-                  ar-modes="webxr scene-viewer quick-look"
-                  ar-scale="auto"
                   poster="assets/studio/mouth-bg.jpg"
-                  loading="eager"
+                  loading="lazy"
                   reveal="auto"
                   hidden
                 >
-                  <button slot="ar-button" class="ar-btn" type="button" id="btnAR">AR</button>
+
                 </model-viewer>
+                <p id="modelStatus" class="model-status" role="status"></p>
                 <div class="stage-hint" id="stageHint">Нажмите на зуб, чтобы добавить или убрать grillz. Посадка фиксирована по анатомии зуба.</div>
               </div>
 
-              <div class="stage-legend">
-                <span><i class="lg lg-off"></i> выкл</span>
-                <span><i class="lg lg-on"></i> в сете</span>
-                <span><i class="lg lg-focus"></i> фокус + посадка</span>
-                <span class="legend-price" id="legendPriceHint">Прайс GC · ₽ / зуб</span>
+              <div class="fit-toolbar">
+                <button type="button" class="stage-btn" id="btnFitMode" aria-pressed="false">Настроить посадку</button>
+                <output id="stageQuote" aria-live="polite"></output>
+              </div>
+              <div id="fitControls" class="fit-controls" hidden>
+                <p>Посадка зуба <strong id="fitFocusLabel">11</strong>. Перемещайте пальцем / мышью или настройте ползунки.</p>
+                <label>По горизонтали<input type="range" id="fitX" min="0" max="100" value="50" step="0.1"><output id="fitXVal"></output></label>
+                <label>По вертикали<input type="range" id="fitY" min="0" max="100" value="40" step="0.1"><output id="fitYVal"></output></label>
+                <label>Ширина<input type="range" id="fitWidth" min="1.2" max="40" value="10" step="0.1"><output id="fitWidthVal"></output></label>
+                <label>Высота<input type="range" id="fitHeight" min="1.2" max="50" value="20" step="0.1"><output id="fitHeightVal"></output></label>
+                <label>Поворот<input type="range" id="fitRotate" min="-90" max="90" value="0" step="0.1"><output id="fitRotateVal"></output></label>
+                <button type="button" class="stage-btn" id="btnFitReset">Сбросить посадку этого зуба</button>
               </div>
             </div>
           </div>
 
           <!-- OPTIONS -->
           <aside class="studio-panel" aria-label="Параметры сборки">
+            <noscript><p>Для интерактивного конструктора включите JavaScript. Заказ можно обсудить на <a href="order.html">странице заказа</a>.</p></noscript>
             <form id="studioForm" class="studio-form" autocomplete="off" onsubmit="return false;">
               <header class="panel-head">
                 <h2>Параметры</h2>
                 <p class="panel-sub">Настраивайте каждый зуб отдельно или примените пресет ко всему сету.</p>
               </header>
 
-              <!-- STEP: MOULD -->
-              <fieldset class="studio-block" data-block="mould">
-                <legend>1 · Слепок</legend>
-                <div class="choice-grid" id="mouldChoices" role="radiogroup" aria-label="Тип слепка"></div>
-              </fieldset>
 
-              <!-- STEP: PHOTO / DETECT -->
-              <fieldset class="studio-block" data-block="photo">
-                <legend>2 · Ваше фото рта</legend>
-                <div class="photo-upload-row">
-                  <label class="btn secondary photo-upload-btn" for="mouthPhotoInput">Загрузить фото</label>
-                  <input type="file" id="mouthPhotoInput" accept="image/*" hidden>
-                  <button type="button" class="btn ghost" id="btnResetPhoto">Сток-улыбка</button>
-                </div>
-                <div class="fit-sliders is-hidden" id="blockPhotoZoom">
-                  <label>Масштаб фото
-                    <input type="range" id="photoZoom" min="50" max="300" value="100" step="1">
-                    <span id="photoZoomVal">100%</span>
-                  </label>
-                  <button type="button" class="preset-chip" id="btnPhotoZoomLock">Закрепить масштаб фото</button>
-                </div>
-                <p class="field-note" id="photoDetectStatus">После загрузки фото система привяжет grillz к распознанным зубам. Слайдер меняет только масштаб фотографии.</p>
-              </fieldset>
 
+
+
+              <fieldset class="studio-block"><legend>1 · Готовые образы</legend><div class="look-grid" id="lookChoices"></div><p class="field-note">Подборка заменяет текущий сет. Затем можно изменить любой зуб.</p></fieldset>
               <!-- STEP: TEETH -->
               <fieldset class="studio-block" data-block="teeth">
-                <legend>3 · Зубы в сете</legend>
+                <legend>2 · Зубы в сете</legend>
                 <div class="preset-row" id="presetRow" role="group" aria-label="Быстрые пресеты"></div>
                 <div class="fdi-mini" aria-hidden="false">
                   <div class="fdi-row" id="fdiUpper" aria-label="Верхний ряд"></div>
@@ -202,7 +180,7 @@
 
               <!-- STEP: EDIT MODE -->
               <fieldset class="studio-block" data-block="scope">
-                <legend>4 · Область материала</legend>
+                <legend>3 · К чему применить дизайн</legend>
                 <div class="scope-row">
                   <button type="button" class="scope-btn is-active" data-scope="focus" id="scopeFocus">Активный зуб <span id="focusLabel">11</span></button>
                   <button type="button" class="scope-btn" data-scope="all" id="scopeAll">Весь сет</button>
@@ -211,34 +189,67 @@
 
               <!-- STEP: MATERIAL -->
               <fieldset class="studio-block" data-block="material">
-                <legend>5 · Металл / покрытие</legend>
-                <div class="swatch-grid" id="materialChoices" role="listbox" aria-label="Материал"></div>
+                <legend>4 · Металл / покрытие</legend>
+                <div class="swatch-grid" id="materialChoices" role="group" aria-label="Материал"></div>
               </fieldset>
 
               <!-- STEP: STYLE -->
               <fieldset class="studio-block" data-block="style">
-                <legend>6 · Фактура</legend>
-                <div class="card-grid" id="styleChoices" role="listbox" aria-label="Фактура"></div>
+                <legend>5 · Дизайн и фактура</legend>
+                <div class="card-grid" id="styleChoices" role="group" aria-label="Фактура"></div>
               </fieldset>
 
+              <fieldset class="studio-block"><legend>6 · Детали дизайна</legend>
+                <p id="designEmpty" class="field-note" hidden>Сначала выберите зубы или готовый образ.</p>
+                <div class="design-fields">
+                  <label>Финиш<select id="design-finish"><option value="mirror">Зеркальная полировка</option><option value="satin">Сатин</option><option value="matte">Матовый</option></select></label>
+                  <label id="densityField">Плотность узора<select id="design-density"><option value="1">1 · крупный</option><option value="2">2</option><option value="3">3 · средний</option><option value="4">4</option><option value="5">5 · мелкий</option></select></label>
+                  <label id="toneField">Визуальный оттенок камней<select id="design-tone"><option value="clear">Светлый</option><option value="black">Чёрный</option><option value="pink">Розовый</option><option value="blue">Голубой</option></select></label>
+                  <label id="borderField">Ширина контура<select id="design-border"><option value="1">Тонкий</option><option value="2">Узкий</option><option value="3">Средний</option><option value="4">Широкий</option><option value="5">Максимальный</option></select></label>
+                  <label id="engravingField">Гравировка · до 3 букв / цифр<input id="design-engraving" type="text" maxlength="3" placeholder="GC" autocomplete="off" spellcheck="false"></label>
+                </div>
+                <p class="field-note">Оттенок, размер узора и гравировка — пожелания к дизайну. Возможность изготовления и их стоимость уточнит мастер.</p>
+              </fieldset>
               <!-- STEP: PURITY (conditional) -->
               <fieldset class="studio-block" data-block="purity" id="blockPurity">
                 <legend>7 · Проба</legend>
-                <div class="pill-grid" id="purityChoices" role="listbox" aria-label="Проба"></div>
+                <div class="pill-grid" id="purityChoices" role="group" aria-label="Проба"></div>
               </fieldset>
 
               <!-- STEP: STONES (conditional) -->
               <fieldset class="studio-block" data-block="stones" id="blockStones">
                 <legend>8 · Инкрустация / чистота</legend>
-                <div class="pill-grid" id="stonesChoices" role="listbox" aria-label="Камни"></div>
+                <div class="pill-grid" id="stonesChoices" role="group" aria-label="Камни"></div>
               </fieldset>
 
+              <!-- STEP: MOULD -->
+              <fieldset class="studio-block" data-block="mould">
+                <legend>9 · Как снять слепок</legend>
+                <div class="choice-grid" id="mouldChoices" role="group" aria-label="Тип слепка"></div>
+              </fieldset>
+              <!-- STEP: PHOTO / DETECT -->
+              <fieldset class="studio-block" data-block="photo">
+                <legend>Примерить на своём фото · необязательно</legend>
+                <div class="photo-upload-row">
+                  <label for="mouthPhotoInput">Фронтальное фото улыбки · JPG, PNG или WebP, до 10 МБ</label>
+                  <input type="file" id="mouthPhotoInput" accept="image/jpeg,image/png,image/webp">
+                  <button type="button" class="btn ghost" id="btnResetPhoto">Исходная улыбка</button>
+                </div>
+                <div class="fit-sliders is-hidden" id="blockPhotoZoom">
+                  <label>Масштаб примерки
+                    <input type="range" id="photoZoom" min="50" max="300" value="100" step="1">
+                    <span id="photoZoomVal">100%</span>
+                  </label>
+                  <button type="button" class="preset-chip" id="btnPhotoZoomLock">Закрепить масштаб фото</button>
+                </div>
+                <p class="field-note" id="photoDetectStatus">Фото обрабатывается локально и не отправляется на сервер. Определение области рта даёт приблизительную сетку, а не распознаёт отдельные зубы. Уточните посадку вручную. После перезагрузки фото нужно выбрать заново.</p>
+              </fieldset>
               <!-- SUMMARY -->
               <div class="studio-summary" id="studioSummary" aria-live="polite"></div>
 
               <div class="studio-cta">
                 <button type="button" class="btn" id="btnCopyRef">Скопировать референс</button>
-                <button type="button" class="btn secondary" id="btnSharePanel">Скопировать share-link</button>
+                <button type="button" class="btn secondary" id="btnSharePanel">Скопировать ссылку</button>
                 <button type="button" class="btn secondary" id="btnSendOrder">В заявку</button>
                 <button type="button" class="btn ghost" id="btnResetBuild">Сбросить</button>
               </div>
@@ -263,7 +274,7 @@
             <h3>Что получит мастер</h3>
             <ul>
               <li>Карта зубов FDI с параметрами каждого колпачка.</li>
-              <li>Снимок превью (PNG) и текстовый референс.</li>
+              <li>Текстовый референс и ссылку на дизайн. Снимок PNG можно скачать и приложить самостоятельно.</li>
               <li>Ориентировочную смету до примерки и финального веса.</li>
             </ul>
           </article>

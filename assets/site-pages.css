@@ -2324,8 +2324,7 @@ body .topbar,.topbar .container,.topbar .nav,.topbar .nav-links,.topbar .nav-row
 .topbar .nav-more-menu{z-index:1000}
 .mobile-stars-link{display:none!important}
 @media(max-width:720px){
-  .topbar .nav-row-bottom>a[href="stars.html"]{display:none}
-  .topbar .mobile-stars-link{display:flex!important}
+  .topbar .nav-row-bottom>a[href="stars.html"]{display:inline-flex}
 }
 
 .topbar .nav-more-menu a{

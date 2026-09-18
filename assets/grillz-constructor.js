@@ -5,9 +5,9 @@
 (() => {
   'use strict';
 
-  const STORAGE_KEY = 'gc_grillz_studio_v2';
+  const STORAGE_KEY = 'gc_grillz_studio_v3';
   const ORDER_KEY = 'gc_grillz_order_payload';
-  const HASH_PREFIX = 'gc2';
+  const HASH_PREFIX = 'gc3';
   const PRICES_URL = 'data/gc-prices.json';
   const ASSET = {
     teeth: (kind, mat) => `assets/studio/teeth/${kind}_${mat}.png`,
@@ -40,29 +40,28 @@
    * Each grillz is independent — own nx/ny/scaleX/scaleY/rot.
    * Calibrated for assets/studio/mouth-bg.jpg frontal smile.
    */
+  // Width is relative to photograph width; height to photograph height. No magic aspect multiplier.
   const DEFAULT_ANCHORS = {
-    // upper L→R
-    '15': { nx: 0.18, ny: 0.445, scaleX: 0.072, scaleY: 0.072, rot: 0.18 },
-    '14': { nx: 0.24, ny: 0.430, scaleX: 0.078, scaleY: 0.078, rot: 0.12 },
-    '13': { nx: 0.30, ny: 0.418, scaleX: 0.086, scaleY: 0.086, rot: 0.08 },
-    '12': { nx: 0.37, ny: 0.408, scaleX: 0.082, scaleY: 0.082, rot: 0.04 },
-    '11': { nx: 0.45, ny: 0.402, scaleX: 0.098, scaleY: 0.098, rot: 0.01 },
-    '21': { nx: 0.55, ny: 0.402, scaleX: 0.098, scaleY: 0.098, rot: -0.01 },
-    '22': { nx: 0.63, ny: 0.408, scaleX: 0.082, scaleY: 0.082, rot: -0.04 },
-    '23': { nx: 0.70, ny: 0.418, scaleX: 0.086, scaleY: 0.086, rot: -0.08 },
-    '24': { nx: 0.76, ny: 0.430, scaleX: 0.078, scaleY: 0.078, rot: -0.12 },
-    '25': { nx: 0.82, ny: 0.445, scaleX: 0.072, scaleY: 0.072, rot: -0.18 },
-    // lower
-    '45': { nx: 0.20, ny: 0.605, scaleX: 0.068, scaleY: 0.068, rot: -0.12 },
-    '44': { nx: 0.26, ny: 0.615, scaleX: 0.072, scaleY: 0.072, rot: -0.08 },
-    '43': { nx: 0.33, ny: 0.622, scaleX: 0.078, scaleY: 0.078, rot: -0.05 },
-    '42': { nx: 0.40, ny: 0.628, scaleX: 0.074, scaleY: 0.074, rot: -0.02 },
-    '41': { nx: 0.47, ny: 0.630, scaleX: 0.080, scaleY: 0.080, rot: 0.0 },
-    '31': { nx: 0.53, ny: 0.630, scaleX: 0.080, scaleY: 0.080, rot: 0.0 },
-    '32': { nx: 0.60, ny: 0.628, scaleX: 0.074, scaleY: 0.074, rot: 0.02 },
-    '33': { nx: 0.67, ny: 0.622, scaleX: 0.078, scaleY: 0.078, rot: 0.05 },
-    '34': { nx: 0.74, ny: 0.615, scaleX: 0.072, scaleY: 0.072, rot: 0.08 },
-    '35': { nx: 0.80, ny: 0.605, scaleX: 0.068, scaleY: 0.068, rot: 0.12 }
+    '15': { nx:0.146, ny:0.348, scaleX:0.039, scaleY:0.126, rot:0.08 },
+    '14': { nx:0.184, ny:0.35, scaleX:0.053, scaleY:0.156, rot:0.07 },
+    '13': { nx:0.242, ny:0.354, scaleX:0.075, scaleY:0.185, rot:-0.08 },
+    '12': { nx:0.323, ny:0.371, scaleX:0.09, scaleY:0.17, rot:-0.035 },
+    '11': { nx:0.435, ny:0.378, scaleX:0.136, scaleY:0.205, rot:-0.015 },
+    '21': { nx:0.574, ny:0.379, scaleX:0.14, scaleY:0.209, rot:0.015 },
+    '22': { nx:0.691, ny:0.373, scaleX:0.092, scaleY:0.17, rot:0.035 },
+    '23': { nx:0.773, ny:0.36, scaleX:0.077, scaleY:0.182, rot:0.08 },
+    '24': { nx:0.835, ny:0.351, scaleX:0.051, scaleY:0.155, rot:-0.07 },
+    '25': { nx:0.872, ny:0.352, scaleX:0.038, scaleY:0.128, rot:-0.08 },
+    '45': { nx:0.183, ny:0.515, scaleX:0.044, scaleY:0.095, rot:0.12 },
+    '44': { nx:0.237, ny:0.567, scaleX:0.067, scaleY:0.148, rot:0.15 },
+    '43': { nx:0.306, ny:0.59, scaleX:0.068, scaleY:0.159, rot:0.09 },
+    '42': { nx:0.379, ny:0.607, scaleX:0.079, scaleY:0.148, rot:0.06 },
+    '41': { nx:0.462, ny:0.61, scaleX:0.082, scaleY:0.151, rot:0.02 },
+    '31': { nx:0.544, ny:0.61, scaleX:0.082, scaleY:0.151, rot:-0.02 },
+    '32': { nx:0.628, ny:0.607, scaleX:0.083, scaleY:0.147, rot:-0.06 },
+    '33': { nx:0.707, ny:0.594, scaleX:0.069, scaleY:0.164, rot:-0.09 },
+    '34': { nx:0.775, ny:0.567, scaleX:0.068, scaleY:0.153, rot:-0.15 },
+    '35': { nx:0.824, ny:0.516, scaleX:0.041, scaleY:0.098, rot:-0.12 }
   };
 
   const UPPER = ['15', '14', '13', '12', '11', '21', '22', '23', '24', '25'];
@@ -146,8 +145,75 @@
     material: 'yellow-gold',
     style: 'polished',
     purity: '14k',
-    stones: 'none'
+    stones: 'none', density: 3, finish: 'mirror', tone: 'clear', border: 3, engraving: ''
   };
+
+
+  const LOOKS = [
+    {id:'classic',title:'Classic six',subtitle:'6 верхних · золото',teeth:['13','12','11','21','22','23'],material:'yellow-gold',style:'polished'},
+    {id:'silver',title:'Silver four',subtitle:'4 верхних · серебро',teeth:['12','11','21','22'],material:'silver',style:'polished'},
+    {id:'duo',title:'Rose duo',subtitle:'2 передних · красное золото',teeth:['11','21'],material:'rose-gold',style:'polished'},
+    {id:'frames',title:'Open frames',subtitle:'6 верхних · открытый контур',teeth:['13','12','11','21','22','23'],material:'yellow-gold',style:'open-face'},
+    {id:'cut',title:'Ice cut',subtitle:'6 верхних · гранёный узор',teeth:['13','12','11','21','22','23'],material:'white-gold',style:'pineapple'},
+    {id:'initials',title:'Monogram',subtitle:'2 передних · гравировка',teeth:['11','21'],material:'yellow-gold',style:'laser',engraving:'GC'},
+    {id:'dust',title:'Diamond dust',subtitle:'4 верхних · мелкая россыпь',teeth:['12','11','21','22'],material:'silver',style:'diamond-dust'},
+    {id:'pave',title:'Full ice',subtitle:'6 верхних · паве',teeth:['13','12','11','21','22','23'],material:'premium',style:'moissanite'},
+    {id:'noir',title:'Black ice',subtitle:'6 нижних · тёмное паве',teeth:['43','42','41','31','32','33'],material:'premium',style:'diamond',tone:'black'},
+    {id:'mixed',title:'Two tone',subtitle:'6 верхних · два металла',teeth:['13','12','11','21','22','23'],material:'yellow-gold',style:'polished',alternate:'white-gold'}
+  ];
+  function designDescription(t) {
+    const finish={mirror:'полировка',satin:'сатин',matte:'матовый'}[t.finish];
+    const tone={clear:'светлый',black:'чёрный',pink:'розовый',blue:'голубой'}[t.tone];
+    return [finish, t.style==='open-face'?'контур '+t.border:null,
+      t.style!=='polished'?'плотность '+t.density:null,
+      ['moissanite','diamond','diamond-dust'].includes(t.style)?'оттенок '+tone:null,
+      t.style==='laser'&&t.engraving?'гравировка '+t.engraving:null].filter(Boolean).join(', ');
+  }
+  function applyLook(id) {
+    const look=LOOKS.find(l=>l.id===id);if(!look)return;
+    ALL_TEETH.forEach(tid=>{
+      const index=look.teeth.indexOf(tid),fit=state.teeth[tid].fit;
+      state.teeth[tid]={...normalizeSpec({...DEFAULT_SPEC,...look,material:look.alternate&&index%2?look.alternate:look.material}),on:index>=0,fit};
+    });
+    state.scope='all';state.focus=look.teeth.includes('11')?'11':look.teeth[0];
+  }
+  function renderDesignUi() {
+    const root=byId('lookChoices');
+    if(root && !root.childElementCount) LOOKS.forEach(look=>{
+      const btn=document.createElement('button');btn.type='button';btn.className='look-card';btn.dataset.look=look.id;
+      const sample=window.GrillzDesign.surface(normalizeSpec({...DEFAULT_SPEC,...look}),true).color.toDataURL();
+      const swatch=document.createElement('span');swatch.className='look-sample';swatch.style.backgroundImage='url('+sample+')';swatch.setAttribute('aria-hidden','true');
+      const text=document.createElement('span');text.innerHTML='<strong>'+look.title+'</strong><small>'+look.subtitle+'</small>';
+      btn.append(swatch,text);btn.addEventListener('click',()=>{applyLook(look.id);commit();});root.append(btn);
+    });
+    const spec=focusedSpec();
+    ['density','finish','tone','border','engraving'].forEach(key=>{const el=byId('design-'+key);if(el && document.activeElement!==el)el.value=spec[key];});
+    byId('densityField')?.classList.toggle('is-hidden',['polished','open-face'].includes(spec.style));
+    byId('borderField')?.classList.toggle('is-hidden',spec.style!=='open-face');
+    byId('engravingField')?.classList.toggle('is-hidden',spec.style!=='laser');
+    byId('toneField')?.classList.toggle('is-hidden',!['moissanite','diamond','diamond-dust'].includes(spec.style));
+    byId('designEmpty').hidden=activeTeeth().length>0;
+  }
+  function bindDesignUi() {
+    ['density','finish','tone','border','engraving'].forEach(key=>{
+      byId('design-'+key)?.addEventListener('input',e=>{applySpec({[key]:e.target.value});commit();});
+    });
+    byId('btnFitMode')?.addEventListener('click',()=>{
+      state.tool=state.tool==='move'?'select':'move';commit();
+    });
+    const fitFields={fitX:'nx',fitY:'ny',fitWidth:'scaleX',fitHeight:'scaleY',fitRotate:'rot'};
+    Object.entries(fitFields).forEach(([id,key])=>byId(id)?.addEventListener('input',e=>{
+      if(!state.teeth[state.focus]?.on)return;
+      const value=Number(e.target.value),fit=state.teeth[state.focus].fit;
+      fit[key]=key==='rot'?value*Math.PI/180:value/100;
+      state.teeth[state.focus].fit=normalizeFit(fit,state.focus);
+      renderFitSliders();requestDraw();
+    }));
+    Object.keys(fitFields).forEach(id=>byId(id)?.addEventListener('change',()=>commit()));
+    byId('btnFitReset')?.addEventListener('click',()=>{
+      state.teeth[state.focus].fit=normalizeFit(state._detectedAnchors?.[state.focus]||defaultFit(state.focus),state.focus);commit();
+    });
+  }
 
   const money = new Intl.NumberFormat('ru-RU');
   const byId = (id) => document.getElementById(id);
@@ -156,8 +222,9 @@
   let state = createInitialState();
   let viewMode = 'layers'; // layers | model
   let toastTimer = null;
-  let needsDraw = true;
-  let animFrame = 0;
+  let renderRevision = 0;
+  let drawQueued = false;
+  const capCache = new Map();
   let hitMap = [];
   let pointer = {
     down: false,
@@ -177,6 +244,7 @@
   let mouthBg = null;
   let stockMouthBg = null;
   let customMouthObjectUrl = null;
+  let photoRequest = 0;
 
   function kindFor(id) {
     const n = id[1];
@@ -187,7 +255,7 @@
   }
 
   function matMeta(id) {
-    return prices.material[id] || FALLBACK_PRICES.material[id];
+    return Object.hasOwn(prices.material,id) ? prices.material[id] : (Object.hasOwn(FALLBACK_PRICES.material,id) ? FALLBACK_PRICES.material[id] : null);
   }
   function isGold(id) {
     return matMeta(id)?.family === 'gold';
@@ -205,7 +273,7 @@
   function normalizeSpec(spec) {
     const mat = matMeta(spec.material) ? spec.material : DEFAULT_SPEC.material;
     const styles = stylesFor(mat);
-    let style = styles[spec.style] ? spec.style : Object.keys(styles)[0];
+    let style = Object.hasOwn(styles,spec.style) ? spec.style : Object.keys(styles)[0];
     let purity = isGold(mat)
       ? (prices.purity[spec.purity] ? spec.purity : '14k')
       : 'none';
@@ -218,7 +286,13 @@
     } else {
       stones = 'none';
     }
-    return { material: mat, style, purity, stones };
+    return { material: mat, style, purity, stones,
+      density: Math.round(finiteClamp(spec.density, 1, 5, 3)),
+      border: Math.round(finiteClamp(spec.border, 1, 5, 3)),
+      finish: ['mirror','satin','matte'].includes(spec.finish) ? spec.finish : 'mirror',
+      tone: ['clear','black','pink','blue'].includes(spec.tone) ? spec.tone : 'clear',
+      engraving: String(spec.engraving || '').toUpperCase().replace(/[^A-ZА-ЯЁ0-9]/g,'').slice(0,3)
+    };
   }
 
   function toothPrice(spec) {
@@ -247,24 +321,22 @@
     return { nx: a.nx, ny: a.ny, scaleX: sx, scaleY: sy, rot: a.rot || 0 };
   }
 
+  function finiteClamp(value, min, max, fallback) {
+    const n=Number(value); return Number.isFinite(n) ? Math.max(min, Math.min(max,n)) : fallback;
+  }
   function normalizeFit(raw, id) {
-    const d = defaultFit(id);
-    if (!raw || typeof raw !== 'object') return { ...d };
-    const sx = Number(raw.scaleX ?? raw.scale ?? d.scaleX);
-    const sy = Number(raw.scaleY ?? raw.scale ?? d.scaleY);
-    return {
-      nx: clamp01(Number(raw.nx) || d.nx),
-      ny: clamp01(Number(raw.ny) || d.ny),
-      scaleX: Math.max(0.025, Math.min(0.28, sx || d.scaleX)),
-      scaleY: Math.max(0.025, Math.min(0.28, sy || d.scaleY)),
-      rot: Number(raw.rot) || 0
-    };
+    const d=defaultFit(id);
+    if(!raw || typeof raw!=='object') return {...d};
+    return {nx:finiteClamp(raw.nx,0,1,d.nx),ny:finiteClamp(raw.ny,0,1,d.ny),
+      scaleX:finiteClamp(raw.scaleX ?? raw.scale,.012,.4,d.scaleX),
+      scaleY:finiteClamp(raw.scaleY ?? raw.scale,.012,.5,d.scaleY),
+      rot:finiteClamp(raw.rot,-Math.PI/2,Math.PI/2,0)};
   }
 
   function defaultTooth(id, overrides = {}) {
     const spec = normalizeSpec({ ...DEFAULT_SPEC, ...overrides });
     return {
-      on: false,
+      on: !!overrides.on,
       ...spec,
       fit: { ...defaultFit(id), ...(overrides.fit || {}) }
     };
@@ -276,9 +348,9 @@
     teeth['11'] = defaultTooth('11', { on: true });
     teeth['21'] = defaultTooth('21', { on: true });
     return {
-      version: 2,
+      version: 3,
       mould: 'studio',
-      scope: 'focus',
+      scope: 'all',
       focus: '11',
       tool: 'select', // select | move | scale | scaleX | scaleY | rotate
       view: { yaw: 0, pitch: 0 },
@@ -335,16 +407,22 @@
 
   /* ---------- persistence ---------- */
   function save() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) { /* */ }
+    try {
+      const persisted = JSON.parse(JSON.stringify(state));
+      // A photo is session-only; never reload its coordinates onto somebody else's stock smile.
+      if (persisted.customPhoto) ALL_TEETH.forEach(id => {persisted.teeth[id].fit=defaultFit(id);});
+      persisted.customPhoto=false; persisted.photoZoom=1; delete persisted._detectedAnchors;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(persisted));
+    } catch (_) { /* storage may be unavailable */ }
     syncHash();
   }
 
   function loadLocal() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('gc_grillz_studio_v2');
       if (!raw) return false;
       const data = JSON.parse(raw);
-      if (!data || (data.version !== 1 && data.version !== 2) || !data.teeth) return false;
+      if (!data || ![1,2,3].includes(data.version) || !data.teeth) return false;
       applyStateData(data);
       return true;
     } catch {
@@ -358,15 +436,15 @@
     next.scope = data.scope === 'all' ? 'all' : 'focus';
     next.focus = ALL_TEETH.includes(data.focus) ? data.focus : '11';
     next.tool = ['select', 'move', 'scale', 'rotate'].includes(data.tool) ? data.tool : 'select';
-    next.customPhoto = !!data.customPhoto;
+    next.customPhoto = false;
     if (data.view) {
-      next.view.yaw = Number(data.view.yaw) || 0;
-      next.view.pitch = Number(data.view.pitch) || 0;
+      next.view.yaw = finiteClamp(data.view.yaw,-1,1,0);
+      next.view.pitch = finiteClamp(data.view.pitch,-1,1,0);
     }
     ALL_TEETH.forEach((id) => {
       const t = data.teeth?.[id];
-      if (!t) return;
-      next.teeth[id] = { ...normalizeSpec(t), on: !!t.on, fit: normalizeFit(t.fit, id) };
+      if (!t) {next.teeth[id].on=false;return;}
+      next.teeth[id] = { ...normalizeSpec(t), on: !!t.on, fit: data.version === 3 && !data.customPhoto ? normalizeFit(t.fit, id) : defaultFit(id) };
     });
     if (typeof data.photoZoom === 'number') {
       next.photoZoom = Math.max(0.5, Math.min(3, data.photoZoom));
@@ -397,31 +475,33 @@
   const STN_FROM = { n: 'none', s: 'si', v: 'vs', x: 'vvs' };
 
   function encodeHash() {
-    const teeth = activeTeeth().map((id) => {
-      const t = normalizeSpec(state.teeth[id]);
-      return (
-        id +
-        (MAT_CODE[t.material] || 'yg') +
-        (STY_CODE[t.style] || 'pol') +
-        (PUR_CODE[t.purity] || 'n') +
-        (STN_CODE[t.stones] || 'n')
-      );
-    }).join('_');
-    const yaw = Math.round(state.view.yaw * 100);
-    const pitch = Math.round(state.view.pitch * 100);
-    return [
-      HASH_PREFIX,
-      state.mould,
-      state.scope === 'all' ? 'a' : 'f',
-      state.focus || '11',
-      yaw,
-      pitch,
-      teeth || '-'
-    ].join('.');
+    // Share design only, never a personal photo or its coordinates.
+    const design={v:3,m:state.mould,s:state.scope,f:state.focus,t:activeTeeth().map(id=>{
+      const t=normalizeSpec(state.teeth[id]);
+      return [id,t.material,t.style,t.purity,t.stones,t.finish,t.density,t.tone,t.border,t.engraving];
+    })};
+    const bytes=new TextEncoder().encode(JSON.stringify(design));
+    return HASH_PREFIX+'.'+btoa(String.fromCharCode(...bytes)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
   }
 
   function decodeHash(hash) {
     const raw = (hash || '').replace(/^#/, '');
+    if (raw.startsWith('gc3.')) {
+      if(raw.length>18000) return false;
+      try {
+        const str=atob(raw.slice(4).replace(/-/g,'+').replace(/_/g,'/'));
+        const data=JSON.parse(new TextDecoder().decode(Uint8Array.from(str,c=>c.charCodeAt(0))));
+        if(data.v!==3 || !Array.isArray(data.t) || data.t.length>20) return false;
+        const teeth={};
+        for(const row of data.t) {
+          if(!Array.isArray(row) || !ALL_TEETH.includes(row[0])) return false;
+          const [id,material,style,purity,stones,finish,density,tone,border,engraving]=row;
+          teeth[id]={on:true,material,style,purity,stones,finish,density,tone,border,engraving};
+        }
+        applyStateData({version:3,mould:data.m,scope:data.s,focus:data.f,teeth});
+        return true;
+      } catch { return false; }
+    }
     if (!raw.startsWith('gc1.') && !raw.startsWith('gc2.')) return false;
     const parts = raw.split('.');
     if (parts.length < 7) return false;
@@ -478,7 +558,7 @@
       const style = styleMeta(t.material, t.style)?.title || t.style;
       const purity = isGold(t.material) ? (prices.purity[t.purity]?.title || '') : '—';
       const stones = prices.stones[t.stones]?.title || '—';
-      return `${id}: ${mat} · ${style} · ${purity} · ${stones} → ${money.format(p)} ₽`;
+      return `${id}: ${mat} · ${style} · ${purity} · ${stones} · ${designDescription(t)} → ${money.format(p)} ₽`;
     });
     const disc = setDiscount(teeth.length);
     const afterDisc = Math.round(teethTotal * (1 - disc / 100));
@@ -500,7 +580,7 @@
         (disc ? `Скидка за сет: −${disc}%\n` : '') +
         `Прайс GC: ${money.format(total)} ₽\n` +
         `Share: ${shareUrl()}\n` +
-        `*не оферта; финал после слепка/веса`
+        `*не оферта; оттенок, гравировка и параметры узора согласуются с мастером; финал после слепка/веса`
     };
   }
 
@@ -511,7 +591,9 @@
       material: partial.material ?? cur.material,
       style: partial.style ?? cur.style,
       purity: partial.purity ?? cur.purity,
-      stones: partial.stones ?? cur.stones
+      stones: partial.stones ?? cur.stones,
+      density: partial.density ?? cur.density, finish: partial.finish ?? cur.finish,
+      tone: partial.tone ?? cur.tone, border: partial.border ?? cur.border, engraving: partial.engraving ?? cur.engraving
     });
     state.teeth[id] = { ...next, on: cur.on, fit: cur.fit ? { ...cur.fit } : defaultFit(id) };
   }
@@ -630,10 +712,12 @@
     const allBtn = byId('scopeAll');
     if (focusBtn) {
       focusBtn.classList.toggle('is-active', state.scope === 'focus');
+      focusBtn.setAttribute('aria-pressed',String(state.scope==='focus'));
       focusBtn.onclick = () => { state.scope = 'focus'; commit(); };
     }
     if (allBtn) {
       allBtn.classList.toggle('is-active', state.scope === 'all');
+      allBtn.setAttribute('aria-pressed',String(state.scope==='all'));
       allBtn.onclick = () => { state.scope = 'all'; commit(); };
     }
   }
@@ -669,7 +753,10 @@
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'style-card' + (spec.style === id ? ' is-active' : '');
-      btn.innerHTML = `<strong>${s.title}</strong><span>${s.price ? `+${money.format(s.price)} ₽` : 'в базе металла'}</span>`;
+      const thumb=document.createElement('span');thumb.className='style-sample';thumb.setAttribute('aria-hidden','true');
+      thumb.style.backgroundImage='url('+window.GrillzDesign.surface({...spec,style:id},true).color.toDataURL()+')';
+      const label=document.createElement('span');label.innerHTML='<strong>'+s.title+'</strong><small>'+(s.price?'+'+money.format(s.price)+' ₽':'в базе металла')+'</small>';
+      btn.append(thumb,label);
       btn.addEventListener('click', () => { applySpec({ style: id }); commit(); });
       root.appendChild(btn);
     });
@@ -719,8 +806,10 @@
     const root = byId('studioSummary');
     if (!root) return;
     const q = buildQuote();
+    byId('stageQuote').textContent=q.teeth.length+' зуб. · '+money.format(q.total)+' ₽*';
+    byId('btnSendOrder').disabled = !q.teeth.length;
     root.innerHTML = `
-      <h3>Прайс GC</h3>
+      <h3>Ориентировочная стоимость</h3>
       <div class="sum-grid">
         <div>Слепок: <strong>${q.mouldTitle}</strong>${q.mouldPrice ? ` (+${money.format(q.mouldPrice)} ₽)` : ''}</div>
         <div>Зубов: <strong>${q.teeth.length}</strong>${q.disc ? ` · скидка сета −${q.disc}%` : ''}</div>
@@ -741,14 +830,17 @@
     renderPurity();
     renderStones();
     renderSummary();
-    needsDraw = true;
+    renderDesignUi();
+    document.querySelectorAll('#studioForm button').forEach(btn=>{if(!btn.hasAttribute('aria-pressed') && /choice|swatch|style|pill|scope/.test(btn.className))btn.setAttribute('aria-pressed',String(btn.classList.contains('is-active')));});
+    requestDraw();
     updateModelMaterials();
   }
 
   function commit() {
-    save();
-    renderAllUi();
-    renderFitSliders();
+    // Rebuilt option groups retain keyboard focus.
+    const active=document.activeElement,group=active?.parentElement?.id,index=active?.parentElement ? [...active.parentElement.children].indexOf(active) : -1;
+    save();renderAllUi();renderFitSliders();
+    if(active && !active.isConnected && group && index>=0) byId(group)?.children[index]?.focus({preventScroll:true});
   }
 
   /* ---------- image loading ---------- */
@@ -773,181 +865,84 @@
     ]);
   }
 
-  /* ---------- Independent per-tooth fit layout ---------- */
-  function layoutTooth(id, W, H) {
-    // Stock preview always uses the calibrated anatomical map. Uploaded photos use detector anchors.
-    const fit = state.customPhoto && state._detectedAnchors?.[id]
-      ? normalizeFit(state._detectedAnchors[id], id)
-      : defaultFit(id);
-    const isUpper = UPPER.includes(id);
-    const { ox, oy, dw, dh } = canvasSpace;
-    const x = ox + fit.nx * dw;
-    const y = oy + fit.ny * dh;
-    const base = Math.min(dw, dh);
-    const scaleX = fit.scaleX * base;
-    const scaleY = fit.scaleY * base;
-    return { id, x, y, rot: fit.rot, scaleX, scaleY, upper: isUpper, fit };
+  /* ---------- Anchored, on-demand preview ---------- */
+  function layoutTooth(id) {
+    const fit=normalizeFit(state.teeth[id].fit,id);
+    const {ox,oy,dw,dh}=canvasSpace;
+    return {id,x:ox+fit.nx*dw,y:oy+fit.ny*dh,rot:fit.rot,
+      scaleX:fit.scaleX*dw,scaleY:fit.scaleY*dh,upper:UPPER.includes(id),fit};
   }
-
-  function pieceSrc(id, toothState) {
-    if (!toothState.on) return null;
-    const style = toothState.style || 'polished';
-    const mat = toothState.material || 'yellow-gold';
-    const index = PIECE_INDEX[id] ?? 2;
-    return ASSET.piece(mat, style, index);
-  }
-
-  function drawToothCap(ctx, layout, toothState, images) {
-    const { id, x, y, rot, scaleX, scaleY, upper } = layout;
-    const on = toothState.on;
-    const hitR = Math.max(16, Math.max(scaleX, scaleY) * 0.55);
-    hitMap.push({ id, x, y, r: hitR });
-
-    if (!on) {
-      // subtle empty target — no number labels
-      ctx.save();
-      ctx.strokeStyle = state.focus === id ? 'rgba(126,224,255,0.5)' : 'rgba(255,255,255,0.14)';
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([3, 3]);
-      ctx.beginPath();
-      ctx.ellipse(x, y, scaleX * 0.32, scaleY * 0.4, rot, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.restore();
-      return;
-    }
-
-    const src = pieceSrc(id, toothState);
-    let img = src ? images.get(src) : null;
-    if (!img) {
-      img = images.get(ASSET.piece(toothState.material, 'polished', PIECE_INDEX[id] ?? 2))
-        || images.get(ASSET.teeth(kindFor(id), toothState.material));
-    }
-    const sx = scaleX * 1.35;
-    const sy = scaleY * 1.35;
-
-    ctx.save();
-    ctx.translate(x + 1.5, y + scaleY * 0.06);
-    ctx.rotate(rot);
-    ctx.fillStyle = 'rgba(0,0,0,0.32)';
-    ctx.beginPath();
-    ctx.ellipse(0, sy * 0.22, sx * 0.26, sy * 0.07, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(rot);
-    if (!upper) ctx.scale(1, -1);
-    if (img) {
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      const crop = PIECE_CROP[PIECE_INDEX[id] ?? 2];
-      const sourceX = crop[0] * img.naturalWidth;
-      const sourceY = crop[1] * img.naturalHeight;
-      const sourceW = crop[2] * img.naturalWidth;
-      const sourceH = crop[3] * img.naturalHeight;
-      ctx.drawImage(img, sourceX, sourceY, sourceW, sourceH, -sx / 2, -sy * 0.52, sx, sy);
+  function pieceSrc(id,t) { return t.on ? ASSET.piece(t.material,'polished',PIECE_INDEX[id] ?? 2) : null; }
+  function capImage(id,t,images) {
+    const src=pieceSrc(id,t),img=images.get(src);
+    const key=window.GrillzDesign.key(t,true)+'|'+(PIECE_INDEX[id]??2);
+    if(capCache.has(key)) return capCache.get(key);
+    const c=Object.assign(document.createElement('canvas'),{width:256,height:256}),cx=c.getContext('2d');
+    const surface=window.GrillzDesign.surface(t,true);
+    if(t.style==='polished' && t.finish==='mirror' && img) {
+      const [x,y,w,h]=PIECE_CROP[PIECE_INDEX[id]??2];
+      cx.drawImage(img,x*img.naturalWidth,y*img.naturalHeight,w*img.naturalWidth,h*img.naturalHeight,0,0,256,256);
     } else {
-      ctx.fillStyle = '#d4a017';
-      ctx.beginPath();
-      ctx.ellipse(0, 0, sx * 0.28, sy * 0.4, 0, 0, Math.PI * 2);
-      ctx.fill();
+      cx.drawImage(surface.color,0,0);
+      if(img) {
+        const [x,y,w,h]=PIECE_CROP[PIECE_INDEX[id]??2];
+        cx.globalCompositeOperation='destination-in';
+        cx.drawImage(img,x*img.naturalWidth,y*img.naturalHeight,w*img.naturalWidth,h*img.naturalHeight,0,0,256,256);
+      }
     }
-    if (state.focus === id) {
-      ctx.strokeStyle = 'rgba(126,224,255,0.95)';
-      ctx.lineWidth = Math.max(2, Math.min(sx, sy) * 0.03);
-      ctx.setLineDash([5, 4]);
-      ctx.beginPath();
-      ctx.ellipse(0, 0, sx * 0.34, sy * 0.44, 0, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.setLineDash([]);
-      // handles: top = height, right = width
-      ctx.fillStyle = '#7ee0ff';
-      ctx.beginPath();
-      ctx.arc(0, -sy * 0.48, 5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(sx * 0.38, 0, 5, 0, Math.PI * 2);
-      ctx.fill();
+    capCache.set(key,c); if(capCache.size>100) capCache.delete(capCache.keys().next().value);
+    return c;
+  }
+  function drawToothCap(ctx,L,t,images,clean) {
+    const {id,x,y,rot,scaleX:w,scaleY:h,upper}=L;
+    hitMap.push({id,x,y,w,h,rot});
+    ctx.save();ctx.translate(x,y);ctx.rotate(rot);
+    if(t.on) {
+      if(!upper) ctx.scale(1,-1);
+      ctx.drawImage(capImage(id,t,images),-w/2,-h/2,w,h);
+      if(!upper) ctx.scale(1,-1);
+    }
+    if(!clean && state.tool==='move' && state.focus===id && t.on) {
+      ctx.strokeStyle='#7ee0ff';ctx.lineWidth=2;ctx.setLineDash([4,3]);ctx.strokeRect(-w/2,-h/2,w,h);
     }
     ctx.restore();
   }
-
   async function resolveImages() {
-    const map = new Map();
-    const srcs = new Set();
-    ALL_TEETH.forEach((id) => {
-      const t = state.teeth[id];
-      if (!t.on) return;
-      srcs.add(pieceSrc(id, t));
-      srcs.add(ASSET.piece(t.material, 'polished', PIECE_INDEX[id] ?? 2));
-      srcs.add(ASSET.teeth(kindFor(id), t.material));
-    });
-    await Promise.all([...srcs].map(async (s) => {
-      if (!s) return;
-      map.set(s, await loadImage(s));
-    }));
+    const map=new Map(),srcs=new Set(activeTeeth().map(id=>pieceSrc(id,state.teeth[id])));
+    await Promise.all([...srcs].map(async src=>map.set(src,await loadImage(src))));
     return map;
   }
-
-  function updateCanvasSpace(W, H) {
-    if (!mouthBg) {
-      canvasSpace = { W, H, ox: 0, oy: 0, dw: W, dh: H };
-      return;
-    }
-    const iw = mouthBg.naturalWidth || mouthBg.width || W;
-    const ih = mouthBg.naturalHeight || mouthBg.height || H;
-    // base cover scale, then user photoZoom (slider only; never from wheel)
-    const cover = Math.max(W / iw, H / ih);
-    const zoom = state.customPhoto ? (state.photoZoom || 1) : 1;
-    const scale = cover * zoom;
-    const dw = iw * scale;
-    const dh = ih * scale;
-    canvasSpace = { W, H, ox: (W - dw) / 2, oy: (H - dh) / 2, dw, dh };
+  function updateCanvasSpace(W,H) {
+    const iw=mouthBg?.naturalWidth||1200,ih=mouthBg?.naturalHeight||900;
+    // contain keeps every tooth visible on portrait uploads; zoom follows photo + fitted caps together.
+    const scale=Math.min(W/iw,H/ih)*(state.customPhoto ? state.photoZoom : 1);
+    const dw=iw*scale,dh=ih*scale;
+    canvasSpace={W,H,ox:(W-dw)/2,oy:(H-dh)/2,dw,dh};
   }
-
-  async function drawScene() {
-    const c = byId('mouthCanvas');
-    if (!c || viewMode !== 'layers') return;
-    const ctx = c.getContext('2d');
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const cssW = c.clientWidth || 960;
-    const cssH = Math.round(cssW * 0.75);
-    const w = Math.round(cssW * dpr);
-    const h = Math.round(cssH * dpr);
-    if (c.width !== w || c.height !== h) {
-      c.width = w;
-      c.height = h;
-    }
-    c.style.height = cssH + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const W = cssW;
-    const H = cssH;
-    updateCanvasSpace(W, H);
-
-    if (mouthBg) {
-      ctx.drawImage(mouthBg, canvasSpace.ox, canvasSpace.oy, canvasSpace.dw, canvasSpace.dh);
-      ctx.fillStyle = 'rgba(0,0,0,0.10)';
-      ctx.fillRect(0, 0, W, H);
-    } else {
-      ctx.fillStyle = '#0a0406';
-      ctx.fillRect(0, 0, W, H);
-    }
-
-    hitMap = [];
-    const images = await resolveImages();
-    // draw each FDI independently — no shared bridge geometry
-    ALL_TEETH.forEach((id) => {
-      const L = layoutTooth(id, W, H);
-      drawToothCap(ctx, L, state.teeth[id], images);
+  async function drawScene({clean=false}={}) {
+    const c=byId('mouthCanvas');
+    if(!c || viewMode!=='layers') return;
+    const version=renderRevision,images=await resolveImages();
+    if(version!==renderRevision && !clean) return;
+    const ctx=c.getContext('2d'),dpr=Math.min(window.devicePixelRatio||1,2),W=c.clientWidth||960;
+    const H=Math.round(window.innerWidth<=540 ? Math.min(W*.75,window.innerHeight*.27) : W*.75);
+    if(c.width!==Math.round(W*dpr)||c.height!==Math.round(H*dpr)) {c.width=Math.round(W*dpr);c.height=Math.round(H*dpr);}
+    c.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
+    updateCanvasSpace(W,H);ctx.fillStyle='#0b0b0d';ctx.fillRect(0,0,W,H);
+    if(mouthBg) ctx.drawImage(mouthBg,canvasSpace.ox,canvasSpace.oy,canvasSpace.dw,canvasSpace.dh);
+    hitMap=[];
+    ALL_TEETH.forEach(id=>drawToothCap(ctx,layoutTooth(id),state.teeth[id],images,clean));
+  }
+  function requestDraw() {
+    renderRevision++;
+    if(drawQueued) return;
+    drawQueued=true;
+    requestAnimationFrame(async()=>{
+      const version=renderRevision;
+      try { if(viewMode==='layers') await drawScene(); }
+      catch(error) { console.warn('Preview unavailable',error);toast('Не удалось обновить превью'); }
+      finally { drawQueued=false; if(version!==renderRevision) requestDraw(); }
     });
-
-    needsDraw = false;
-  }
-
-  function loop() {
-    if (needsDraw && viewMode === 'layers') drawScene();
-    animFrame = requestAnimationFrame(loop);
   }
 
   function clientToCanvas(clientX, clientY) {
@@ -970,75 +965,72 @@
     };
   }
 
-  function hitTest(clientX, clientY) {
-    const { x, y } = clientToCanvas(clientX, clientY);
-    let best = null;
-    let bestD = Infinity;
-    // prefer focused if close
-    hitMap.forEach((h) => {
-      const d = Math.hypot(x - h.x, y - h.y);
-      const bonus = h.id === state.focus ? -8 : 0;
-      if (d < h.r && d + bonus < bestD) {
-        bestD = d + bonus;
-        best = h.id;
-      }
-    });
-    return best;
+  function hitTest(clientX,clientY) {
+    const p=clientToCanvas(clientX,clientY);
+    let best=null,bestD=Infinity;
+    hitMap.forEach(h=>{
+      const dx=p.x-h.x,dy=p.y-h.y,co=Math.cos(-h.rot),si=Math.sin(-h.rot);
+      const x=dx*co-dy*si,y=dx*si+dy*co;
+      const score=Math.hypot(x/(h.w/2),y/(h.h/2));
+      if(Math.abs(x)<h.w*.55 && Math.abs(y)<h.h*.55 && score<bestD) {best=h.id;bestD=score;}
+    });return best;
   }
-
   function bindCanvas() {
-    const vp = byId('stageViewport');
-    if (!vp) return;
-
-    const onDown = (e) => {
-      if (viewMode !== 'layers') return;
-      const pt = e.touches ? e.touches[0] : e;
-      pointer.down = true;
-      pointer.moved = false;
-      pointer.x = pt.clientX;
-      pointer.y = pt.clientY;
-    };
-
-    const onMove = (e) => {
-      if (!pointer.down || viewMode !== 'layers') return;
-      const pt = e.touches ? e.touches[0] : e;
-      if (Math.hypot(pt.clientX - pointer.x, pt.clientY - pointer.y) > 8) pointer.moved = true;
-    };
-
-    const onUp = (e) => {
-      if (!pointer.down) return;
-      pointer.down = false;
-      vp.classList.remove('is-dragging');
-      if (viewMode !== 'layers') return;
-
-      if (!pointer.moved) {
-        const pt = e.changedTouches ? e.changedTouches[0] : e;
-        const id = hitTest(pt.clientX, pt.clientY);
-        if (id) {
-          if (state.focus === id && state.teeth[id].on) {
-            toggleTooth(id);
-          } else if (!state.teeth[id].on) {
-            setToothOn(id, true);
-          } else {
-            state.focus = id;
-          }
-          commit();
-          window.GrillzAnalytics?.track('constructor_tooth', { id, on: state.teeth[id].on });
-        }
+    const canvas=byId('mouthCanvas');
+    if(!canvas) return;
+    canvas.addEventListener('pointerdown',e=>{
+      if(viewMode!=='layers') return;
+      const id=hitTest(e.clientX,e.clientY);
+      pointer={down:true,x:e.clientX,y:e.clientY,moved:false,grabId:id,startFit:id?{...state.teeth[id].fit}:null};
+      if(state.tool==='move' && id && state.teeth[id].on) {state.focus=id;canvas.setPointerCapture(e.pointerId);renderFitSliders();requestDraw();}
+    });
+    canvas.addEventListener('pointermove',e=>{
+      if(!pointer.down) return;
+      const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;
+      if(Math.hypot(dx,dy)>4) pointer.moved=true;
+      if(state.tool!=='move' || !pointer.grabId || !state.teeth[pointer.grabId].on) return;
+      const a=clientToCanvas(pointer.x,pointer.y),b=clientToCanvas(e.clientX,e.clientY);
+      state.teeth[pointer.grabId].fit=normalizeFit({...pointer.startFit,
+        nx:pointer.startFit.nx+(b.x-a.x)/canvasSpace.dw,
+        ny:pointer.startFit.ny+(b.y-a.y)/canvasSpace.dh},pointer.grabId);
+      renderFitSliders();requestDraw();
+    });
+    const end=e=>{
+      if(!pointer.down) return;pointer.down=false;
+      if(canvas.hasPointerCapture(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
+      if(!pointer.moved && pointer.grabId) {
+        const id=pointer.grabId;
+        // Selecting an existing cap never removes it by accident. Explicit FDI toggle removes it.
+        if(!state.teeth[id].on) setToothOn(id,true);
+        state.focus=id;
       }
+      commit();
     };
-
-    vp.addEventListener('mousedown', onDown);
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    vp.addEventListener('touchstart', onDown, { passive: true });
-    vp.addEventListener('touchmove', onMove, { passive: true });
-    vp.addEventListener('touchend', onUp);
-    window.addEventListener('resize', () => { needsDraw = true; });
+    canvas.addEventListener('pointerup',end);
+    canvas.addEventListener('pointercancel',e=>{pointer.down=false;if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);save();});
+    canvas.addEventListener('pointerleave',()=>{if(state.tool!=='move')pointer.down=false;});
+    canvas.addEventListener('keydown',e=>{
+      if(state.tool!=='move'||!state.teeth[state.focus]?.on || !['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)) return;
+      e.preventDefault();const fit=state.teeth[state.focus].fit,step=e.shiftKey?.01:.002;
+      if(e.key==='ArrowLeft')fit.nx-=step;if(e.key==='ArrowRight')fit.nx+=step;
+      if(e.key==='ArrowUp')fit.ny-=step;if(e.key==='ArrowDown')fit.ny+=step;
+      state.teeth[state.focus].fit=normalizeFit(fit,state.focus);commit();
+    });
+    new ResizeObserver(requestDraw).observe(canvas);
+    window.addEventListener('resize',requestDraw);
   }
 
   /* ---------- fit UI ---------- */
   function renderFitSliders() {
+    const fit=normalizeFit(state.teeth[state.focus]?.fit,state.focus),editing=state.tool==='move',enabled=!!state.teeth[state.focus]?.on;
+    byId('fitControls').hidden=!editing||viewMode!=='layers';
+    byId('btnFitMode').setAttribute('aria-pressed',String(editing));
+    byId('btnFitMode').disabled=viewMode!=='layers';
+    byId('mouthCanvas').style.touchAction=editing?'none':'pan-y';
+    byId('fitFocusLabel').textContent=state.focus;
+    const values={fitX:fit.nx*100,fitY:fit.ny*100,fitWidth:fit.scaleX*100,fitHeight:fit.scaleY*100,fitRotate:fit.rot*180/Math.PI};
+    Object.entries(values).forEach(([id,v])=>{byId(id).value=v.toFixed(1);byId(id).disabled=!enabled;byId(id+'Val').textContent=v.toFixed(1)+(id==='fitRotate'?'°':'%');});
+    byId('stageHint').textContent=viewMode==='model'?'Вращайте модель. Зубы и дизайн меняются через панель параметров.':editing?'Перетащите активную накладку. Размер и поворот — ниже. Стрелки клавиатуры также меняют посадку.':'Нажмите на зуб для выбора. Убрать накладку можно кнопкой с номером зуба.';
     const pz = byId('photoZoom');
     const pzVal = byId('photoZoomVal');
     const pzBlock = byId('blockPhotoZoom');
@@ -1053,7 +1045,7 @@
       if (!state.customPhoto) return;
       state.photoZoom = Math.max(0.5, Math.min(3, Number(pz.value) / 100));
       renderFitSliders();
-      needsDraw = true;
+      requestDraw();
     });
     pz?.addEventListener('change', () => save());
     byId('btnPhotoZoomLock')?.addEventListener('click', () => {
@@ -1070,41 +1062,46 @@
     input?.addEventListener('change', async () => {
       const file = input.files?.[0];
       if (!file) return;
+      if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>10*1024*1024) {
+        status.textContent='Выберите JPG, PNG или WebP не больше 10 МБ.';input.value='';return;
+      }
+      const request=++photoRequest;
       if (status) status.textContent = 'Загрузка и анализ лица…';
       try {
-        if (customMouthObjectUrl) URL.revokeObjectURL(customMouthObjectUrl);
+        if (customMouthObjectUrl) { imgCache.delete(customMouthObjectUrl);URL.revokeObjectURL(customMouthObjectUrl); }
         customMouthObjectUrl = URL.createObjectURL(file);
         const img = await loadImage(customMouthObjectUrl);
-        if (!img) throw new Error('bad image');
+        if (!img || img.naturalWidth*img.naturalHeight>24000000) throw new Error('bad or oversized image');
+        if(request!==photoRequest)return;
         mouthBg = img;
         state.customPhoto = true;
         state.photoZoom = 1;
+        ALL_TEETH.forEach(id=>state.teeth[id].fit=defaultFit(id));
+        requestDraw();
 
         let result = null;
         if (window.GrillzMouthDetect?.detectToothAnchors) {
-          if (status) status.textContent = 'MediaPipe: ищем рот и слоты зубов…';
-          // warm model
-          await window.GrillzMouthDetect.ensureLandmarker?.().catch(() => null);
-          result = await window.GrillzMouthDetect.detectToothAnchors(img);
+          if (status) status.textContent = 'Определяем область рта. Затем уточните сетку вручную…';
+          let timer;
+          try { result=await Promise.race([
+            window.GrillzMouthDetect.detectToothAnchors(img),
+            new Promise(resolve=>{timer=setTimeout(()=>resolve(null),15000);})
+          ]); } finally {clearTimeout(timer);}
         } else {
           result = window.GrillzMouthDetect?.fallbackAnchors?.() || null;
         }
 
+        if(request!==photoRequest)return;
         if (result?.anchors) {
           state._detectedAnchors = result.anchors;
-          applyAnchorsMap(result.anchors, { enableDetected: true });
-          // keep material defaults; turn on front 6 if detection weak
-          if (result.fallback || result.confidence < 0.5) {
-            ['13', '12', '11', '21', '22', '23'].forEach((id) => {
-              state.teeth[id].on = true;
-            });
-          }
+          applyAnchorsMap(result.anchors);
+          if(!activeTeeth().length) applyPreset('front6');
           if (status) {
             status.textContent = result.fallback
               ? 'Лицо не найдено — сетка по центру кадра. Подкрутите капы вручную.'
-              : `Готово (уверенность ~${Math.round((result.confidence || 0) * 100)}%). Каждая капа независима — сдвиньте при необходимости.`;
+              : 'Область рта найдена. Это приблизительная сетка: проверьте каждый зуб и поправьте посадку.';
           }
-          toast('Фото применено · капы расставлены');
+          toast('Фото применено · проверьте посадку');
           window.GrillzAnalytics?.track('constructor_photo_detect', {
             confidence: result.confidence || 0,
             fallback: !!result.fallback
@@ -1113,9 +1110,11 @@
           if (status) status.textContent = 'Фото загружено. Расставьте капы вручную.';
         }
         state.focus = activeTeeth()[0] || '11';
+        state.tool='move';
         commit();
         renderFitSliders();
       } catch (err) {
+        if(request!==photoRequest)return;
         console.warn(err);
         if (status) status.textContent = 'Не удалось обработать фото. Попробуйте другое фронтальное изображение улыбки.';
         toast('Ошибка загрузки фото');
@@ -1124,7 +1123,9 @@
     });
 
     byId('btnResetPhoto')?.addEventListener('click', () => {
+      photoRequest++;
       if (customMouthObjectUrl) {
+        imgCache.delete(customMouthObjectUrl);
         URL.revokeObjectURL(customMouthObjectUrl);
         customMouthObjectUrl = null;
       }
@@ -1136,7 +1137,7 @@
         state.teeth[id].fit = defaultFit(id);
       });
       if (status) {
-        status.textContent = 'Сток-улыбка. Загрузите фронтальное фото — MediaPipe оценит зубы, вы подкрутите каждую капу.';
+        status.textContent = 'Исходная улыбка. Фото обрабатывается только в браузере. Автоматическая сетка приблизительна; доступна ручная посадка.';
       }
       commit();
       renderFitSliders();
@@ -1165,53 +1166,68 @@
     }
     b2?.classList.toggle('is-active', viewMode === 'layers');
     b3?.classList.toggle('is-active', viewMode === 'model');
-    if (viewMode === 'layers') needsDraw = true;
-    else updateModelMaterials();
+    b2?.setAttribute('aria-pressed',String(viewMode==='layers'));
+    b3?.setAttribute('aria-pressed',String(viewMode==='model'));
+    renderFitSliders();
+    if (viewMode === 'layers') requestDraw();
+    else {
+      byId('modelStatus').textContent='Загрузка 3D…';
+      loadModelViewer().then(()=>{byId('grillzModel').src='assets/studio/models/gc-design-dental-arch.glb';updateModelMaterials();})
+        .catch(()=>{byId('modelStatus').textContent='3D недоступно. 2D и расчёт продолжают работать.';});
+    }
   }
 
-  function updateModelMaterials() {
-    const mv = byId('grillzModel');
-    if (!mv || viewMode !== 'model') return;
-    const apply = () => {
-      try {
-        const model = mv.model;
-        if (!model) return;
-        const materials = Array.from(model.materials || []);
-        const enamel = materials.find((material) => material.name === 'anatomical-enamel') || materials[0];
-        if (enamel?.pbrMetallicRoughness) {
-          enamel.pbrMetallicRoughness.setBaseColorFactor([0.93, 0.91, 0.84, 1]);
-          enamel.pbrMetallicRoughness.setMetallicFactor(0);
-          enamel.pbrMetallicRoughness.setRoughnessFactor(0.34);
+  let modelLoader=null, modelRevision=0;
+  const modelSurfaces=new Map();
+  function loadModelViewer() {
+    if(customElements.get('model-viewer')) return Promise.resolve();
+    if(modelLoader) return modelLoader;
+    modelLoader=new Promise((resolve,reject)=>{
+      const script=document.createElement('script');script.type='module';
+      script.src='https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js';
+      script.onload=()=>customElements.whenDefined('model-viewer').then(resolve);
+      script.onerror=()=>{script.remove();modelLoader=null;reject(Error('model-viewer unavailable'));};
+      document.head.append(script);
+    });
+    return modelLoader;
+  }
+  async function updateModelMaterials() {
+    const mv=byId('grillzModel');
+    if(!mv?.model || viewMode!=='model') return;
+    const version=++modelRevision,materials=Array.from(mv.model.materials||[]);
+    const enamel=materials.find(m=>m.name==='anatomical-enamel');
+    enamel?.pbrMetallicRoughness?.setRoughnessFactor(.36);
+    try {
+      // One mutable CanvasTexture pair per FDI: bounded GPU allocation across unlimited edits.
+      await Promise.all(ALL_TEETH.map(async id=>{
+        const t={...state.teeth[id]},mat=materials.find(m=>m.name==='grillz_'+id);
+        if(!mat?.pbrMetallicRoughness)return;
+        const pbr=mat.pbrMetallicRoughness;
+        mat.setAlphaMode('MASK');mat.setAlphaCutoff(.45);
+        pbr.setBaseColorFactor([1,1,1,t.on?1:0]);
+        if(!t.on)return;
+        let slots=modelSurfaces.get(id);
+        if(!slots) {
+          const colorTexture=mv.createCanvasTexture(),normalTexture=mv.createCanvasTexture();
+          const color=colorTexture.source.element,normal=normalTexture.source.element;
+          color.width=normal.width=256;color.height=normal.height=256;
+          slots={color,normal,colorTexture,normalTexture,key:null,ready:Promise.resolve()};
+          modelSurfaces.set(id,slots);
         }
-
-        ALL_TEETH.forEach((id) => {
-          const spec = state.teeth[id];
-          const grill = materials.find((material) => material.name === `grillz_${id}`);
-          if (!grill?.pbrMetallicRoughness) return;
-          const matId = spec?.material || 'yellow-gold';
-          const rgb = MAT_RGB[matId] || MAT_RGB['yellow-gold'];
-          const on = !!spec?.on;
-          const roughness = spec?.style === 'polished'
-            ? 0.18
-            : spec?.style === 'pineapple'
-              ? 0.38
-              : spec?.style === 'diamond-cut'
-                ? 0.24
-                : 0.28;
-          grill.pbrMetallicRoughness.setBaseColorFactor([rgb[0], rgb[1], rgb[2], on ? 1 : 0]);
-          grill.pbrMetallicRoughness.setMetallicFactor(isStoneFamily(matId) ? 0.55 : 1);
-          grill.pbrMetallicRoughness.setRoughnessFactor(roughness);
-        });
-        mv.style.filter = 'none';
-      } catch (err) {
-        console.warn('model materials', err);
-      }
-    };
-
-    if (mv.loaded) apply();
-    else mv.addEventListener('load', apply, { once: true });
-
-    mv.updateComplete?.then?.(apply);
+        await slots.ready;
+        if(version!==modelRevision)return;
+        const surface=window.GrillzDesign.surface(t,true);
+        if(slots.key!==surface.key) {
+          for(const [canvas,source] of [[slots.color,surface.color],[slots.normal,surface.normal]]) {const ctx=canvas.getContext('2d');ctx.clearRect(0,0,256,256);ctx.drawImage(source,0,0);}
+          slots.colorTexture.source.update();slots.normalTexture.source.update();slots.key=surface.key;
+        }
+        pbr.baseColorTexture.setTexture(slots.colorTexture);
+        mat.normalTexture.setTexture(slots.normalTexture);
+        pbr.setMetallicFactor(isStoneFamily(t.material)?.35:1);
+        pbr.setRoughnessFactor(t.finish==='matte'?.65:t.finish==='satin'?.4:t.style==='polished'?.17:.28);
+      }));
+      if(version===modelRevision)byId('modelStatus').textContent='';
+    } catch(error) {console.warn('3D surface',error);byId('modelStatus').textContent='Не удалось обновить 3D. Используйте 2D-превью.';}
   }
 
   /* ---------- actions ---------- */
@@ -1240,6 +1256,7 @@
 
   function sendOrder() {
     const q = buildQuote();
+    if(!q.teeth.length) {toast('Выберите хотя бы один зуб'); return;}
     const payload = {
       createdAt: new Date().toISOString(),
       mould: state.mould,
@@ -1258,7 +1275,11 @@
 
   function resetBuild() {
     if (!window.confirm('Сбросить сборку?')) return;
+    photoRequest++;
     state = createInitialState();
+    mouthBg=stockMouthBg;
+    if(customMouthObjectUrl) URL.revokeObjectURL(customMouthObjectUrl);
+    customMouthObjectUrl=null;
     commit();
     toast('Сборка сброшена');
   }
@@ -1267,10 +1288,10 @@
     state.view = { yaw: 0, pitch: 0 };
     const mv = byId('grillzModel');
     if (mv) {
-      mv.cameraOrbit = '0deg 75deg 105%';
+      mv.cameraOrbit = '0deg 82deg 90%';
       mv.jumpCameraToGoal?.();
     }
-    needsDraw = true;
+    requestDraw();
     save();
     toast('Ракурс сброшен');
   }
@@ -1285,13 +1306,15 @@
           a.download = `grillz-3d-${Date.now()}.png`;
           a.href = URL.createObjectURL(blob);
           a.click();
+          setTimeout(()=>URL.revokeObjectURL(a.href),1000);
           toast('3D-снимок сохранён');
           return;
         }
-      } catch (_) { /* fallthrough */ }
+      } catch (_) { /* report without substituting a different view */ }
+      toast('Дождитесь загрузки 3D или переключитесь в 2D');return;
     }
-    needsDraw = true;
-    await drawScene();
+    requestDraw();
+    await drawScene({clean:true});
     const c = byId('mouthCanvas');
     if (!c) return;
     try {
@@ -1300,6 +1323,7 @@
       a.href = c.toDataURL('image/png');
       a.click();
       toast('Снимок сохранён');
+      requestDraw();
     } catch {
       toast('Снимок недоступен');
     }
@@ -1311,7 +1335,7 @@
     const on = stage.classList.toggle('is-fs');
     document.body.classList.toggle('studio-fs-lock', on);
     byId('stageViewport')?.classList.toggle('is-fullscreen', on);
-    needsDraw = true;
+    requestDraw();
   }
 
   /* ---------- boot ---------- */
@@ -1331,8 +1355,10 @@
     await loadPrices();
 
     hashSyncLock = true;
-    const fromHash = decodeHash(location.hash);
-    if (!fromHash) loadLocal();
+    // The URL contains shareable design, local storage additionally contains stock-photo fit.
+    // Do not erase that fit when reloading the exact same design.
+    const fromLocal = loadLocal();
+    if (!fromLocal || location.hash.slice(1) !== encodeHash()) decodeHash(location.hash);
     hashSyncLock = false;
 
     await preloadAssets();
@@ -1342,6 +1368,7 @@
     renderFitSliders();
     bindCanvas();
     bindFitUi();
+    bindDesignUi();
     bindPhotoUi();
     setViewMode('layers');
     // sync tool buttons
@@ -1377,12 +1404,20 @@
 
     const mv = byId('grillzModel');
     mv?.addEventListener('load', () => updateModelMaterials());
+    mv?.addEventListener('error',()=>{byId('modelStatus').textContent='Модель не загрузилась. Можно продолжить в 2D.';});
 
-    loop();
+    requestDraw();
     syncHash();
-    requestAnimationFrame(() => { needsDraw = true; });
+    requestAnimationFrame(() => { requestDraw(); });
   }
 
+  // Pure-engine exports for regression tests; not exposed to the web page.
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports={normalizeFit,defaultFit,normalizeSpec,createInitialState,applyStateData,applyLook,
+      toothPrice,setDiscount,encodeHash,decodeHash,buildQuote,applySpec,activeTeeth,
+      getState:()=>state,LOOKS,ALL_TEETH};
+    return;
+  }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {

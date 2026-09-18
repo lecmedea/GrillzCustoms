@@ -115,74 +115,28 @@
    * Build FDI tooth anchors from face landmarks.
    * Returns { anchors: { [fdi]: { nx, ny, scale, rot } }, mouthBox, confidence }
    */
-  function anchorsFromLandmarks(lms) {
-    const left = lms[L_CORNER];
-    const right = lms[R_CORNER];
-    if (!left || !right) return null;
-
-    const upperLip = polyFromIdx(lms, UPPER_INNER);
-    const lowerLip = polyFromIdx(lms, LOWER_INNER);
-    const upperOuter = polyFromIdx(lms, UPPER_OUTER);
-
-    const mouthW = Math.hypot(right.x - left.x, right.y - left.y) || 0.3;
-    // base scale relative to mouth width (fraction of image)
-    const baseScale = Math.max(0.045, Math.min(0.11, mouthW * 0.22));
-
-    // sample 10 positions along upper lip inner (left→right for FDI upper 15..25)
-    // MediaPipe mouth is left-to-right in image space
-    const UPPER = ['15', '14', '13', '12', '11', '21', '22', '23', '24', '25'];
-    const LOWER = ['45', '44', '43', '42', '41', '31', '32', '33', '34', '35'];
-
-    const anchors = {};
-
-    function placeRow(ids, lipPoly, yBias, scaleMul) {
-      ids.forEach((id, i) => {
-        const t = ids.length === 1 ? 0.5 : i / (ids.length - 1);
-        // slightly inset from corners so premolars sit inside lips
-        const tt = 0.06 + t * 0.88;
-        const onLip = pointOnPolyline(lipPoly, tt);
-        // tooth crown center sits between upper and lower lip
-        const opposite = pointOnPolyline(lipPoly === upperLip ? lowerLip : upperLip, tt);
-        const nx = onLip.x;
-        const ny = onLip.y * (1 - yBias) + opposite.y * yBias;
-        // rotation follows lip tangent
-        const t0 = Math.max(0, tt - 0.03);
-        const t1 = Math.min(1, tt + 0.03);
-        const p0 = pointOnPolyline(lipPoly, t0);
-        const p1 = pointOnPolyline(lipPoly, t1);
-        const rot = Math.atan2(p1.y - p0.y, p1.x - p0.x);
-        // centrals slightly larger
-        const isCentral = id[1] === '1';
-        const isLateral = id[1] === '2';
-        const scale = baseScale * scaleMul * (isCentral ? 1.15 : isLateral ? 0.95 : 1.0);
-        anchors[id] = {
-          nx: clamp01(nx),
-          ny: clamp01(ny),
-          scaleX: scale,
-          scaleY: scale,
-          rot: rot * 0.35 // damp extreme angles for frontal grillz sprites
-        };
-      });
-    }
-
-    // upper: bias toward upper lip (teeth hang from gum)
-    placeRow(UPPER, upperLip.length ? upperLip : upperOuter, 0.22, 1.0);
-    // lower: bias toward lower lip
-    placeRow(LOWER, lowerLip.length ? lowerLip : upperLip, 0.28, 0.92);
-
-    const mid = avgPoints(lms, [13, 14]);
-    return {
-      anchors,
-      mouthBox: {
-        left: left.x,
-        right: right.x,
-        top: Math.min(...upperLip.map((p) => p.y), left.y),
-        bottom: Math.max(...lowerLip.map((p) => p.y), right.y),
-        midX: mid.x,
-        midY: mid.y
-      },
-      confidence: mouthW > 0.12 ? 0.85 : 0.55
-    };
+  function anchorsFromLandmarks(lms, imageWidth=1, imageHeight=1) {
+    if(!lms[L_CORNER]||!lms[R_CORNER]) return null;
+    const upper=polyFromIdx(lms,UPPER_INNER).sort((a,b)=>a.x-b.x);
+    const lower=polyFromIdx(lms,LOWER_INNER).sort((a,b)=>a.x-b.x);
+    const left=lms[L_CORNER].x<lms[R_CORNER].x?lms[L_CORNER]:lms[R_CORNER];
+    const right=left===lms[L_CORNER]?lms[R_CORNER]:lms[L_CORNER];
+    const width=right.x-left.x;
+    if(width<.03) return null;
+    const positions=[.07,.14,.23,.33,.43,.57,.67,.77,.86,.93];
+    const widths=[.045,.068,.1,.125,.17,.17,.125,.1,.068,.045];
+    const anchors={};
+    const rot=Math.atan2((right.y-left.y)*imageHeight,width*imageWidth);
+    const rows=[['15','14','13','12','11','21','22','23','24','25'],['45','44','43','42','41','31','32','33','34','35']];
+    rows.forEach((ids,row)=>ids.forEach((id,i)=>{
+      const t=positions[i],a=pointOnPolyline(upper,t),b=pointOnPolyline(lower,t);
+      const gap=Math.abs(b.y-a.y);
+      const h=Math.max(gap*(row?.36:.58),width*imageWidth/imageHeight*.055);
+      anchors[id]={nx:left.x+t*width,ny:row?b.y-h*.5:a.y+h*.5,
+        scaleX:width*widths[i]*(row?.82:1),scaleY:h,rot:Math.max(-.65,Math.min(.65,rot))};
+    }));
+    return {anchors,mouthBox:{left:left.x,right:right.x,top:Math.min(...upper.map(p=>p.y)),bottom:Math.max(...lower.map(p=>p.y))},
+      confidence:width>.12?.8:.5};
   }
 
   function clamp01(v) {
@@ -202,10 +156,10 @@
         const t = i / (ids.length - 1);
         const ang = Math.PI * (0.2 + t * 0.6);
         anchors[id] = {
-          nx: 0.5 + Math.cos(ang) * 0.28,
+          nx: 0.5 - Math.cos(ang) * 0.28,
           ny: cy + Math.sin(ang) * 0.04,
-          scaleX: scale,
-          scaleY: scale,
+          scaleX: scale * .8,
+          scaleY: scale * 1.5,
           rot: (t - 0.5) * 0.15
         };
       });
@@ -226,7 +180,7 @@
       if (!faces.length) {
         return fallbackAnchors();
       }
-      const built = anchorsFromLandmarks(faces[0]);
+      const built = anchorsFromLandmarks(faces[0], image.naturalWidth || image.width, image.naturalHeight || image.height);
       if (!built) return fallbackAnchors();
       return built;
     } catch (err) {

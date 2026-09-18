@@ -618,9 +618,13 @@
       }
 
       @media (max-width: 920px) {
+        .topbar .nav-row {
+          display:grid !important;
+          grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+          gap:8px !important;
+        }
+        .topbar .nav-more { grid-column:1 / -1; }
         .topbar .nav-row > a[href$="works.html"],
-        .topbar .nav-row > a[href$="constructor.html"],
-        .topbar .nav-row > a[href$="stars.html"],
         .topbar .nav-row > a[href$="forma.html"],
         .topbar .nav-row > a[href$="account.html"],
         .topbar .nav-row > a[href$="entertainment.html"] {

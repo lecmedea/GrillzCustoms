@@ -1,8 +1,9 @@
 (() => {
+  const focusedPage = document.body.matches('.studio-page, .stars-page');
   if (!window.__grillzI18nLoading && !window.__grillzI18nReady) {
     window.__grillzI18nLoading = true;
     const i18nScript = document.createElement('script');
-    i18nScript.src = 'assets/i18n.js?v=20260725-i18n5';
+    i18nScript.src = 'assets/i18n.js?v=20260918';
     i18nScript.defer = true;
     document.head.appendChild(i18nScript);
   }
@@ -31,12 +32,14 @@
     if (frame === null) frame = requestAnimationFrame(renderBackground);
   }
 
-  requestBackgroundMove();
-  window.addEventListener('scroll', requestBackgroundMove, { passive: true });
-  window.addEventListener('resize', requestBackgroundMove);
+  if (!focusedPage && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    requestBackgroundMove();
+    window.addEventListener('scroll', requestBackgroundMove, { passive: true });
+    window.addEventListener('resize', requestBackgroundMove);
+  }
 
   // Smooth magazine / progress indicator (GPU fill + lerp) — single shared module
-  if (!window.__grillzScrollIndicatorLoading && !window.__grillzScrollIndicatorReady) {
+  if (!focusedPage && !window.__grillzScrollIndicatorLoading && !window.__grillzScrollIndicatorReady) {
     window.__grillzScrollIndicatorLoading = true;
     const scrollInd = document.createElement('script');
     scrollInd.src = 'assets/scroll-indicator.js?v=20260725-smooth1';
@@ -46,7 +49,7 @@
 
   document.querySelectorAll('.nav-more').forEach((details) => {
     const menu = details.querySelector('.nav-more-menu');
-    if (menu && !menu.querySelector('.mobile-stars-link')) {
+    if (menu && !document.querySelector('.nav-row > a[href="stars.html"]') && !menu.querySelector('.mobile-stars-link')) {
       const starsLink = document.createElement('a');
       starsLink.href = 'stars.html';
       starsLink.textContent = 'Звёзды';
@@ -125,7 +128,7 @@
     }
   } catch (_) { /* ignore storage / SSR quirks */ }
 
-  if (!window.__webSlingerLoading && !window.__webSlingerMounted) {
+  if (!focusedPage && !window.__webSlingerLoading && !window.__webSlingerMounted) {
     window.__webSlingerLoading = true;
     const webSlinger = document.createElement('script');
     webSlinger.src = 'assets/web-slinger.js?v=20260813-sergey12s3';

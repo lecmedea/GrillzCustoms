@@ -2653,23 +2653,7 @@
       }
     }
   
-    /* Встроенная форма Tally в разделе оформления заказа */
-    .tally-form-wrap {
-      display: block;
-      min-height: 640px;
-      overflow: hidden;
-      padding: 18px;
-    }
-
-    .tally-order-frame {
-      display: block;
-      width: 100%;
-      min-height: 580px;
-      border: 0;
-      border-radius: 22px;
-      background: transparent;
-    }
-
+    /* Резервные контакты под основной формой */
     .lead-backup-actions {
       display: flex;
       grid-column: 1 / -1;
@@ -2697,21 +2681,6 @@
       border-radius: 4px;
     }
 
-    @media (max-width: 920px) {
-      .tally-form-wrap,
-      .tally-order-frame {
-        min-height: 680px;
-      }
-
-      .tally-order-frame {
-        height: 680px;
-      }
-
-      .tally-form-wrap {
-        padding: 12px;
-      }
-    }
-  
     /* Mobile header fix: шапка больше не липнет и уходит вверх при скролле */
     @media (max-width: 920px) {
       .topbar {
@@ -3123,7 +3092,7 @@
       }
     }
   
-    /* Custom order form: замена Tally на собственную форму */
+    /* Собственная форма заказа */
     .custom-order-form label {
       display: grid;
       gap: 8px;
@@ -3868,10 +3837,10 @@
             <button class="btn full" type="submit">Отправить заявку</button>
             <p class="lead-form-status full" id="leadFormStatus" role="status" aria-live="polite" aria-atomic="true"></p>
             <p class="lead-backup-actions">
-              <span>Резервный способ:</span>
-              <a href="https://tally.so/r/VL4ZWl" target="_blank" rel="noopener">форма Tally</a>
-              <span aria-hidden="true">·</span>
+              <span>Если форма не отправляется:</span>
               <a href="https://vk.com/grillz_customs" target="_blank" rel="noopener">Написать во VK</a>
+              <span aria-hidden="true">·</span>
+              <a href="mailto:grillzcustoms@yandex.ru">Отправить email</a>
             </p>
           </form>
         </div>
@@ -4702,8 +4671,8 @@
           const timedOut = error?.name === 'AbortError';
           setStatus(
             timedOut
-              ? 'Сервер отвечает слишком долго. Данные остались в форме — используйте резервную форму Tally ниже.'
-              : 'Не удалось подтвердить запись в Google-таблицу. Данные остались в форме — используйте резервную форму Tally ниже.',
+              ? 'Сервер отвечает слишком долго. Данные остались в форме — напишите нам во VK или по email.'
+              : 'Не удалось подтвердить запись в Google-таблицу. Данные остались в форме — напишите нам во VK или по email.',
             'error'
           );
           window.GrillzAnalytics?.track('lead_submit_error');

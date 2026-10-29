@@ -17,7 +17,7 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="assets/site-pages.css?v=20260813-nav">
+  <link rel="stylesheet" href="assets/site-pages.css?v=20261029-lead1">
   <link rel="stylesheet" href="assets/cookie-consent.css">
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -43,7 +43,8 @@
   
   <script src="assets/analytics-config.js" defer></script>
   <script src="assets/analytics.js" defer></script>
-  <script src="assets/site-common.js?v=20260813-sergey12s3" defer></script>
+  <script src="assets/site-common.js?v=20261029-lead1" defer></script>
+  <script src="assets/lead-form.js?v=20261029-1" defer></script>
   
   <script src="assets/cookie-consent.js" defer></script>
 </head>
@@ -97,7 +98,7 @@
             <h1>Заказать <span>grillz</span></h1>
             <p class="lead">Страница для тех, кто уже думает о конкретном изделии: что подготовить перед консультацией, какие вопросы мы зададим и как быстрее перейти к производству.</p>
             <div class="hero-actions">
-              <a class="btn" href="index.html#order" data-analytics="hero_order">Оставить заявку</a>
+              <a class="btn" href="#order-form" data-analytics="hero_order">Оставить заявку</a>
               <a class="btn secondary" href="contacts.html" data-analytics="hero_contacts">Контакты</a>
             </div>
           </div>
@@ -111,6 +112,59 @@
           </div>
         </div>
       </section>
+
+      <section id="order-form" class="lead-capture-section" aria-labelledby="leadCaptureTitle">
+        <div class="container lead-capture-grid">
+          <div class="lead-capture-copy">
+            <div class="eyebrow">Прямая заявка</div>
+            <h2 id="leadCaptureTitle">Расскажите, какие <span>grillz</span> хотите</h2>
+            <p>Форма отправляет данные напрямую в рабочую Google-таблицу Grillz Customs.</p>
+            <ul class="lead-capture-points">
+              <li>Ответим по материалам, стоимости и срокам</li>
+              <li>Подскажем, как сделать слепок или 3D-скан</li>
+              <li>Референсы можно дослать в переписке после заявки</li>
+            </ul>
+          </div>
+
+          <form class="lead-capture-form" data-lead-form data-form-location="order-page" novalidate>
+            <input type="text" name="website" class="lead-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <label>
+              <span>Ваше имя</span>
+              <input type="text" name="name" placeholder="Как к вам обращаться?" autocomplete="name" required>
+            </label>
+
+            <label>
+              <span>Телефон</span>
+              <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required>
+            </label>
+
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="example@mail.ru" autocomplete="email">
+            </label>
+
+            <label class="full">
+              <span>Комментарий к заказу</span>
+              <textarea name="comment" placeholder="Материал, количество зубов, стиль, камни, сроки или любая идея." rows="5" required></textarea>
+            </label>
+
+            <label class="form-consent full">
+              <input type="checkbox" name="consent" required>
+              <span>Я согласен на обработку персональных данных и на связь со мной по этой заявке.</span>
+            </label>
+
+            <button class="btn full" type="submit">Отправить заявку</button>
+            <p class="lead-form-status full" data-lead-status role="status" aria-live="polite" aria-atomic="true"></p>
+            <p class="lead-backup-actions full">
+              <span>Если не получается:</span>
+              <a href="https://vk.com/grillz_customs" target="_blank" rel="noopener">написать во VK</a>
+              <span aria-hidden="true">·</span>
+              <a href="mailto:grillzcustoms@yandex.ru">отправить email</a>
+            </p>
+          </form>
+        </div>
+      </section>
       
       <section>
         <div class="container detail-grid">
@@ -118,7 +172,7 @@
             <h2>Что написать в заявке</h2>
             <p>Опишите желаемый стиль: золото, серебро, КХС, эмаль, камни, один зуб, несколько зубов или полный сет. Если есть референсы, лучше сразу отправить их в переписке.</p>
             <p>Важно указать сроки, город, есть ли готовый слепок или цифровой 3D-скан, и нужен ли подарок, съёмка, клип или сценический образ.</p>
-            <a class="btn" href="index.html#order" data-analytics="order_page_form">Перейти к форме</a>
+            <a class="btn" href="#order-form" data-analytics="order_page_form">Перейти к форме</a>
           </article>
           <article class="detail-card">
             <span class="num">01</span>
@@ -141,7 +195,7 @@
         <div class="container split">
           <div class="rich-panel">
             <h2>Быстрый контакт</h2>
-            <p>Если нужно обсудить заказ голосом или в переписке, используйте контакты команды. Форма на главной отправляет заявку в рабочую таблицу, а соцсети удобны для референсов и фото.</p>
+            <p>Если нужно обсудить заказ голосом или в переписке, используйте контакты команды. Форма выше отправляет заявку напрямую в рабочую Google-таблицу, а соцсети удобны для референсов и фото.</p>
           </div>
           <div class="bullets">
             <div class="bullet">Телефон: <a href="tel:+79999962206">+7 (999) 996-22-06</a></div>

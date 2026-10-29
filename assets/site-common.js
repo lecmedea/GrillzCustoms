@@ -2,7 +2,7 @@
   if (!window.__grillzI18nLoading && !window.__grillzI18nReady) {
     window.__grillzI18nLoading = true;
     const i18nScript = document.createElement('script');
-    i18nScript.src = 'assets/i18n.js?v=20260725-i18n5';
+    i18nScript.src = 'assets/i18n.js?v=20261029-seo1';
     i18nScript.defer = true;
     document.head.appendChild(i18nScript);
   }
@@ -14,6 +14,72 @@
     script.defer = true;
     document.head.appendChild(script);
   }
+
+  function ensureSiteWideLeadCapture() {
+    const main = document.querySelector('main');
+    if (!main) return;
+
+    if (!document.querySelector('[data-lead-form]')) {
+      const section = document.createElement('section');
+      section.id = 'site-request';
+      section.className = 'lead-capture-section site-wide-lead-capture';
+      section.setAttribute('aria-labelledby', 'siteRequestTitle');
+      section.innerHTML = `
+        <div class="container lead-capture-grid">
+          <div class="lead-capture-copy">
+            <div class="eyebrow">Заявка без посредников</div>
+            <h2 id="siteRequestTitle">Обсудим ваши <span>grillz</span></h2>
+            <p>Оставьте контакты и идею. Заявка сразу попадёт в рабочую Google-таблицу Grillz Customs.</p>
+            <ul class="lead-capture-points">
+              <li>Материалы, стоимость и сроки</li>
+              <li>Слепок или цифровой 3D-скан</li>
+              <li>Персональный дизайн под вашу улыбку</li>
+            </ul>
+          </div>
+          <form class="lead-capture-form" data-lead-form data-form-location="${location.pathname || '/'}" novalidate>
+            <input type="text" name="website" class="lead-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <label>
+              <span>Ваше имя</span>
+              <input type="text" name="name" placeholder="Как к вам обращаться?" autocomplete="name" required>
+            </label>
+            <label>
+              <span>Телефон</span>
+              <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required>
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="example@mail.ru" autocomplete="email">
+            </label>
+            <label class="full">
+              <span>Комментарий к заказу</span>
+              <textarea name="comment" placeholder="Опишите идею, материал, количество зубов и желаемые сроки." rows="5" required></textarea>
+            </label>
+            <label class="form-consent full">
+              <input type="checkbox" name="consent" required>
+              <span>Я согласен на обработку персональных данных и на связь со мной по этой заявке.</span>
+            </label>
+            <button class="btn full" type="submit">Отправить заявку</button>
+            <p class="lead-form-status full" data-lead-status role="status" aria-live="polite" aria-atomic="true"></p>
+            <p class="lead-backup-actions full">
+              <span>Если не получается:</span>
+              <a href="https://vk.com/grillz_customs" target="_blank" rel="noopener">написать во VK</a>
+              <span aria-hidden="true">·</span>
+              <a href="mailto:grillzcustoms@yandex.ru">отправить email</a>
+            </p>
+          </form>
+        </div>
+      `;
+      main.appendChild(section);
+    }
+
+    if (!document.querySelector('script[src*="assets/lead-form.js"]')) {
+      const leadFormScript = document.createElement('script');
+      leadFormScript.src = 'assets/lead-form.js?v=20261029-1';
+      document.body.appendChild(leadFormScript);
+    }
+  }
+
+  ensureSiteWideLeadCapture();
 
   const root = document.documentElement;
   let latestScrollY = window.scrollY;

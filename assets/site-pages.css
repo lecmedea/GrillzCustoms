@@ -4,6 +4,218 @@
   padding:0
 }
 
+/* Direct lead capture → Google Sheets */
+.lead-capture-section {
+  scroll-margin-top: 28px;
+}
+
+.lead-capture-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.lead-capture-copy,
+.lead-capture-form {
+  border: 1px solid rgba(255, 208, 0, 0.2);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 208, 0, 0.14), transparent 34%),
+    linear-gradient(145deg, rgba(9, 9, 9, 0.94), rgba(2, 2, 2, 0.82));
+  box-shadow: 0 24px 74px rgba(0, 0, 0, 0.34);
+}
+
+.lead-capture-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(26px, 4vw, 46px);
+}
+
+.lead-capture-copy h2 {
+  margin-top: 12px;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 0.98;
+}
+
+.lead-capture-copy h2 span {
+  color: var(--yellow);
+}
+
+.lead-capture-copy > p {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.lead-capture-points {
+  display: grid;
+  gap: 12px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lead-capture-points li {
+  position: relative;
+  padding-left: 30px;
+  color: var(--white);
+  line-height: 1.5;
+}
+
+.lead-capture-points li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--yellow);
+  font-weight: 950;
+}
+
+.lead-capture-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: clamp(22px, 4vw, 38px);
+}
+
+.lead-capture-form label:not(.form-consent) {
+  display: grid;
+  gap: 8px;
+}
+
+.lead-capture-form label > span {
+  color: var(--yellow);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lead-capture-form input,
+.lead-capture-form textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 208, 0, 0.24);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.54);
+  color: var(--white);
+  padding: 15px 16px;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.lead-capture-form textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.lead-capture-form input:focus,
+.lead-capture-form textarea:focus {
+  border-color: rgba(255, 208, 0, 0.78);
+  background: rgba(0, 0, 0, 0.72);
+  box-shadow: 0 0 0 3px rgba(255, 208, 0, 0.11);
+}
+
+.lead-capture-form input::placeholder,
+.lead-capture-form textarea::placeholder {
+  color: rgba(245, 245, 245, 0.46);
+}
+
+.lead-capture-form .full {
+  grid-column: 1 / -1;
+}
+
+.lead-honeypot {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.lead-capture-form .form-consent {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 11px;
+  align-items: start;
+}
+
+.lead-capture-form .form-consent input {
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  accent-color: var(--yellow);
+}
+
+.lead-capture-form .form-consent span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.45;
+  text-transform: none;
+}
+
+.lead-capture-form button[type="submit"] {
+  width: 100%;
+  cursor: pointer;
+}
+
+.lead-capture-form.is-loading button[type="submit"] {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.lead-form-status {
+  min-height: 22px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.lead-form-status.success {
+  color: #bfff77;
+}
+
+.lead-form-status.error {
+  color: #ff9898;
+}
+
+.lead-backup-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.lead-backup-actions a {
+  color: var(--yellow);
+  font-weight: 900;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 840px) {
+  .lead-capture-grid,
+  .lead-capture-form {
+    grid-template-columns: 1fr;
+  }
+
+  .lead-capture-form .full {
+    grid-column: 1;
+  }
+}
+
 /* 2026 premium update */
 .nav {
   align-items:start;

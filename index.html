@@ -47,7 +47,8 @@
   </script>
   <script src="assets/analytics-config.js" defer></script>
   <script src="assets/analytics.js" defer></script>
-  <script src="assets/i18n.js?v=20260725-i18n5" defer></script>
+  <script src="assets/i18n.js?v=20261029-seo1" defer></script>
+  <script src="assets/lead-form.js?v=20261029-1" defer></script>
 
   <style>
     * {
@@ -3806,7 +3807,7 @@
             </div>
           </div>
 
-          <form class="order-form custom-order-form" id="leadForm" novalidate>
+          <form class="order-form custom-order-form" id="leadForm" data-lead-form data-form-location="home" novalidate>
             <input type="text" name="website" class="lead-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
             <label>
@@ -3835,7 +3836,7 @@
             </label>
 
             <button class="btn full" type="submit">Отправить заявку</button>
-            <p class="lead-form-status full" id="leadFormStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+            <p class="lead-form-status full" id="leadFormStatus" data-lead-status role="status" aria-live="polite" aria-atomic="true"></p>
             <p class="lead-backup-actions">
               <span>Если форма не отправляется:</span>
               <a href="https://vk.com/grillz_customs" target="_blank" rel="noopener">Написать во VK</a>
@@ -4328,6 +4329,10 @@
           Искусство, которое носят на зубах. Без компромиссов.
         </div>
         <div class="footer-links">
+          <a href="gift.html">Сертификат</a>
+          <a href="clinics.html">Клиникам</a>
+          <a href="contacts.html">Контакты</a>
+          <a href="stars.html">Звёзды</a>
           <a href="https://vk.com/grillz_customs" target="_blank" rel="noopener">VK</a>
           <a href="mailto:grillzcustoms@yandex.ru">Email</a>
           <a href="#top">Наверх</a>
@@ -4584,105 +4589,6 @@
         text: target.textContent.trim().slice(0, 80)
       });
     });
-  </script>
-  <script>
-    /* Основная форма заявки → Google Apps Script → Google Sheets */
-    (() => {
-      const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwq13gghfM7DnnltyU1v80VwU7RVE9-DnlTppEas_Zw4s1eh0ecr45dCNZA0ioXbyFu5g/exec';
-      const REQUEST_TIMEOUT_MS = 15000;
-      const form = document.getElementById('leadForm');
-      const status = document.getElementById('leadFormStatus');
-
-      if (!form || !status) return;
-
-      const submitButton = form.querySelector('button[type="submit"]');
-      const defaultButtonText = submitButton?.textContent || 'Отправить заявку';
-      const setStatus = (message, type = '') => {
-        status.textContent = message;
-        status.className = 'lead-form-status full' + (type ? ' ' + type : '');
-        status.setAttribute('role', type === 'error' ? 'alert' : 'status');
-      };
-      const setLoading = (isLoading) => {
-        form.classList.toggle('is-loading', isLoading);
-        form.setAttribute('aria-busy', String(isLoading));
-        if (submitButton) {
-          submitButton.disabled = isLoading;
-          submitButton.textContent = isLoading ? 'Отправляем…' : defaultButtonText;
-        }
-      };
-      const normalizePhone = (value) => value.replace(/[^0-9+]/g, '').trim();
-
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        setStatus('');
-
-        if (!form.checkValidity()) {
-          form.reportValidity();
-          setStatus('Проверьте обязательные поля и согласие на обработку данных.', 'error');
-          return;
-        }
-
-        const formData = new FormData(form);
-        if (String(formData.get('website') || '').trim()) return;
-
-        const payload = {
-          name: String(formData.get('name') || '').trim(),
-          phone: normalizePhone(String(formData.get('phone') || '')),
-          email: String(formData.get('email') || '').trim(),
-          comment: String(formData.get('comment') || '').trim(),
-          consent: formData.get('consent') ? 'yes' : 'no',
-          page: window.location.href,
-          source: document.referrer || 'direct',
-          userAgent: navigator.userAgent,
-          createdAt: new Date().toISOString(),
-          schemaVersion: 2
-        };
-
-        if (payload.phone.replace(/\D/g, '').length < 10) {
-          setStatus('Проверьте номер телефона — он выглядит слишком коротким.', 'error');
-          form.elements.phone?.focus();
-          return;
-        }
-
-        const controller = new AbortController();
-        const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
-        setLoading(true);
-        setStatus('Отправляем заявку в Google-таблицу…');
-        window.GrillzAnalytics?.track('lead_submit_attempt');
-
-        try {
-          const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify(payload),
-            redirect: 'follow',
-            signal: controller.signal
-          });
-          const result = await response.json().catch(() => null);
-
-          if (!response.ok || !result?.ok) {
-            throw new Error(`Lead endpoint rejected request (${response.status})`);
-          }
-
-          form.reset();
-          setStatus('Заявка сохранена в Google-таблице. Мы свяжемся с вами в ближайшее время.', 'success');
-          window.GrillzAnalytics?.track('request-form-submit');
-        } catch (error) {
-          const timedOut = error?.name === 'AbortError';
-          setStatus(
-            timedOut
-              ? 'Сервер отвечает слишком долго. Данные остались в форме — напишите нам во VK или по email.'
-              : 'Не удалось подтвердить запись в Google-таблицу. Данные остались в форме — напишите нам во VK или по email.',
-            'error'
-          );
-          window.GrillzAnalytics?.track('lead_submit_error');
-          console.error('Lead submission failed', error);
-        } finally {
-          window.clearTimeout(timeout);
-          setLoading(false);
-        }
-      });
-    })();
   </script>
 </body>
 </html>

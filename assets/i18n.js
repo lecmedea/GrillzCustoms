@@ -153,6 +153,16 @@
 
   const OG_LOCALES = Object.fromEntries(LANGS.map(([code, , , locale]) => [code, locale]));
   const LANG_SET = new Set(LANGS.map(([code]) => code));
+
+  // Legacy ?lang= URLs remain usable for visitors, but must leave the search index.
+  // New language choices are stored locally and no longer create crawlable URL duplicates.
+  const legacyUrlLanguage = new URLSearchParams(location.search).get('lang');
+  if (LANG_SET.has(legacyUrlLanguage)) {
+    const robots = document.querySelector('meta[name="robots"]') || document.head.appendChild(document.createElement('meta'));
+    robots.setAttribute('name', 'robots');
+    robots.setAttribute('content', 'noindex, follow');
+  }
+
   const TRANSLATOR_LANGS = {
     en: 'en',
     fr: 'fr',
@@ -898,8 +908,7 @@
     if (persist) {
       try { localStorage.setItem('grillz_language', currentLang); } catch (_) { /* ignore storage */ }
       const url = new URL(location.href);
-      if (currentLang === 'ru') url.searchParams.delete('lang');
-      else url.searchParams.set('lang', currentLang);
+      url.searchParams.delete('lang');
       history.replaceState(null, '', url);
       window.GrillzAnalytics?.track('language_change', { language: currentLang });
     }
